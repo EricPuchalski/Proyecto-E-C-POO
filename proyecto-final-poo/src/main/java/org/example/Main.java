@@ -1,15 +1,16 @@
 package org.example;
 
-import org.example.controller.*;
-import org.example.repository.*;
-import org.example.service.*;
-import org.example.view.*;
+import dao.CustomerDao;
+import org.example.model.Customer;
+import org.example.util.Conexion;
+
 
 
 
 public class Main {
     public static void main(String[] args) {
-
+        Conexion.connect();
+        CustomerDao customerDao = new CustomerDao();
 
     }
 }
