@@ -1,7 +1,7 @@
 package org.example.view;
 
 import org.example.controller.DepositController;
-import org.example.model.Deposit;
+import org.example.model.Warehouse;
 import org.example.model.Position;
 
 import java.util.Scanner;
@@ -49,13 +49,13 @@ public class MenuDeposito {
                         System.out.println("Por favor ingrese la longitud del depósito");
                         Double lon = scanner.nextDouble();
 
-                        depositController.create(new Deposit(codigo, nombre, direccion, telefono, email, continente, new Position(lat, lon)));
+                        depositController.create(new Warehouse(codigo, nombre, direccion, telefono, email, continente, new Position(lat, lon)));
                     } else {
                         System.out.println("El depósito ingresado ya existe.");
                     }
                     break;
                 case "2":
-                    for (Deposit dp: depositController.findAll()) {
+                    for (Warehouse dp: depositController.findAll()) {
                         System.out.println(dp.toString());
                     }
                     break;
@@ -87,7 +87,7 @@ public class MenuDeposito {
                         System.out.println("Por favor ingrese la nueva longitud del depósito");
                         Double nlon = scanner.nextDouble();
                         System.out.println("Deposito editado correctamente");
-                        depositController.upDate(new Deposit(codigoDepositoEditar, nuevoNombre, nuevaDireccion, nuevoTelefono, nuevoEmail, nuevoContinente, new Position(nlat, nlon)));
+                        depositController.upDate(new Warehouse(codigoDepositoEditar, nuevoNombre, nuevaDireccion, nuevoTelefono, nuevoEmail, nuevoContinente, new Position(nlat, nlon)));
                     } else {
                         System.out.println("El código del depósito ingresado es inexistente");
                     }
@@ -95,7 +95,7 @@ public class MenuDeposito {
                 case "5":
                     System.out.println("Por favor ingrese el código del depósito a eliminar");
                     String codigoDepositoEliminar = scanner.nextLine();
-                    Deposit depositEliminar = depositController.findOne(codigoDepositoEliminar);
+                    Warehouse depositEliminar = depositController.findOne(codigoDepositoEliminar);
                     if (depositEliminar !=null){
                         depositController.delete(depositEliminar.getCode());
                         System.out.println("Deposito eliminado correctamente");

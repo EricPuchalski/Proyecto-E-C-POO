@@ -33,7 +33,7 @@ public class CustomerDao implements Serializable {
         return emf.createEntityManager();
     }
     public void upLoad(){
-        Customer c1 = new Customer("1210","Eric", "Puch", "Josesito 232","3243242");
+        Customer c1 = new Customer("1510","Eric", "Puch", "Josesito 232","3243242");
         Customer c2 = new Customer("3182","Juan", "Mendez", "San jose 34354","23435");
         Customer c3 = new Customer("2353","Elric", "Jalil", "Calle 150","34543543");
         Customer c4 = new Customer("3453","Carlos", "Perez", "Calle 32","653634");
@@ -60,6 +60,7 @@ public class CustomerDao implements Serializable {
         Customer c25 = new Customer("0122", "Sofia", "Wright", "Court 789", "8765432");
         Customer c26 = new Customer("4522", "Charlotte", "Lopez", "Plaza 321", "2109876");
         Customer c27 = new Customer("8201", "Joseph", "Hill", "Square 654", "5432109");
+        Customer c28 = new Customer("9210","Erik", "Asd", "Josesito 222","3243942");
 
 
         this.create(c1);
@@ -89,6 +90,7 @@ public class CustomerDao implements Serializable {
         this.create(c25);
         this.create(c26);
         this.create(c27);
+        this.create(c28);
     }
     public void create(Customer customer) {
         EntityManager em = null;

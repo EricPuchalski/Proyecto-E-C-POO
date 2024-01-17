@@ -6,12 +6,12 @@ import java.util.List;
 
 public class RemitoRepository {
     private List<DespatchNote> despatchNotes;
-    private TransportistaRepository transportistaRepository;
+//    private TransportistaRepository transportistaRepository;
     private EmpleadoRepository empleadoRepository;
 
     public RemitoRepository(){
         this.empleadoRepository = new EmpleadoRepository();
-        this.transportistaRepository = new TransportistaRepository();
+//        this.transportistaRepository = new TransportistaRepository();
         cargarRemitos();
     }
 

@@ -1,11 +1,11 @@
 package org.example.controller;
 
-import org.example.model.Deposit;
+import org.example.model.Warehouse;
 import org.example.service.DepositService;
 
 import java.util.List;
 
-public class DepositController implements CRUD<Deposit>{
+public class DepositController implements CRUD<Warehouse>{
     private DepositService depositService;
 
     public DepositController(DepositService depositService) {
@@ -13,23 +13,23 @@ public class DepositController implements CRUD<Deposit>{
     }
 
     @Override
-    public void create(Deposit deposit) {
+    public void create(Warehouse deposit) {
         depositService.save(deposit);
     }
 
     @Override
-    public Deposit findOne(String id) {
+    public Warehouse findOne(String id) {
         return depositService.findOne(id);
     }
 
     @Override
-    public List<Deposit> findAll() {
+    public List<Warehouse> findAll() {
         return depositService.findAll();
     }
 
 
     @Override
-    public void upDate(Deposit deposit) {
+    public void upDate(Warehouse deposit) {
         depositService.upDate(deposit);
 
     }
