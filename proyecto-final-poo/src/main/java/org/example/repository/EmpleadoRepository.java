@@ -51,7 +51,7 @@ public class EmpleadoRepository implements CRUD<Employee>{
     public List<Employee> findAll() {
         List<Employee>empleadosHabilitados = new ArrayList<>();
         for(Employee er : employees){
-            if(er.getEstado() == Employee.Estado.ENABLED){
+            if(er.getEstado() == Employee.Status.ENABLED){
                 empleadosHabilitados.add(er);
             }
         }
@@ -74,7 +74,7 @@ public class EmpleadoRepository implements CRUD<Employee>{
     @Override
     public void delete(String id) {
         if(findOne(id) != null){
-            findOne(id).setEstado(Employee.Estado.DISABLED);
+            findOne(id).setEstado(Employee.Status.DISABLED);
         }
     }
 }

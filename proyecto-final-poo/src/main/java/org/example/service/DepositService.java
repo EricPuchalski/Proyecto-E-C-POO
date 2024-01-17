@@ -1,30 +1,30 @@
 package org.example.service;
 
-import org.example.model.Deposit;
+import org.example.model.Warehouse;
 import org.example.repository.DepositoRepository;
 
 import java.util.List;
 
-public class DepositService implements CRUD<Deposit>{
+public class DepositService implements CRUD<Warehouse>{
     private DepositoRepository depositoRepository;
 
     public DepositService(DepositoRepository depositoRepository) {
         this.depositoRepository = depositoRepository;
     }
 
-    public void save(Deposit deposit) {
+    public void save(Warehouse deposit) {
         if (findOne(deposit.getCode()) == null) {
             depositoRepository.save(deposit);
         }
     }
 
-    public List<Deposit> findAll() {
+    public List<Warehouse> findAll() {
        return depositoRepository.findAll();
     }
 
 
-    public Deposit findOne(String codigo) {
-        Deposit deposit = null;
+    public Warehouse findOne(String codigo) {
+        Warehouse deposit = null;
         if (depositoRepository.findOne(codigo) != null) {
             deposit = depositoRepository.findOne(codigo);
         }
@@ -32,7 +32,7 @@ public class DepositService implements CRUD<Deposit>{
     }
 
 
-    public void upDate(Deposit deposit) {
+    public void upDate(Warehouse deposit) {
         if (findOne(deposit.getCode()) != null) {
             depositoRepository.upDate(deposit);
         }

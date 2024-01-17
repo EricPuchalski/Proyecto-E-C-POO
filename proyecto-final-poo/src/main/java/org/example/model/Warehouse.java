@@ -1,5 +1,8 @@
 package org.example.model;
 
+
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -7,41 +10,51 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "suppliers")
-public class Supplier {
+@Table(name = "warehouses")
+
+public class Warehouse {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(unique = true)
-    private String cuit;
+    private String code;
     private String name;
     private String adress;
     @Column(unique = true)
     private String phone;
     @Column(unique = true)
     private String email;
+    private String continent;
+    @OneToOne
+    private Position position;
     @Enumerated(EnumType.STRING)
-    private Status status;
-
-
-    public enum Status {
+    private Estado status;
+    @OneToMany
+    private List<Sector> sectors;
+    public enum Estado{
         ENABLED,
         DISABLED
     }
 
-    public Supplier(String cuit, String name, String adress, String phone, String email) {
-        this.cuit = cuit;
+    public Warehouse(String code, String name, String adress, String telefono, String email, String continent, Position position) {
+        this.code = code;
         this.name = name;
         this.adress = adress;
-        this.phone = phone;
+        this.phone = telefono;
         this.email = email;
-        this.status = Status.ENABLED;
+        this.continent = continent;
+        this.sectors = new ArrayList<>();
+        this.position = position;
+        this.status = Estado.ENABLED;
     }
 
-    public Supplier() {
+    public Warehouse() {
+        this.sectors = new ArrayList<>();
     }
 
     public Long getId() {
@@ -52,12 +65,12 @@ public class Supplier {
         this.id = id;
     }
 
-    public String getCuit() {
-        return cuit;
+    public String getCode() {
+        return code;
     }
 
-    public void setCuit(String cuit) {
-        this.cuit = cuit;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {
@@ -92,15 +105,37 @@ public class Supplier {
         this.email = email;
     }
 
-    public Status getStatus() {
+    public String getContinent() {
+        return continent;
+    }
+
+    public void setContinent(String continent) {
+        this.continent = continent;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public Estado getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(Estado status) {
         this.status = status;
     }
-    
-    
 
+    public List<Sector> getSectors() {
+        return sectors;
+    }
 
+    public void setSectors(List<Sector> sectors) {
+        this.sectors = sectors;
+    }
+
+    
 }
