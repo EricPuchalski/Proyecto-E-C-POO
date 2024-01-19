@@ -1,6 +1,7 @@
 package org.example.model;
 
 
+import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,10 +19,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "orders")
-public class Order {
+@Table(name = "ORDERS")
+public class Order implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
     private String orderNumber;
@@ -35,6 +36,7 @@ public class Order {
     private Warehouse warehouseDest;
     @OneToOne
     private Tracking tracking;
+    @Column(columnDefinition = "CHAR(5)")
     private boolean onTransit;
     @ManyToOne
     private Carrier carrier;
@@ -44,7 +46,7 @@ public class Order {
     @OneToOne
     private DespatchNote despatchNote;
 
-    public Order(String numeroPedido, Customer customer, Warehouse depositOrigen, Warehouse depositDestino, Carrier carrier, String estadoPedido, Tracking tracking) {
+    public Order(String numeroPedido, Customer customer, Warehouse depositOrigen, Warehouse depositDestino, Carrier carrier, String estadoPedido, LocalDate orderStart) {
         this.orderNumber = numeroPedido;
         this.customer = customer;
         this.warehouseOrig = depositOrigen;
@@ -52,7 +54,8 @@ public class Order {
         this.carrier = carrier;
         this.orderLines = new ArrayList<>();
         this.orderStatus = estadoPedido;
-        this.tracking = tracking;
+        this.orderStart = orderStart;
+//        this.tracking = tracking;
 
     }
     

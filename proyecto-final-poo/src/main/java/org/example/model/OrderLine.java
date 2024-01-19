@@ -1,5 +1,6 @@
 package org.example.model;
 
+import java.io.Serializable;
 import java.util.Random;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,10 +10,10 @@ import javax.persistence.ManyToOne;
 
 import javax.persistence.Table;
 @Entity
-@Table(name = "order_lines")
-public class OrderLine {
+@Table(name = "ORDER_LINES")
+public class OrderLine implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     private Product product;

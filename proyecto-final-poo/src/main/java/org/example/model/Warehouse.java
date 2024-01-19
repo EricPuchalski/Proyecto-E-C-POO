@@ -1,25 +1,28 @@
 package org.example.model;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "warehouses")
+@Table(name = "WAREHOUSES")
 
-public class Warehouse {
+public class Warehouse implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
     private String code;
@@ -30,28 +33,36 @@ public class Warehouse {
     @Column(unique = true)
     private String email;
     private String continent;
-    @OneToOne
+    @Embedded
     private Position position;
     @Enumerated(EnumType.STRING)
     private Estado status;
     @OneToMany
+    @JoinColumn(name = "warehouse_id")
     private List<Sector> sectors;
     public enum Estado{
         ENABLED,
         DISABLED
     }
+//        @JoinTable(
+//        name = "depositoS_sectores",
+//        joinColumns = @JoinColumn(name = "sector_id"),
+//        inverseJoinColumns = @JoinColumn(name = "deposito_id")
+//    )
 
-    public Warehouse(String code, String name, String adress, String telefono, String email, String continent, Position position) {
+    public Warehouse(String code, String name, String adress, String phone, String email, String continent, Position position) {
         this.code = code;
         this.name = name;
         this.adress = adress;
-        this.phone = telefono;
+        this.phone = phone;
         this.email = email;
         this.continent = continent;
-        this.sectors = new ArrayList<>();
         this.position = position;
         this.status = Estado.ENABLED;
+        this.sectors = new ArrayList<>();
     }
+
+
 
     public Warehouse() {
         this.sectors = new ArrayList<>();
@@ -136,6 +147,7 @@ public class Warehouse {
     public void setSectors(List<Sector> sectors) {
         this.sectors = sectors;
     }
+
 
     
 }
