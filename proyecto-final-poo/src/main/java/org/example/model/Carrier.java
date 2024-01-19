@@ -1,5 +1,6 @@
 package org.example.model;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,10 +12,10 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "carriers")
-public class Carrier {
+@Table(name = "CARRIERS")
+public class Carrier implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
     private String cuit;

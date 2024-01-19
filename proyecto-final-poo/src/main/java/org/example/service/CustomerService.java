@@ -1,16 +1,16 @@
 package org.example.service;
 
-import dao.CustomerDao;
+import dao.CustomerRepository;
 import dao.exceptions.NonexistentEntityException;
 import org.example.model.Customer;
 
 import java.util.List;
 
 public class CustomerService implements CRUD<Customer>{
-    private CustomerDao customerRepository;
+    private CustomerRepository customerRepository;
 
     public CustomerService(){
-        this.customerRepository = new CustomerDao();
+        this.customerRepository = new CustomerRepository();
     }
     public void save(Customer customer){
         if (!customerRepository.findCustomerEntities().contains(customer.getCuit())) {

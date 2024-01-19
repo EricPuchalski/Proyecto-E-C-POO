@@ -1,6 +1,7 @@
 package org.example.model;
 
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
 import javax.persistence.Entity;
@@ -11,26 +12,23 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "trackings")
-public class Tracking {
+@Table(name = "TRACKINGS")
+public class Tracking implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate dateAndTime;
     private double latitude;
     private double longitude;
     @OneToOne
     private Order order;
-    @OneToOne
-    private Sector sector;
     private String trackingNumber;
 
-    public Tracking(LocalDate dateAndTime, double latitude, double longitude, Order order, Sector sector) {
+    public Tracking(LocalDate dateAndTime, double latitude, double longitude, Order order) {
         this.dateAndTime = dateAndTime;
         this.latitude = latitude;
         this.longitude = longitude;
         this.order = order;
-        this.sector = sector;
     }
     public Tracking(LocalDate dateAndTime, double latitude, double longitude) {
         this.dateAndTime = dateAndTime;
@@ -80,14 +78,6 @@ public class Tracking {
 
     public void setOrder(Order order) {
         this.order = order;
-    }
-
-    public Sector getSector() {
-        return sector;
-    }
-
-    public void setSector(Sector sector) {
-        this.sector = sector;
     }
 
     public String getTrackingNumber() {

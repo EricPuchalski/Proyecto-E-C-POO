@@ -1,18 +1,12 @@
 package org.example.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.io.Serializable;
+import javax.persistence.Embeddable;
 
 
-@Entity
-@Table(name = "positions")
-public class Position {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+
+@Embeddable
+public class Position implements Serializable {
     private double latitude;
     private double longitude;
 
@@ -41,6 +35,7 @@ public class Position {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+
 
 
     

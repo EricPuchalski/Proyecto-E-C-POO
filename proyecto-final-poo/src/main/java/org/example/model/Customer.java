@@ -19,10 +19,10 @@ import javax.persistence.UniqueConstraint;
 import lombok.Generated;
 
 @Entity
-@Table(name = "customers")
+@Table(name = "CUSTOMERS")
 public class Customer implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
     private String cuit;

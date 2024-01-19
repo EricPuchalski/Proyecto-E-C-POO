@@ -1,5 +1,6 @@
 package org.example.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -11,8 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 @Entity
-@Table(name = "despatch_notes")
-public class DespatchNote {
+@Table(name = "DESPATCH_NOTES")
+public class DespatchNote implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

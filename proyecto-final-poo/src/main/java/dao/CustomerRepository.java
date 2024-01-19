@@ -20,12 +20,11 @@ import org.example.util.Conexion;
  *
  * @author ericp
  */
-public class CustomerDao implements Serializable {
+public class CustomerRepository implements Serializable {
 
 
-    public CustomerDao() {
+    public CustomerRepository() {
         this.emf = Conexion.getEmf();
-        this.upLoad();
     }
     private EntityManagerFactory emf = null;
 
