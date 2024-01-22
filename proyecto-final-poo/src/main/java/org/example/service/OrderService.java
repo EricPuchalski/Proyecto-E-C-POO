@@ -1,3 +1,55 @@
+package org.example.service;
+
+import dao.OrderRepository;
+import dao.exceptions.NonexistentEntityException;
+import org.example.model.Order;
+
+import java.util.List;
+
+public class OrderService implements CRUD<Order> {
+    private OrderRepository orderRepository;
+
+    public OrderService() {
+        this.orderRepository = new OrderRepository();
+    }
+
+    @Override
+    public void save(Order order) {
+        if (!orderRepository.findOrderEntities().contains(order.getOrderNumber())) {
+            }else{orderRepository.create(order);
+        }
+    }
+
+    @Override
+    public Order findOne(String orderNumber) {
+        for (Order order : orderRepository.findOrderEntities()) {
+            if (orderNumber.equals(order.getOrderNumber())) {
+                return order;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<Order> findAll() {
+        return orderRepository.findOrderEntities();
+    }
+
+    @Override
+    public void upDate(Order order) throws Exception {
+        if (orderRepository.findOrder(order.getId()) != null) {
+            orderRepository.edit(order);
+        }
+    }
+
+    @Override
+    public void delete(String orderNumber) throws NonexistentEntityException {
+        Order deleteOrder = findOne(orderNumber);
+        if (deleteOrder != null) {
+            orderRepository.destroy(deleteOrder.getId());
+        }
+    }
+}
 //package org.example.service;
 //
 //import org.example.model.OrderLine;
