@@ -12,11 +12,7 @@ public class CustomerService implements CRUD<Customer>{
     public CustomerService(){
         this.customerRepository = new CustomerRepository();
     }
-    public void save(Customer customer){
-        if (findOne(customer.getCuit())==null) {
-               customerRepository.create(customer);
-        }
-    }
+
 
     public List<Customer>findAll(){
         return customerRepository.findCustomerEntities();
@@ -42,5 +38,11 @@ public class CustomerService implements CRUD<Customer>{
             customerRepository.destroy(deleteCustomer.getId());
         }
     }
+
+    @Override
+    public void save(Customer t) {
+    if (!(t.getCuit().isEmpty() || t.getName().isEmpty() || t.getSurname().isEmpty() || t.getAdress().isEmpty() || t.getPhone().isEmpty())) {
+        customerRepository.create(t);
+    }     }
 }
 
