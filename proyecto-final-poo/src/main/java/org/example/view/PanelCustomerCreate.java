@@ -192,16 +192,8 @@ public class PanelCustomerCreate extends javax.swing.JPanel {
 
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-
-        if(!(txtName.getText().isEmpty()|| txtSurname.getText().isEmpty() || txtAdress.getText().isEmpty() || txtTel.getText().isEmpty() || txtCuit.getText().isEmpty())){
-            customerController.create(new Customer(txtCuit.getText(), txtName.getText(), txtSurname.getText(),txtAdress.getText(),txtTel.getText()));
-            JOptionPane.showMessageDialog(this, "Usuario creado con exito", "Creación exitosa", JOptionPane.INFORMATION_MESSAGE);
-            ViewController.panelChange(this, new PanelCustomer(), this);
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Un campo no puede estar vacio", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }
-
+        customerController.create(new Customer(txtCuit.getText(), txtName.getText(), txtSurname.getText(), txtAdress.getText(), txtTel.getText()));
+        ViewController.panelChange(this, new PanelCustomer(), this);
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
