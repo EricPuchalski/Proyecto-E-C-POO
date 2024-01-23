@@ -13,9 +13,8 @@ public class CustomerService implements CRUD<Customer>{
         this.customerRepository = new CustomerRepository();
     }
     public void save(Customer customer){
-        if (!customerRepository.findCustomerEntities().contains(customer.getCuit())) {
-        }else{
-            customerRepository.create(customer);
+        if (findOne(customer.getCuit())==null) {
+               customerRepository.create(customer);
         }
     }
 
