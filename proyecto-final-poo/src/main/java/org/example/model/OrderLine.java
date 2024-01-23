@@ -1,14 +1,21 @@
 package org.example.model;
 
-import lombok.Getter;
-import lombok.Setter;
-
+import java.io.Serializable;
 import java.util.Random;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
-@Setter
-@Getter
-
-public class OrderLine {
+import javax.persistence.Table;
+@Entity
+@Table(name = "ORDER_LINES")
+public class OrderLine implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @ManyToOne
     private Product product;
     private int quantity;
     private static String ultimoId;
@@ -21,6 +28,11 @@ public class OrderLine {
         this.quantity = quantity;
         this.code = generarId();
     }
+
+    public OrderLine() {
+    }
+    
+    
     private static String generarId() {
         // Aquí utilizamos la clase Random para generar un número aleatorio.
         // También se podría implementar una lógica más robusta para asegurar la unicidad.
@@ -38,11 +50,61 @@ public class OrderLine {
         ultimoId = nuevoId;
         return nuevoId;
     }
-    @Override
-    public String toString() {
-        return "LineaPedido{" +
-                "producto=" + product +
-                ", cantidad=" + quantity +
-                '}';
+
+    public Long getId() {
+        return id;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public static String getUltimoId() {
+        return ultimoId;
+    }
+
+    public static void setUltimoId(String ultimoId) {
+        OrderLine.ultimoId = ultimoId;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public int getSupplierRating() {
+        return supplierRating;
+    }
+
+    public void setSupplierRating(int supplierRating) {
+        this.supplierRating = supplierRating;
+    }
+
 }

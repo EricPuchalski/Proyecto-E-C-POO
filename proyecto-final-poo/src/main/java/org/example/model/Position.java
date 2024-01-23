@@ -1,12 +1,12 @@
 package org.example.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import java.io.Serializable;
+import javax.persistence.Embeddable;
 
-@Getter
-@Setter
 
-public class Position {
+
+@Embeddable
+public class Position implements Serializable {
     private double latitude;
     private double longitude;
 
@@ -16,11 +16,27 @@ public class Position {
         this.longitude = longitude;
     }
 
-    @Override
-    public String toString() {
-        return "Posicion{" +
-                "latidud=" + latitude +
-                ", longitud=" + longitude +
-                '}';
+    public Position() {
     }
+    
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+
+
+    
 }

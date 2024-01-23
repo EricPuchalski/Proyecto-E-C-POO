@@ -1,23 +1,42 @@
 package org.example.model;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
-
-public class Carrier {
+@Entity
+@Table(name = "CARRIERS")
+public class Carrier implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(unique = true)
     private String cuit;
     private String name;
+    @Column(unique = true)
     private String phone;
+    @Column(unique = true)
     private String email;
-    private Order order;
+    @Enumerated(EnumType.STRING)
     private CarrierType type;
+    @Enumerated(EnumType.STRING)
     private Status status;
+    
     public enum Status {
         ENABLED,
         DISABLED
+    }
+        public enum CarrierType {
+        MARITIME,
+        LAND,
+        AIR
     }
     public Carrier() {
     }
@@ -31,15 +50,62 @@ public class Carrier {
         this.status = Status.ENABLED;
     }
 
-    @Override
-    public String toString() {
-        return "Transportista{" +
-                "cuit='" + cuit + '\'' +
-                ", nombre='" + name + '\'' +
-                ", telefono='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", tipo='" + getType().getDescription() + '\'' +
-
-                '}';
+    public Long getId() {
+        return id;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCuit() {
+        return cuit;
+    }
+
+    public void setCuit(String cuit) {
+        this.cuit = cuit;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public CarrierType getType() {
+        return type;
+    }
+
+    public void setType(CarrierType type) {
+        this.type = type;
+    }
+
+    
+    
 }

@@ -1,15 +1,26 @@
 package org.example.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Getter
-@Setter
 
-public class Sector {
-
+@Entity
+@Table(name = "SECTORS")
+public class Sector implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(unique = true)
     private String code;
     private String description;
+    @Enumerated(EnumType.STRING)
     private Status status;
     public enum Status {
         ENABLED,
@@ -27,11 +38,38 @@ public class Sector {
     public Sector() {
     }
 
-    @Override
-    public String toString() {
-        return "Sector{" +
-                "codigo='" + code + '\'' +
-                ", descripcion='" + description + '\'' +
-                '}';
+    public Long getId() {
+        return id;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+
+    
 }

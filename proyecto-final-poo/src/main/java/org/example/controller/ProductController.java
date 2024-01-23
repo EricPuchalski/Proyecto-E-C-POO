@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.example.dao.exceptions.NonexistentEntityException;
 import org.example.model.Product;
 import org.example.service.ProductService;
 
@@ -26,11 +27,11 @@ public class ProductController implements CRUD<Product>{
         return productService.findAll();
     }
 
-    public void delete(String codigo){
+    public void delete(String codigo) throws NonexistentEntityException{
         productService.delete(codigo);
     }
 
-    public void upDate(Product product){
+    public void upDate(Product product) throws Exception{
         productService.upDate(product);
     }
 

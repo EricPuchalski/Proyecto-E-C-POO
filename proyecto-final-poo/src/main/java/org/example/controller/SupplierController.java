@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.example.dao.exceptions.NonexistentEntityException;
 import org.example.model.Supplier;
 import org.example.service.SupplierService;
 
@@ -21,7 +22,7 @@ public class SupplierController implements CRUD<Supplier> {
     }
 
 
-    public void delete(String cuit) {
+    public void delete(String cuit) throws NonexistentEntityException {
         supplierService.delete(cuit);
     }
 
@@ -29,7 +30,7 @@ public class SupplierController implements CRUD<Supplier> {
         supplierService.save(supplier);
     }
 
-    public void upDate(Supplier supplier) {
+    public void upDate(Supplier supplier) throws Exception {
         supplierService.upDate(supplier);
     }
 

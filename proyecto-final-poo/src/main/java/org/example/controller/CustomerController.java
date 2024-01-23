@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.example.dao.exceptions.NonexistentEntityException;
 import org.example.model.Customer;
 import org.example.service.CustomerService;
 
@@ -9,8 +10,8 @@ public class CustomerController implements CRUD<Customer>{
 
     private final CustomerService customerService;
 
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
+    public CustomerController() {
+        this.customerService = new CustomerService();
     }
 
     public Customer findOne(String cuit){
@@ -23,14 +24,14 @@ public class CustomerController implements CRUD<Customer>{
     }
 
 
-    public void delete(String cuit) {
+    public void delete(String cuit) throws NonexistentEntityException {
         customerService.delete(cuit);
     }
 
     public  void create(Customer customer){
         customerService.save(customer);
     }
-    public void upDate(Customer customer) {
+    public void upDate(Customer customer) throws Exception {
         customerService.upDate(customer);
     }
 }
