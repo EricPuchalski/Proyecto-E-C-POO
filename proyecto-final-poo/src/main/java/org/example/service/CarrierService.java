@@ -1,14 +1,65 @@
-//package org.example.service;
+package org.example.service;
 //
 //
-//import org.example.model.Carrier;
+import org.example.model.Carrier;
 //import org.example.repository.TransportistaRepository;
 //
-//import java.util.List;
+import dao.CarrierRepository;
+import dao.exceptions.NonexistentEntityException;
+import java.util.List;
 //
-//public class CarrierService implements CRUD<Carrier>{
-//
-//    private TransportistaRepository transportistaRepository;
+    public class CarrierService implements CRUD<Carrier>{
+
+    public CarrierService(CarrierRepository carrierRepository) {
+        this.carrierRepository = new CarrierRepository();
+    }
+        
+
+ private CarrierRepository carrierRepository;
+
+    @Override
+    public void save(Carrier carrier) {
+        if (!carrierRepository.findCarrierEntities().contains(carrier.getCuit())) {
+            }else{ carrierRepository.create(carrier);
+        }
+    }
+
+    @Override
+    public void upDate(Carrier carrier) throws Exception {
+        if (carrierRepository.findCarrier(carrier.getId()) != null) {
+            carrierRepository.edit(carrier);
+        }
+    }
+
+    @Override
+     public Carrier findOne(String cuit) {
+        for (Carrier carrier : carrierRepository.findCarrierEntities()) {
+            if (cuit.equals(carrier.getCuit())) {
+                return carrier;
+            }
+        }
+        return null;
+    }
+
+
+    @Override
+   public List<Carrier> findAll() {
+        return carrierRepository.findCarrierEntities();
+    }
+
+    @Override
+     public void delete(String cuit) throws NonexistentEntityException {
+        Carrier deleteCarrier = findOne(cuit);
+        if (deleteCarrier != null) {
+            carrierRepository.destroy(deleteCarrier.getId());
+        }
+    }
+ 
+ 
+ 
+ 
+ 
+}
 //    private Carrier carrier;
 //
 //

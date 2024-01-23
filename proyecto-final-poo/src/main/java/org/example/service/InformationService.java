@@ -1,3 +1,30 @@
+package org.example.service;
+
+import dao.InformationRepository;
+
+public class InformationService {
+    private InformationRepository informationRepository;
+
+    public InformationService(InformationRepository informationRepository) {
+        this.informationRepository = informationRepository;
+    }
+
+    public int getNumberOfOrdersByBranch(String branchCode) {
+        return informationRepository.getNumberOfOrdersByBranch(branchCode);
+    }
+
+    public int countOrdersInPendingStatus() {
+        return informationRepository.countOrdersInPendingStatus();
+    }
+
+    public int getCustomerOrderHistory(Long id) {
+        return informationRepository.getCustomerOrderHistory(id);
+    }
+
+    public void showOrderStatus() {
+        informationRepository.showOrderStatus();
+    }
+}
 //package org.example.service;
 //
 //import org.example.repository.InformeRepository;
