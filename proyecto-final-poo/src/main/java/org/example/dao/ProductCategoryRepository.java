@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package dao;
+package org.example.dao;
 
-import dao.exceptions.NonexistentEntityException;
+import org.example.dao.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -13,16 +13,17 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import org.example.model.DespatchNote;
+import org.example.model.ProductCategory;
+import org.example.util.Conexion;
 
 /**
  *
  * @author ericp
  */
-public class DespatchNoteRepository implements Serializable {
+public class ProductCategoryRepository implements Serializable {
 
-    public DespatchNoteRepository(EntityManagerFactory emf) {
-        this.emf = emf;
+    public ProductCategoryRepository() {
+        this.emf = Conexion.getEmf();
     }
     private EntityManagerFactory emf = null;
 
@@ -30,12 +31,27 @@ public class DespatchNoteRepository implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(DespatchNote despatchNote) {
+    public void upload(){
+        ProductCategory computing = new ProductCategory("Computing");
+        ProductCategory clean = new ProductCategory("Clean");
+        ProductCategory home = new ProductCategory("Home");
+        ProductCategory garden = new ProductCategory("Garden");
+        ProductCategory electronic = new ProductCategory("Electronic");
+        ProductCategory toy = new ProductCategory("Toy");
+        
+        this.create(computing);
+        this.create(home);
+        this.create(garden);
+        this.create(clean);
+        this.create(electronic);
+        this.create(toy);
+    }
+    public void create(ProductCategory productCategory) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(despatchNote);
+            em.persist(productCategory);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -43,20 +59,20 @@ public class DespatchNoteRepository implements Serializable {
             }
         }
     }
-
-    public void edit(DespatchNote despatchNote) throws NonexistentEntityException, Exception {
+    
+    public void edit(ProductCategory productCategory) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            despatchNote = em.merge(despatchNote);
+            productCategory = em.merge(productCategory);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Long id = despatchNote.getId();
-                if (findDespatchNote(id) == null) {
-                    throw new NonexistentEntityException("The despatchNote with id " + id + " no longer exists.");
+                Long id = productCategory.getId();
+                if (findProductCategory(id) == null) {
+                    throw new NonexistentEntityException("The productCategory with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -72,14 +88,14 @@ public class DespatchNoteRepository implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            DespatchNote despatchNote;
+            ProductCategory productCategory;
             try {
-                despatchNote = em.getReference(DespatchNote.class, id);
-                despatchNote.getId();
+                productCategory = em.getReference(ProductCategory.class, id);
+                productCategory.getId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The despatchNote with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The productCategory with id " + id + " no longer exists.", enfe);
             }
-            em.remove(despatchNote);
+            em.remove(productCategory);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -88,19 +104,19 @@ public class DespatchNoteRepository implements Serializable {
         }
     }
 
-    public List<DespatchNote> findDespatchNoteEntities() {
-        return findDespatchNoteEntities(true, -1, -1);
+    public List<ProductCategory> findProductCategoryEntities() {
+        return findProductCategoryEntities(true, -1, -1);
     }
 
-    public List<DespatchNote> findDespatchNoteEntities(int maxResults, int firstResult) {
-        return findDespatchNoteEntities(false, maxResults, firstResult);
+    public List<ProductCategory> findProductCategoryEntities(int maxResults, int firstResult) {
+        return findProductCategoryEntities(false, maxResults, firstResult);
     }
 
-    private List<DespatchNote> findDespatchNoteEntities(boolean all, int maxResults, int firstResult) {
+    private List<ProductCategory> findProductCategoryEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(DespatchNote.class));
+            cq.select(cq.from(ProductCategory.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -112,20 +128,20 @@ public class DespatchNoteRepository implements Serializable {
         }
     }
 
-    public DespatchNote findDespatchNote(Long id) {
+    public ProductCategory findProductCategory(Long id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(DespatchNote.class, id);
+            return em.find(ProductCategory.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getDespatchNoteCount() {
+    public int getProductCategoryCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<DespatchNote> rt = cq.from(DespatchNote.class);
+            Root<ProductCategory> rt = cq.from(ProductCategory.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

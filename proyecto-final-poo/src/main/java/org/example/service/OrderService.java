@@ -1,7 +1,7 @@
 package org.example.service;
 
-import dao.OrderRepository;
-import dao.exceptions.NonexistentEntityException;
+import org.example.dao.OrderRepository;
+import org.example.dao.exceptions.NonexistentEntityException;
 import org.example.model.Order;
 
 import java.util.List;

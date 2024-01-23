@@ -1,15 +1,15 @@
 package org.example.util;
 
-import dao.CarrierRepository;
-import dao.CustomerRepository;
-import dao.EmployeeRepository;
-import dao.OrderRepository;
-import dao.ProductCategoryRepository;
-import dao.ProductRepository;
-import dao.SectorRepository;
-import dao.SupplierRepository;
-import dao.TrackingRepository;
-import dao.WarehouseRepository;
+import org.example.dao.CarrierRepository;
+import org.example.dao.CustomerRepository;
+import org.example.dao.EmployeeRepository;
+import org.example.dao.OrderRepository;
+import org.example.dao.ProductCategoryRepository;
+import org.example.dao.ProductRepository;
+import org.example.dao.SectorRepository;
+import org.example.dao.SupplierRepository;
+import org.example.dao.TrackingRepository;
+import org.example.dao.WarehouseRepository;
 
 
 

@@ -4,9 +4,9 @@
  */
 package org.example.service;
 
-import dao.WarehouseRepository;
+import org.example.dao.WarehouseRepository;
 import org.example.model.Warehouse;
-import dao.exceptions.NonexistentEntityException;
+import org.example.dao.exceptions.NonexistentEntityException;
 import java.util.List;
 
 

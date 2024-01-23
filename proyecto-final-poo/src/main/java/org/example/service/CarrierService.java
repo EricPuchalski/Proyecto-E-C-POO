@@ -4,8 +4,8 @@ package org.example.service;
 import org.example.model.Carrier;
 //import org.example.repository.TransportistaRepository;
 //
-import dao.CarrierRepository;
-import dao.exceptions.NonexistentEntityException;
+import org.example.dao.CarrierRepository;
+import org.example.dao.exceptions.NonexistentEntityException;
 import java.util.List;
 //
     public class CarrierService implements CRUD<Carrier>{

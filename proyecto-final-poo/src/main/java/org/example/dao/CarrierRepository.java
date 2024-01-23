@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package dao;
+package org.example.dao;
 
-import dao.exceptions.NonexistentEntityException;
+import org.example.dao.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -13,16 +13,17 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import org.example.model.OrderLine;
+import org.example.model.Carrier;
+import org.example.util.Conexion;
 
 /**
  *
  * @author ericp
  */
-public class OrderLineRepository implements Serializable {
+public class CarrierRepository implements Serializable {
 
-    public OrderLineRepository(EntityManagerFactory emf) {
-        this.emf = emf;
+    public CarrierRepository() {
+        this.emf = Conexion.getEmf();
     }
     private EntityManagerFactory emf = null;
 
@@ -30,12 +31,30 @@ public class OrderLineRepository implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(OrderLine orderLine) {
+    public void upLoad() {
+            
+        Carrier t1 = new Carrier("12321","Correo Argentino","12342", "correo_argentino@gmail.com",Carrier.CarrierType.AIR);
+        Carrier t2 = new Carrier("32133","OCA","4352", "oca@gmail.com",Carrier.CarrierType.LAND);
+        Carrier t3 = new Carrier("23255","OCASA","7653432", "oacasa@gmail.com",Carrier.CarrierType.MARITIME);
+        Carrier t4 = new Carrier("34443","AMAZON","4235234", "amazon@gmail.com",Carrier.CarrierType.AIR);
+        Carrier t5 = new Carrier("67611","DHL","12321", "dhl@gmail.com",Carrier.CarrierType.LAND);
+        Carrier t6 = new Carrier("67624","FedEx","123321", "fedex@gmail.com",Carrier.CarrierType.MARITIME);
+
+        this.create(t1);
+        this.create(t2);
+        this.create(t3);
+        this.create(t4);
+        this.create(t5);
+        this.create(t6);
+            
+
+    }
+    public void create(Carrier carrier) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(orderLine);
+            em.persist(carrier);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -44,19 +63,19 @@ public class OrderLineRepository implements Serializable {
         }
     }
 
-    public void edit(OrderLine orderLine) throws NonexistentEntityException, Exception {
+    public void edit(Carrier carrier) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            orderLine = em.merge(orderLine);
+            carrier = em.merge(carrier);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Long id = orderLine.getId();
-                if (findOrderLine(id) == null) {
-                    throw new NonexistentEntityException("The orderLine with id " + id + " no longer exists.");
+                Long id = carrier.getId();
+                if (findCarrier(id) == null) {
+                    throw new NonexistentEntityException("The carrier with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -72,14 +91,14 @@ public class OrderLineRepository implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            OrderLine orderLine;
+            Carrier carrier;
             try {
-                orderLine = em.getReference(OrderLine.class, id);
-                orderLine.getId();
+                carrier = em.getReference(Carrier.class, id);
+                carrier.getId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The orderLine with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The carrier with id " + id + " no longer exists.", enfe);
             }
-            em.remove(orderLine);
+            em.remove(carrier);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -88,19 +107,19 @@ public class OrderLineRepository implements Serializable {
         }
     }
 
-    public List<OrderLine> findOrderLineEntities() {
-        return findOrderLineEntities(true, -1, -1);
+    public List<Carrier> findCarrierEntities() {
+        return findCarrierEntities(true, -1, -1);
     }
 
-    public List<OrderLine> findOrderLineEntities(int maxResults, int firstResult) {
-        return findOrderLineEntities(false, maxResults, firstResult);
+    public List<Carrier> findCarrierEntities(int maxResults, int firstResult) {
+        return findCarrierEntities(false, maxResults, firstResult);
     }
 
-    private List<OrderLine> findOrderLineEntities(boolean all, int maxResults, int firstResult) {
+    private List<Carrier> findCarrierEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(OrderLine.class));
+            cq.select(cq.from(Carrier.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -112,20 +131,20 @@ public class OrderLineRepository implements Serializable {
         }
     }
 
-    public OrderLine findOrderLine(Long id) {
+    public Carrier findCarrier(Long id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(OrderLine.class, id);
+            return em.find(Carrier.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getOrderLineCount() {
+    public int getCarrierCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<OrderLine> rt = cq.from(OrderLine.class);
+            Root<Carrier> rt = cq.from(Carrier.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
