@@ -16,9 +16,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import org.example.model.Carrier;
+import org.example.model.DespatchNote;
+import org.example.model.Employee;
 import org.example.model.Order;
+import org.example.model.OrderLine;
 import org.example.model.Tracking;
 import org.example.model.Warehouse;
 import org.example.util.Conexion;
@@ -31,12 +38,18 @@ public class OrderRepository implements Serializable {
     private CustomerRepository customerRepository;
     private WarehouseRepository warehouseRepository;
     private CarrierRepository carrierRepository;
+    private EmployeeRepository employeeRepository;
+    private DespatchNoteRepository despatchNoteRepository;
+    private OrderLineRepository orderLineRepository;
 
     public OrderRepository() {
         this.emf = Conexion.getEmf();
         this.customerRepository = new CustomerRepository();
         this.warehouseRepository = new WarehouseRepository();
         this.carrierRepository = new CarrierRepository();
+        this.employeeRepository = new EmployeeRepository();
+        this.despatchNoteRepository = new DespatchNoteRepository();
+        this.orderLineRepository = new OrderLineRepository();
     }
 
     public void upload(){
@@ -49,6 +62,242 @@ public class OrderRepository implements Serializable {
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
+    }
+
+    public void processOrder(String orderNumber, String cuitEmpleado) {
+        EntityManager em = getEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+        try {
+            transaction.begin();
+            Order order = findOrderByOrderNumber(orderNumber);
+
+            if (order != null && order.getWarehouseOrig() != null && order.getWarehouseOrig().getSectors() != null) {
+                order.setEmployee(employeeRepository.findEmployeeByCuit(cuitEmpleado));
+                order.setOrderStatus(order.getWarehouseOrig().getSectors().get(1).getDescription());
+                em.merge(order); // Actualiza la entidad en la base de datos
+            } else {
+                // Manejo de nulls o registro de errores según sea necesario
+            }
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            // Manejo de excepciones según sea necesario
+        } finally {
+            em.close();
+        }
+    }
+
+    public void completeOrder(String orderNumber) {
+        EntityManager em = getEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
+        try {
+            transaction.begin();
+            Order orderFound = findOrderByOrderNumber(orderNumber);
+
+            if (orderFound != null && orderFound.getWarehouseOrig() != null && orderFound.getWarehouseOrig().getSectors() != null) {
+                orderFound.setOrderStatus(orderFound.getWarehouseOrig().getSectors().get(2).getDescription());
+                em.merge(orderFound); // Actualiza la entidad en la base de datos
+            } else {
+                // Manejo de nulls o registro de errores según sea necesario
+            }
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            // Manejo de excepciones según sea necesario
+        } finally {
+            em.close();
+        }
+    }
+        public void sendOrderToDispatch(String orderNumber) {
+        EntityManager em = getEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
+        try {
+            transaction.begin();
+            Order orderEncontrado = findOrderByOrderNumber(orderNumber);
+
+            if (orderEncontrado != null && orderEncontrado.getWarehouseOrig() != null && orderEncontrado.getWarehouseOrig().getSectors() != null) {
+                orderEncontrado.setOrderStatus(orderEncontrado.getWarehouseOrig().getSectors().get(3).getDescription());
+                em.merge(orderEncontrado); // Actualiza la entidad en la base de datos
+            } else {
+                // Manejo de nulls o registro de errores según sea necesario
+            }
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            // Manejo de excepciones según sea necesario
+        } finally {
+            em.close();
+        }
+    }
+        
+    public void dispatchOrder(String orderNumber) {
+    EntityManager em = getEntityManager();
+    EntityTransaction transaction = em.getTransaction();
+
+       try {
+           transaction.begin();
+           Order orderFound = findOrderByOrderNumber(orderNumber);
+
+           if (orderFound != null && orderFound.getWarehouseOrig() != null && orderFound.getWarehouseOrig().getSectors() != null) {
+               orderFound.setOrderStatus(orderFound.getWarehouseOrig().getSectors().get(4).getDescription());
+
+               if (orderFound.getDespatchNote() == null) {
+                   // Generar el remito y agregarlo al pedido
+                   LocalDate fechaEmision = LocalDate.now();
+                   Carrier carrier = orderFound.getCarrier();
+                   Employee employeeEmisor = orderFound.getEmployee();
+                   Employee employeeReceptor = null; // El receptor se establecerá cuando se entregue el pedido
+                   DespatchNote despatchNote = new DespatchNote(fechaEmision, carrier, employeeEmisor, employeeReceptor);
+                   orderFound.setDespatchNote(despatchNote);
+               }
+
+               if (orderFound.getTracking() == null) {
+                   Tracking tracking = new Tracking(orderFound);
+
+                   // Obtener la latitud y longitud del depósito de origen
+                   Warehouse depositOrigen = orderFound.getWarehouseOrig();
+                   double latitud = depositOrigen.getPosition().getLatitude();
+                   double longitud = depositOrigen.getPosition().getLongitude();
+
+                   tracking.setLatitude(latitud);
+                   tracking.setLongitude(longitud);
+                   tracking.setTrackingNumber(tracking.generarNumeroRastreo());
+
+                   orderFound.setTracking(tracking);
+               }
+
+               em.merge(orderFound); // Actualiza la entidad en la base de datos
+           } else {
+               // Manejo de nulls o registro de errores según sea necesario
+           }
+
+           transaction.commit();
+       } catch (Exception e) {
+           if (transaction != null && transaction.isActive()) {
+               transaction.rollback();
+           }
+           // Manejo de excepciones según sea necesario
+       } finally {
+           em.close();
+       }
+   }
+   
+    public void sendToDelivery(String orderNumber, String cuitEmployeeReceiv) {
+    EntityManager em = getEntityManager();
+    EntityTransaction transaction = em.getTransaction();
+
+    try {
+        transaction.begin();
+        Order orderFound = findOrderByOrderNumber(orderNumber);
+
+        if (orderFound != null && orderFound.getWarehouseDest() != null && orderFound.getWarehouseDest().getSectors() != null) {
+            orderFound.setOrderStatus(orderFound.getWarehouseDest().getSectors().get(5).getDescription());
+
+            if (orderFound.getTracking() != null) {
+                // Obtener la latitud y longitud del depósito de destino para el seguimiento
+                Warehouse depositDestino = orderFound.getWarehouseDest();
+                double latitud = depositDestino.getPosition().getLatitude();
+                double longitud = depositDestino.getPosition().getLongitude();
+
+                // Actualizamos la latitud y longitud en el seguimiento
+                orderFound.getTracking().setLatitude(latitud);
+                orderFound.getTracking().setLongitude(longitud);
+                orderFound.setOnTransit(false);
+            }
+
+            DespatchNote despatchNote = despatchNoteRepository.findDespatchNote(orderFound.getDespatchNote().getId()) ;
+
+            if (despatchNote != null) {
+                // Buscar el empleado receptor por su CUIT
+                Employee employeeReceptor = employeeRepository.findEmployeeByCuit(cuitEmployeeReceiv);
+               
+                if (employeeReceptor != null) {
+                    // Asignar el empleado receptor al remito
+                    despatchNote.setEmployeeReceiver(employeeReceptor);
+                    despatchNoteRepository.edit(despatchNote);
+
+                }
+            }
+
+            em.merge(orderFound); // Actualiza la entidad en la base de datos
+        } else {
+            // Manejo de nulls o registro de errores según sea necesario
+        }
+
+        transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            // Manejo de excepciones según sea necesario
+        } finally {
+            em.close();
+        }
+    }
+
+    public void deliverOrder(String orderNumber, List<Integer> supplierRatings) {
+    EntityManager em = getEntityManager();
+    EntityTransaction transaction = em.getTransaction();
+
+    try {
+        transaction.begin();
+        Order orderFound = findOrderByOrderNumber(orderNumber);
+
+        if (orderFound != null && orderFound.getWarehouseDest() != null && orderFound.getWarehouseDest().getSectors() != null) {
+            orderFound.setOrderStatus(orderFound.getWarehouseDest().getSectors().get(6).getDescription());
+            List<OrderLine> orderLines = orderFound.getOrderLines();
+
+            if (orderLines.size() != supplierRatings.size()) {
+                System.out.println("Error: La cantidad de calificaciones no coincide con la cantidad de proveedores.");
+                return;
+            } else {
+                orderFound.setOrderFinish(LocalDate.now());
+            }
+
+            // Establecemos la calificación del proveedor para cada línea de pedido
+            for (int i = 0; i < orderLines.size(); i++) {
+                OrderLine orderLine = orderLines.get(i);
+                orderLine.setSupplierRating(supplierRatings.get(i));
+                orderLineRepository.edit(orderLine);
+            }
+
+            em.merge(orderFound); // Actualiza la entidad en la base de datos
+        } else {
+            // Manejo de nulls o registro de errores según sea necesario
+        }
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            // Manejo de excepciones según sea necesario
+        } finally {
+            em.close();
+        }
+    }
+
+    public Order findOrderByOrderNumber(String orderNumber) {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Order> query = em.createQuery("SELECT o FROM Order o WHERE o.orderNumber = :orderNumber", Order.class);
+            query.setParameter("orderNumber", orderNumber);
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+           } finally {
+            em.close();
+        }
     }
 
     public void create(Order order) {
