@@ -1,19 +1,27 @@
-//package org.example.controller;
-//
-//import org.example.model.OrderLine;
-//import org.example.model.Order;
-//import org.example.service.OrderService;
-//
-//import java.util.List;
-//
-//public class OrderController {
-//
-//    private final OrderService orderService;
-//
-//    public OrderController(OrderService orderService) {
-//        this.orderService = orderService;
-//    }
-//
+package org.example.controller;
+
+import java.util.ArrayList;
+import org.example.model.OrderLine;
+import org.example.model.Order;
+import org.example.service.OrderService;
+
+import java.util.List;
+import javax.swing.JTable;
+import org.example.model.Carrier;
+import org.example.model.Customer;
+
+public class OrderController {
+
+    private final OrderService orderService;
+    private CustomerController customerController;
+    private CarrierController carrierController;
+
+    public OrderController() {
+        this.orderService = new OrderService();
+        this.customerController = new CustomerController();
+        this.carrierController = new CarrierController();
+    }
+
 //    public void crearPedido(Order order){
 //        orderService.crearPedido(order);
 //    }
@@ -69,4 +77,16 @@
 //    public int contarPedidosEnEstadoPendiente(){
 //        return orderService.contarPedidosEnEstadoPendiente();
 //    }
-//}
+    public List<String> returnCuitsCustomerCarrier(JTable tblCustomers, JTable tblCarriers) {
+        List<String> cuits = new ArrayList<>();
+        if (tblCustomers.getRowCount() > 0 && tblCustomers.getSelectedRow() != -1 &&
+            tblCarriers.getRowCount() > 0 && tblCarriers.getSelectedRow() !=  1) {
+
+            String idCliente = String.valueOf(tblCustomers.getValueAt(tblCustomers.getSelectedRow(), 3));
+            String idTransportista = String.valueOf(tblCarriers.getValueAt(tblCarriers.getSelectedRow(), 2));
+            cuits.add(idCliente);
+            cuits.add(idTransportista);
+        }   
+        return cuits;
+    }
+}

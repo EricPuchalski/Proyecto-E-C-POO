@@ -17,7 +17,7 @@ import java.util.List;
 public class WarehouseService implements CRUD<Warehouse> {
     private WarehouseRepository warehouseRepository;
 
-    public WarehouseService(WarehouseRepository warehouseRepository) {
+    public WarehouseService() {
         this.warehouseRepository = new WarehouseRepository();
     }
     
