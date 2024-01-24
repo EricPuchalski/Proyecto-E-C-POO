@@ -7,11 +7,11 @@ import org.example.model.Warehouse;
 import java.util.List;
 import org.example.service.WarehouseService;
 
-public class DepositController implements CRUD<Warehouse>{
+public class WarehouseController implements CRUD<Warehouse>{
     private WarehouseService warehouseService;
 
-    public DepositController(WarehouseService depositService) {
-        this.warehouseService = depositService;
+    public WarehouseController() {
+        this.warehouseService = new WarehouseService();
     }
 
     @Override

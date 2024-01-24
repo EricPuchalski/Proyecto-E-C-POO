@@ -57,6 +57,11 @@ public class PanelMain extends javax.swing.JPanel {
         bttnWarehouse.setText("DÉPOSITO");
 
         bttnOrder.setText("PEDIDO");
+        bttnOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnOrderActionPerformed(evt);
+            }
+        });
 
         bttnProduct.setText("PRODUCTO");
 
@@ -111,6 +116,10 @@ public class PanelMain extends javax.swing.JPanel {
     private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
         ViewController.panelChange(this, new PanelCustomer(), this);
     }//GEN-LAST:event_btnCustomerActionPerformed
+
+    private void bttnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnOrderActionPerformed
+        ViewController.panelChange(this, new PanelOrder(), this);
+    }//GEN-LAST:event_bttnOrderActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -191,7 +191,33 @@ public class OrderRepository implements Serializable {
            em.close();
        }
    }
-   
+public void orderTransit(String orderNumber) {
+    EntityManager em = emf.createEntityManager();
+    EntityTransaction transaction = em.getTransaction();
+
+    try {
+        transaction.begin();
+
+        Order order = findOrderByOrderNumber(orderNumber);
+        if (order != null) {
+            order.setOnTransit(true);
+            order.setOrderStatus("En transito");
+            this.edit(order);
+        }
+
+        transaction.commit();
+    } catch (Exception e) {
+        if (transaction != null && transaction.isActive()) {
+            transaction.rollback();
+        }
+        e.printStackTrace();
+    } finally {
+        if (em != null) {
+            em.close();
+        }
+    }
+}
+
     public void sendToDelivery(String orderNumber, String cuitEmployeeReceiv) {
     EntityManager em = getEntityManager();
     EntityTransaction transaction = em.getTransaction();

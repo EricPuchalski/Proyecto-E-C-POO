@@ -23,6 +23,7 @@ import org.example.util.Conexion;
 public class CarrierRepository implements Serializable {
 
     public CarrierRepository() {
+  
         this.emf = Conexion.getEmf();
     }
     private EntityManagerFactory emf = null;
