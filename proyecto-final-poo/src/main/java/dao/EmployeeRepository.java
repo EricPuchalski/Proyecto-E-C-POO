@@ -11,6 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.example.model.Employee;
@@ -68,6 +70,18 @@ public class EmployeeRepository implements Serializable {
         this.create(empleado15);  
 
    
+    }
+    public Employee findEmployeeByCuit(String cuit) {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Employee> query = em.createQuery("SELECT o FROM Employee o WHERE o.cuit = :cuit", Employee.class);
+            query.setParameter("cuit", cuit);
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+           } finally {
+            em.close();
+        }
     }
     public void create(Employee employee) {
         EntityManager em = null;
