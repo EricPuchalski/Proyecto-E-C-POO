@@ -9,24 +9,25 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import org.example.controller.CustomerController;
+import org.example.controller.SupplierController;
 import org.example.controller.ViewController;
-import org.example.model.Customer;
+import org.example.model.Supplier;
 
 /**
  *
- * @author ericp
+ * @author facundo
  */
-public class PanelCustomerConsult extends javax.swing.JPanel {
-    private CustomerController customerController;
+public class PanelSupplierConsult extends javax.swing.JPanel {
+        private SupplierController supplierController;
 
     /**
-     * Creates new form PanelCustomerConsult
+     * Creates new form PanelSupplierConsult
      */
-    public PanelCustomerConsult() {
-        this.customerController = new CustomerController();
+    public PanelSupplierConsult() {
+        this.supplierController=new SupplierController();
         initComponents();
         this.setSize(800,700);
+
     }
 
     /**
@@ -38,17 +39,18 @@ public class PanelCustomerConsult extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         lblWelcome = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblCustomers = new javax.swing.JTable();
+        tblSuppliers = new javax.swing.JTable();
         bttnDestroy = new javax.swing.JButton();
         bttnBack = new javax.swing.JButton();
         bttnEdit = new javax.swing.JButton();
 
-        addAncestorListener(new javax.swing.event.AncestorListener() {
+        jPanel1.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                formAncestorAdded(evt);
+                jPanel1formAncestorAdded(evt);
             }
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -57,11 +59,11 @@ public class PanelCustomerConsult extends javax.swing.JPanel {
         });
 
         lblWelcome.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        lblWelcome.setText("Consulta de Clientes");
+        lblWelcome.setText("Consulta de Proveedores");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        tblCustomers.setModel(new javax.swing.table.DefaultTableModel(
+        tblSuppliers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -72,7 +74,7 @@ public class PanelCustomerConsult extends javax.swing.JPanel {
 
             }
         ));
-        jScrollPane2.setViewportView(tblCustomers);
+        jScrollPane2.setViewportView(tblSuppliers);
 
         bttnDestroy.setText("ELIMINAR");
         bttnDestroy.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -126,38 +128,59 @@ public class PanelCustomerConsult extends javax.swing.JPanel {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblWelcome)
                 .addGap(156, 156, 156))
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(63, 63, 63)
                 .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(110, Short.MAX_VALUE))
         );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 841, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 686, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void bttnDestroyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnDestroyActionPerformed
-        if(tblCustomers.getRowCount() > 0){
-            if(tblCustomers.getSelectedRow()!=-1){
-                String customerCuit = String.valueOf(tblCustomers.getValueAt(tblCustomers.getSelectedRow(),1));
+        if(tblSuppliers.getRowCount() > 0){
+            if(tblSuppliers.getSelectedRow()!=-1){
+                String supplierCuit = String.valueOf(tblSuppliers.getValueAt(tblSuppliers.getSelectedRow(),1));
                 try {
-                    customerController.delete(customerCuit);
+                    supplierController.delete(supplierCuit);
                 } catch (NonexistentEntityException ex) {
-                    Logger.getLogger(PanelCustomerConsult.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(PanelSupplierConsult.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 cargarTabla();
             }
@@ -165,23 +188,24 @@ public class PanelCustomerConsult extends javax.swing.JPanel {
     }//GEN-LAST:event_bttnDestroyActionPerformed
 
     private void bttnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnBackActionPerformed
-        ViewController.panelChange(this, new PanelCustomer(), this);
+        ViewController.panelChange(this, new PanelSupplier(), this);
     }//GEN-LAST:event_bttnBackActionPerformed
 
     private void bttnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnEditActionPerformed
 
-        if(tblCustomers.getRowCount() > 0){
-            if(tblCustomers.getSelectedRow()!=-1){
-                String cuit = String.valueOf(tblCustomers.getValueAt(tblCustomers.getSelectedRow(),1));
-                
-                ViewController.panelChange(this, new PanelCustomerEdit(cuit), this);
+        if(tblSuppliers.getRowCount() > 0){
+            if(tblSuppliers.getSelectedRow()!=-1){
+                String cuit = String.valueOf(tblSuppliers.getValueAt(tblSuppliers.getSelectedRow(),1));
+
+                ViewController.panelChange(this, new PanelSupplierEdit(cuit), this);
             }
         }
     }//GEN-LAST:event_bttnEditActionPerformed
 
-    private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
+    private void jPanel1formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jPanel1formAncestorAdded
         this.cargarTabla();
-    }//GEN-LAST:event_formAncestorAdded
+    }//GEN-LAST:event_jPanel1formAncestorAdded
+
     private void cargarTabla(){
         DefaultTableModel modeloTabla = new DefaultTableModel(){
             @Override
@@ -189,27 +213,28 @@ public class PanelCustomerConsult extends javax.swing.JPanel {
                 return false;
             }
         };
-        String titulos[] = {"Id", "Cuit", "Nombre", "Apellido", "Estado","Direccion","Teléfono"};
+        String titulos[] = {"Id", "Cuit", "Nombre", "Estado","Direccion","Teléfono","email"};
         modeloTabla.setColumnIdentifiers(titulos);
-        List<Customer> listCustomers = customerController.findAll();
+        List<Supplier> listSuppliers = supplierController.findAll();
 
-        if(!listCustomers.isEmpty()){
-            for (Customer cl: listCustomers){
-                Object[] obj = {cl.getId(), cl.getCuit(),cl.getName(), cl.getSurname(), cl.getEstado(),cl.getAdress(),cl.getPhone()};
+        if(!listSuppliers.isEmpty()){
+            for (Supplier sp: listSuppliers){
+                Object[] obj = {sp.getId(),sp.getCuit(),sp.getName(),sp.getStatus(),sp.getAdress(),sp.getPhone(),sp.getEmail()};
                 modeloTabla.addRow(obj);
             }
         }
 
-        tblCustomers.setModel(modeloTabla);
+        tblSuppliers.setModel(modeloTabla);
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bttnBack;
     private javax.swing.JButton bttnDestroy;
     private javax.swing.JButton bttnEdit;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblWelcome;
-    private javax.swing.JTable tblCustomers;
+    private javax.swing.JTable tblSuppliers;
     // End of variables declaration//GEN-END:variables
 }
