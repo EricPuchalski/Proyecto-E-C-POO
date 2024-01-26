@@ -20,7 +20,7 @@ public class PanelSupplierEdit extends javax.swing.JPanel {
     /**
      * Creates new form PanelSupplierEdit
      */
-    public PanelSupplierEdit() {
+    public PanelSupplierEdit(String Cuit) {
         this.supplierController=new SupplierController();
         supplierEdit=new Supplier();
         this.cuit=cuit;
