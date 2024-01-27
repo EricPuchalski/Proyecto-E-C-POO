@@ -41,6 +41,7 @@ public class OrderRepository implements Serializable {
     private EmployeeRepository employeeRepository;
     private DespatchNoteRepository despatchNoteRepository;
     private OrderLineRepository orderLineRepository;
+    private TrackingRepository trackingRepository;
 
     public OrderRepository() {
         this.emf = Conexion.getEmf();
@@ -50,6 +51,7 @@ public class OrderRepository implements Serializable {
         this.employeeRepository = new EmployeeRepository();
         this.despatchNoteRepository = new DespatchNoteRepository();
         this.orderLineRepository = new OrderLineRepository();
+        this.trackingRepository = new TrackingRepository();
     }
 
     public void upload(){
@@ -158,6 +160,7 @@ public class OrderRepository implements Serializable {
                    Employee employeeEmisor = orderFound.getEmployee();
                    Employee employeeReceptor = null; // El receptor se establecerá cuando se entregue el pedido
                    DespatchNote despatchNote = new DespatchNote(fechaEmision, carrier, employeeEmisor, employeeReceptor);
+                   despatchNoteRepository.create(despatchNote);
                    orderFound.setDespatchNote(despatchNote);
                }
 
@@ -171,6 +174,7 @@ public class OrderRepository implements Serializable {
 
                    tracking.setLatitude(latitud);
                    tracking.setLongitude(longitud);
+                   tracking.setDateAndTime(LocalDate.now());
                    tracking.setTrackingNumber(tracking.generarNumeroRastreo());
 
                    orderFound.setTracking(tracking);
@@ -238,6 +242,8 @@ public void orderTransit(String orderNumber) {
                 // Actualizamos la latitud y longitud en el seguimiento
                 orderFound.getTracking().setLatitude(latitud);
                 orderFound.getTracking().setLongitude(longitud);
+                
+                trackingRepository.edit(orderFound.getTracking());
                 orderFound.setOnTransit(false);
             }
 
@@ -274,7 +280,6 @@ public void orderTransit(String orderNumber) {
     public void deliverOrder(String orderNumber, List<Integer> supplierRatings) {
     EntityManager em = getEntityManager();
     EntityTransaction transaction = em.getTransaction();
-
     try {
         transaction.begin();
         Order orderFound = findOrderByOrderNumber(orderNumber);

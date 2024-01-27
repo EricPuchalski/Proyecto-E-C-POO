@@ -9,7 +9,7 @@ import java.util.List;
 public class ProductService implements CRUD<Product>{
     private ProductRepository productRepository;
 
-    public ProductService(ProductRepository productRepository) {
+    public ProductService() {
         this.productRepository = new ProductRepository();
     }
 
@@ -37,7 +37,9 @@ public class ProductService implements CRUD<Product>{
         return null;
     }
 
-
+    public Product findOneById(Long id){
+        return productRepository.findProduct(id);
+    }
     @Override
     public List<Product> findAll() {
         return productRepository.findProductEntities();

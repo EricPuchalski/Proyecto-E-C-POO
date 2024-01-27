@@ -36,16 +36,20 @@ public class CarrierController {
     }
     
         public List<Carrier> findAllCarriersByCuit(String cuit){
+        if (cuit == null || cuit.isEmpty()) {
+            return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
+        }
+        String lowerCaseCuit = cuit.toLowerCase();
+
         List<Carrier> carriersFound= new ArrayList<>();
         carriersFound = this.findAll()
         .stream()
-        .filter(tr -> tr.getCuit().startsWith(cuit))
+        .filter(tr -> tr.getCuit().toLowerCase().startsWith(lowerCaseCuit))
         .collect(Collectors.toList());
         
-        if(!carriersFound.isEmpty()){
-            return carriersFound;
-        }
-        return null;
+        
+         return carriersFound;
+ 
     }
 
 }

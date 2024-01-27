@@ -46,6 +46,9 @@ public class WarehouseService implements CRUD<Warehouse> {
         }
         return null;
     }
+    public Warehouse findOneById(Long id){
+        return warehouseRepository.findWarehouse(id);
+    }
 
     @Override
     public List<Warehouse> findAll() {
