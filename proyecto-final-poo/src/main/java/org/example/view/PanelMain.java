@@ -44,6 +44,11 @@ public class PanelMain extends javax.swing.JPanel {
         bttnCarrier.setText("TRANSPORTISTA");
 
         bttnSupplier.setText("PROVEEDOR");
+        bttnSupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnSupplierActionPerformed(evt);
+            }
+        });
 
         btnCustomer.setText("CLIENTE");
         btnCustomer.addActionListener(new java.awt.event.ActionListener() {
@@ -111,6 +116,11 @@ public class PanelMain extends javax.swing.JPanel {
     private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
         ViewController.panelChange(this, new PanelCustomer(), this);
     }//GEN-LAST:event_btnCustomerActionPerformed
+
+    private void bttnSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnSupplierActionPerformed
+            ViewController.panelChange(this, new PanelSupplier(), this);
+
+    }//GEN-LAST:event_bttnSupplierActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

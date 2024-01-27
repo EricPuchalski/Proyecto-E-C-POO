@@ -31,8 +31,8 @@ public class PanelSupplier extends javax.swing.JPanel {
     private void initComponents() {
 
         bttnBack = new javax.swing.JButton();
-        bttnConsultCustomer = new javax.swing.JButton();
-        bttnCreateCustomer = new javax.swing.JButton();
+        bttnConsultSupplier = new javax.swing.JButton();
+        bttnCreateSupplier = new javax.swing.JButton();
         bttnComplement = new javax.swing.JLabel();
         lblPresent = new javax.swing.JLabel();
 
@@ -47,25 +47,25 @@ public class PanelSupplier extends javax.swing.JPanel {
             }
         });
 
-        bttnConsultCustomer.setBackground(new java.awt.Color(0, 0, 102));
-        bttnConsultCustomer.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        bttnConsultCustomer.setForeground(new java.awt.Color(0, 195, 225));
-        bttnConsultCustomer.setText("CONSULTAR,MODIFICAR,ELIMINAR");
-        bttnConsultCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        bttnConsultCustomer.addActionListener(new java.awt.event.ActionListener() {
+        bttnConsultSupplier.setBackground(new java.awt.Color(0, 0, 102));
+        bttnConsultSupplier.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        bttnConsultSupplier.setForeground(new java.awt.Color(0, 195, 225));
+        bttnConsultSupplier.setText("CONSULTAR,MODIFICAR,ELIMINAR");
+        bttnConsultSupplier.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        bttnConsultSupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bttnConsultCustomerActionPerformed(evt);
+                bttnConsultSupplierActionPerformed(evt);
             }
         });
 
-        bttnCreateCustomer.setBackground(new java.awt.Color(0, 0, 102));
-        bttnCreateCustomer.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        bttnCreateCustomer.setForeground(new java.awt.Color(0, 195, 225));
-        bttnCreateCustomer.setText("CREAR PROVEEDOR");
-        bttnCreateCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        bttnCreateCustomer.addActionListener(new java.awt.event.ActionListener() {
+        bttnCreateSupplier.setBackground(new java.awt.Color(0, 0, 102));
+        bttnCreateSupplier.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        bttnCreateSupplier.setForeground(new java.awt.Color(0, 195, 225));
+        bttnCreateSupplier.setText("CREAR PROVEEDOR");
+        bttnCreateSupplier.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        bttnCreateSupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bttnCreateCustomerActionPerformed(evt);
+                bttnCreateSupplierActionPerformed(evt);
             }
         });
 
@@ -91,8 +91,8 @@ public class PanelSupplier extends javax.swing.JPanel {
                 .addGap(204, 204, 204)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bttnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bttnConsultCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bttnCreateCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bttnConsultSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bttnCreateSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -103,9 +103,9 @@ public class PanelSupplier extends javax.swing.JPanel {
                 .addGap(87, 87, 87)
                 .addComponent(bttnComplement)
                 .addGap(43, 43, 43)
-                .addComponent(bttnCreateCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bttnCreateSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
-                .addComponent(bttnConsultCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bttnConsultSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addComponent(bttnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -113,23 +113,23 @@ public class PanelSupplier extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bttnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnBackActionPerformed
-        ViewController.panelChange(this, new PanelMain(), this);
+        ViewController.panelChange(this,  new PanelMain(), this);
     }//GEN-LAST:event_bttnBackActionPerformed
 
-    private void bttnConsultCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnConsultCustomerActionPerformed
+    private void bttnConsultSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnConsultSupplierActionPerformed
         ViewController.panelChange(this, new PanelSupplierConsult(), this);
-    }//GEN-LAST:event_bttnConsultCustomerActionPerformed
+    }//GEN-LAST:event_bttnConsultSupplierActionPerformed
 
-    private void bttnCreateCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnCreateCustomerActionPerformed
-        ViewController.panelChange(this, new PanelSupplierCreate(), this);
-    }//GEN-LAST:event_bttnCreateCustomerActionPerformed
+    private void bttnCreateSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnCreateSupplierActionPerformed
+        ViewController.panelChange(this,new PanelSupplierCreate() , this);
+    }//GEN-LAST:event_bttnCreateSupplierActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bttnBack;
     private javax.swing.JLabel bttnComplement;
-    private javax.swing.JButton bttnConsultCustomer;
-    private javax.swing.JButton bttnCreateCustomer;
+    private javax.swing.JButton bttnConsultSupplier;
+    private javax.swing.JButton bttnCreateSupplier;
     private javax.swing.JLabel lblPresent;
     // End of variables declaration//GEN-END:variables
 }

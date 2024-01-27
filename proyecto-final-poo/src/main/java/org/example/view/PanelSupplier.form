@@ -28,8 +28,8 @@
               <EmptySpace min="-2" pref="204" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="bttnBack" alignment="0" min="-2" pref="333" max="-2" attributes="0"/>
-                  <Component id="bttnConsultCustomer" alignment="0" min="-2" pref="333" max="-2" attributes="0"/>
-                  <Component id="bttnCreateCustomer" alignment="0" min="-2" pref="333" max="-2" attributes="0"/>
+                  <Component id="bttnConsultSupplier" alignment="0" min="-2" pref="333" max="-2" attributes="0"/>
+                  <Component id="bttnCreateSupplier" alignment="0" min="-2" pref="333" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
@@ -43,9 +43,9 @@
               <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
               <Component id="bttnComplement" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-              <Component id="bttnCreateCustomer" min="-2" pref="55" max="-2" attributes="0"/>
+              <Component id="bttnCreateSupplier" min="-2" pref="55" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-              <Component id="bttnConsultCustomer" min="-2" pref="55" max="-2" attributes="0"/>
+              <Component id="bttnConsultSupplier" min="-2" pref="55" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               <Component id="bttnBack" min="-2" pref="55" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
@@ -74,7 +74,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttnBackActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="bttnConsultCustomer">
+    <Component class="javax.swing.JButton" name="bttnConsultSupplier">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="0" red="0" type="rgb"/>
@@ -91,10 +91,10 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttnConsultCustomerActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttnConsultSupplierActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="bttnCreateCustomer">
+    <Component class="javax.swing.JButton" name="bttnCreateSupplier">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="0" red="0" type="rgb"/>
@@ -111,7 +111,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttnCreateCustomerActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttnCreateSupplierActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="bttnComplement">
