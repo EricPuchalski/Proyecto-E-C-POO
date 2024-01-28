@@ -232,7 +232,7 @@ public class PanelOrder extends javax.swing.JPanel {
     }//GEN-LAST:event_bttnSendToWarehouseDestActionPerformed
 
     private void bttnDeliveryOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnDeliveryOrderActionPerformed
-        // TODO add your handling code here:
+        ViewController.panelChange(this, new PanelDeliveryOrder(), this);
     }//GEN-LAST:event_bttnDeliveryOrderActionPerformed
 
     private void bttnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnBackActionPerformed
