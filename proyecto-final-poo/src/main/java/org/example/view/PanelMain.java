@@ -62,11 +62,7 @@ public class PanelMain extends javax.swing.JPanel {
         bttnWarehouse.setText("DÉPOSITO");
 
         bttnOrder.setText("PEDIDO");
-        bttnOrder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bttnOrderActionPerformed(evt);
-            }
-        });
+       
 
         bttnProduct.setText("PRODUCTO");
 
