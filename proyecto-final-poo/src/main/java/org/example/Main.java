@@ -21,13 +21,13 @@ public class Main {
         // Operaciones iniciales
         Conexion.connect();
         LoadData.loadData();
-        FrameMain frameMain = new FrameMain();
-
+        
 
 
         // Creación e inicio de la interfaz gráfica en el EDT
         SwingUtilities.invokeLater(() -> {
-          
+                  FrameMain frameMain = new FrameMain();
+
            // frameMain.setVisible(true);
         });
     }
