@@ -14,21 +14,25 @@ public class SupplierService implements CRUD<Supplier> {
     }
 
     @Override
-    public void save(Supplier supplier) {
-        if (!supplierRepository.findSupplierEntities().contains(supplier.getCuit())) {
-            }else{supplierRepository.create(supplier);
+    public void save(Supplier t) {
+        if (!(t.getCuit().isEmpty() || t.getName().isEmpty() ||  t.getAdress().isEmpty() || t.getPhone().isEmpty()||t.getEmail().isEmpty())) {
+        supplierRepository.create(t);
         }
     }
 
     @Override
     public Supplier findOne(String cuit) {
-        for (Supplier supplier : supplierRepository.findSupplierEntities()) {
-            if (cuit.equals(supplier.getCuit())) {
-                return supplier;
-            }
-        }
-        return null;
+    if (cuit == null) {
+        return null; // Manejar el caso de un CUIT nulo
     }
+    
+    for (Supplier supplier : supplierRepository.findSupplierEntities()) {
+        if (cuit.equals(supplier.getCuit())) {
+            return supplier;
+        }
+    }
+    return null;
+}
 
     @Override
     public List<Supplier> findAll() {
