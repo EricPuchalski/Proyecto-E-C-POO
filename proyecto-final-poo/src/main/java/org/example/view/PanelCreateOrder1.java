@@ -200,7 +200,7 @@ public class PanelCreateOrder1 extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bttnFindCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnFindCustomerActionPerformed
-        tblCustomers.setModel(viewController.modelTableCustomersByCuit(txtCustomer.getText()));
+          tblCustomers.setModel(viewController.modelTableCustomersByCuit(txtCustomer.getText()));
     }//GEN-LAST:event_bttnFindCustomerActionPerformed
 
     private void bttnFindCarrierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnFindCarrierActionPerformed
@@ -214,7 +214,6 @@ public class PanelCreateOrder1 extends javax.swing.JPanel {
     private void bttnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnConfirmActionPerformed
         List<String> cuits = orderController.returnCuitsCustomerCarrier(tblCustomers, tblCarriers);
         ViewController.panelChange(this, new PanelCreateOrder2(cuits.get(0), cuits.get(1)), this);
-//        System.out.println(cuits.get(0) + " " + cuits.get(1));
     }//GEN-LAST:event_bttnConfirmActionPerformed
     private void loadData(){
         tblCustomers.setModel(viewController.modelTableCustomers());

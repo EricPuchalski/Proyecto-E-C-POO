@@ -14,7 +14,7 @@ import dao.WarehouseRepository;
 
 
 public class LoadData {
-    public static void loadData(){
+    public static void loadData() throws Exception{
         CustomerRepository customerDao = new CustomerRepository();
         customerDao.upLoad();
         ProductCategoryRepository productCategoryRepository = new  ProductCategoryRepository();
@@ -25,8 +25,8 @@ public class LoadData {
         sectorRepository.upLoad();
         WarehouseRepository warehouseRepository = new WarehouseRepository();
         warehouseRepository.upLoad();
-        EmployeeRepository employeeRepository= new EmployeeRepository();
-        employeeRepository.upLoad();
+//        EmployeeRepository employeeRepository= new EmployeeRepository();
+//        employeeRepository.upLoad();
         ProductRepository productRepository = new ProductRepository();
         productRepository.upLoad();
         CarrierRepository carrierRepository = new CarrierRepository();

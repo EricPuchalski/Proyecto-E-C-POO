@@ -37,15 +37,18 @@ public class CustomerController implements CRUD<Customer>{
         customerService.upDate(customer);
     }
     public List<Customer> findAllCustomersByCuit(String cuit){
+          if (cuit == null || cuit.isEmpty()) {
+            return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
+        }
+        String lowerCaseCuit = cuit.toLowerCase();
         List<Customer> customersFound= new ArrayList<>();
         customersFound = this.findAll()
         .stream()
-        .filter(tr -> tr.getCuit().startsWith(cuit))
+        .filter(tr -> tr.getCuit().toLowerCase().startsWith(lowerCaseCuit))
         .collect(Collectors.toList());
         
-        if(!customersFound.isEmpty()){
-            return customersFound;
-        }
-        return null;
+        
+        return customersFound;
+   
     }
 }

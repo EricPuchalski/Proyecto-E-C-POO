@@ -206,35 +206,37 @@ public class PanelOrder extends javax.swing.JPanel {
     }//GEN-LAST:event_bttnCreateOrderActionPerformed
 
     private void bttnProcessOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnProcessOrderActionPerformed
+                ViewController.panelChange(this, new PanelProcessOrder(), this);
 
     }//GEN-LAST:event_bttnProcessOrderActionPerformed
 
     private void bttnCompleteOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnCompleteOrderActionPerformed
-
+        ViewController.panelChange(this, new PanelCompleteOrder(), this);
     }//GEN-LAST:event_bttnCompleteOrderActionPerformed
 
     private void bttnSendToDispatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnSendToDispatchActionPerformed
-        // TODO add your handling code here:
+        ViewController.panelChange(this, new PanelSendOrderToDispatch(), this);
     }//GEN-LAST:event_bttnSendToDispatchActionPerformed
 
     private void bttnDispatchOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnDispatchOrderActionPerformed
-        // TODO add your handling code here:
+        ViewController.panelChange(this, new PanelDispatchOrder(), this);
     }//GEN-LAST:event_bttnDispatchOrderActionPerformed
 
     private void bttnTransitOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnTransitOrderActionPerformed
-        // TODO add your handling code here:
+        ViewController.panelChange(this, new PanelTransitOrder(), this);
+
     }//GEN-LAST:event_bttnTransitOrderActionPerformed
 
     private void bttnSendToWarehouseDestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnSendToWarehouseDestActionPerformed
-        // TODO add your handling code here:
+        ViewController.panelChange(this, new PanelSendOrderToDelivery(), this);
     }//GEN-LAST:event_bttnSendToWarehouseDestActionPerformed
 
     private void bttnDeliveryOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnDeliveryOrderActionPerformed
-        // TODO add your handling code here:
+        ViewController.panelChange(this, new PanelDeliveryOrder(), this);
     }//GEN-LAST:event_bttnDeliveryOrderActionPerformed
 
     private void bttnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnBackActionPerformed
-
+        ViewController.panelChange(this, new PanelMain(), this);
     }//GEN-LAST:event_bttnBackActionPerformed
 
 

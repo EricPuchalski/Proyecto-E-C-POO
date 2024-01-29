@@ -4,7 +4,11 @@
  */
 package org.example.view;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.example.controller.ViewController;
+import org.example.controller.WarehouseController;
+import org.example.model.Warehouse;
 
 /**
  *
@@ -13,13 +17,20 @@ import org.example.controller.ViewController;
 public class PanelCreateOrder2 extends javax.swing.JPanel {
     private String cuitCustomer;
     private String cuitCarrier;
+    private ViewController viewController;
+    private WarehouseController warehouseController;
+    
 
     /**
      * Creates new form PanelCreateOrder1
      */
     public PanelCreateOrder2(String cuitCostumer, String cuitCarrier) {
         this.cuitCarrier = cuitCarrier;
-        this.cuitCustomer = cuitCustomer;
+        this.cuitCustomer = cuitCostumer;
+        this.warehouseController = new WarehouseController();
+        this.viewController = new ViewController();
+        this.cuitCarrier = cuitCarrier;
+        this.cuitCustomer = cuitCostumer;
         this.setSize(800,700);
         initComponents();
     }
@@ -47,8 +58,18 @@ public class PanelCreateOrder2 extends javax.swing.JPanel {
         bttnBack = new javax.swing.JButton();
         bttnConfirm = new javax.swing.JButton();
 
+        addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                formAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+
         lblWelcome.setFont(new java.awt.Font("Roboto Black", 1, 48)); // NOI18N
-        lblWelcome.setForeground(new java.awt.Color(232, 245, 255));
+        lblWelcome.setForeground(new java.awt.Color(0, 0, 0));
         lblWelcome.setText("SELECCIONAR DÉPOSITOS");
 
         lblOrig.setFont(new java.awt.Font("Roboto Light", 1, 18)); // NOI18N
@@ -192,27 +213,8 @@ public class PanelCreateOrder2 extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bttnWarehouseOrigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnWarehouseOrigActionPerformed
-//        List<Deposito> depositosBuscados= new ArrayList<>();
-//        depositosBuscados = depositoController.findAll()
-//        .stream()
-//        .filter(dep -> dep.getCodigo().startsWith(txtOrig.getText()))
-//        .collect(Collectors.toList());
-//        DefaultTableModel modeloNuevo = new DefaultTableModel(){
-//            @Override
-//            public boolean isCellEditable(int row, int column){
-//                return false;
-//            }
-//        };
-//        String titulos[] = {"Id", "Nombre", "Continente", "Codigo"};
-//        modeloNuevo.setColumnIdentifiers(titulos);
-//
-//        if(!depositosBuscados.isEmpty()){
-//            for (Deposito e: depositosBuscados){
-//                Object[] obj = {e.getId(), e.getNombre(),e.getContinente(), e.getCodigo()};
-//                modeloNuevo.addRow(obj);
-//            }
-//        }
-//        tblWarehouseOrig.setModel(modeloNuevo);
+        tblWarehouseOrig.setModel(viewController.modelTableWarehousesByEmail(txtOrig.getText()));
+        
     }//GEN-LAST:event_bttnWarehouseOrigActionPerformed
 
     private void txtDESTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDESTActionPerformed
@@ -220,27 +222,8 @@ public class PanelCreateOrder2 extends javax.swing.JPanel {
     }//GEN-LAST:event_txtDESTActionPerformed
 
     private void bttnWarehouseDestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnWarehouseDestActionPerformed
-//        List<Deposito> depositosBuscados= new ArrayList<>();
-//        depositosBuscados = depositoController.findAll()
-//        .stream()
-//        .filter(dep -> dep.getCodigo().startsWith(txtDEST.getText()))
-//        .collect(Collectors.toList());
-//        DefaultTableModel modeloNuevo = new DefaultTableModel(){
-//            @Override
-//            public boolean isCellEditable(int row, int column){
-//                return false;
-//            }
-//        };
-//        String titulos[] = {"Id", "Nombre", "Continente", "Codigo"};
-//        modeloNuevo.setColumnIdentifiers(titulos);
-//
-//        if(!depositosBuscados.isEmpty()){
-//            for (Deposito e: depositosBuscados){
-//                Object[] obj = {e.getId(), e.getNombre(),e.getContinente(), e.getCodigo()};
-//                modeloNuevo.addRow(obj);
-//            }
-//        }
-//        tblWarehouseDest.setModel(modeloNuevo);
+        tblWarehouseDest.setModel(viewController.modelTableWarehousesByEmail(txtDEST.getText()));
+
     }//GEN-LAST:event_bttnWarehouseDestActionPerformed
 
     private void bttnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnBackActionPerformed
@@ -248,22 +231,19 @@ public class PanelCreateOrder2 extends javax.swing.JPanel {
     }//GEN-LAST:event_bttnBackActionPerformed
 
     private void bttnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnConfirmActionPerformed
-//        if(tblWarehouseOrig.getRowCount() > 0){
-//            if(tblWarehouseOrig.getSelectedRow()!=-1){
-//                if(tblWarehouseDest.getRowCount() > 0){
-//                    if(tblWarehouseDest.getSelectedRow()>0){
-//                        Long idOrigen = Long.parseLong(String.valueOf(tblWarehouseOrig.getValueAt(tblWarehouseOrig.getSelectedRow(),0)));
-//                        Deposito depositoOrigen = depositoController.findOne(idOrigen);
-//                        Long idDestino = Long.parseLong(String.valueOf(tblWarehouseDest.getValueAt(tblWarehouseDest.getSelectedRow(),0)));
-//                        Deposito depositoDesitno = depositoController.findOne(idDestino);
-//                        JFrameController.cambiarPanel(this, new JPanelCrearPedidoProductos(cliente,transportista, depositoOrigen, depositoDesitno), this);
-//                    }
-//                }
-//            }
-//        }
+        List<Warehouse> warehouses = warehouseController.warehousesIdForOrder(tblWarehouseOrig, tblWarehouseDest);
+        ViewController.panelChange(this, new PanelCreateOrder3(cuitCustomer, cuitCarrier, warehouses.get(0), warehouses.get(1)), this);
     }//GEN-LAST:event_bttnConfirmActionPerformed
+
+    private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
+        this.loadData();
+//        System.out.println("cuit cliente" + cuitCustomer);
+//        System.out.println("cuit tranbsportstia " + cuitCarrier);
+ 
+    }//GEN-LAST:event_formAncestorAdded
     public void loadData(){
-        
+        this.tblWarehouseDest.setModel(viewController.modelTableWarehouses());
+        this.tblWarehouseOrig.setModel(viewController.modelTableWarehouses());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
