@@ -24,10 +24,8 @@ public class WarehouseService implements CRUD<Warehouse> {
 
     @Override
      public void save(Warehouse warehouse) {
-        if (!warehouseRepository.findWarehouseEntities().contains(warehouse.getCode())) {
-        }else{
-                        warehouseRepository.create(warehouse);
-                     }
+ 
+         warehouseRepository.create(warehouse);
     }
 
     @Override

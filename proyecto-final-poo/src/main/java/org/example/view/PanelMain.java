@@ -39,6 +39,12 @@ public class PanelMain extends javax.swing.JPanel {
         bttnProduct = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
+
         bttnEmployee.setText("EMPLEADO");
 
         bttnCarrier.setText("TRANSPORTISTA");
@@ -60,9 +66,19 @@ public class PanelMain extends javax.swing.JPanel {
         bttnReport.setText("INFORME");
 
         bttnWarehouse.setText("DÉPOSITO");
+        bttnWarehouse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnWarehouseActionPerformed(evt);
+            }
+        });
 
         bttnOrder.setText("PEDIDO");
-       
+        bttnOrder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bttnOrderMouseClicked(evt);
+            }
+        });
+                                                                                                                                                                                                          
 
         bttnProduct.setText("PRODUCTO");
 
@@ -123,6 +139,18 @@ public class PanelMain extends javax.swing.JPanel {
             ViewController.panelChange(this, new PanelSupplier(), this);
 
     }//GEN-LAST:event_bttnSupplierActionPerformed
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formMouseClicked
+
+    private void bttnOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bttnOrderMouseClicked
+        ViewController.panelChange(this, new PanelOrder(), this);
+    }//GEN-LAST:event_bttnOrderMouseClicked
+
+    private void bttnWarehouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnWarehouseActionPerformed
+        ViewController.panelChange(this, new PanelWarehouse(), this);
+    }//GEN-LAST:event_bttnWarehouseActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -112,12 +112,12 @@ public class ViewController {
             return false;
         } 
         };
-        String titulos[] = {"Id", "Code", "Nombre", "Dirección", "Teléfono", "Email", "Continente"};
+        String titulos[] = {"Id", "Code", "Nombre", "Dirección", "Teléfono", "Email", "Continente", "Empleado"};
         newModel.setColumnIdentifiers(titulos);
 
 
         for (Warehouse e: warehouseController.findAll()){
-            Object[] obj = {e.getId(), e.getCode(), e.getName(),e.getAdress(), e.getPhone(), e.getEmail(), e.getContinent()};
+            Object[] obj = {e.getId(), e.getCode(), e.getName(),e.getAdress(), e.getPhone(), e.getEmail(), e.getContinent(), e.getEmployee().getCUIT()};
             newModel.addRow(obj);
         }
         return newModel;
@@ -129,12 +129,12 @@ public class ViewController {
             return false;
         } 
         };
-        String titulos[] = {"Id", "Code", "Nombre", "Dirección", "Teléfono", "Email", "Continente"};
+        String titulos[] = {"Id", "Code", "Nombre", "Dirección", "Teléfono", "Email", "Continente", "Empleado"};
         newModel.setColumnIdentifiers(titulos);
 
 
         for (Warehouse e: warehouseController.findAllWarehousesByEmail(email)){
-            Object[] obj = {e.getId(), e.getCode(), e.getName(),e.getAdress(), e.getPhone(), e.getEmail(), e.getContinent()};
+            Object[] obj = {e.getId(), e.getCode(), e.getName(),e.getAdress(), e.getPhone(), e.getEmail(), e.getContinent(), e.getEmployee().getCUIT()};
             newModel.addRow(obj);
         }
         return newModel;
