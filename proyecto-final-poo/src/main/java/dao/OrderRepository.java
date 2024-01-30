@@ -56,8 +56,26 @@ public class OrderRepository implements Serializable {
 
     public void upload(){
 
-        Order o1 = new Order("123", customerRepository.findCustomer(1l), warehouseRepository.findWarehouse(1l), warehouseRepository.findWarehouse(2l), carrierRepository.findCarrier(1l), warehouseRepository.findWarehouse(1l).getSectors().get(3).getDescription(), LocalDate.of(2023, 3, 3));
+        Order o1 = new Order("123", customerRepository.findCustomer(1l), warehouseRepository.findWarehouse(1l), warehouseRepository.findWarehouse(2l), carrierRepository.findCarrier(1l), warehouseRepository.findWarehouse(1l).getSectors().get(3).getDescription(), LocalDate.now());
+        Order o2 = new Order("129", customerRepository.findCustomer(2l), warehouseRepository.findWarehouse(2l), warehouseRepository.findWarehouse(1l), carrierRepository.findCarrier(2l), warehouseRepository.findWarehouse(1l).getSectors().get(1).getDescription(), LocalDate.of(2023, 1, 2));
+        Order o3 = new Order("143", customerRepository.findCustomer(3l), warehouseRepository.findWarehouse(3l), warehouseRepository.findWarehouse(5l), carrierRepository.findCarrier(3l), warehouseRepository.findWarehouse(1l).getSectors().get(2).getDescription(), LocalDate.of(2023, 3, 3));
+        Order o4 = new Order("163", customerRepository.findCustomer(4l), warehouseRepository.findWarehouse(4l), warehouseRepository.findWarehouse(5l), carrierRepository.findCarrier(4l), warehouseRepository.findWarehouse(1l).getSectors().get(5).getDescription(), LocalDate.of(2023, 2, 4));
+        Order o5 = new Order("113", customerRepository.findCustomer(5l), warehouseRepository.findWarehouse(5l), warehouseRepository.findWarehouse(2l), carrierRepository.findCarrier(1l), warehouseRepository.findWarehouse(1l).getSectors().get(4).getDescription(), LocalDate.of(2023, 5, 6));
+        Order o6 = new Order("193", customerRepository.findCustomer(6l), warehouseRepository.findWarehouse(1l), warehouseRepository.findWarehouse(3l), carrierRepository.findCarrier(2l), warehouseRepository.findWarehouse(1l).getSectors().get(4).getDescription(), LocalDate.of(2023, 1, 1));
+        Order o7 = new Order("183", customerRepository.findCustomer(2l), warehouseRepository.findWarehouse(2l), warehouseRepository.findWarehouse(1l), carrierRepository.findCarrier(3l), warehouseRepository.findWarehouse(1l).getSectors().get(1).getDescription(), LocalDate.of(2023, 1, 3));
+        Order o8 = new Order("132", customerRepository.findCustomer(2l), warehouseRepository.findWarehouse(3l), warehouseRepository.findWarehouse(2l), carrierRepository.findCarrier(4l), warehouseRepository.findWarehouse(1l).getSectors().get(2).getDescription(), LocalDate.of(2023, 1, 1));
+        Order o9 = new Order("126", customerRepository.findCustomer(1l), warehouseRepository.findWarehouse(3l), warehouseRepository.findWarehouse(2l), carrierRepository.findCarrier(4l), warehouseRepository.findWarehouse(1l).getSectors().get(1).getDescription(), LocalDate.of(2023, 1, 3));
+        
         this.create(o1);
+        this.create(o2);
+        this.create(o3);
+        this.create(o4);
+        this.create(o5);
+        this.create(o6);
+        this.create(o7);
+        this.create(o8);
+        this.create(o9);
+        
     }
     
     private EntityManagerFactory emf = null;

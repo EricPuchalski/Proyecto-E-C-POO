@@ -64,6 +64,11 @@ public class PanelMain extends javax.swing.JPanel {
         });
 
         bttnReport.setText("INFORME");
+        bttnReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnReportActionPerformed(evt);
+            }
+        });
 
         bttnWarehouse.setText("DÉPOSITO");
         bttnWarehouse.addActionListener(new java.awt.event.ActionListener() {
@@ -78,7 +83,6 @@ public class PanelMain extends javax.swing.JPanel {
                 bttnOrderMouseClicked(evt);
             }
         });
-                                                                                                                                                                                                          
 
         bttnProduct.setText("PRODUCTO");
 
@@ -151,6 +155,10 @@ public class PanelMain extends javax.swing.JPanel {
     private void bttnWarehouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnWarehouseActionPerformed
         ViewController.panelChange(this, new PanelWarehouse(), this);
     }//GEN-LAST:event_bttnWarehouseActionPerformed
+
+    private void bttnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnReportActionPerformed
+        ViewController.panelChange(this, new PanelReport(), this);
+    }//GEN-LAST:event_bttnReportActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

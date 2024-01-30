@@ -97,6 +97,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="INFORME"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttnReportActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="bttnWarehouse">
       <Properties>
@@ -112,7 +115,6 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="bttnOrderMouseClicked"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttnOrderActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="bttnProduct">

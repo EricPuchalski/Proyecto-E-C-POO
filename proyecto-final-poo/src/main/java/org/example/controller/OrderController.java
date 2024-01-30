@@ -14,14 +14,14 @@ import org.example.model.Carrier;
 import org.example.model.Customer;
 import org.example.model.Warehouse;
 
-public class OrderController implements CRUD<Order>{
+public class OrderController implements CRUD<Order> {
 
     private final OrderService orderService;
     private CustomerController customerController;
     private CarrierController carrierController;
     private WarehouseController warehouseController;
 
-    public OrderController(){
+    public OrderController() {
         this.orderService = new OrderService();
         this.customerController = new CustomerController();
         this.carrierController = new CarrierController();
@@ -85,14 +85,14 @@ public class OrderController implements CRUD<Order>{
 //    }
     public List<String> returnCuitsCustomerCarrier(JTable tblCustomers, JTable tblCarriers) {
         List<String> cuits = new ArrayList<>();
-        if (tblCustomers.getRowCount() > 0 && tblCustomers.getSelectedRow() != -1 &&
-            tblCarriers.getRowCount() > 0 && tblCarriers.getSelectedRow() != -1) {
+        if (tblCustomers.getRowCount() > 0 && tblCustomers.getSelectedRow() != -1
+                && tblCarriers.getRowCount() > 0 && tblCarriers.getSelectedRow() != -1) {
 
             String idCliente = String.valueOf(tblCustomers.getValueAt(tblCustomers.getSelectedRow(), 3));
             String idTransportista = String.valueOf(tblCarriers.getValueAt(tblCarriers.getSelectedRow(), 2));
             cuits.add(idCliente);
             cuits.add(idTransportista);
-        }   
+        }
         return cuits;
     }
 
@@ -105,7 +105,7 @@ public class OrderController implements CRUD<Order>{
         order.setCarrier(orderCarrier);
         order.setOrderStart(LocalDate.now());
         order.setOrderStatus(order.getWarehouseOrig().getSectors().get(0).getDescription());
-        
+
         this.create(order);
         System.out.println(orderCustomer.getName());
     }
@@ -116,7 +116,7 @@ public class OrderController implements CRUD<Order>{
 
     @Override
     public List<Order> findAll() {
-       return orderService.findAll();
+        return orderService.findAll();
     }
 
     @Override
@@ -138,7 +138,7 @@ public class OrderController implements CRUD<Order>{
     public Order findOne(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
     public List<Order> findAllOrdersByNumber(String orderNumber) {
         if (orderNumber == null || orderNumber.isEmpty()) {
             return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
@@ -153,23 +153,47 @@ public class OrderController implements CRUD<Order>{
 
         return ordersFound;
     }
-        public void processOrder(String orderNumber, String cuitEmpleado){
-            orderService.processOrder(orderNumber, cuitEmpleado);
-        }
-            public void completeOrder(String orderNumber){
-                orderService.completeOrder(orderNumber);
-        }
-        public void sendOrderToDispatch(String orderNumber){
-            orderService.sendOrderToDispatch(orderNumber);
-        }
-        public void dispatchOrder(String orderNumber){
-            orderService.dispatchOrder(orderNumber);
-        }
-           public void orderTransit(String orderNumber){
-        orderService.orderTransit(orderNumber);
-    }
-              public void sendToDelivery(String orderNumber, String cuitEmployeeReceiv){
-        orderService.sendToDelivery(orderNumber, cuitEmployeeReceiv);
-    }
+
+    public void processOrder(String orderNumber, String cuitEmpleado) {
+        orderService.processOrder(orderNumber, cuitEmpleado);
     }
 
+    public void completeOrder(String orderNumber) {
+        orderService.completeOrder(orderNumber);
+    }
+
+    public void sendOrderToDispatch(String orderNumber) {
+        orderService.sendOrderToDispatch(orderNumber);
+    }
+
+    public void dispatchOrder(String orderNumber) {
+        orderService.dispatchOrder(orderNumber);
+    }
+
+    public void orderTransit(String orderNumber) {
+        orderService.orderTransit(orderNumber);
+    }
+
+    public void sendToDelivery(String orderNumber, String cuitEmployeeReceiv) {
+        orderService.sendToDelivery(orderNumber, cuitEmployeeReceiv);
+    }
+
+    public List<Order> findAllByCustomer(Long idCustomer) {
+        List<Order> orders = new ArrayList();
+        for (Order order : this.findAll()) {
+            if (order.getCustomer().getId().equals(idCustomer)) {
+                orders.add(order);
+            }
+        }
+        return orders;
+    }
+        public List<Order> findAllByWarehouseOrig(Long idWarehouse) {
+        List<Order> orders = new ArrayList();
+        for (Order order : this.findAll()) {
+            if (order.getWarehouseOrig().getId().equals(idWarehouse)) {
+                orders.add(order);
+            }
+        }
+        return orders;
+    }
+}
