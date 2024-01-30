@@ -37,6 +37,17 @@ public class Employee implements Serializable {
         this.warehouse = deposit;
     }
 
+    public Employee(String CUIT, String name, String surname, String address, String phoneNumber) {
+        this.CUIT = CUIT;
+        this.name = name;
+        this.surname = surname;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        status = Status.ENABLED;
+
+    }
+
+    
     public Employee() {
     }
     

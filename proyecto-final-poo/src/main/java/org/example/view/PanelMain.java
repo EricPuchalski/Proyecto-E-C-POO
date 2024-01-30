@@ -40,6 +40,11 @@ public class PanelMain extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
 
         bttnEmployee.setText("EMPLEADO");
+        bttnEmployee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnEmployeeActionPerformed(evt);
+            }
+        });
 
         bttnCarrier.setText("TRANSPORTISTA");
 
@@ -121,6 +126,10 @@ public class PanelMain extends javax.swing.JPanel {
             ViewController.panelChange(this, new PanelSupplier(), this);
 
     }//GEN-LAST:event_bttnSupplierActionPerformed
+
+    private void bttnEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnEmployeeActionPerformed
+        ViewController.panelChange(this, new PanelEmployee(), this);
+    }//GEN-LAST:event_bttnEmployeeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
