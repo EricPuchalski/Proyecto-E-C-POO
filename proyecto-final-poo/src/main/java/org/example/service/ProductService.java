@@ -15,9 +15,9 @@ public class ProductService implements CRUD<Product>{
 
     @Override
        public void save(Product product) {
-        if (!productRepository.findProductEntities().contains(product.getCode())) {
-            }else{productRepository.create(product);
-        }
+
+            productRepository.create(product);
+
     }
 
     @Override

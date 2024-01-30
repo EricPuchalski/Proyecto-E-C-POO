@@ -149,11 +149,11 @@ public class ViewController {
             }
         };
 
-        String titulos[] = {"Id", "Nombre", "Proveedor", "Peso"};
+        String titulos[] = {"Id","Codigo", "Nombre", "Proveedor", "Peso"};
         newModel.setColumnIdentifiers(titulos);
         if (!productController.findAll().isEmpty()) {
             for (Product e : productController.findAll()) {
-                Object[] obj = {e.getId(), e.getName(), e.getSupplier().getName(), e.getWeight()};
+                Object[] obj = {e.getId(),e.getCode(), e.getName(), e.getSupplier().getName(), e.getWeight()};
                 newModel.addRow(obj);
             }
         }

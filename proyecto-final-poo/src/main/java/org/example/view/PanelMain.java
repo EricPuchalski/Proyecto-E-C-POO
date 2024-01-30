@@ -85,6 +85,11 @@ public class PanelMain extends javax.swing.JPanel {
         });
 
         bttnProduct.setText("PRODUCTO");
+        bttnProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnProductActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 40)); // NOI18N
         jLabel1.setText("BIENVENIDO A LDE SYSTEM");
@@ -159,6 +164,10 @@ public class PanelMain extends javax.swing.JPanel {
     private void bttnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnReportActionPerformed
         ViewController.panelChange(this, new PanelReport(), this);
     }//GEN-LAST:event_bttnReportActionPerformed
+
+    private void bttnProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnProductActionPerformed
+        ViewController.panelChange(this, new PanelProduct(), this);
+    }//GEN-LAST:event_bttnProductActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
