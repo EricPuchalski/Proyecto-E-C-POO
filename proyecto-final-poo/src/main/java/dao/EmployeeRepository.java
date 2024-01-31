@@ -1,22 +1,26 @@
+
     /*
      * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
      * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
      */
     package dao;
 
-    import dao.exceptions.NonexistentEntityException;
-    import java.io.Serializable;
-    import java.util.List;
-    import javax.persistence.EntityManager;
-    import javax.persistence.EntityManagerFactory;
-    import javax.persistence.Query;
-    import javax.persistence.EntityNotFoundException;
-    import javax.persistence.criteria.CriteriaQuery;
-    import javax.persistence.criteria.Root;
-    import org.example.model.Employee;
-    import org.example.util.Conexion;
+import dao.exceptions.NonexistentEntityException;
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import org.example.model.Employee;
+import org.example.util.Conexion;
 
-    /**
+/**
+
      *
      * @author ericp
      */
@@ -26,14 +30,11 @@
         public EmployeeRepository() {
             this.emf = Conexion.getEmf();
             this.warehouseRepository = new WarehouseRepository();
+            
         }
-        private EntityManagerFactory emf = null;
+   
 
-        public EntityManager getEntityManager() {
-            return emf.createEntityManager();
-        }
-
-             public void upLoad() {
+           public void upLoad() {
             Employee empleado1 = new Employee("1235433", "Juan", "Perez", "Calle 273", "232323",warehouseRepository.findWarehouse(1l));
             Employee empleado2 = new Employee("4562324", "María", "López", "Avenida 45", "454545",warehouseRepository.findWarehouse(2l));
             Employee empleado3 = new Employee("7896754", "Augusto", "Britez", "Calle 67", "676767",warehouseRepository.findWarehouse(3l));

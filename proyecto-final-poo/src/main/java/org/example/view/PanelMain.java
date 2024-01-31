@@ -39,6 +39,12 @@ public class PanelMain extends javax.swing.JPanel {
         bttnProduct = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
+
         bttnEmployee.setText("EMPLEADO");
         bttnEmployee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,12 +69,32 @@ public class PanelMain extends javax.swing.JPanel {
         });
 
         bttnReport.setText("INFORME");
+        bttnReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnReportActionPerformed(evt);
+            }
+        });
 
         bttnWarehouse.setText("DÉPOSITO");
+        bttnWarehouse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnWarehouseActionPerformed(evt);
+            }
+        });
 
         bttnOrder.setText("PEDIDO");
+        bttnOrder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bttnOrderMouseClicked(evt);
+            }
+        });
 
         bttnProduct.setText("PRODUCTO");
+        bttnProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnProductActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 40)); // NOI18N
         jLabel1.setText("BIENVENIDO A LDE SYSTEM");
@@ -122,6 +148,7 @@ public class PanelMain extends javax.swing.JPanel {
         ViewController.panelChange(this, new PanelCustomer(), this);
     }//GEN-LAST:event_btnCustomerActionPerformed
 
+
     private void bttnSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnSupplierActionPerformed
             ViewController.panelChange(this, new PanelSupplier(), this);
 
@@ -130,6 +157,25 @@ public class PanelMain extends javax.swing.JPanel {
     private void bttnEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnEmployeeActionPerformed
         ViewController.panelChange(this, new PanelEmployee(), this);
     }//GEN-LAST:event_bttnEmployeeActionPerformed
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formMouseClicked
+
+    private void bttnOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bttnOrderMouseClicked
+        ViewController.panelChange(this, new PanelOrder(), this);
+    }//GEN-LAST:event_bttnOrderMouseClicked
+
+    private void bttnWarehouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnWarehouseActionPerformed
+        ViewController.panelChange(this, new PanelWarehouse(), this);
+    }//GEN-LAST:event_bttnWarehouseActionPerformed
+
+    private void bttnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnReportActionPerformed
+        ViewController.panelChange(this, new PanelReport(), this);
+    }//GEN-LAST:event_bttnReportActionPerformed
+
+    private void bttnProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnProductActionPerformed
+        ViewController.panelChange(this, new PanelProduct(), this);
+    }//GEN-LAST:event_bttnProductActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

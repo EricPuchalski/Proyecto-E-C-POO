@@ -9,15 +9,15 @@ import java.util.List;
 public class ProductService implements CRUD<Product>{
     private ProductRepository productRepository;
 
-    public ProductService(ProductRepository productRepository) {
+    public ProductService() {
         this.productRepository = new ProductRepository();
     }
 
     @Override
        public void save(Product product) {
-        if (!productRepository.findProductEntities().contains(product.getCode())) {
-            }else{productRepository.create(product);
-        }
+
+            productRepository.create(product);
+
     }
 
     @Override
@@ -37,7 +37,9 @@ public class ProductService implements CRUD<Product>{
         return null;
     }
 
-
+    public Product findOneById(Long id){
+        return productRepository.findProduct(id);
+    }
     @Override
     public List<Product> findAll() {
         return productRepository.findProductEntities();

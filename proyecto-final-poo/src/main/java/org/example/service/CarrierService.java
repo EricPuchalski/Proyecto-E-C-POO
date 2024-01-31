@@ -10,7 +10,7 @@ import java.util.List;
 //
     public class CarrierService implements CRUD<Carrier>{
 
-    public CarrierService(CarrierRepository carrierRepository) {
+    public CarrierService() {
         this.carrierRepository = new CarrierRepository();
     }
         

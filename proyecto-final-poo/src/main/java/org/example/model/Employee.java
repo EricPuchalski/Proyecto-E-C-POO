@@ -11,7 +11,7 @@ public class Employee implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
-    private String CUIT;
+    private String cuit;
     private String name;
     private String surname;
     private String address;
@@ -28,7 +28,7 @@ public class Employee implements Serializable {
     }
 
     public Employee(String CUIT, String nombre, String apellido, String direccion, String telefono, Warehouse deposit) {
-        this.CUIT = CUIT;
+        this.cuit = CUIT;
         this.name = nombre;
         this.surname = apellido;
         this.address = direccion;
@@ -61,11 +61,11 @@ public class Employee implements Serializable {
     }
 
     public String getCUIT() {
-        return CUIT;
+        return cuit;
     }
 
     public void setCUIT(String CUIT) {
-        this.CUIT = CUIT;
+        this.cuit = CUIT;
     }
 
     public String getNombre() {
