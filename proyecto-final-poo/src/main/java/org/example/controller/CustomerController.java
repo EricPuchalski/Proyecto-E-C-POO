@@ -1,10 +1,14 @@
 package org.example.controller;
 
-import org.example.dao.exceptions.NonexistentEntityException;
+import dao.exceptions.NonexistentEntityException;
+import java.util.ArrayList;
 import org.example.model.Customer;
 import org.example.service.CustomerService;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class CustomerController implements CRUD<Customer>{
 
@@ -24,14 +28,37 @@ public class CustomerController implements CRUD<Customer>{
     }
 
 
-    public void delete(String cuit) throws NonexistentEntityException {
-        customerService.delete(cuit);
+    public void delete(String cuit) {
+        try {
+            customerService.delete(cuit);
+        } catch (org.example.dao.exceptions.NonexistentEntityException ex) {
+            Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public  void create(Customer customer){
         customerService.save(customer);
     }
-    public void upDate(Customer customer) throws Exception {
-        customerService.upDate(customer);
+    public void upDate(Customer customer) {
+        try {
+            customerService.upDate(customer);
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public List<Customer> findAllCustomersByCuit(String cuit){
+          if (cuit == null || cuit.isEmpty()) {
+            return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
+        }
+        String lowerCaseCuit = cuit.toLowerCase();
+        List<Customer> customersFound= new ArrayList<>();
+        customersFound = this.findAll()
+        .stream()
+        .filter(tr -> tr.getCuit().toLowerCase().startsWith(lowerCaseCuit))
+        .collect(Collectors.toList());
+        
+        
+        return customersFound;
+   
     }
 }

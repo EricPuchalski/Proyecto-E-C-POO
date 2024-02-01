@@ -17,17 +17,15 @@ import java.util.List;
 public class WarehouseService implements CRUD<Warehouse> {
     private WarehouseRepository warehouseRepository;
 
-    public WarehouseService(WarehouseRepository warehouseRepository) {
+    public WarehouseService() {
         this.warehouseRepository = new WarehouseRepository();
     }
     
 
     @Override
      public void save(Warehouse warehouse) {
-        if (!warehouseRepository.findWarehouseEntities().contains(warehouse.getCode())) {
-        }else{
-                        warehouseRepository.create(warehouse);
-                     }
+ 
+         warehouseRepository.create(warehouse);
     }
 
     @Override
@@ -45,6 +43,9 @@ public class WarehouseService implements CRUD<Warehouse> {
             }
         }
         return null;
+    }
+    public Warehouse findOneById(Long id){
+        return warehouseRepository.findWarehouse(id);
     }
 
     @Override

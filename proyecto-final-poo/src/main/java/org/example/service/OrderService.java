@@ -15,9 +15,7 @@ public class OrderService implements CRUD<Order> {
 
     @Override
     public void save(Order order) {
-        if (!orderRepository.findOrderEntities().contains(order.getOrderNumber())) {
-            }else{orderRepository.create(order);
-        }
+        orderRepository.create(order);
     }
 
     @Override
@@ -48,6 +46,24 @@ public class OrderService implements CRUD<Order> {
         if (deleteOrder != null) {
             orderRepository.destroy(deleteOrder.getId());
         }
+    }
+    public void processOrder(String orderNumber, String cuitEmpleado){
+        orderRepository.processOrder(orderNumber, cuitEmpleado);
+    }
+    public void completeOrder(String orderNumber){
+        orderRepository.completeOrder(orderNumber);
+    }
+    public void sendOrderToDispatch(String orderNumber){
+        orderRepository.sendOrderToDispatch(orderNumber);
+    }
+    public void dispatchOrder(String orderNumber){
+        orderRepository.dispatchOrder(orderNumber);
+    }
+    public void orderTransit(String orderNumber){
+        orderRepository.orderTransit(orderNumber);
+    }
+    public void sendToDelivery(String orderNumber, String cuitEmployeeReceiv){
+        orderRepository.sendToDelivery(orderNumber, cuitEmployeeReceiv);
     }
 }
 //package org.example.service;

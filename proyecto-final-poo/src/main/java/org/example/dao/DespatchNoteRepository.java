@@ -14,6 +14,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.example.model.DespatchNote;
+import org.example.util.Conexion;
 
 /**
  *
@@ -21,8 +22,8 @@ import org.example.model.DespatchNote;
  */
 public class DespatchNoteRepository implements Serializable {
 
-    public DespatchNoteRepository(EntityManagerFactory emf) {
-        this.emf = emf;
+    public DespatchNoteRepository() {
+        this.emf = Conexion.getEmf();
     }
     private EntityManagerFactory emf = null;
 

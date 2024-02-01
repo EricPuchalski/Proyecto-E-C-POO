@@ -103,7 +103,7 @@ public class PanelCustomerEdit extends javax.swing.JPanel {
         bttnModif.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         bttnModif.setForeground(new java.awt.Color(255, 255, 255));
         bttnModif.setText("Modificar");
-        bttnModif.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnModif.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnModif.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnModifActionPerformed(evt);
@@ -114,7 +114,7 @@ public class PanelCustomerEdit extends javax.swing.JPanel {
         bttnCancel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         bttnCancel.setForeground(new java.awt.Color(255, 255, 255));
         bttnCancel.setText("Cancelar");
-        bttnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnCancelActionPerformed(evt);

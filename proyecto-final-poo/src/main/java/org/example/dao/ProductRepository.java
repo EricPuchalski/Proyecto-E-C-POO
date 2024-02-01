@@ -74,6 +74,7 @@ public class ProductRepository implements Serializable {
 
 
     }
+    
     public void create(Product product) {
         EntityManager em = null;
         try {

@@ -75,7 +75,7 @@ public class PanelCustomerConsult extends javax.swing.JPanel {
         jScrollPane2.setViewportView(tblCustomers);
 
         bttnDestroy.setText("ELIMINAR");
-        bttnDestroy.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnDestroy.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnDestroy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnDestroyActionPerformed(evt);
@@ -83,7 +83,7 @@ public class PanelCustomerConsult extends javax.swing.JPanel {
         });
 
         bttnBack.setText("SALIR");
-        bttnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnBackActionPerformed(evt);
@@ -91,7 +91,7 @@ public class PanelCustomerConsult extends javax.swing.JPanel {
         });
 
         bttnEdit.setText("MODIFICAR");
-        bttnEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnEditActionPerformed(evt);
@@ -146,7 +146,7 @@ public class PanelCustomerConsult extends javax.swing.JPanel {
                 .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -43,6 +43,7 @@ public class CustomerService implements CRUD<Customer>{
     public void save(Customer t) {
     if (!(t.getCuit().isEmpty() || t.getName().isEmpty() || t.getSurname().isEmpty() || t.getAdress().isEmpty() || t.getPhone().isEmpty())) {
         customerRepository.create(t);
-    }     }
+    }     
+    }
 }
 

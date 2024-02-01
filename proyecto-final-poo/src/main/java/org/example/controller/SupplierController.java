@@ -9,9 +9,11 @@ import java.util.List;
 public class SupplierController implements CRUD<Supplier> {
     private final SupplierService supplierService;
 
-    public SupplierController(SupplierService supplierService) {
-        this.supplierService = supplierService;
+    public SupplierController( ) {
+        this.supplierService = new SupplierService();
     }
+
+   
 
     public Supplier findOne(String cuit) {
         return supplierService.findOne(cuit);
