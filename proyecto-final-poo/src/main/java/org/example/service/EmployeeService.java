@@ -14,7 +14,7 @@ public class EmployeeService implements CRUD<Employee> {
 
     @Override
     public void save(Employee employee) {
-        if (!employeeRepository.findEmployeeEntities().contains(employee.getCUIT())) {
+        if (!employeeRepository.findEmployeeEntities().contains(employee.getCuit())) {
         employeeRepository.create(employee);
         }
     }
@@ -33,7 +33,7 @@ public class EmployeeService implements CRUD<Employee> {
     }
     
     for (Employee employee : employeeRepository.findEmployeeEntities()) {
-        if (CUIT.equals(employee.getCUIT())) {
+        if (CUIT.equals(employee.getCuit())) {
             return employee;
         }
     }

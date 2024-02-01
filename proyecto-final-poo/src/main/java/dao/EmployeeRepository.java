@@ -25,51 +25,27 @@ import org.example.util.Conexion;
      * @author ericp
      */
     public class EmployeeRepository implements Serializable {
-        WarehouseRepository warehouseRepository = new WarehouseRepository();
+       public EmployeeRepository() {
+        this.emf = Conexion.getEmf();
+    }
+    private EntityManagerFactory emf = null;
 
-        public EmployeeRepository() {
-            this.emf = Conexion.getEmf();
-            this.warehouseRepository = new WarehouseRepository();
-            
+    public EntityManager getEntityManager() {
+        return emf.createEntityManager();
+    }
+ public Employee findEmployeeByCuit(String cuit) {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Employee> query = em.createQuery("SELECT o FROM Employee o WHERE o.cuit = :cuit", Employee.class);
+            query.setParameter("cuit", cuit);
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+           } finally {
+            em.close();
         }
-   
-
-           public void upLoad() {
-            Employee empleado1 = new Employee("1235433", "Juan", "Perez", "Calle 273", "232323",warehouseRepository.findWarehouse(1l));
-            Employee empleado2 = new Employee("4562324", "María", "López", "Avenida 45", "454545",warehouseRepository.findWarehouse(2l));
-            Employee empleado3 = new Employee("7896754", "Augusto", "Britez", "Calle 67", "676767",warehouseRepository.findWarehouse(3l));
-            Employee empleado4 = new Employee("1067515", "Ruben", "Luka", "Avenida 819", "898989",warehouseRepository.findWarehouse(4l));
-            Employee empleado5 = new Employee("1217665", "Pepe", "Felix", "Calle 110", "101010",warehouseRepository.findWarehouse(5l));
-            Employee empleado6 = new Employee("1238767", "Leonel", "Pratto", "Calle 213", "234323",warehouseRepository.findWarehouse(1l));
-            Employee empleado7 = new Employee("4564325", "Luisa", "Martinez", "Avenida 45", "452545",warehouseRepository.findWarehouse(2l));
-            Employee empleado8 = new Employee("7891234", "Pedro", "Gabon", "Calle 67", "126767",warehouseRepository.findWarehouse(3l));
-            Employee empleado9 = new Employee("1015423", "Laura", "Rodríguez", "Avenida 89", "128989",warehouseRepository.findWarehouse(4l));
-            Employee empleado10 = new Employee("2122145", "Carlos", "Sánchez", "Calle 140", "871010",warehouseRepository.findWarehouse(5l));
-            Employee empleado11 = new Employee("1223764", "Juan", "Modric", "Calle 223", "265323",warehouseRepository.findWarehouse(1l));
-            Employee empleado12 = new Employee("4563435", "Fernando", "López", "Avenida 45", "416545",warehouseRepository.findWarehouse(2l));
-            Employee empleado13 = new Employee("7896544", "Pedro", "Gómez", "Calle 67", "670567",warehouseRepository.findWarehouse(3l));
-            Employee empleado14 = new Employee("1051141", "Laura", "Bravo", "Avenida 829", "898539",warehouseRepository.findWarehouse(4l));
-            Employee empleado15 = new Employee("1241111", "Vanesa", "Lukovic", "Calle 170", "135010",warehouseRepository.findWarehouse(5l));
-
-
-            this.create(empleado1);
-            this.create(empleado2);
-            this.create(empleado3);
-            this.create(empleado4);
-            this.create(empleado5);    
-            this.create(empleado6);
-            this.create(empleado7);
-            this.create(empleado8);
-            this.create(empleado9);
-            this.create(empleado10);  
-            this.create(empleado11);
-            this.create(empleado12);
-            this.create(empleado13);
-            this.create(empleado14);
-            this.create(empleado15);  
-
-
-        }
+    }
+           
         public void create(Employee employee) {
             EntityManager em = null;
             try {

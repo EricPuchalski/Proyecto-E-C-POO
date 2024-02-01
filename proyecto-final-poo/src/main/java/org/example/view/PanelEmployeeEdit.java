@@ -235,7 +235,7 @@ private WarehouseRepository warehouseRepository;
     private void bttnModifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnModifActionPerformed
 if (!(txtName.getText().isEmpty() || txtAdress.getText().isEmpty() || txtTel.getText().isEmpty() || txtCuit.getText().isEmpty())) {
     employeeEdit.setNombre(txtName.getText());
-    employeeEdit.setCUIT(txtCuit.getText());
+    employeeEdit.setCuit(txtCuit.getText());
     employeeEdit.setDireccion(txtAdress.getText());
     employeeEdit.setTelefono(txtTel.getText());
 
@@ -262,7 +262,7 @@ if (!(txtName.getText().isEmpty() || txtAdress.getText().isEmpty() || txtTel.get
     }//GEN-LAST:event_jPanel1formAncestorAdded
 public void loadData(String cuit){
         employeeEdit = employeeController.findOne(cuit);
-        txtCuit.setText(employeeEdit.getCUIT());
+        txtCuit.setText(employeeEdit.getCuit());
         txtName.setText(employeeEdit.getNombre());
         txtAdress.setText(employeeEdit.getDireccion());
         txtTel.setText(employeeEdit.getTelefono());

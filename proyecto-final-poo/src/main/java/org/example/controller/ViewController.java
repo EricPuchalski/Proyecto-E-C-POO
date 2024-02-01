@@ -118,7 +118,7 @@ public class ViewController {
         newModel.setColumnIdentifiers(titulos);
 
         for (Warehouse e : warehouseController.findAll()) {
-            Object[] obj = {e.getId(), e.getCode(), e.getName(), e.getAdress(), e.getPhone(), e.getEmail(), e.getContinent(), e.getEmployee().getCUIT()};
+            Object[] obj = {e.getId(), e.getCode(), e.getName(), e.getAdress(), e.getPhone(), e.getEmail(), e.getContinent(), e.getEmployee().getCuit()};
             newModel.addRow(obj);
         }
         return newModel;
@@ -135,7 +135,7 @@ public class ViewController {
         newModel.setColumnIdentifiers(titulos);
 
         for (Warehouse e : warehouseController.findAllWarehousesByEmail(email)) {
-            Object[] obj = {e.getId(), e.getCode(), e.getName(), e.getAdress(), e.getPhone(), e.getEmail(), e.getContinent(), e.getEmployee().getCUIT()};
+            Object[] obj = {e.getId(), e.getCode(), e.getName(), e.getAdress(), e.getPhone(), e.getEmail(), e.getContinent(), e.getEmployee().getCuit()};
             newModel.addRow(obj);
         }
         return newModel;
@@ -188,7 +188,7 @@ public class ViewController {
         newModel.setColumnIdentifiers(titulos);
         if (!employeeController.findAll().isEmpty()) {
             for (Employee e : employeeController.findAll()) {
-                Object[] obj = {e.getId(), e.getCUIT(), e.getNombre(), e.getApellido(), e.getDeposit().getEmail()};
+                Object[] obj = {e.getId(), e.getCuit(), e.getNombre(), e.getApellido(), e.getDeposit().getEmail()};
                 newModel.addRow(obj);
             }
         }
@@ -207,7 +207,7 @@ public class ViewController {
         newModel.setColumnIdentifiers(titulos);
         if (!employeeController.findAllEmployeesByCuit(cuit).isEmpty()) {
             for (Employee e : employeeController.findAllEmployeesByCuit(cuit)) {
-                Object[] obj = {e.getId(), e.getCUIT(), e.getNombre(), e.getApellido(), e.getDeposit().getEmail()};
+                Object[] obj = {e.getId(), e.getCuit(), e.getNombre(), e.getApellido(), e.getDeposit().getEmail()};
                 newModel.addRow(obj);
             }
         }
@@ -289,4 +289,30 @@ public class ViewController {
         }
         return newModel;
     }
+      // Método para obtener un modelo de tabla que contenga los depósitos
+    public DefaultTableModel modelTableWarehousess() {
+        DefaultTableModel model = new DefaultTableModel();
+        // Agregamos las columnas necesarias al modelo
+        model.addColumn("Código");
+        model.addColumn("Nombre");
+        model.addColumn("Dirección");
+        model.addColumn("Teléfono");
+        model.addColumn("Email");
+        model.addColumn("Continente");
+        
+        // Obtenemos la lista de depósitos
+        for (Warehouse warehouse : warehouseController.findAll()) {
+            // Agregamos una fila por cada depósito
+            model.addRow(new Object[]{
+                warehouse.getCode(),
+                warehouse.getName(),
+                warehouse.getAdress(),
+                warehouse.getPhone(),
+                warehouse.getEmail(),
+                warehouse.getContinent()
+            });
+        }
+        return model;
+    }
 }
+
