@@ -1,6 +1,5 @@
 package org.example.controller;
 
-import dao.exceptions.NonexistentEntityException;
 import java.util.ArrayList;
 import org.example.model.Warehouse;
 
@@ -8,6 +7,7 @@ import org.example.model.Warehouse;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.JTable;
+import org.example.dao.exceptions.NonexistentEntityException;
 import org.example.service.WarehouseService;
 
 public class WarehouseController implements CRUD<Warehouse>{
@@ -44,7 +44,7 @@ public class WarehouseController implements CRUD<Warehouse>{
     }
 
     @Override
-    public void delete(String id) throws NonexistentEntityException {
+    public void delete(String id) throws NonexistentEntityException{
         warehouseService.delete(id);
     }
     public List<Warehouse> findAllWarehousesByEmail(String email){

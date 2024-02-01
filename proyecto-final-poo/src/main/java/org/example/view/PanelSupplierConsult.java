@@ -4,13 +4,13 @@
  */
 package org.example.view;
 
-import dao.exceptions.NonexistentEntityException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import org.example.controller.SupplierController;
 import org.example.controller.ViewController;
+import org.example.dao.exceptions.NonexistentEntityException;
 import org.example.model.Supplier;
 
 /**

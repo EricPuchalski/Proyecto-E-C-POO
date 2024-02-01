@@ -4,7 +4,6 @@
  */
 package org.example.controller;
 
-import dao.exceptions.NonexistentEntityException;
 import java.util.List;
 import org.example.model.ProductCategory;
 import org.example.service.ProductCategoryService;
@@ -41,7 +40,7 @@ public class ProductCategoryController implements CRUD<ProductCategory>{
     }
 
     @Override
-    public void delete(String id) throws NonexistentEntityException {
+    public void delete(String id){
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     public ProductCategory findByName(String name){

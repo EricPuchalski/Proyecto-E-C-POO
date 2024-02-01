@@ -1,6 +1,5 @@
 package org.example.controller;
 
-import dao.exceptions.NonexistentEntityException;
 import java.util.ArrayList;
 import org.example.model.Customer;
 import org.example.service.CustomerService;
@@ -48,7 +47,7 @@ public class CustomerController implements CRUD<Customer>{
     }
     public List<Customer> findAllCustomersByCuit(String cuit){
           if (cuit == null || cuit.isEmpty()) {
-            return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
+            return new ArrayList<>(); // Si el nombre es nulo o vacÃ­o, retornar una lista vacÃ­a
         }
         String lowerCaseCuit = cuit.toLowerCase();
         List<Customer> customersFound= new ArrayList<>();

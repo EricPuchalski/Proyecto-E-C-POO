@@ -5,6 +5,8 @@ import org.example.dao.exceptions.NonexistentEntityException;
 import org.example.model.Product;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ProductService implements CRUD<Product>{
     private ProductRepository productRepository;
@@ -21,9 +23,13 @@ public class ProductService implements CRUD<Product>{
     }
 
     @Override
-     public void upDate(Product product) throws Exception {
+     public void upDate(Product product) {
         if (productRepository.findProduct(product.getId()) != null) {
-            productRepository.edit(product);
+            try {
+                productRepository.edit(product);
+            } catch (Exception ex) {
+                Logger.getLogger(ProductService.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -46,12 +52,17 @@ public class ProductService implements CRUD<Product>{
     }
 
     @Override
-    public void delete(String code) throws NonexistentEntityException {
+    public void delete(String code) {
         Product deleteProduct = findOne(code);
         if (deleteProduct != null) {
-            productRepository.destroy(deleteProduct.getId());
+            try {
+                productRepository.destroy(deleteProduct.getId());
+            } catch (NonexistentEntityException ex) {
+                Logger.getLogger(ProductService.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
+
        
 
 }

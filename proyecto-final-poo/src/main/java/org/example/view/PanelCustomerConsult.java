@@ -154,11 +154,7 @@ public class PanelCustomerConsult extends javax.swing.JPanel {
         if(tblCustomers.getRowCount() > 0){
             if(tblCustomers.getSelectedRow()!=-1){
                 String customerCuit = String.valueOf(tblCustomers.getValueAt(tblCustomers.getSelectedRow(),1));
-                try {
-                    customerController.delete(customerCuit);
-                } catch (NonexistentEntityException ex) {
-                    Logger.getLogger(PanelCustomerConsult.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                customerController.delete(customerCuit);
                 cargarTabla();
             }
         }

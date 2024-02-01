@@ -1,10 +1,10 @@
 package org.example.controller;
-import dao.exceptions.NonexistentEntityException;
 import java.util.ArrayList;
 import org.example.model.Carrier;
 import org.example.service.CarrierService;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.example.dao.exceptions.NonexistentEntityException;
 
 public class CarrierController {
     private CarrierService carrierService;
@@ -21,7 +21,7 @@ public class CarrierController {
        return carrierService.findOne(cuit);
     }
 
-    public void delete(String cuit) throws NonexistentEntityException, org.example.dao.exceptions.NonexistentEntityException{
+    public void delete(String cuit) throws NonexistentEntityException{
         carrierService.delete(cuit);
     }
 
@@ -42,7 +42,7 @@ public class CarrierController {
     
         public List<Carrier> findAllCarriersByCuit(String cuit){
         if (cuit == null || cuit.isEmpty()) {
-            return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
+            return new ArrayList<>(); // Si el nombre es nulo o vacÃ­o, retornar una lista vacÃ­a
         }
         String lowerCaseCuit = cuit.toLowerCase();
 

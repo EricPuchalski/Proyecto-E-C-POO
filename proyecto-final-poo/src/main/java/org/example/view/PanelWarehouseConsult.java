@@ -4,11 +4,11 @@
  */
 package org.example.view;
 
-import dao.exceptions.NonexistentEntityException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.example.controller.ViewController;
 import org.example.controller.WarehouseController;
+import org.example.dao.exceptions.NonexistentEntityException;
 
 /**
  *
