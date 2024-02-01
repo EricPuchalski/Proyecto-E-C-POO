@@ -120,7 +120,7 @@ public class CustomerRepository implements Serializable {
                     throw new NonexistentEntityException("The customer with id " + id + " no longer exists.");
                 }
             }
-            throw ex;
+            throw ex; 
         } finally {
             if (em != null) {
                 em.close();

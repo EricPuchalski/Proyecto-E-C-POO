@@ -10,7 +10,7 @@ import java.util.List;
 //
     public class CarrierService implements CRUD<Carrier>{
 
-    public CarrierService(CarrierRepository carrierRepository) {
+    public CarrierService() {
         this.carrierRepository = new CarrierRepository();
     }
         
@@ -19,9 +19,7 @@ import java.util.List;
 
     @Override
     public void save(Carrier carrier) {
-        if (!carrierRepository.findCarrierEntities().contains(carrier.getCuit())) {
-            }else{ carrierRepository.create(carrier);
-        }
+        carrierRepository.create(carrier);
     }
 
     @Override
@@ -60,48 +58,3 @@ import java.util.List;
  
  
 }
-//    private Carrier carrier;
-//
-//
-//    public CarrierService(TransportistaRepository transportistaRepository) {
-//        this.transportistaRepository = transportistaRepository;
-//    }
-//
-//    @Override
-//    public void save(Carrier carrier) {
-//        if (transportistaRepository.findOne(carrier.getCuit())== null) {
-//            transportistaRepository.save(carrier);
-//        }
-//    }
-//
-//    @Override
-//    public void upDate(Carrier carrier) {
-//        if(findOne(carrier.getCuit()) != null){
-//            transportistaRepository.upDate(carrier);
-//        }
-//    }
-//
-//    @Override
-//    public Carrier findOne(String cuit) {
-//        Carrier carrier = null;
-//        if (transportistaRepository.findOne(cuit)!= null) {
-//            carrier = transportistaRepository.findOne(cuit);
-//
-//        }
-//        return carrier;
-//    }
-//
-//
-//    @Override
-//    public List<Carrier> findAll() {
-//        return transportistaRepository.findAll();
-//    }
-//
-//
-//    @Override
-//    public void delete(String cuit) {
-//        if (findOne(cuit)!= null){
-//            transportistaRepository.delete(cuit);
-//        }
-//    }
-//}
