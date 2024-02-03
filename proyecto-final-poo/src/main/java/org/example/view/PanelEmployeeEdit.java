@@ -309,7 +309,8 @@ private ViewController viewController;
     }//GEN-LAST:event_bttnModifActionPerformed
 
     private void txtWarehouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtWarehouseActionPerformed
-      // Obtener el código ingresado en el campo de búsqueda
+      
+        // Obtener el código ingresado en el campo de búsqueda
     String warehouseCode = txtWarehouse.getText();
 
     if (!warehouseCode.isEmpty()) {
@@ -348,7 +349,7 @@ private ViewController viewController;
         } else {
             JOptionPane.showMessageDialog(null, "No se encontraron depósitos para el código ingresado.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
-    } else {
+    } else{
         JOptionPane.showMessageDialog(null, "Por favor ingrese un código de depósito.", "Advertencia", JOptionPane.WARNING_MESSAGE);
     }
     }//GEN-LAST:event_txtWarehouseActionPerformed
