@@ -38,6 +38,8 @@ private ViewController viewController;
         this.cuit=cuit;
         initComponents();
         this.setSize(800, 700);
+        loadAllWarehouses();
+
         
 
     }
@@ -145,6 +147,11 @@ private ViewController viewController;
         bttnWarehouse.setForeground(new java.awt.Color(204, 255, 255));
         bttnWarehouse.setText("Buscar");
         bttnWarehouse.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        bttnWarehouse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnWarehouseActionPerformed(evt);
+            }
+        });
 
         tblWarehouses.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -302,7 +309,9 @@ private ViewController viewController;
     }//GEN-LAST:event_bttnModifActionPerformed
 
     private void txtWarehouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtWarehouseActionPerformed
-       String warehouseCode = txtWarehouse.getText();
+      // Obtener el código ingresado en el campo de búsqueda
+    String warehouseCode = txtWarehouse.getText();
+
     if (!warehouseCode.isEmpty()) {
         // Obtener la lista de todos los almacenes
         List<Warehouse> allWarehouses = warehouseRepository.findWarehouseEntities();
@@ -317,7 +326,13 @@ private ViewController viewController;
 
         if (!matchingWarehouses.isEmpty()) {
             // Creamos un modelo de tabla para los almacenes encontrados
-            DefaultTableModel model = viewController.modelTableWarehousess();
+            DefaultTableModel model = new DefaultTableModel();
+            model.addColumn("Código");
+            model.addColumn("Nombre");
+            model.addColumn("Dirección");
+            model.addColumn("Teléfono");
+            model.addColumn("Email");
+            model.addColumn("Continente");
             
             // Limpiamos la tabla
             DefaultTableModel tableModel = (DefaultTableModel) tblWarehouses.getModel();
@@ -337,12 +352,25 @@ private ViewController viewController;
         JOptionPane.showMessageDialog(null, "Por favor ingrese un código de depósito.", "Advertencia", JOptionPane.WARNING_MESSAGE);
     }
     }//GEN-LAST:event_txtWarehouseActionPerformed
+
+    private void bttnWarehouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnWarehouseActionPerformed
+            txtWarehouseActionPerformed(evt);
+
+    }//GEN-LAST:event_bttnWarehouseActionPerformed
 public void loadData(String cuit){
         employeeEdit = employeeController.findOne(cuit);
         txtCuit.setText(employeeEdit.getCuit());
         txtName.setText(employeeEdit.getNombre());
         txtAdress.setText(employeeEdit.getDireccion());
         txtTel.setText(employeeEdit.getTelefono());
+    }
+
+  private void loadAllWarehouses() {
+        // Obtener el modelo de tabla de depósitos desde ViewController
+        DefaultTableModel model = viewController.modelTableWarehousess();
+
+        // Establecer el modelo en la tabla
+        tblWarehouses.setModel(model);
     }
 
 
