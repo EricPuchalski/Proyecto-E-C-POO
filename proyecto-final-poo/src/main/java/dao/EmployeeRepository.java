@@ -83,27 +83,35 @@ import org.example.util.Conexion;
             }
         }
 
-        public void destroy(Long id) throws NonexistentEntityException {
-            EntityManager em = null;
-            try {
-                em = getEntityManager();
-                em.getTransaction().begin();
-                Employee employee;
-                try {
-                    employee = em.getReference(Employee.class, id);
-                    employee.getId();
-                } catch (EntityNotFoundException enfe) {
-                    throw new NonexistentEntityException("The employee with id " + id + " no longer exists.", enfe);
-                }
-                em.remove(employee);
-                em.getTransaction().commit();
-            } finally {
-                if (em != null) {
-                    em.close();
-                }
-            }
+       public void destroy(Long id) throws NonexistentEntityException {
+    EntityManager em = null;
+    try {
+        em = getEntityManager();
+        em.getTransaction().begin();
+        
+        Employee employee;
+        try {
+            employee = em.getReference(Employee.class, id);
+            employee.getId();
+        } catch (EntityNotFoundException enfe) {
+            throw new NonexistentEntityException("El empleado co el id " + id + " no existe mas.", enfe);
         }
-
+        
+        // Primero, elimina las referencias al empleado en la tabla WAREHOUSES
+        Query query = em.createQuery("UPDATE Warehouse w SET w.employee = null WHERE w.employee.id = :employeeId");
+        query.setParameter("employeeId", id);
+        query.executeUpdate();
+        
+        // Luego, elimina al empleado
+        em.remove(employee);
+        
+        em.getTransaction().commit();
+    } finally {
+        if (em != null) {
+            em.close();
+        }
+    }
+}
         public List<Employee> findEmployeeEntities() {
             return findEmployeeEntities(true, -1, -1);
         }
