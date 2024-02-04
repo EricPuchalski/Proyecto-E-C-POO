@@ -67,7 +67,7 @@ public class EmployeeService implements CRUD<Employee> {
 
         List<Employee> employeesFound = this.findAll()
                 .stream()
-                .filter(tr -> tr.getCUIT().toLowerCase().startsWith(lowercaseCuit))
+                .filter(tr -> tr.getCuit().toLowerCase().startsWith(lowercaseCuit))
                 .collect(Collectors.toList());
         
         return employeesFound;
