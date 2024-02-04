@@ -28,66 +28,10 @@ public class OrderController implements CRUD<Order> {
         this.warehouseController = new WarehouseController();
     }
 
-//    public void crearPedido(Order order){
-//        orderService.crearPedido(order);
-//    }
-//
-//    public void agregarLineaPedido(Order order, OrderLine orderLine){
-//        orderService.agregarLineaDePedido(order, orderLine);
-//    }
-//
-//    public void mostrarPedido(String nro){
-//        for (Order pedidos: orderService.obtenerTodosLosPedidos()
-//             ) {
-//            if (pedidos.getOrderNumber().equals(nro)){
-//                System.out.println(pedidos.toString());
-//            }
-//        }
-//    }
-//
-//    public List<Order> mostrarTodosLosPedidos(){
-//        return orderService.obtenerTodosLosPedidos();
-//    }
-//
-//    public Order buscarPedidoPorNumero(String numero){
-//        return orderService.buscarPedidoPorNumero(numero);
-//    }
-//
-//    public void procesarPedido(String numero,String cuitEmpleado) {
-//        orderService.procesarPedido(numero, cuitEmpleado);
-//    }
-//
-//    public void completarPedido(String numero) {
-//        orderService.completarPedido(numero);
-//    }
-//
-//    public void enviarADespacho(String numero) {
-//        orderService.enviarADespacho(numero);
-//    }
-//    public void despacharPedido(String numero) {
-//        orderService.despacharPedido(numero);
-//    }
-//    public void enviarAEntrega(String numero, String cuitEmpleadoReceptor){
-//        orderService.enviarAEntrega(numero, cuitEmpleadoReceptor);
-//    }
-//    public void entregarPedido(String numero, List<Integer> calificacionesProveedor) {
-//        orderService.entregarPedido(numero, calificacionesProveedor);
-//    }
-//
-//    public void transitarPedido(String numero){
-//        orderService.transitarPedido(numero);
-//    }
-//    public int obtenerCantidadPedidoPorSucursal(String sucursal){
-//        return orderService.obtenerCantidadPedidosPorSucursal(sucursal);
-//    }
-//    public int contarPedidosEnEstadoPendiente(){
-//        return orderService.contarPedidosEnEstadoPendiente();
-//    }
     public List<String> returnCuitsCustomerCarrier(JTable tblCustomers, JTable tblCarriers) {
         List<String> cuits = new ArrayList<>();
         if (tblCustomers.getRowCount() > 0 && tblCustomers.getSelectedRow() != -1
                 && tblCarriers.getRowCount() > 0 && tblCarriers.getSelectedRow() != -1) {
-
             String idCliente = String.valueOf(tblCustomers.getValueAt(tblCustomers.getSelectedRow(), 3));
             String idTransportista = String.valueOf(tblCarriers.getValueAt(tblCarriers.getSelectedRow(), 2));
             cuits.add(idCliente);
@@ -105,9 +49,7 @@ public class OrderController implements CRUD<Order> {
         order.setCarrier(orderCarrier);
         order.setOrderStart(LocalDate.now());
         order.setOrderStatus(order.getWarehouseOrig().getSectors().get(0).getDescription());
-
         this.create(order);
-        System.out.println(orderCustomer.getName());
     }
 
     public Order findOneByOrderNumber(String orderNumber) {
@@ -140,18 +82,7 @@ public class OrderController implements CRUD<Order> {
     }
 
     public List<Order> findAllOrdersByNumber(String orderNumber) {
-        if (orderNumber == null || orderNumber.isEmpty()) {
-            return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
-        }
-
-        String lowercaseNumber = orderNumber.toLowerCase(); // Convertir el nombre de búsqueda a minúsculas
-
-        List<Order> ordersFound = this.findAll()
-                .stream()
-                .filter(tr -> tr.getOrderNumber().toLowerCase().startsWith(lowercaseNumber))
-                .collect(Collectors.toList());
-
-        return ordersFound;
+        return orderService.findAllOrdersByNumber(orderNumber);
     }
 
     public void processOrder(String orderNumber, String cuitEmpleado) {
@@ -178,22 +109,10 @@ public class OrderController implements CRUD<Order> {
         orderService.sendToDelivery(orderNumber, cuitEmployeeReceiv);
     }
 
-    public List<Order> findAllByCustomer(Long idCustomer) {
-        List<Order> orders = new ArrayList();
-        for (Order order : this.findAll()) {
-            if (order.getCustomer().getId().equals(idCustomer)) {
-                orders.add(order);
-            }
-        }
-        return orders;
+    public List<Order> findAllOrdersByCustomer(Long idCustomer) {
+        return orderService.findAllOrdersByCustomers(idCustomer);
     }
-        public List<Order> findAllByWarehouseOrig(Long idWarehouse) {
-        List<Order> orders = new ArrayList();
-        for (Order order : this.findAll()) {
-            if (order.getWarehouseOrig().getId().equals(idWarehouse)) {
-                orders.add(order);
-            }
-        }
-        return orders;
+        public List<Order> findAllOrdersByWarehouseOrig(Long idWarehouse) {
+        return orderService.findAllOrdersByWarehouseOrig(idWarehouse);
     }
 }

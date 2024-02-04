@@ -41,18 +41,7 @@ public class ProductController implements CRUD<Product>{
     }
 
     public List<Product> findAllProductsByName(String name) {
-        if (name == null || name.isEmpty()) {
-            return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
-        }
-
-        String lowercaseName = name.toLowerCase(); // Convertir el nombre de búsqueda a minúsculas
-
-        List<Product> productsFound = this.findAll()
-                .stream()
-                .filter(tr -> tr.getName().toLowerCase().startsWith(lowercaseName))
-                .collect(Collectors.toList());
-
-        return productsFound;
+        return productService.findAllProductsByName(name);
     }
     
 }

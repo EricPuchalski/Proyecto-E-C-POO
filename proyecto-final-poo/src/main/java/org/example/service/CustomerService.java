@@ -2,9 +2,11 @@ package org.example.service;
 
 import dao.CustomerRepository;
 import dao.exceptions.NonexistentEntityException;
+import java.util.ArrayList;
 import org.example.model.Customer;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CustomerService implements CRUD<Customer>{
     private CustomerRepository customerRepository;
@@ -45,5 +47,18 @@ public class CustomerService implements CRUD<Customer>{
         customerRepository.create(t);
     }     
     }
+    public List<Customer> findAllCustomersByCuit(String cuit){
+        if (cuit == null || cuit.isEmpty()) {
+            return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
+        }
+        String lowerCaseCuit = cuit.toLowerCase();
+        List<Customer> customersFound= new ArrayList<>();
+        customersFound = this.findAll()
+        .stream()
+        .filter(tr -> tr.getCuit().toLowerCase().startsWith(lowerCaseCuit))
+        .collect(Collectors.toList());
+        return customersFound;
+        }
+ 
 }
 

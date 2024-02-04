@@ -4,6 +4,7 @@
  */
 package org.example.view;
 
+import javax.swing.JOptionPane;
 import org.example.controller.OrderController;
 import org.example.controller.ViewController;
 
@@ -148,7 +149,12 @@ public class PanelDispatchOrder extends javax.swing.JPanel {
             if(tblOrders.getSelectedRow()!=-1){
                 String orderNumber = String.valueOf(tblOrders.getValueAt(tblOrders.getSelectedRow(),3));
                 orderController.dispatchOrder(orderNumber);
+                JOptionPane.showMessageDialog(this, "Pedido despachado", "Exito", JOptionPane.INFORMATION_MESSAGE);
                 ViewController.panelChange(this, new PanelOrder(), this);
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Por favor seleccione un pedido", "Error", JOptionPane.ERROR_MESSAGE);
+
             }
         }
     }//GEN-LAST:event_bttnConfirmActionPerformed

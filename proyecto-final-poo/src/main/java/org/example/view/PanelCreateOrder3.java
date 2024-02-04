@@ -4,6 +4,7 @@
  */
 package org.example.view;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import org.example.controller.OrderController;
@@ -224,27 +225,7 @@ public class PanelCreateOrder3 extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bttnProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnProductActionPerformed
-//        List<Producto> productosBuscados = productoController.buscarPorNombreParcial(txtProduct.getText()+"%");
-//        DefaultTableModel modeloNuevo = new DefaultTableModel(){
-//            @Override
-//            public boolean isCellEditable(int row, int column){
-//                return false;
-//            }
-//        };
-//
-//        String titulos[] = {"Id", "Nombre", "Proveedor", "Peso"};
-//        modeloNuevo.setColumnIdentifiers(titulos);
-//        List<Producto> listProductos = productoController.findAll();
-//
-//        if(!productosBuscados.isEmpty()){
-//            for (Producto e: productosBuscados){
-//                Object[] obj = {e.getId(), e.getNombre(), e.getProveedor().getNombre(), e.getPeso()};
-//                modeloNuevo.addRow(obj);
-//            }
-//        }
-//
-//        tblProducts.setModel(modeloNuevo);
-          tblProducts.setModel(viewController.modelTableProductsByName(txtProduct.getText()));
+        tblProducts.setModel(viewController.modelTableProductsByName(txtProduct.getText()));
     }//GEN-LAST:event_bttnProductActionPerformed
 
     private void bttnCreateOrderLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnCreateOrderLineActionPerformed
@@ -269,8 +250,15 @@ public class PanelCreateOrder3 extends javax.swing.JPanel {
     }//GEN-LAST:event_bttnBackActionPerformed
 
     private void bttnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnConfirmActionPerformed
-        
-        orderController.createOrder(order, warehouseOrig,warehouseDest, cuitCustomer, cuitCarrier);
+        if(order.getOrderLines().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Su pedido no tiene productos!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else{
+            JOptionPane.showMessageDialog(this, "Pedido creado con exito", "Creación exitosa", JOptionPane.INFORMATION_MESSAGE);
+            orderController.createOrder(order, warehouseOrig,warehouseDest, cuitCustomer, cuitCarrier);
+            ViewController.panelChange(this, new PanelOrder(), this);
+        }
+ 
+
     }//GEN-LAST:event_bttnConfirmActionPerformed
 
     private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
