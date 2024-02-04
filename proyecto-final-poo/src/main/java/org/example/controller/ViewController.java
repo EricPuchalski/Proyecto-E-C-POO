@@ -83,7 +83,7 @@ public class ViewController {
         };
         String titulos[] = {"Id", "Cuit", "Nombre", "Estado","Direccion","Teléfono","email"};
         modeloTabla.setColumnIdentifiers(titulos);
-        List<Supplier> listSuppliers = supplierController.findAll();
+        List<Supplier> listSuppliers = supplierController.findAllEnabledEmployees();
 
         if(!listSuppliers.isEmpty()){
             for (Supplier sp: listSuppliers){
@@ -194,7 +194,7 @@ public class ViewController {
         String titulos[] = {"Id","Codigo", "Nombre", "Proveedor", "Peso"};
         newModel.setColumnIdentifiers(titulos);
         if (!productController.findAll().isEmpty()) {
-            for (Product e : productController.findAll()) {
+            for (Product e : productController.findAllEnabledEmployees()) {
                 Object[] obj = {e.getId(),e.getCode(), e.getName(), e.getSupplier().getName(), e.getWeight()};
                 newModel.addRow(obj);
             }
@@ -229,7 +229,7 @@ public class ViewController {
         String titulos[] = {"Id", "Cuit", "Nombre", "Apellido", "Deposito"};
         newModel.setColumnIdentifiers(titulos);
         if (!employeeController.findAll().isEmpty()) {
-            for (Employee e : employeeController.findAll()) {
+            for (Employee e : employeeController.findAllEnabledCustomers()) {
                 Object[] obj = {e.getId(), e.getCuit(), e.getNombre(), e.getApellido(), e.getDeposit().getEmail()};
                 newModel.addRow(obj);
             }

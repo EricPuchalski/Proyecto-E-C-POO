@@ -135,12 +135,12 @@ public class PanelConsultProduct extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 15, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bttnDestroy, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblProduct)
                         .addComponent(txtNameProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(bttnFindOneProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(bttnFindOneProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bttnDestroy, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(49, 49, 49)
@@ -182,14 +182,8 @@ public class PanelConsultProduct extends javax.swing.JPanel {
         if(tblProducts.getRowCount() > 0){
             if(tblProducts.getSelectedRow()!=-1){
                 String codeProduct = String.valueOf(tblProducts.getValueAt(tblProducts.getSelectedRow(),1));
-                try {
-                    productController.delete(codeProduct);
-                    
-                    this.loadData();
-                } catch (NonexistentEntityException ex) {
-                    Logger.getLogger(PanelConsultProduct.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
+                   productController.disableAccountByCuit(codeProduct);           
+                   this.loadData();
             }
         }
     }//GEN-LAST:event_bttnDestroyActionPerformed
@@ -214,7 +208,7 @@ public class PanelConsultProduct extends javax.swing.JPanel {
     }//GEN-LAST:event_formAncestorAdded
 
     private void bttnFindOneProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnFindOneProductActionPerformed
-        tblProducts.setModel(viewController.modelTableWarehousesByEmail(txtNameProduct.getText()));
+        tblProducts.setModel(viewController.modelTableProductsByName(txtNameProduct.getText()));
     }//GEN-LAST:event_bttnFindOneProductActionPerformed
 
     private void loadData(){

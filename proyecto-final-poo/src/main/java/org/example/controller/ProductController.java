@@ -44,4 +44,16 @@ public class ProductController implements CRUD<Product>{
         return productService.findAllProductsByName(name);
     }
     
+    public Product findProductEnabledByCode(String code){
+        return productService.findProductEnabledByCode(code);
+    }
+    public void disableAccountByCuit(String code){
+        productService.disableAccountByCode(code);
+    }
+    public List<Product> findAllEnabledEmployees(){
+        return productService.findAllEnabledEmployees()
+            .stream()
+            .filter(customer -> customer.getStatus().equals(Product.Status.ENABLED))
+            .collect(Collectors.toList());
+    }
 }

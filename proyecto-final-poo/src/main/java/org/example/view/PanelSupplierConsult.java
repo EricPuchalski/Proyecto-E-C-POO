@@ -18,18 +18,19 @@ import org.example.model.Supplier;
  * @author facundo
  */
 public class PanelSupplierConsult extends javax.swing.JPanel {
-        private SupplierController supplierController;
-        private ViewController viewController;
+
+    private SupplierController supplierController;
+    private ViewController viewController;
 
     /**
      * Creates new form PanelSupplierConsult
      */
     public PanelSupplierConsult() {
-        this.supplierController=new SupplierController();
-        this.viewController=new ViewController();
+        this.supplierController = new SupplierController();
+        this.viewController = new ViewController();
 
         initComponents();
-        this.setSize(800,700);
+        this.setSize(800, 700);
 
     }
 
@@ -211,14 +212,12 @@ public class PanelSupplierConsult extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bttnDestroyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnDestroyActionPerformed
-        if(tblSuppliers.getRowCount() > 0){
-            if(tblSuppliers.getSelectedRow()!=-1){
-                String supplierCuit = String.valueOf(tblSuppliers.getValueAt(tblSuppliers.getSelectedRow(),1));
-                try {
-                    supplierController.delete(supplierCuit);
-                } catch (NonexistentEntityException ex) {
-                    Logger.getLogger(PanelSupplierConsult.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        if (tblSuppliers.getRowCount() > 0) {
+            if (tblSuppliers.getSelectedRow() != -1) {
+                String supplierCuit = String.valueOf(tblSuppliers.getValueAt(tblSuppliers.getSelectedRow(), 1));
+
+                supplierController.disableAccountByCuit(supplierCuit);
+
                 cargarTabla();
             }
         }
@@ -230,9 +229,9 @@ public class PanelSupplierConsult extends javax.swing.JPanel {
 
     private void bttnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnEditActionPerformed
 
-        if(tblSuppliers.getRowCount() > 0){
-            if(tblSuppliers.getSelectedRow()!=-1){
-                String cuit = String.valueOf(tblSuppliers.getValueAt(tblSuppliers.getSelectedRow(),1));
+        if (tblSuppliers.getRowCount() > 0) {
+            if (tblSuppliers.getSelectedRow() != -1) {
+                String cuit = String.valueOf(tblSuppliers.getValueAt(tblSuppliers.getSelectedRow(), 1));
 
                 ViewController.panelChange(this, new PanelSupplierEdit(cuit), this);
             }
@@ -247,27 +246,10 @@ public class PanelSupplierConsult extends javax.swing.JPanel {
         tblSuppliers.setModel(viewController.modelTableSuppliersByCuit(txtCuitSupplier.getText()));
     }//GEN-LAST:event_bttnFindOneSupplierActionPerformed
 
-    private void cargarTabla(){
-        DefaultTableModel modeloTabla = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int row, int column){
-                return false;
-            }
-        };
-        String titulos[] = {"Id", "Cuit", "Nombre", "Estado","Direccion","Teléfono","email"};
-        modeloTabla.setColumnIdentifiers(titulos);
-        List<Supplier> listSuppliers = supplierController.findAll();
-
-        if(!listSuppliers.isEmpty()){
-            for (Supplier sp: listSuppliers){
-                Object[] obj = {sp.getId(),sp.getCuit(),sp.getName(),sp.getStatus(),sp.getAdress(),sp.getPhone(),sp.getEmail()};
-                modeloTabla.addRow(obj);
-            }
-        }
-
-        tblSuppliers.setModel(modeloTabla);
+    private void cargarTabla() {
+        tblSuppliers.setModel(viewController.modelTableSuppliers());
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bttnBack;
     private javax.swing.JButton bttnDestroy;
