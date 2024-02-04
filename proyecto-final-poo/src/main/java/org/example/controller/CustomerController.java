@@ -37,7 +37,7 @@ public class CustomerController implements CRUD<Customer>{
         customerService.upDate(customer);
     }
     public List<Customer> findAllCustomersByCuit(String cuit){
-        return findAllCustomersByCuit(cuit);
+        return customerService.findAllCustomersByCuit(cuit);
    
     }
 }
