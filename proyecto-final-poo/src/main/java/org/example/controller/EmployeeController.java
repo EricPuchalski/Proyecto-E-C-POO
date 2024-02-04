@@ -1,7 +1,6 @@
 package org.example.controller;
 
 
-import dao.exceptions.NonexistentEntityException;
 import java.util.ArrayList;
 import org.example.model.Employee;
 import org.example.service.EmployeeService;
