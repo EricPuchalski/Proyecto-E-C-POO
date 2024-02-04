@@ -185,18 +185,18 @@ public class PanelCustomerConsult extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bttnDestroyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnDestroyActionPerformed
-        if(tblCustomers.getRowCount() > 0){
-            if(tblCustomers.getSelectedRow()!=-1){
-                String customerCuit = String.valueOf(tblCustomers.getValueAt(tblCustomers.getSelectedRow(),1));
-                try {
-                    customerController.delete(customerCuit);
-                } catch (NonexistentEntityException ex) {
-                    Logger.getLogger(PanelCustomerConsult.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                cargarTabla();
+       if(tblCustomers.getRowCount() > 0){
+        if(tblCustomers.getSelectedRow()!=-1){
+            String customerCuit = String.valueOf(tblCustomers.getValueAt(tblCustomers.getSelectedRow(),1));
+            try {
+                customerController.delete(customerCuit);
+            } catch (NonexistentEntityException ex) {
+                Logger.getLogger(PanelCustomerConsult.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-    }//GEN-LAST:event_bttnDestroyActionPerformed
+            cargarTabla();
+        }//
+    }
+    }
 
     private void bttnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnBackActionPerformed
         ViewController.panelChange(this, new PanelCustomer(), this);

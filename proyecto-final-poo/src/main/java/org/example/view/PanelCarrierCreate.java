@@ -4,6 +4,7 @@
  */
 package org.example.view;
 
+import javax.swing.JOptionPane;
 import org.example.controller.CarrierController;
 import org.example.controller.ViewController;
 import org.example.model.Carrier;
@@ -198,8 +199,29 @@ public class PanelCarrierCreate extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNameActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        carrierController.create(new Carrier(txtCuit.getText(), txtName.getText(), txtPhone.getText(), txtEmail.getText(),loadCarrierType()));
+           // Validar que se haya seleccionado un tipo de transportista
+    if (cmbTransp.getSelectedItem().equals("<seleccionar>")) {
+        JOptionPane.showMessageDialog(this, "Por favor seleccione un tipo de transportista.", "Error", JOptionPane.ERROR_MESSAGE);
+        return; // Salir del método si no se ha seleccionado un tipo de transportista
+    }
+
+    // Validar que todos los campos estén completos
+    if (txtName.getText().isEmpty() || txtCuit.getText().isEmpty() || txtPhone.getText().isEmpty() || txtEmail.getText().isEmpty()) {
+        // Mostrar mensaje de error en una ventana emergente
+        JOptionPane.showMessageDialog(this, "Por favor complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+        return; // Salir del método si algún campo está vacío
+    }
+
+    // Crear el transportista si todos los campos están completos
+    Carrier.CarrierType type = loadCarrierType();
+    if (type != null) {
+        // Crear el transportista y cambiar de panel si se ha seleccionado un tipo válido
+        carrierController.create(new Carrier(txtCuit.getText(), txtName.getText(), txtPhone.getText(), txtEmail.getText(), type));
         ViewController.panelChange(this, new PanelCarrier(), this);
+    } else {
+        // Mostrar mensaje de error si no se ha seleccionado un tipo de transportista válido
+        JOptionPane.showMessageDialog(this, "Por favor seleccione un tipo de transportista válido.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
        
     }//GEN-LAST:event_btnRegisterActionPerformed
 

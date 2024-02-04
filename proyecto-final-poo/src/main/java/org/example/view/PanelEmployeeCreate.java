@@ -237,7 +237,10 @@ public class PanelEmployeeCreate extends javax.swing.JPanel {
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
      try {
-      
+        // Verificar que todos los campos estén completos
+        if (txtName.getText().isEmpty() || txtAdress.getText().isEmpty() || txtCuit.getText().isEmpty() || txtTel.getText().isEmpty() || txtSur.getText().isEmpty()) {
+            throw new Exception("Debe completar todos los campos.");
+        }
 
         // Crea un objeto Employee con los datos del empleado y el almacén
         Employee employee = new Employee(
@@ -246,15 +249,14 @@ public class PanelEmployeeCreate extends javax.swing.JPanel {
             txtSur.getText(),
             txtAdress.getText(),
             txtTel.getText()
-            
         );
-        
+
         // Obtén el nombre del almacén seleccionado del JComboBox
         String selectedWarehouseName = (String) warehouseCombobox.getSelectedItem();
-        
+
         // Utiliza el controlador de almacenes para encontrar todos los almacenes
         List<Warehouse> warehouses = warehouseController.findAll();
-        
+
         // Encuentra el almacén con el nombre seleccionado
         Warehouse selectedWarehouse = null;
         for (Warehouse warehouse : warehouses) {
@@ -280,7 +282,7 @@ public class PanelEmployeeCreate extends javax.swing.JPanel {
     } catch (Exception e) {
         // Maneja los errores que puedan ocurrir
         JOptionPane.showMessageDialog(this, "Error al crear empleado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }      
+    }  
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed

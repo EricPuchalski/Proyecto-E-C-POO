@@ -190,8 +190,17 @@ public class PanelCustomerCreate extends javax.swing.JPanel {
 
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+    // Validar que todos los campos estén completos
+    if (txtName.getText().isEmpty() || txtSurname.getText().isEmpty() || 
+        txtAdress.getText().isEmpty() || txtCuit.getText().isEmpty() || 
+        txtTel.getText().isEmpty()) {
+        // Mostrar mensaje de error en una ventana emergente
+        JOptionPane.showMessageDialog(this, "Por favor complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+    } else {
+        // Todos los campos están completos, proceder con la creación del cliente
         customerController.create(new Customer(txtCuit.getText(), txtName.getText(), txtSurname.getText(), txtAdress.getText(), txtTel.getText()));
         ViewController.panelChange(this, new PanelCustomer(), this);
+    }
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed

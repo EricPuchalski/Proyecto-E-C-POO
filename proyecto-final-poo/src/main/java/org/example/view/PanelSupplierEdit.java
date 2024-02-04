@@ -238,12 +238,20 @@ public class PanelSupplierEdit extends javax.swing.JPanel {
         this.loadData(cuit);
     }//GEN-LAST:event_jPanel1formAncestorAdded
 public void loadData(String cuit){
+        if (supplierController != null) {
         supplierEdit = supplierController.findOne(cuit);
-        txtCuit.setText(supplierEdit.getCuit());
-        txtName.setText(supplierEdit.getName());
-        txtEmail.setText(supplierEdit.getEmail());
-        txtAdress.setText(supplierEdit.getAdress());
-        txtTel.setText(supplierEdit.getPhone());
+        if (supplierEdit != null) {
+            txtCuit.setText(supplierEdit.getCuit());
+            txtName.setText(supplierEdit.getName());
+            txtEmail.setText(supplierEdit.getEmail());
+            txtAdress.setText(supplierEdit.getAdress());
+            txtTel.setText(supplierEdit.getPhone());
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró ningún proveedor con el CUIT proporcionado", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "Ocurrió un problema interno. Por favor, inténtalo de nuevo más tarde", "Error", JOptionPane.ERROR_MESSAGE);
+    }//NUEVO, SE BORRA OBVIO
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

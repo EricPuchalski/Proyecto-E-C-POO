@@ -23,7 +23,10 @@ import java.util.stream.Collectors;
 
     @Override
     public void save(Carrier carrier) {
+    // Verificar que los campos obligatorios no estén vacíos
+    if (!(carrier.getCuit().isEmpty() || carrier.getName().isEmpty() || carrier.getPhone().isEmpty())) {
         carrierRepository.create(carrier);
+        }
     }
 
     @Override
