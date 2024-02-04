@@ -28,10 +28,6 @@
                       <Component id="lblComplement" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="168" pref="168" max="-2" attributes="0"/>
-                      <Component id="lblName" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="139" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="lblWelcome" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -52,6 +48,7 @@
                                   </Group>
                                   <Component id="txtTel" alignment="0" min="-2" pref="457" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="lblName" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>

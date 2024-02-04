@@ -4,9 +4,10 @@
  */
 package org.example.controller;
 
-import dao.exceptions.NonexistentEntityException;
+
 import java.util.List;
 import javax.swing.JTable;
+import org.example.dao.exceptions.NonexistentEntityException;
 import org.example.model.OrderLine;
 import org.example.service.OrderLineService;
 
