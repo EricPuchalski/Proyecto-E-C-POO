@@ -2,9 +2,12 @@ package org.example.service;
 
 import dao.SupplierRepository;
 import dao.exceptions.NonexistentEntityException;
+import java.util.ArrayList;
 import org.example.model.Supplier;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import org.example.model.Product;
 
 public class SupplierService implements CRUD<Supplier> {
     private SupplierRepository supplierRepository;
@@ -22,9 +25,13 @@ public class SupplierService implements CRUD<Supplier> {
 
     @Override
     public Supplier findOne(String cuit) {
-    if (cuit == null) {
-        return null; // Manejar el caso de un CUIT nulo
+    for (Supplier sp : supplierRepository.findSupplierEntities()) {
+        if(cuit.equals(sp.getCuit())){
+            return sp;
+        }
+        return null;
     }
+
     
     for (Supplier supplier : supplierRepository.findSupplierEntities()) {
         if (cuit.equals(supplier.getCuit())) {
@@ -37,6 +44,17 @@ public class SupplierService implements CRUD<Supplier> {
     @Override
     public List<Supplier> findAll() {
         return supplierRepository.findSupplierEntities();
+    }
+    
+    public List<Supplier> findAllSuppliersByCuit(String cuit) {
+         if (cuit == null || cuit.isEmpty()) {
+            return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
+        }
+        List<Supplier> suppliersFound = this.findAll()
+                .stream()
+                .filter(tr -> tr.getCuit().toLowerCase().startsWith(cuit))
+                .collect(Collectors.toList());
+        return suppliersFound;
     }
 
     @Override

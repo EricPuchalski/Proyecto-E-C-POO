@@ -44,17 +44,6 @@ public class EmployeeController implements  CRUD<Employee> {
     }
     
         public List<Employee> findAllEmployeesByCuit(String cuit) {
-        if (cuit == null || cuit.isEmpty()) {
-            return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
-        }
-
-        String lowercaseCuit = cuit.toLowerCase(); // Convertir el nombre de búsqueda a minúsculas
-
-        List<Employee> employeesFound = this.findAll()
-                .stream()
-                .filter(tr -> tr.getCUIT().toLowerCase().startsWith(lowercaseCuit))
-                .collect(Collectors.toList());
-
-        return employeesFound;
+            return findAllEmployeesByCuit(cuit);
     }
 }

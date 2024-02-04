@@ -29,6 +29,7 @@ import org.example.model.OrderLine;
 import org.example.model.Tracking;
 import org.example.model.Warehouse;
 import org.example.util.Conexion;
+import org.example.util.GenerateOrderNumber;
 
 /**
  *
@@ -90,21 +91,14 @@ public class OrderRepository implements Serializable {
         try {
             transaction.begin();
             Order order = findOrderByOrderNumber(orderNumber);
-
-            if (order != null && order.getWarehouseOrig() != null && order.getWarehouseOrig().getSectors() != null) {
-                order.setEmployee(employeeRepository.findEmployeeByCuit(cuitEmpleado));
-                order.setOrderStatus(order.getWarehouseOrig().getSectors().get(1).getDescription());
-                em.merge(order); // Actualiza la entidad en la base de datos
-            } else {
-                // Manejo de nulls o registro de errores según sea necesario
-            }
-
+            order.setEmployee(employeeRepository.findEmployeeByCuit(cuitEmpleado));
+            order.setOrderStatus(order.getWarehouseOrig().getSectors().get(1).getDescription());
+            em.merge(order); // Actualiza la entidad en la base de datos
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
-            // Manejo de excepciones según sea necesario
         } finally {
             em.close();
         }
@@ -117,14 +111,8 @@ public class OrderRepository implements Serializable {
         try {
             transaction.begin();
             Order orderFound = findOrderByOrderNumber(orderNumber);
-
-            if (orderFound != null && orderFound.getWarehouseOrig() != null && orderFound.getWarehouseOrig().getSectors() != null) {
-                orderFound.setOrderStatus(orderFound.getWarehouseOrig().getSectors().get(2).getDescription());
-                em.merge(orderFound); // Actualiza la entidad en la base de datos
-            } else {
-                // Manejo de nulls o registro de errores según sea necesario
-            }
-
+            orderFound.setOrderStatus(orderFound.getWarehouseOrig().getSectors().get(2).getDescription());
+            em.merge(orderFound); // Actualiza la entidad en la base de datos
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
@@ -142,13 +130,8 @@ public class OrderRepository implements Serializable {
         try {
             transaction.begin();
             Order orderEncontrado = findOrderByOrderNumber(orderNumber);
-
-            if (orderEncontrado != null && orderEncontrado.getWarehouseOrig() != null && orderEncontrado.getWarehouseOrig().getSectors() != null) {
-                orderEncontrado.setOrderStatus(orderEncontrado.getWarehouseOrig().getSectors().get(3).getDescription());
-                em.merge(orderEncontrado); // Actualiza la entidad en la base de datos
-            } else {
-                // Manejo de nulls o registro de errores según sea necesario
-            }
+            orderEncontrado.setOrderStatus(orderEncontrado.getWarehouseOrig().getSectors().get(3).getDescription());
+            em.merge(orderEncontrado); // Actualiza la entidad en la base de datos
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
@@ -168,40 +151,34 @@ public class OrderRepository implements Serializable {
            transaction.begin();
            Order orderFound = findOrderByOrderNumber(orderNumber);
 
-           if (orderFound != null && orderFound.getWarehouseOrig() != null && orderFound.getWarehouseOrig().getSectors() != null) {
                orderFound.setOrderStatus(orderFound.getWarehouseOrig().getSectors().get(4).getDescription());
 
-               if (orderFound.getDespatchNote() == null) {
-                   // Generar el remito y agregarlo al pedido
-                   LocalDate fechaEmision = LocalDate.now();
-                   Carrier carrier = orderFound.getCarrier();
-                   Employee employeeEmisor = orderFound.getEmployee();
-                   Employee employeeReceptor = null; // El receptor se establecerá cuando se entregue el pedido
-                   DespatchNote despatchNote = new DespatchNote(fechaEmision, carrier, employeeEmisor, employeeReceptor);
-                   despatchNoteRepository.create(despatchNote);
-                   orderFound.setDespatchNote(despatchNote);
-               }
+                // Generar el remito y agregarlo al pedido
+                LocalDate fechaEmision = LocalDate.now();
+                Carrier carrier = orderFound.getCarrier();
+                Employee employeeEmisor = orderFound.getEmployee();
+                Employee employeeReceptor = null; // El receptor se establecerá cuando se entregue el pedido
+                DespatchNote despatchNote = new DespatchNote(fechaEmision, carrier, employeeEmisor, employeeReceptor);
+                despatchNoteRepository.create(despatchNote);
+                orderFound.setDespatchNote(despatchNote);
 
-               if (orderFound.getTracking() == null) {
-                   Tracking tracking = new Tracking(orderFound);
+                Tracking tracking = new Tracking(orderFound);
 
-                   // Obtener la latitud y longitud del depósito de origen
-                   Warehouse depositOrigen = orderFound.getWarehouseOrig();
-                   double latitud = depositOrigen.getPosition().getLatitude();
-                   double longitud = depositOrigen.getPosition().getLongitude();
+                // Obtener la latitud y longitud del depósito de origen
+                Warehouse depositOrigen = orderFound.getWarehouseOrig();
+                double latitud = depositOrigen.getPosition().getLatitude();
+                double longitud = depositOrigen.getPosition().getLongitude();
 
-                   tracking.setLatitude(latitud);
-                   tracking.setLongitude(longitud);
-                   tracking.setDateAndTime(LocalDate.now());
-                   tracking.setTrackingNumber(tracking.generarNumeroRastreo());
+                tracking.setLatitude(latitud);
+                tracking.setLongitude(longitud);
+                tracking.setDateAndTime(LocalDate.now());
+                tracking.setTrackingNumber(tracking.generarNumeroRastreo());
 
-                   orderFound.setTracking(tracking);
-               }
+                orderFound.setTracking(tracking);
+               
 
                em.merge(orderFound); // Actualiza la entidad en la base de datos
-           } else {
-               // Manejo de nulls o registro de errores según sea necesario
-           }
+          
 
            transaction.commit();
        } catch (Exception e) {
@@ -221,11 +198,11 @@ public void orderTransit(String orderNumber) {
         transaction.begin();
 
         Order order = findOrderByOrderNumber(orderNumber);
-        if (order != null) {
-            order.setOnTransit(true);
-            order.setOrderStatus("En transito");
-            this.edit(order);
-        }
+
+        order.setOnTransit(true);
+        order.setOrderStatus("En transito");
+        this.edit(order);
+
 
         transaction.commit();
     } catch (Exception e) {
@@ -248,10 +225,7 @@ public void orderTransit(String orderNumber) {
         transaction.begin();
         Order orderFound = findOrderByOrderNumber(orderNumber);
 
-        if (orderFound != null && orderFound.getWarehouseDest() != null && orderFound.getWarehouseDest().getSectors() != null) {
             orderFound.setOrderStatus(orderFound.getWarehouseDest().getSectors().get(5).getDescription());
-
-            if (orderFound.getTracking() != null) {
                 // Obtener la latitud y longitud del depósito de destino para el seguimiento
                 Warehouse depositDestino = orderFound.getWarehouseDest();
                 double latitud = depositDestino.getPosition().getLatitude();
@@ -263,11 +237,10 @@ public void orderTransit(String orderNumber) {
                 
                 trackingRepository.edit(orderFound.getTracking());
                 orderFound.setOnTransit(false);
-            }
+            
 
             DespatchNote despatchNote = despatchNoteRepository.findDespatchNote(orderFound.getDespatchNote().getId()) ;
 
-            if (despatchNote != null) {
                 // Buscar el empleado receptor por su CUIT
                 Employee employeeReceptor = employeeRepository.findEmployeeByCuit(cuitEmployeeReceiv);
                
@@ -276,13 +249,9 @@ public void orderTransit(String orderNumber) {
                     despatchNote.setEmployeeReceiver(employeeReceptor);
                     despatchNoteRepository.edit(despatchNote);
 
-                }
+                
             }
 
-            em.merge(orderFound); // Actualiza la entidad en la base de datos
-        } else {
-            // Manejo de nulls o registro de errores según sea necesario
-        }
 
         transaction.commit();
         } catch (Exception e) {
@@ -351,24 +320,14 @@ public void orderTransit(String orderNumber) {
 
     public void create(Order order) {
         EntityManager em = null;
+
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Tracking tracking = order.getTracking();
-            if (tracking != null) {
-                tracking = em.getReference(tracking.getClass(), tracking.getId());
-                order.setTracking(tracking);
-            }
+            GenerateOrderNumber generateOrderNumber = new GenerateOrderNumber();
+            String randomOrderNumber = generateOrderNumber.generateRandomOrderNumber();
+            order.setOrderNumber(randomOrderNumber);
             em.persist(order);
-            if (tracking != null) {
-                Order oldOrderOfTracking = tracking.getOrder();
-                if (oldOrderOfTracking != null) {
-                    oldOrderOfTracking.setTracking(null);
-                    oldOrderOfTracking = em.merge(oldOrderOfTracking);
-                }
-                tracking.setOrder(order);
-                tracking = em.merge(tracking);
-            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {

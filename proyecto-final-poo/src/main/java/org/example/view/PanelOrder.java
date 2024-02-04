@@ -42,6 +42,8 @@ public class PanelOrder extends javax.swing.JPanel {
         bttnDeliveryOrder = new javax.swing.JButton();
         bttnBack = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(0, 0, 153));
+
         lblWelcome.setFont(new java.awt.Font("Roboto Black", 1, 48)); // NOI18N
         lblWelcome.setForeground(new java.awt.Color(232, 245, 255));
         lblWelcome.setText("Gestion de Pedidos");

@@ -2,9 +2,11 @@ package org.example.service;
 
 import dao.ProductRepository;
 import dao.exceptions.NonexistentEntityException;
+import java.util.ArrayList;
 import org.example.model.Product;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductService implements CRUD<Product>{
     private ProductRepository productRepository;
@@ -14,10 +16,10 @@ public class ProductService implements CRUD<Product>{
     }
 
     @Override
-       public void save(Product product) {
-
-            productRepository.create(product);
-
+    public void save(Product t) {
+        if (!(t.getSupplier().getName().isEmpty() || t.getCategory().getNombre().isEmpty() ||  t.getName().isEmpty())) {
+            productRepository.create(t);
+        }
     }
 
     @Override
@@ -51,6 +53,20 @@ public class ProductService implements CRUD<Product>{
         if (deleteProduct != null) {
             productRepository.destroy(deleteProduct.getId());
         }
+    }
+    
+    public List<Product> findAllProductsByName(String name){
+                if (name == null || name.isEmpty()) {
+            return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
+        }
+
+        String lowercaseName = name.toLowerCase(); // Convertir el nombre de búsqueda a minúsculas
+
+        List<Product> productsFound = this.findAll()
+                .stream()
+                .filter(tr -> tr.getName().toLowerCase().startsWith(lowercaseName))
+                .collect(Collectors.toList());
+        return productsFound;
     }
        
 

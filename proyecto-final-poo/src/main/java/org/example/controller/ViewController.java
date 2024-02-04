@@ -16,6 +16,7 @@ import org.example.model.Customer;
 import org.example.model.Employee;
 import org.example.model.Order;
 import org.example.model.Product;
+import org.example.model.Supplier;
 import org.example.model.Warehouse;
 
 /**
@@ -30,6 +31,7 @@ public class ViewController {
     private ProductController productController = new ProductController();
     private EmployeeController employeeController = new EmployeeController();
     private OrderController orderController = new OrderController();
+    private SupplierController supplierController = new SupplierController();
 
     public static void panelChange(JPanel panelRemove, JPanel panelNew, Component o) {
         JFrame contenedor = (JFrame) SwingUtilities.getWindowAncestor(o);
@@ -71,6 +73,46 @@ public class ViewController {
             newModel.addRow(obj);
         }
         return newModel;
+    }
+     public TableModel modelTableSuppliers() {
+        DefaultTableModel modeloTabla = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
+        String titulos[] = {"Id", "Cuit", "Nombre", "Estado","Direccion","Teléfono","email"};
+        modeloTabla.setColumnIdentifiers(titulos);
+        List<Supplier> listSuppliers = supplierController.findAll();
+
+        if(!listSuppliers.isEmpty()){
+            for (Supplier sp: listSuppliers){
+                Object[] obj = {sp.getId(),sp.getCuit(),sp.getName(),sp.getStatus(),sp.getAdress(),sp.getPhone(),sp.getEmail()};
+                modeloTabla.addRow(obj);
+            }
+        }
+
+        return modeloTabla;
+    }
+          public TableModel modelTableSuppliersByCuit(String cuit) {
+        DefaultTableModel modeloTabla = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
+        String titulos[] = {"Id", "Cuit", "Nombre", "Estado","Direccion","Teléfono","email"};
+        modeloTabla.setColumnIdentifiers(titulos);
+        List<Supplier> listSuppliers = supplierController.findAllByCuit(cuit);
+
+        if(!listSuppliers.isEmpty()){
+            for (Supplier sp: listSuppliers){
+                Object[] obj = {sp.getId(),sp.getCuit(),sp.getName(),sp.getStatus(),sp.getAdress(),sp.getPhone(),sp.getEmail()};
+                modeloTabla.addRow(obj);
+            }
+        }
+
+        return modeloTabla;
     }
 
     public TableModel modelTableCarriers() {
@@ -262,8 +304,8 @@ public class ViewController {
 
         String titulos[] = {"Id", "Cliente", "Transportista", "Numero"};
         newModel.setColumnIdentifiers(titulos);
-        if (!orderController.findAllByCustomer(idCustomer).isEmpty()) {
-            for (Order e : orderController.findAllByCustomer(idCustomer)) {
+        if (!orderController.findAllOrdersByCustomer(idCustomer).isEmpty()) {
+            for (Order e : orderController.findAllOrdersByCustomer(idCustomer)) {
                 Object[] obj = {e.getId(), e.getCustomer().getName(), e.getCarrier().getName(), e.getOrderNumber()};
                 newModel.addRow(obj);
             }
@@ -281,8 +323,8 @@ public class ViewController {
 
         String titulos[] = {"Id", "Cliente", "Transportista", "Numero"};
         newModel.setColumnIdentifiers(titulos);
-        if (!orderController.findAllByWarehouseOrig(idWarehouse).isEmpty()) {
-            for (Order e : orderController.findAllByWarehouseOrig(idWarehouse)) {
+        if (!orderController.findAllOrdersByWarehouseOrig(idWarehouse).isEmpty()) {
+            for (Order e : orderController.findAllOrdersByWarehouseOrig(idWarehouse)) {
                 Object[] obj = {e.getId(), e.getCustomer().getCuit(), e.getCarrier().getName(), e.getOrderNumber()};
                 newModel.addRow(obj);
             }
