@@ -154,12 +154,12 @@ public class PanelWarehouseConsult extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bttnDestroy, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(lblEmail)
                                 .addComponent(txtEmailWarehouse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(bttnFindOneWarehouse, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(bttnFindOneWarehouse, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(bttnDestroy, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(51, 51, 51)
                         .addComponent(bttnModif, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(238, 238, 238)
@@ -195,12 +195,8 @@ public class PanelWarehouseConsult extends javax.swing.JPanel {
 
         if(tblWarehouses.getRowCount() > 0){
             if(tblWarehouses.getSelectedRow()!=-1){
-                try {
-                    String code = String.valueOf(tblWarehouses.getValueAt(tblWarehouses.getSelectedRow(),0));
-                    warehouseController.delete(code);
-                } catch (NonexistentEntityException ex) {
-                    Logger.getLogger(PanelWarehouseConsult.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                String email = String.valueOf(tblWarehouses.getValueAt(tblWarehouses.getSelectedRow(),5));
+                warehouseController.disableAccountByCuit(email);
             }
         }
         tblWarehouses.setModel(viewController.modelTableWarehouses());

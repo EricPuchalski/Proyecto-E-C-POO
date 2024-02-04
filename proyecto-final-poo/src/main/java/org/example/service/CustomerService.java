@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import org.example.model.Customer;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class CustomerService implements CRUD<Customer>{
@@ -14,8 +16,30 @@ public class CustomerService implements CRUD<Customer>{
     public CustomerService(){
         this.customerRepository = new CustomerRepository();
     }
-
-
+    
+    public Customer findCustomerEnabledByCuit(String cuit){
+        Customer customerFound = customerRepository.findCustomerEnabledByCuit(cuit);
+        if (customerFound.getEstado().equals(Customer.Estado.ENABLED)) {
+                return customerRepository.findCustomerEnabledByCuit(cuit);
+            }
+        return null;
+    }
+    public void disableAccountByCuit(String cuit){
+        Customer customer = customerRepository.findCustomerEnabledByCuit(cuit);
+        if (customer!=null) {
+            try {
+                customerRepository.disableAccountByCuit(cuit);
+            } catch (NonexistentEntityException ex) {
+                Logger.getLogger(CustomerService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    public List<Customer> findAllEnabledCustomers(){
+        return customerRepository.findCustomerEntities()
+            .stream()
+            .filter(customer -> customer.getEstado().equals(Customer.Estado.ENABLED))
+            .collect(Collectors.toList());
+    }
     public List<Customer>findAll(){
         return customerRepository.findCustomerEntities();
     }
@@ -53,7 +77,7 @@ public class CustomerService implements CRUD<Customer>{
         }
         String lowerCaseCuit = cuit.toLowerCase();
         List<Customer> customersFound= new ArrayList<>();
-        customersFound = this.findAll()
+        customersFound = this.findAllEnabledCustomers()
         .stream()
         .filter(tr -> tr.getCuit().toLowerCase().startsWith(lowerCaseCuit))
         .collect(Collectors.toList());

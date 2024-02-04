@@ -104,6 +104,44 @@ public class CustomerRepository implements Serializable {
             }
         }
     }
+    public Customer findCustomerEnabledByCuit(String cuit) {
+        EntityManager em = getEntityManager();
+        try {
+            for (Customer object : findCustomerEntities()) {
+                if (object.getCuit().equals(cuit)) {
+                    return em.find(Customer.class, object.getId());
+                }
+            }
+            // Si no se encontró ningún cliente con el CUIT especificado
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+    public void disableAccountByCuit(String cuit) throws NonexistentEntityException{
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            Customer customer;
+            try {
+                for (Customer object : findCustomerEntities()) {
+                if (object.getCuit().equals(cuit)) {
+                    customer = em.getReference(Customer.class, object.getId());
+                    customer.setEstado(Customer.Estado.DISABLED);
+                }
+            }
+            } catch (EntityNotFoundException enfe) {
+                throw new NonexistentEntityException("The customer with id " + cuit + " no longer exists.", enfe);
+            }
+            
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
 
     public void edit(Customer customer) throws NonexistentEntityException, Exception {
         EntityManager em = null;

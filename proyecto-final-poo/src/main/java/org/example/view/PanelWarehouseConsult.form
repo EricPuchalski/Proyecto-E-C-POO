@@ -104,13 +104,13 @@
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="jScrollPane5" min="-2" pref="351" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="bttnDestroy" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
-                              <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                   <Component id="lblEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtEmailWarehouse" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="bttnFindOneWarehouse" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="bttnDestroy" min="-2" pref="45" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                           <Component id="bttnModif" min="-2" pref="45" max="-2" attributes="0"/>

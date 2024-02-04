@@ -83,6 +83,44 @@ public class WarehouseRepository implements Serializable {
 
     }
    
+        public void disableAccountByEmail(String email) throws NonexistentEntityException{
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            Warehouse warehouse;
+            try {
+                for (Warehouse object : findWarehouseEntities()) {
+                if (object.getEmail().equals(email)) {
+                    warehouse = em.getReference(Warehouse.class, object.getId());
+                    warehouse.setStatus(Warehouse.Estado.DISABLED);
+                }
+            }
+            } catch (EntityNotFoundException enfe) {
+                throw new NonexistentEntityException("The customer with id " + email + " no longer exists.", enfe);
+            }
+            
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+        public Warehouse findWarehouseEnabledByCuit(String email) {
+        EntityManager em = getEntityManager();
+        try {
+            for (Warehouse object : findWarehouseEntities()) {
+                if (object.getEmail().equals(email)) {
+                    return em.find(Warehouse.class, object.getId());
+                }
+            }
+            // Si no se encontró ningún cliente con el CUIT especificado
+            return null;
+        } finally {
+            em.close();
+        }
+    }
     public void create(Warehouse warehouse) {
         EntityManager em = null;
         try {

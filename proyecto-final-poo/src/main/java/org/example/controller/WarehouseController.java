@@ -51,6 +51,15 @@ public class WarehouseController implements CRUD<Warehouse>{
         return warehouseService.findAllWarehousesByEmail(email);
 
     }
+        public List<Warehouse> findAllEnabledWarehouses(){
+        return warehouseService.findAllEnabledWarehouses();
+    }
+    public Warehouse findWarehouseEnabledByCuit(String email){
+        return warehouseService.findWarehouseEnabledByCuit(email);
+    }
+    public void disableAccountByCuit(String email){
+        warehouseService.disableAccountByEmail(email);
+    }
     public List<Warehouse> warehousesIdForOrder(JTable tableOrig, JTable tableDest){
         List<Warehouse> warehouses = new ArrayList<>();
         if(tableOrig.getRowCount() > 0){

@@ -51,7 +51,7 @@ public class ViewController {
         String titulos[] = {"Id", "Nombre", "Apellido", "cuit"};
         newModel.setColumnIdentifiers(titulos);
 
-        for (Customer e : customerController.findAll()) {
+        for (Customer e : customerController.findAllEnabledCustomers()) {
             Object[] obj = {e.getId(), e.getName(), e.getSurname(), e.getCuit()};
             newModel.addRow(obj);
         }
@@ -159,7 +159,7 @@ public class ViewController {
         String titulos[] = {"Id", "Code", "Nombre", "Dirección", "Teléfono", "Email", "Continente", "Empleado"};
         newModel.setColumnIdentifiers(titulos);
 
-        for (Warehouse e : warehouseController.findAll()) {
+        for (Warehouse e : warehouseController.findAllEnabledWarehouses()) {
             Object[] obj = {e.getId(), e.getCode(), e.getName(), e.getAdress(), e.getPhone(), e.getEmail(), e.getContinent(), e.getEmployee().getCuit()};
             newModel.addRow(obj);
         }
