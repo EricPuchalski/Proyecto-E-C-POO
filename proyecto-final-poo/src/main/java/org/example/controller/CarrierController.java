@@ -7,6 +7,7 @@ package org.example.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.example.dao.exceptions.NonexistentEntityException;
 import org.example.model.Carrier;
 import org.example.service.CarrierService;
@@ -55,6 +56,23 @@ public class CarrierController {
          return carrierService.findAllCarriersByCuit(cuit);
         }
 
+             public Carrier findCarrierEnabledByCuit(String cuit){
+
+                return carrierService.findCarrierEnabledByCuit(cuit);
+ 
+    }
+    public void disableAccountByCuit(String cuit){
+
+                carrierService.disableAccountByCuit(cuit);
+
+        
+    }
+    public List<Carrier> findAllEnabledCustomers(){
+        return carrierService.findAllEnabledCustomers()
+            .stream()
+            .filter(customer -> customer.getStatus().equals(Carrier.Status.ENABLED))
+            .collect(Collectors.toList());
+    }
     }
 
 

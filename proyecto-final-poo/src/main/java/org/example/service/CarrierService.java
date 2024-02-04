@@ -10,6 +10,8 @@ import org.example.dao.CarrierRepository;
 import org.example.dao.exceptions.NonexistentEntityException;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 //
     public class CarrierService implements CRUD<Carrier>{
@@ -64,7 +66,7 @@ import java.util.stream.Collectors;
         String lowerCaseCuit = cuit.toLowerCase();
 
         List<Carrier> carriersFound= new ArrayList<>();
-        carriersFound = this.findAll()
+        carriersFound = this.findAllEnabledCustomers()
         .stream()
         .filter(tr -> tr.getCuit().toLowerCase().startsWith(lowerCaseCuit))
         .collect(Collectors.toList());
@@ -73,5 +75,27 @@ import java.util.stream.Collectors;
      }
  
  
- 
+     public Carrier findCarrierEnabledByCuit(String cuit){
+        Carrier carrierFound = carrierRepository.findCarrierEnabledByCuit(cuit);
+        if (carrierFound.getStatus().equals(Carrier.Status.ENABLED)) {
+                return carrierRepository.findCarrierEnabledByCuit(cuit);
+            }
+        return null;
+    }
+    public void disableAccountByCuit(String cuit){
+        Carrier customer = carrierRepository.findCarrierEnabledByCuit(cuit);
+        if (customer!=null) {
+            try {
+                carrierRepository.disableAccountByCuit(cuit);
+            } catch (NonexistentEntityException ex) {
+                Logger.getLogger(CarrierService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    public List<Carrier> findAllEnabledCustomers(){
+        return carrierRepository.findCarrierEntities()
+            .stream()
+            .filter(customer -> customer.getStatus().equals(Carrier.Status.ENABLED))
+            .collect(Collectors.toList());
+    }
 }
