@@ -1,6 +1,6 @@
 package org.example.service;
 
-import dao.exceptions.NonexistentEntityException;
+import org.example.dao.exceptions.NonexistentEntityException;
 
 import java.util.List;
 

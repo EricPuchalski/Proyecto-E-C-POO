@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package dao;
+package org.example.dao;
 
-import dao.exceptions.NonexistentEntityException;
+import org.example.dao.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -158,7 +158,7 @@ public class CustomerRepository implements Serializable {
                     throw new NonexistentEntityException("The customer with id " + id + " no longer exists.");
                 }
             }
-            throw ex;
+            throw ex; 
         } finally {
             if (em != null) {
                 em.close();

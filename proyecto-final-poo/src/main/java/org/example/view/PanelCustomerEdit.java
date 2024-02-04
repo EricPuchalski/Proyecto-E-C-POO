@@ -17,13 +17,14 @@ import org.example.model.Customer;
  * @author ericp
  */
 public class PanelCustomerEdit extends javax.swing.JPanel {
-    private String cuit;
-    private CustomerController customerController;
+    private final String cuit;
+    private final CustomerController customerController;
     private Customer customerEdit;
  
 
     /**
      * Creates new form PanelEditCustomer
+     * @param cuit
      */
     public PanelCustomerEdit(String cuit) {
         customerController = new CustomerController();

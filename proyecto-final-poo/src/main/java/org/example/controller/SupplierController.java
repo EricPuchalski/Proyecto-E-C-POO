@@ -1,6 +1,6 @@
 package org.example.controller;
 
-import dao.exceptions.NonexistentEntityException;
+import org.example.dao.exceptions.NonexistentEntityException;
 import org.example.model.Supplier;
 import org.example.service.SupplierService;
 

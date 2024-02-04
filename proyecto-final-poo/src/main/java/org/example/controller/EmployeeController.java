@@ -1,5 +1,6 @@
 package org.example.controller;
 
+
 import dao.exceptions.NonexistentEntityException;
 import java.util.ArrayList;
 import org.example.model.Employee;
@@ -7,6 +8,7 @@ import org.example.service.EmployeeService;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.example.dao.exceptions.NonexistentEntityException;
 
 public class EmployeeController implements CRUD<Employee> {
 

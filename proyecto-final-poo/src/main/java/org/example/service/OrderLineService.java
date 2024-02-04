@@ -4,9 +4,9 @@
  */
 package org.example.service;
 
-import dao.OrderLineRepository;
-import dao.exceptions.NonexistentEntityException;
 import java.util.List;
+import org.example.dao.OrderLineRepository;
+import org.example.dao.exceptions.NonexistentEntityException;
 import org.example.model.OrderLine;
 
 /**

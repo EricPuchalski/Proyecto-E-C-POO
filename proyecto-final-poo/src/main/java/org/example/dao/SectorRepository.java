@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package dao;
+package org.example.dao;
 
-import dao.exceptions.NonexistentEntityException;
+import org.example.dao.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -13,45 +13,48 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import org.example.model.ProductCategory;
+import org.example.model.Sector;
 import org.example.util.Conexion;
 
 /**
  *
  * @author ericp
  */
-public class ProductCategoryRepository implements Serializable {
+public class SectorRepository implements Serializable {
 
-    public ProductCategoryRepository() {
+    public SectorRepository() {
         this.emf = Conexion.getEmf();
+ 
     }
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-
-    public void upload(){
-        ProductCategory computing = new ProductCategory("Computing");
-        ProductCategory clean = new ProductCategory("Clean");
-        ProductCategory home = new ProductCategory("Home");
-        ProductCategory garden = new ProductCategory("Garden");
-        ProductCategory electronic = new ProductCategory("Electronic");
-        ProductCategory toy = new ProductCategory("Toy");
+    public void upLoad() {
+        Sector s1 = new Sector("1","Pendiente");
+        Sector s2 = new Sector("2","En Proceso");
+        Sector s3 = new Sector("3","Completo");
+        Sector s4 = new Sector("4","Esperando Despacho");
+        Sector s5 = new Sector("5","Despacho");
+        Sector s6 = new Sector("6","Esperando Entrega");
+        Sector s7 = new Sector("7","Entrega");
         
-        this.create(computing);
-        this.create(home);
-        this.create(garden);
-        this.create(clean);
-        this.create(electronic);
-        this.create(toy);
+        this.create(s1);
+        this.create(s2);
+        this.create(s3);
+        this.create(s4);
+        this.create(s5);
+        this.create(s6);
+        this.create(s7);
+
     }
-    public void create(ProductCategory productCategory) {
+    public void create(Sector sector) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(productCategory);
+            em.persist(sector);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -59,20 +62,20 @@ public class ProductCategoryRepository implements Serializable {
             }
         }
     }
-    
-    public void edit(ProductCategory productCategory) throws NonexistentEntityException, Exception {
+
+    public void edit(Sector sector) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            productCategory = em.merge(productCategory);
+            sector = em.merge(sector);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Long id = productCategory.getId();
-                if (findProductCategory(id) == null) {
-                    throw new NonexistentEntityException("The productCategory with id " + id + " no longer exists.");
+                Long id = sector.getId();
+                if (findSector(id) == null) {
+                    throw new NonexistentEntityException("The sector with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -88,14 +91,14 @@ public class ProductCategoryRepository implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            ProductCategory productCategory;
+            Sector sector;
             try {
-                productCategory = em.getReference(ProductCategory.class, id);
-                productCategory.getId();
+                sector = em.getReference(Sector.class, id);
+                sector.getId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The productCategory with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The sector with id " + id + " no longer exists.", enfe);
             }
-            em.remove(productCategory);
+            em.remove(sector);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -104,19 +107,19 @@ public class ProductCategoryRepository implements Serializable {
         }
     }
 
-    public List<ProductCategory> findProductCategoryEntities() {
-        return findProductCategoryEntities(true, -1, -1);
+    public List<Sector> findSectorEntities() {
+        return findSectorEntities(true, -1, -1);
     }
 
-    public List<ProductCategory> findProductCategoryEntities(int maxResults, int firstResult) {
-        return findProductCategoryEntities(false, maxResults, firstResult);
+    public List<Sector> findSectorEntities(int maxResults, int firstResult) {
+        return findSectorEntities(false, maxResults, firstResult);
     }
 
-    private List<ProductCategory> findProductCategoryEntities(boolean all, int maxResults, int firstResult) {
+    private List<Sector> findSectorEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(ProductCategory.class));
+            cq.select(cq.from(Sector.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -128,20 +131,20 @@ public class ProductCategoryRepository implements Serializable {
         }
     }
 
-    public ProductCategory findProductCategory(Long id) {
+    public Sector findSector(Long id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(ProductCategory.class, id);
+            return em.find(Sector.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getProductCategoryCount() {
+    public int getSectorCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<ProductCategory> rt = cq.from(ProductCategory.class);
+            Root<Sector> rt = cq.from(Sector.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

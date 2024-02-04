@@ -1,12 +1,14 @@
 package org.example.controller;
 
-import dao.exceptions.NonexistentEntityException;
-import java.util.ArrayList;
+
+
+
 import org.example.model.Product;
 import org.example.service.ProductService;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.example.dao.exceptions.NonexistentEntityException;
 
 public class ProductController implements CRUD<Product>{
     private final ProductService productService;
