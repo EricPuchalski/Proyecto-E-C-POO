@@ -46,6 +46,11 @@ public class PanelMain extends javax.swing.JPanel {
         });
 
         bttnEmployee.setText("EMPLEADO");
+        bttnEmployee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnEmployeeActionPerformed(evt);
+            }
+        });
 
         bttnCarrier.setText("TRANSPORTISTA");
 
@@ -149,6 +154,9 @@ public class PanelMain extends javax.swing.JPanel {
 
     }//GEN-LAST:event_bttnSupplierActionPerformed
 
+    private void bttnEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnEmployeeActionPerformed
+        ViewController.panelChange(this, new PanelEmployee(), this);
+    }//GEN-LAST:event_bttnEmployeeActionPerformed
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_formMouseClicked

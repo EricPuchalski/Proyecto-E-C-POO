@@ -1,5 +1,6 @@
 package org.example.controller;
 
+
 import dao.exceptions.NonexistentEntityException;
 import java.util.ArrayList;
 import org.example.model.Employee;
@@ -11,7 +12,9 @@ import java.util.stream.Collectors;
 public class EmployeeController implements  CRUD<Employee> {
     EmployeeService employeeService;
 
+
     public EmployeeController() {
+
         this.employeeService = new EmployeeService();
     }
 
@@ -42,8 +45,9 @@ public class EmployeeController implements  CRUD<Employee> {
         employeeService.delete(id);
 
     }
-    
+
         public List<Employee> findAllEmployeesByCuit(String cuit) {
+
             return findAllEmployeesByCuit(cuit);
     }
 }

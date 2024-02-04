@@ -11,6 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.example.model.Employee;
@@ -80,6 +82,7 @@ public class WarehouseRepository implements Serializable {
         this.edit(deposito5);
 
     }
+   
     public void create(Warehouse warehouse) {
         EntityManager em = null;
         try {

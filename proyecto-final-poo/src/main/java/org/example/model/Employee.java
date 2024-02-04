@@ -27,8 +27,8 @@ public class Employee implements Serializable {
 
     }
 
-    public Employee(String CUIT, String nombre, String apellido, String direccion, String telefono, Warehouse deposit) {
-        this.cuit = CUIT;
+    public Employee(String cuit, String nombre, String apellido, String direccion, String telefono, Warehouse deposit) {
+        this.cuit = cuit;
         this.name = nombre;
         this.surname = apellido;
         this.address = direccion;
@@ -37,6 +37,17 @@ public class Employee implements Serializable {
         this.warehouse = deposit;
     }
 
+    public Employee(String cuit, String name, String surname, String address, String phoneNumber) {
+        this.cuit = cuit;
+        this.name = name;
+        this.surname = surname;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        status = Status.ENABLED;
+
+    }
+
+    
     public Employee() {
     }
     
@@ -49,11 +60,13 @@ public class Employee implements Serializable {
         this.id = id;
     }
 
-    public String getCUIT() {
+    public String getCuit() {
         return cuit;
     }
 
-    public void setCUIT(String CUIT) {
+    
+
+    public void setCuit(String CUIT) {
         this.cuit = CUIT;
     }
 

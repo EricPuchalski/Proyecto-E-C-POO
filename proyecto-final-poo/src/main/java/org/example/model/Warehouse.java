@@ -46,11 +46,7 @@ public class Warehouse implements Serializable {
         ENABLED,
         DISABLED
     }
-//        @JoinTable(
-//        name = "depositoS_sectores",
-//        joinColumns = @JoinColumn(name = "sector_id"),
-//        inverseJoinColumns = @JoinColumn(name = "deposito_id")
-//    )
+
 
     public Warehouse(String code, String name, String adress, String phone, String email, String continent, Position position) {
         this.code = code;
@@ -78,6 +74,10 @@ public class Warehouse implements Serializable {
         this.sectors = new ArrayList<>();
 
     }
+        public Warehouse(String code) {
+    this.code = code;
+    this.sectors = new ArrayList<>(); // Inicializa la lista de sectores
+}
 
     public Warehouse() {
         this.sectors = new ArrayList<>();
@@ -174,3 +174,8 @@ public class Warehouse implements Serializable {
 
     
 }
+//        @JoinTable(
+//        name = "depositoS_sectores",
+//        joinColumns = @JoinColumn(name = "sector_id"),
+//        inverseJoinColumns = @JoinColumn(name = "deposito_id")
+//    )

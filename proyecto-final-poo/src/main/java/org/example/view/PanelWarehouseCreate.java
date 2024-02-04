@@ -430,8 +430,8 @@ public class PanelWarehouseCreate extends javax.swing.JPanel {
                     if(tblEmployees.getSelectedRow()!=-1){
                         String cuitEmpleado = String.valueOf(tblEmployees.getValueAt(tblEmployees.getSelectedRow(),1));
                         Employee emp = employeeController.findOne(cuitEmpleado);
-                        System.out.println(emp.getCUIT());
-                        warehouseController.create(new Warehouse(txtCode.getText(), txtName.getText(),txtAdress.getText(),txtPhone.getText(),txtEmail.getText(),String.valueOf(cbContinente.getSelectedItem()),new Position(Double.valueOf(txtLat.getText()),Double.valueOf(txtLon.getText())),employeeController.findOne(emp.getCUIT())));
+                        System.out.println(emp.getCuit());
+                        warehouseController.create(new Warehouse(txtCode.getText(), txtName.getText(),txtAdress.getText(),txtPhone.getText(),txtEmail.getText(),String.valueOf(cbContinente.getSelectedItem()),new Position(Double.valueOf(txtLat.getText()),Double.valueOf(txtLon.getText())),employeeController.findOne(emp.getCuit())));
                         JOptionPane.showMessageDialog(this, "Deposito creado con exito", "Creación exitosa", JOptionPane.INFORMATION_MESSAGE);
                         ViewController.panelChange(this, new PanelWarehouse(), this);
                     }
