@@ -26,7 +26,15 @@ public class CustomerController implements CRUD<Customer>{
         return customerService.findAll();
     }
 
-
+    public List<Customer> findAllEnabledCustomers(){
+        return customerService.findAllEnabledCustomers();
+    }
+    public Customer findCustomerEnabledByCuit(String cuit){
+        return customerService.findCustomerEnabledByCuit(cuit);
+    }
+    public void disableAccountByCuit(String cuit){
+        customerService.disableAccountByCuit(cuit);
+    }
     public void delete(String cuit) throws NonexistentEntityException {
         customerService.delete(cuit);
     }

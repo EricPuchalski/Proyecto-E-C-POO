@@ -18,7 +18,8 @@ import org.example.model.Carrier;
  * @author Usuario
  */
 public class PanelCarrierConsult extends javax.swing.JPanel {
-    private CarrierController carrierController; //no toma el controlador 
+    private CarrierController carrierController; //no toma el controlador
+    private ViewController viewController;
     /**
      * Creates new form PanelCurrierConsult
      */
@@ -26,6 +27,7 @@ public class PanelCarrierConsult extends javax.swing.JPanel {
         initComponents();
         this.setSize(800,700);
         this.carrierController = new CarrierController();
+        this.viewController = new ViewController();
     }
 
     /**
@@ -44,6 +46,9 @@ public class PanelCarrierConsult extends javax.swing.JPanel {
         btnDelete = new javax.swing.JButton();
         btnModify = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
+        lblCarrier = new javax.swing.JLabel();
+        txtCuitCarrier = new javax.swing.JTextField();
+        bttnFindOneCarrier = new javax.swing.JButton();
 
         addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
@@ -104,6 +109,16 @@ public class PanelCarrierConsult extends javax.swing.JPanel {
             }
         });
 
+        lblCarrier.setText("NOMBRE PRODUCTO");
+
+        bttnFindOneCarrier.setText("BUSCAR");
+        bttnFindOneCarrier.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        bttnFindOneCarrier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnFindOneCarrierActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,7 +128,14 @@ public class PanelCarrierConsult extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblWelcome)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 614, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 614, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblCarrier)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtCuitCarrier, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(bttnFindOneCarrier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnModify, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -134,14 +156,21 @@ public class PanelCarrierConsult extends javax.swing.JPanel {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblCarrier)
+                                .addComponent(txtCuitCarrier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(bttnFindOneCarrier, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnModify, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(49, 49, 49)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -166,44 +195,30 @@ public class PanelCarrierConsult extends javax.swing.JPanel {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
          if(tblCarriers.getRowCount() > 0){
             if(tblCarriers.getSelectedRow()!=-1){
-                String carrierCuit = String.valueOf(tblCarriers.getValueAt(tblCarriers.getSelectedRow(),1));
-                try {
-                    carrierController.delete(carrierCuit);
-                } catch (NonexistentEntityException ex) {
-                    Logger.getLogger(PanelCarrierConsult.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                String carrierCuit = String.valueOf(tblCarriers.getValueAt(tblCarriers.getSelectedRow(),2));
+                carrierController.disableAccountByCuit(carrierCuit);
                 cargarTabla();
             }
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void bttnFindOneCarrierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnFindOneCarrierActionPerformed
+        tblCarriers.setModel(viewController.modelTableCarriersByCuit(txtCuitCarrier.getText()));
+    }//GEN-LAST:event_bttnFindOneCarrierActionPerformed
      private void cargarTabla(){
-        DefaultTableModel modeloTabla = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int row, int column){
-                return false;
-            }
-        };
-        String titulos[] = {"Id", "Cuit", "Nombre", "Email", "Telefono","Estado","Tipo"};
-        modeloTabla.setColumnIdentifiers(titulos);
-        List<Carrier> listCarriers = carrierController.findAll();
-
-        if(!listCarriers.isEmpty()){
-            for (Carrier cr: listCarriers){
-                Object[] obj = {cr.getId(), cr.getCuit(),cr.getName(),cr.getEmail(),cr.getPhone(),cr.getStatus(), cr.getType()};
-                modeloTabla.addRow(obj);
-            }
-        }
-
-        tblCarriers.setModel(modeloTabla);
+         tblCarriers.setModel(viewController.modelTableCarriers());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnModify;
+    private javax.swing.JButton bttnFindOneCarrier;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCarrier;
     private javax.swing.JLabel lblWelcome;
     private javax.swing.JTable tblCarriers;
+    private javax.swing.JTextField txtCuitCarrier;
     // End of variables declaration//GEN-END:variables
 }

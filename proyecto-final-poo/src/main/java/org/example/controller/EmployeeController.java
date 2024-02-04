@@ -1,7 +1,6 @@
 package org.example.controller;
 
 
-
 import java.util.ArrayList;
 import org.example.model.Employee;
 import org.example.service.EmployeeService;
@@ -10,9 +9,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.example.dao.exceptions.NonexistentEntityException;
 
-public class EmployeeController implements  CRUD<Employee> {
-    EmployeeService employeeService;
+public class EmployeeController implements CRUD<Employee> {
 
+    EmployeeService employeeService;
 
     public EmployeeController() {
 
@@ -34,7 +33,6 @@ public class EmployeeController implements  CRUD<Employee> {
         return employeeService.findAll();
     }
 
-
     @Override
     public void upDate(Employee employee) throws Exception {
         employeeService.upDate(employee);
@@ -47,8 +45,19 @@ public class EmployeeController implements  CRUD<Employee> {
 
     }
 
-        public List<Employee> findAllEmployeesByCuit(String cuit) {
+    public List<Employee> findAllEmployeesByCuit(String cuit) {
+        return employeeService.findAllEmployeesByCuit(cuit);
+    }
 
-            return findAllEmployeesByCuit(cuit);
+    public List<Employee> findAllEnabledCustomers() {
+        return employeeService.findAllEnabledEmployees();
+    }
+
+    public Employee findCustomerEnabledByCuit(String cuit) {
+        return employeeService.findEmployeeEnabledByCuit(cuit);
+    }
+
+    public void disableAccountByCuit(String cuit) {
+        employeeService.disableAccountByCuit(cuit);
     }
 }

@@ -64,6 +64,44 @@ public class CarrierRepository implements Serializable {
         }
     }
 
+         public Carrier findCarrierEnabledByCuit(String cuit) {
+        EntityManager em = getEntityManager();
+        try {
+            for (Carrier object : findCarrierEntities()) {
+                if (object.getCuit().equals(cuit)) {
+                    return em.find(Carrier.class, object.getId());
+                }
+            }
+            // Si no se encontró ningún cliente con el CUIT especificado
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+    public void disableAccountByCuit(String cuit) throws NonexistentEntityException{
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            Carrier carrier;
+            try {
+                for (Carrier object : findCarrierEntities()) {
+                if (object.getCuit().equals(cuit)) {
+                    carrier = em.getReference(Carrier.class, object.getId());
+                    carrier.setStatus(Carrier.Status.DISABLED);
+                }
+            }
+            } catch (EntityNotFoundException enfe) {
+                throw new NonexistentEntityException("The customer with id " + cuit + " no longer exists.", enfe);
+            }
+            
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
     public void edit(Carrier carrier) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {

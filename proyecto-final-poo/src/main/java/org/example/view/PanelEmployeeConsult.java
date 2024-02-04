@@ -203,11 +203,7 @@ public class PanelEmployeeConsult extends javax.swing.JPanel {
         if(tblEmployees.getRowCount() > 0){
             if(tblEmployees.getSelectedRow()!=-1){
                 String employeeCuit = String.valueOf(tblEmployees.getValueAt(tblEmployees.getSelectedRow(),1));
-                try {
-                    employeeController.delete(employeeCuit);
-                } catch (NonexistentEntityException ex) {
-                    Logger.getLogger(PanelEmployeeConsult.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                employeeController.disableAccountByCuit(employeeCuit);
                 cargarTabla();
             }
         }
@@ -222,7 +218,6 @@ public class PanelEmployeeConsult extends javax.swing.JPanel {
         if(tblEmployees.getRowCount() > 0){
             if(tblEmployees.getSelectedRow()!=-1){
                 String cuit = String.valueOf(tblEmployees.getValueAt(tblEmployees.getSelectedRow(),1));
-
                 ViewController.panelChange(this, new PanelEmployeeEdit(cuit), this);
             }
         }

@@ -203,11 +203,9 @@ public class PanelCustomerConsult extends javax.swing.JPanel {
     }//GEN-LAST:event_bttnBackActionPerformed
 
     private void bttnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnEditActionPerformed
-
         if(tblCustomers.getRowCount() > 0){
             if(tblCustomers.getSelectedRow()!=-1){
-                String cuit = String.valueOf(tblCustomers.getValueAt(tblCustomers.getSelectedRow(),1));
-                
+                String cuit = String.valueOf(tblCustomers.getValueAt(tblCustomers.getSelectedRow(),1));         
                 ViewController.panelChange(this, new PanelCustomerEdit(cuit), this);
             }
         }
@@ -221,24 +219,7 @@ public class PanelCustomerConsult extends javax.swing.JPanel {
         tblCustomers.setModel(viewController.modelTableCustomersByCuit(txtCuitCustomerFindOne.getText()));
     }//GEN-LAST:event_bttnDestroy1ActionPerformed
     private void cargarTabla(){
-        DefaultTableModel modeloTabla = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int row, int column){
-                return false;
-            }
-        };
-        String titulos[] = {"Id", "Cuit", "Nombre", "Apellido", "Estado","Direccion","Teléfono"};
-        modeloTabla.setColumnIdentifiers(titulos);
-        List<Customer> listCustomers = customerController.findAll();
-
-        if(!listCustomers.isEmpty()){
-            for (Customer cl: listCustomers){
-                Object[] obj = {cl.getId(), cl.getCuit(),cl.getName(), cl.getSurname(), cl.getEstado(),cl.getAdress(),cl.getPhone()};
-                modeloTabla.addRow(obj);
-            }
-        }
-
-        tblCustomers.setModel(modeloTabla);
+        tblCustomers.setModel(viewController.modelTableCustomers());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

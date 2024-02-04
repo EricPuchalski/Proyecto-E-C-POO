@@ -88,6 +88,44 @@ public class ProductRepository implements Serializable {
             }
         }
     }
+         public Product findProductEnabledByCode(String code) {
+        EntityManager em = getEntityManager();
+        try {
+            for (Product object : findProductEntities()) {
+                if (object.getCode().equals(code)) {
+                    return em.find(Product.class, object.getId());
+                }
+            }
+            // Si no se encontró ningún cliente con el CUIT especificado
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+    public void disableAccountByCode(String code) throws NonexistentEntityException{
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            Product product;
+            try {
+                for (Product object : findProductEntities()) {
+                if (object.getCode().equals(code)) {
+                    product = em.getReference(Product.class, object.getId());
+                    product.setStatus(Product.Status.DISABLED);
+                }
+            }
+            } catch (EntityNotFoundException enfe) {
+                throw new NonexistentEntityException("The customer with id " + code + " no longer exists.", enfe);
+            }
+            
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
 
     public void edit(Product product) throws NonexistentEntityException, Exception {
         EntityManager em = null;

@@ -177,7 +177,7 @@ public class PanelReportOrdersByWarehouseOrig extends javax.swing.JPanel {
     }//GEN-LAST:event_bttnWarehouseActionPerformed
 
     private void bttnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnBackActionPerformed
-        ViewController.panelChange(this, new PanelOrder(), this);
+        ViewController.panelChange(this, new PanelReport(), this);
     }//GEN-LAST:event_bttnBackActionPerformed
 
     private void bttnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnConfirmActionPerformed
@@ -185,7 +185,6 @@ public class PanelReportOrdersByWarehouseOrig extends javax.swing.JPanel {
             if (tblWarehouses.getSelectedRow() != -1) {
                 Long idWarehouse =Long.parseLong(String.valueOf(tblWarehouses.getValueAt(tblWarehouses.getSelectedRow(), 0)));
                 tblOrdersByWarehouse.setModel(viewController.modelTableOrdersByWarehouseOrig(idWarehouse));
-                System.out.println(idWarehouse);
             }
         }
     }//GEN-LAST:event_bttnConfirmActionPerformed

@@ -196,12 +196,8 @@ public class PanelWarehouseConsult extends javax.swing.JPanel {
 
         if(tblWarehouses.getRowCount() > 0){
             if(tblWarehouses.getSelectedRow()!=-1){
-                try {
-                    String code = String.valueOf(tblWarehouses.getValueAt(tblWarehouses.getSelectedRow(),0));
-                    warehouseController.delete(code);
-                } catch (NonexistentEntityException ex) {
-                    Logger.getLogger(PanelWarehouseConsult.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                String email = String.valueOf(tblWarehouses.getValueAt(tblWarehouses.getSelectedRow(),5));
+                warehouseController.disableAccountByCuit(email);
             }
         }
         tblWarehouses.setModel(viewController.modelTableWarehouses());

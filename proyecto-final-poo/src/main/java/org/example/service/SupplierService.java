@@ -8,6 +8,8 @@ import org.example.dao.exceptions.NonexistentEntityException;
 import org.example.model.Supplier;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import org.example.model.Product;
 
@@ -72,6 +74,31 @@ public class SupplierService implements CRUD<Supplier> {
         if (deleteSupplier != null) {
             supplierRepository.destroy(deleteSupplier.getId());
         }
+    }
+    public Supplier findSupplierEnabledByCuit(String cuit) {
+        Supplier supplierFound = supplierRepository.findSupplierEnabledByCuit(cuit);
+        if (supplierFound.getStatus().equals(Product.Status.ENABLED)) {
+            return supplierRepository.findSupplierEnabledByCuit(cuit);
+        }
+        return null;
+    }
+
+    public void disableAccountByCuit(String cuit) {
+        Supplier supplierFound = supplierRepository.findSupplierEnabledByCuit(cuit);
+        if (supplierFound != null) {
+            try {
+                supplierRepository.disableAccountByCuit(cuit);
+            } catch (NonexistentEntityException ex) {
+                Logger.getLogger(SupplierService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public List<Supplier> findAllEnabledEmployees() {
+        return supplierRepository.findSupplierEntities()
+                .stream()
+                .filter(supplier -> supplier.getStatus().equals(Supplier.Status.ENABLED))
+                .collect(Collectors.toList());
     }
 }
 //package org.example.service;
