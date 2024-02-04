@@ -11,6 +11,8 @@ import org.example.model.Warehouse;
 import org.example.dao.exceptions.NonexistentEntityException;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 
@@ -70,12 +72,37 @@ public class WarehouseService implements CRUD<Warehouse> {
         }
         String lowercaseEmail = email.toLowerCase();
         List<Warehouse> warehousesFound= new ArrayList<>();
-        warehousesFound = this.findAll()
+        warehousesFound = this.findAllEnabledWarehouses()
         .stream()
         .filter(tr -> tr.getEmail().toLowerCase().startsWith(lowercaseEmail))
         .collect(Collectors.toList());
         
         return warehousesFound;
+    }
+    
+        public List<Warehouse> findAllEnabledWarehouses(){
+        return warehouseRepository.findWarehouseEntities()
+            .stream()
+            .filter(customer -> customer.getStatus().equals(Warehouse.Estado.ENABLED))
+            .collect(Collectors.toList());
+    }
+        public void disableAccountByEmail(String email){
+        Warehouse warehouse = warehouseRepository.findWarehouseEnabledByCuit(email);
+        if (warehouse!=null) {
+            try {
+                warehouseRepository.disableAccountByEmail(email);
+            } catch (NonexistentEntityException ex) {
+                Logger.getLogger(CustomerService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+                public Warehouse findWarehouseEnabledByCuit(String email){
+        Warehouse warehouseFound = warehouseRepository.findWarehouseEnabledByCuit(email);
+        if (warehouseFound.getStatus().equals(Warehouse.Estado.ENABLED)) {
+                return warehouseRepository.findWarehouseEnabledByCuit(email);
+            }
+        return null;
     }
     
 }

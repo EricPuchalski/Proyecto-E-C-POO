@@ -8,6 +8,8 @@ import org.example.dao.exceptions.NonexistentEntityException;
 import org.example.model.Employee;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 public class EmployeeService implements CRUD<Employee> {
      private EmployeeRepository employeeRepository;
@@ -66,7 +68,7 @@ public class EmployeeService implements CRUD<Employee> {
 
         String lowercaseCuit = cuit.toLowerCase(); // Convertir el nombre de búsqueda a minúsculas
 
-        List<Employee> employeesFound = this.findAll()
+        List<Employee> employeesFound = this.findAllEnabledEmployees()
                 .stream()
                 .filter(tr -> tr.getCuit().toLowerCase().startsWith(lowercaseCuit))
                 .collect(Collectors.toList());
@@ -75,6 +77,29 @@ public class EmployeeService implements CRUD<Employee> {
 
      }
 
+     public Employee findEmployeeEnabledByCuit(String cuit){
+        Employee employeeFound = employeeRepository.findEmployeeEnabledByCuit(cuit);
+        if (employeeFound.getEstado().equals(Employee.Status.ENABLED)) {
+                return employeeRepository.findEmployeeEnabledByCuit(cuit);
+            }
+        return null;
+    }
+    public void disableAccountByCuit(String cuit){
+        Employee employeeFound = employeeRepository.findEmployeeEnabledByCuit(cuit);
+        if (employeeFound!=null) {
+            try {
+                employeeRepository.disableAccountByCuit(cuit);
+            } catch (NonexistentEntityException ex) {
+                Logger.getLogger(CustomerService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    public List<Employee> findAllEnabledEmployees(){
+        return employeeRepository.findEmployeeEntities()
+            .stream()
+            .filter(customer -> customer.getEstado().equals(Employee.Status.ENABLED))
+            .collect(Collectors.toList());
+    }
 }
 //
 //import org.example.model.Employee;

@@ -30,13 +30,13 @@ public class SupplierRepository implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    
-     public void upLoad() {
-        Supplier p1 = new Supplier("0001","Apple","villa lugano", "123","manza@gmail");
-        Supplier p2 = new Supplier("0002","Yamaha","Villa Cabello", "345","sancor@gmail");
-        Supplier p3 = new Supplier("0003","Nike","villa cariñito", "678","nike@gmail");
-        Supplier p4 = new Supplier("0004","Adidas","villa miseria", "910","adid@gmail");
-        Supplier p5 = new Supplier("0005","Honda","villa 327", "012","honda@gmail");
+
+    public void upLoad() {
+        Supplier p1 = new Supplier("0001", "Apple", "villa lugano", "123", "manza@gmail");
+        Supplier p2 = new Supplier("0002", "Yamaha", "Villa Cabello", "345", "sancor@gmail");
+        Supplier p3 = new Supplier("0003", "Nike", "villa cariñito", "678", "nike@gmail");
+        Supplier p4 = new Supplier("0004", "Adidas", "villa miseria", "910", "adid@gmail");
+        Supplier p5 = new Supplier("0005", "Honda", "villa 327", "012", "honda@gmail");
         this.create(p1);
         this.create(p2);
         this.create(p3);
@@ -50,6 +50,46 @@ public class SupplierRepository implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(supplier);
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    public Supplier findSupplierEnabledByCuit(String cuit) {
+        EntityManager em = getEntityManager();
+        try {
+            for (Supplier object : findSupplierEntities()) {
+                if (object.getCuit().equals(cuit)) {
+                    return em.find(Supplier.class, object.getId());
+                }
+            }
+            // Si no se encontró ningún cliente con el CUIT especificado
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+
+    public void disableAccountByCuit(String cuit) throws NonexistentEntityException {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            Supplier supplier;
+            try {
+                for (Supplier object : findSupplierEntities()) {
+                    if (object.getCuit().equals(cuit)) {
+                        supplier = em.getReference(Supplier.class, object.getId());
+                        supplier.setStatus(Supplier.Status.DISABLED);
+                    }
+                }
+            } catch (EntityNotFoundException enfe) {
+                throw new NonexistentEntityException("The customer with id " + cuit + " no longer exists.", enfe);
+            }
+
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -80,8 +120,6 @@ public class SupplierRepository implements Serializable {
             }
         }
     }
-
-   
 
     public List<Supplier> findSupplierEntities() {
         return findSupplierEntities(true, -1, -1);
@@ -128,34 +166,34 @@ public class SupplierRepository implements Serializable {
             em.close();
         }
     }
-    
+
     public void destroy(Long id) throws NonexistentEntityException {
-    EntityManager em = null;
-    try {
-        em = getEntityManager();
-        em.getTransaction().begin();
-        
-        Supplier supplier;
+        EntityManager em = null;
         try {
-            supplier = em.getReference(Supplier.class, id);
-            supplier.getId();
-        } catch (EntityNotFoundException enfe) {
-            throw new NonexistentEntityException("EL supplier con el id:  " + id + " ya no existe.", enfe);
-        }
-        // Elimina todos los productos asociados al proveedor en una sola transacción
-        Query query = em.createQuery("DELETE FROM Product p WHERE p.supplier.id = :supplierId");
-        query.setParameter("supplierId", id);
-        query.executeUpdate();
-        
-        // Finalmente, elimina el proveedor
-        em.remove(supplier);
-        
-        em.getTransaction().commit();
-    } finally {
-        if (em != null) {
-            em.close();
+            em = getEntityManager();
+            em.getTransaction().begin();
+
+            Supplier supplier;
+            try {
+                supplier = em.getReference(Supplier.class, id);
+                supplier.getId();
+            } catch (EntityNotFoundException enfe) {
+                throw new NonexistentEntityException("EL supplier con el id:  " + id + " ya no existe.", enfe);
+            }
+            // Elimina todos los productos asociados al proveedor en una sola transacción
+            Query query = em.createQuery("DELETE FROM Product p WHERE p.supplier.id = :supplierId");
+            query.setParameter("supplierId", id);
+            query.executeUpdate();
+
+            // Finalmente, elimina el proveedor
+            em.remove(supplier);
+
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
         }
     }
-}
-    
+
 }

@@ -46,6 +46,45 @@ import org.example.util.Conexion;
             em.close();
         }
     }
+ 
+     public Employee findEmployeeEnabledByCuit(String cuit) {
+        EntityManager em = getEntityManager();
+        try {
+            for (Employee object : findEmployeeEntities()) {
+                if (object.getCuit().equals(cuit)) {
+                    return em.find(Employee.class, object.getId());
+                }
+            }
+            // Si no se encontró ningún cliente con el CUIT especificado
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+    public void disableAccountByCuit(String cuit) throws NonexistentEntityException{
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            Employee customer;
+            try {
+                for (Employee object : findEmployeeEntities()) {
+                if (object.getCuit().equals(cuit)) {
+                    customer = em.getReference(Employee.class, object.getId());
+                    customer.setEstado(Employee.Status.DISABLED);
+                }
+            }
+            } catch (EntityNotFoundException enfe) {
+                throw new NonexistentEntityException("The customer with id " + cuit + " no longer exists.", enfe);
+            }
+            
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
            
         public void create(Employee employee) {
             EntityManager em = null;

@@ -203,11 +203,7 @@ public class PanelEmployeeConsult extends javax.swing.JPanel {
         if(tblEmployees.getRowCount() > 0){
             if(tblEmployees.getSelectedRow()!=-1){
                 String employeeCuit = String.valueOf(tblEmployees.getValueAt(tblEmployees.getSelectedRow(),1));
-                try {
-                    employeeController.delete(employeeCuit);
-                } catch (NonexistentEntityException ex) {
-                    Logger.getLogger(PanelEmployeeConsult.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                employeeController.disableAccountByCuit(employeeCuit);
                 cargarTabla();
             }
         }
@@ -222,7 +218,6 @@ public class PanelEmployeeConsult extends javax.swing.JPanel {
         if(tblEmployees.getRowCount() > 0){
             if(tblEmployees.getSelectedRow()!=-1){
                 String cuit = String.valueOf(tblEmployees.getValueAt(tblEmployees.getSelectedRow(),1));
-
                 ViewController.panelChange(this, new PanelEmployeeEdit(cuit), this);
             }
         }
@@ -237,24 +232,7 @@ public class PanelEmployeeConsult extends javax.swing.JPanel {
     }//GEN-LAST:event_bttnBuscarActionPerformed
 
 private void cargarTabla(){
-        DefaultTableModel modeloTabla = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int row, int column){
-                return false;
-            }
-        };
-        String titulos[] = {"Id", "Cuit", "Nombre", "Estado","Direccion","Teléfono","DEPOSITO"};
-        modeloTabla.setColumnIdentifiers(titulos);
-        List<Employee> listEmployees = employeeController.findAll();
-
-        if(!listEmployees.isEmpty()){
-            for (Employee em: listEmployees){
-                Object[] obj = {em.getId(),em.getCuit(),em.getNombre(),em.getEstado(),em.getDireccion(),em.getTelefono(),em.getDeposit().getCode()};
-                modeloTabla.addRow(obj);
-            }
-        }
-
-        tblEmployees.setModel(modeloTabla);
+        tblEmployees.setModel(viewController.modelTableEmployees());
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bttnBack;

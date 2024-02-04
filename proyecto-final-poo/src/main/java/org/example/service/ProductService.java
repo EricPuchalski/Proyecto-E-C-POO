@@ -7,6 +7,8 @@ import org.example.dao.exceptions.NonexistentEntityException;
 import org.example.model.Product;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class ProductService implements CRUD<Product>{
@@ -70,6 +72,29 @@ public class ProductService implements CRUD<Product>{
         return productsFound;
     }
        
+         public Product findProductEnabledByCode(String code){
+        Product productFound = productRepository.findProductEnabledByCode(code);
+        if (productFound.getStatus().equals(Product.Status.ENABLED)) {
+                return productRepository.findProductEnabledByCode(code);
+            }
+        return null;
+    }
+    public void disableAccountByCode(String cuit){
+        Product productFound = productRepository.findProductEnabledByCode(cuit);
+        if (productFound!=null) {
+            try {
+                productRepository.disableAccountByCode(cuit);
+            } catch (NonexistentEntityException ex) {
+                Logger.getLogger(CustomerService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    public List<Product> findAllEnabledEmployees(){
+        return productRepository.findProductEntities()
+            .stream()
+            .filter(customer -> customer.getStatus().equals(Product.Status.ENABLED))
+            .collect(Collectors.toList());
+    }
 
 }
   //  private ProductoRepository productoRepository;
