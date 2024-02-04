@@ -81,10 +81,12 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane6" min="-2" pref="127" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblEmployee" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtEmployee" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="bttnEmployee" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtEmployee" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="bttnEmployee" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jScrollPane5" min="-2" pref="155" max="-2" attributes="0"/>

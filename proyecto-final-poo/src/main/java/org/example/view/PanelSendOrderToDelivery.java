@@ -4,6 +4,7 @@
  */
 package org.example.view;
 
+import javax.swing.JOptionPane;
 import org.example.controller.OrderController;
 import org.example.controller.ViewController;
 
@@ -218,9 +219,17 @@ public class PanelSendOrderToDelivery extends javax.swing.JPanel {
                         String orderNumber = String.valueOf(tblOrders.getValueAt(tblOrders.getSelectedRow(),3));
                         String cuitEmployee = String.valueOf(tblEmployees.getValueAt(tblEmployees.getSelectedRow(),1));
                         orderController.sendToDelivery(orderNumber, cuitEmployee);
+                        JOptionPane.showMessageDialog(this, "Pedido enviado a deposito desttino", "Exito", JOptionPane.INFORMATION_MESSAGE);
                         ViewController.panelChange(this, new PanelOrder(), this);
                     }
+                    else{
+                        JOptionPane.showMessageDialog(this, "Por favor seleccione un pedido", "Error", JOptionPane.ERROR_MESSAGE);
+
+                    }
                 }
+            } else{
+                JOptionPane.showMessageDialog(this, "Por favor seleccione un empleado", "Error", JOptionPane.INFORMATION_MESSAGE);
+
             }
         }
         //        orderController.processOrder(txtOrder.getText(), );

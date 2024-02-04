@@ -7,7 +7,9 @@ package org.example.service;
 import dao.WarehouseRepository;
 import org.example.model.Warehouse;
 import dao.exceptions.NonexistentEntityException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -60,6 +62,18 @@ public class WarehouseService implements CRUD<Warehouse> {
             warehouseRepository.destroy(deleteWarehouse.getId());
         }
     }
-    
+    public List<Warehouse> findAllWarehousesByEmail(String email){
+        if (email == null || email.isEmpty()) {
+            return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
+        }
+        String lowercaseEmail = email.toLowerCase();
+        List<Warehouse> warehousesFound= new ArrayList<>();
+        warehousesFound = this.findAll()
+        .stream()
+        .filter(tr -> tr.getEmail().toLowerCase().startsWith(lowercaseEmail))
+        .collect(Collectors.toList());
+        
+        return warehousesFound;
+    }
     
 }

@@ -180,7 +180,7 @@ public class PanelReportOrdersByCustomer extends javax.swing.JPanel {
     }//GEN-LAST:event_bttnOrderActionPerformed
 
     private void bttnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnBackActionPerformed
-        ViewController.panelChange(this, new PanelOrder(), this);
+        ViewController.panelChange(this, new PanelReport(), this);
     }//GEN-LAST:event_bttnBackActionPerformed
 
     private void bttnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnConfirmActionPerformed

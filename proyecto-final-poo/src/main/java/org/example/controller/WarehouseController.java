@@ -48,21 +48,8 @@ public class WarehouseController implements CRUD<Warehouse>{
         warehouseService.delete(id);
     }
     public List<Warehouse> findAllWarehousesByEmail(String email){
-        if (email == null || email.isEmpty()) {
-            return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
-        }
-        String lowercaseEmail = email.toLowerCase();
-        List<Warehouse> warehousesFound= new ArrayList<>();
-        warehousesFound = this.findAll()
-        .stream()
-        .filter(tr -> tr.getEmail().toLowerCase().startsWith(lowercaseEmail))
-        .collect(Collectors.toList());
-        
-        
-        return warehousesFound;
-        
-    
-        
+        return warehouseService.findAllWarehousesByEmail(email);
+
     }
     public List<Warehouse> warehousesIdForOrder(JTable tableOrig, JTable tableDest){
         List<Warehouse> warehouses = new ArrayList<>();

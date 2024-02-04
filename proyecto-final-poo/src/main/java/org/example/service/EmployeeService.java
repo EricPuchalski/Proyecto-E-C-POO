@@ -2,9 +2,11 @@ package org.example.service;
 
 import dao.EmployeeRepository;
 import dao.exceptions.NonexistentEntityException;
+import java.util.ArrayList;
 import org.example.model.Employee;
 
 import java.util.List;
+import java.util.stream.Collectors;
 public class EmployeeService implements CRUD<Employee> {
      private EmployeeRepository employeeRepository;
        public EmployeeService() {
@@ -48,7 +50,22 @@ public class EmployeeService implements CRUD<Employee> {
             employeeRepository.destroy(deleteEmployee.getId());
         }
     }
+    
+     public List<Employee> findAllEmployeesByCuit(String cuit){
+         if (cuit == null || cuit.isEmpty()) {
+            return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
+        }
 
+        String lowercaseCuit = cuit.toLowerCase(); // Convertir el nombre de búsqueda a minúsculas
+
+        List<Employee> employeesFound = this.findAll()
+                .stream()
+                .filter(tr -> tr.getCUIT().toLowerCase().startsWith(lowercaseCuit))
+                .collect(Collectors.toList());
+        
+        return employeesFound;
+
+     }
 
 }
 //
