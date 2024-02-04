@@ -185,7 +185,6 @@ public class PanelReportOrdersByWarehouseOrig extends javax.swing.JPanel {
             if (tblWarehouses.getSelectedRow() != -1) {
                 Long idWarehouse =Long.parseLong(String.valueOf(tblWarehouses.getValueAt(tblWarehouses.getSelectedRow(), 0)));
                 tblOrdersByWarehouse.setModel(viewController.modelTableOrdersByWarehouseOrig(idWarehouse));
-                System.out.println(idWarehouse);
             }
         }
     }//GEN-LAST:event_bttnConfirmActionPerformed
