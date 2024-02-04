@@ -1,6 +1,6 @@
 package org.example.service;
 
-import dao.InformationRepository;
+import org.example.dao.InformationRepository;
 
 public class InformationService {
     private InformationRepository informationRepository;

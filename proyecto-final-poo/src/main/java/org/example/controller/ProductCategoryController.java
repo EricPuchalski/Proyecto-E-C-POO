@@ -4,8 +4,9 @@
  */
 package org.example.controller;
 
-import dao.exceptions.NonexistentEntityException;
+
 import java.util.List;
+import org.example.dao.exceptions.NonexistentEntityException;
 import org.example.model.ProductCategory;
 import org.example.service.ProductCategoryService;
 

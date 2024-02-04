@@ -1,8 +1,10 @@
 package org.example.service;
 
-import dao.SupplierRepository;
-import dao.exceptions.NonexistentEntityException;
+
 import java.util.ArrayList;
+import org.example.dao.SupplierRepository;
+import org.example.dao.exceptions.NonexistentEntityException;
+
 import org.example.model.Supplier;
 
 import java.util.List;

@@ -106,6 +106,11 @@ public class Carrier implements Serializable {
         this.type = type;
     }
 
+    @Override
+    public String toString() {
+        return "Carrier{" + "id=" + id + ", cuit=" + cuit + ", name=" + name + ", phone=" + phone + ", email=" + email + ", type=" + type + ", status=" + status + '}';
+    }
+
     
     
 }

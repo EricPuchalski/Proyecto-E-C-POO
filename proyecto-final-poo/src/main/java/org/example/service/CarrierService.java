@@ -1,12 +1,14 @@
 package org.example.service;
 //
 //
+import java.util.ArrayList;
 import org.example.model.Carrier;
 //import org.example.repository.TransportistaRepository;
 //
-import dao.CarrierRepository;
-import dao.exceptions.NonexistentEntityException;
-import java.util.ArrayList;
+
+import org.example.dao.CarrierRepository;
+import org.example.dao.exceptions.NonexistentEntityException;
+
 import java.util.List;
 import java.util.stream.Collectors;
 //
@@ -21,9 +23,7 @@ import java.util.stream.Collectors;
 
     @Override
     public void save(Carrier carrier) {
-        if (!carrierRepository.findCarrierEntities().contains(carrier.getCuit())) {
-            }else{ carrierRepository.create(carrier);
-        }
+        carrierRepository.create(carrier);
     }
 
     @Override
@@ -75,48 +75,3 @@ import java.util.stream.Collectors;
  
  
 }
-//    private Carrier carrier;
-//
-//
-//    public CarrierService(TransportistaRepository transportistaRepository) {
-//        this.transportistaRepository = transportistaRepository;
-//    }
-//
-//    @Override
-//    public void save(Carrier carrier) {
-//        if (transportistaRepository.findOne(carrier.getCuit())== null) {
-//            transportistaRepository.save(carrier);
-//        }
-//    }
-//
-//    @Override
-//    public void upDate(Carrier carrier) {
-//        if(findOne(carrier.getCuit()) != null){
-//            transportistaRepository.upDate(carrier);
-//        }
-//    }
-//
-//    @Override
-//    public Carrier findOne(String cuit) {
-//        Carrier carrier = null;
-//        if (transportistaRepository.findOne(cuit)!= null) {
-//            carrier = transportistaRepository.findOne(cuit);
-//
-//        }
-//        return carrier;
-//    }
-//
-//
-//    @Override
-//    public List<Carrier> findAll() {
-//        return transportistaRepository.findAll();
-//    }
-//
-//
-//    @Override
-//    public void delete(String cuit) {
-//        if (findOne(cuit)!= null){
-//            transportistaRepository.delete(cuit);
-//        }
-//    }
-//}

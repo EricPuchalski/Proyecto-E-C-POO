@@ -91,13 +91,13 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="0" pref="15" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="bttnDestroy" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
-                      <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="lblProduct" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtNameProduct" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="bttnFindOneProduct" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="bttnDestroy" min="-2" pref="51" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">

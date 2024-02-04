@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package dao;
+package org.example.dao;
 
-import dao.exceptions.NonexistentEntityException;
+import org.example.dao.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -13,48 +13,49 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import org.example.model.Sector;
+import org.example.model.Carrier;
 import org.example.util.Conexion;
 
 /**
  *
  * @author ericp
  */
-public class SectorRepository implements Serializable {
+public class CarrierRepository implements Serializable {
 
-    public SectorRepository() {
+    public CarrierRepository() {
+  
         this.emf = Conexion.getEmf();
- 
     }
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
+
     public void upLoad() {
-        Sector s1 = new Sector("1","Pendiente");
-        Sector s2 = new Sector("2","En Proceso");
-        Sector s3 = new Sector("3","Completo");
-        Sector s4 = new Sector("4","Esperando Despacho");
-        Sector s5 = new Sector("5","Despacho");
-        Sector s6 = new Sector("6","Esperando Entrega");
-        Sector s7 = new Sector("7","Entrega");
-        
-        this.create(s1);
-        this.create(s2);
-        this.create(s3);
-        this.create(s4);
-        this.create(s5);
-        this.create(s6);
-        this.create(s7);
+            
+        Carrier t1 = new Carrier("12321","Correo Argentino","12342", "correo_argentino@gmail.com",Carrier.CarrierType.AIR);
+        Carrier t2 = new Carrier("32133","OCA","4352", "oca@gmail.com",Carrier.CarrierType.LAND);
+        Carrier t3 = new Carrier("23255","OCASA","7653432", "oacasa@gmail.com",Carrier.CarrierType.MARITIME);
+        Carrier t4 = new Carrier("34443","AMAZON","4235234", "amazon@gmail.com",Carrier.CarrierType.AIR);
+        Carrier t5 = new Carrier("67611","DHL","12321", "dhl@gmail.com",Carrier.CarrierType.LAND);
+        Carrier t6 = new Carrier("67624","FedEx","123321", "fedex@gmail.com",Carrier.CarrierType.MARITIME);
+
+        this.create(t1);
+        this.create(t2);
+        this.create(t3);
+        this.create(t4);
+        this.create(t5);
+        this.create(t6);
+            
 
     }
-    public void create(Sector sector) {
+    public void create(Carrier carrier) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(sector);
+            em.persist(carrier);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -63,19 +64,19 @@ public class SectorRepository implements Serializable {
         }
     }
 
-    public void edit(Sector sector) throws NonexistentEntityException, Exception {
+    public void edit(Carrier carrier) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            sector = em.merge(sector);
+            carrier = em.merge(carrier);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Long id = sector.getId();
-                if (findSector(id) == null) {
-                    throw new NonexistentEntityException("The sector with id " + id + " no longer exists.");
+                Long id = carrier.getId();
+                if (findCarrier(id) == null) {
+                    throw new NonexistentEntityException("The carrier with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -91,14 +92,14 @@ public class SectorRepository implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Sector sector;
+            Carrier carrier;
             try {
-                sector = em.getReference(Sector.class, id);
-                sector.getId();
+                carrier = em.getReference(Carrier.class, id);
+                carrier.getId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The sector with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The carrier with id " + id + " no longer exists.", enfe);
             }
-            em.remove(sector);
+            em.remove(carrier);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -107,19 +108,19 @@ public class SectorRepository implements Serializable {
         }
     }
 
-    public List<Sector> findSectorEntities() {
-        return findSectorEntities(true, -1, -1);
+    public List<Carrier> findCarrierEntities() {
+        return findCarrierEntities(true, -1, -1);
     }
 
-    public List<Sector> findSectorEntities(int maxResults, int firstResult) {
-        return findSectorEntities(false, maxResults, firstResult);
+    public List<Carrier> findCarrierEntities(int maxResults, int firstResult) {
+        return findCarrierEntities(false, maxResults, firstResult);
     }
 
-    private List<Sector> findSectorEntities(boolean all, int maxResults, int firstResult) {
+    private List<Carrier> findCarrierEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Sector.class));
+            cq.select(cq.from(Carrier.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -131,20 +132,20 @@ public class SectorRepository implements Serializable {
         }
     }
 
-    public Sector findSector(Long id) {
+    public Carrier findCarrier(Long id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Sector.class, id);
+            return em.find(Carrier.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getSectorCount() {
+    public int getCarrierCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Sector> rt = cq.from(Sector.class);
+            Root<Carrier> rt = cq.from(Carrier.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
