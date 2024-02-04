@@ -248,7 +248,8 @@ private void cargarTabla(){
 
         if(!listEmployees.isEmpty()){
             for (Employee em: listEmployees){
-                Object[] obj = {em.getId(),em.getCuit(),em.getNombre(),em.getEstado(),em.getDireccion(),em.getTelefono(),em.getDeposit().getCode()};
+
+                Object[] obj = {em.getId(),em.getCuit(),em.getNombre(),em.getEstado(),em.getDireccion(),em.getTelefono(),em.getDeposit().getEmail()};
                 modeloTabla.addRow(obj);
             }
         }
