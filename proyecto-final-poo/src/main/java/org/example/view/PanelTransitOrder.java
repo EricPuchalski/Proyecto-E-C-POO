@@ -4,6 +4,7 @@
  */
 package org.example.view;
 
+import javax.swing.JOptionPane;
 import org.example.controller.OrderController;
 import org.example.controller.ViewController;
 
@@ -149,7 +150,13 @@ public class PanelTransitOrder extends javax.swing.JPanel {
                 String orderNumber = String.valueOf(tblOrders.getValueAt(tblOrders.getSelectedRow(),3));
                 orderController.orderTransit(orderNumber);
                 ViewController.panelChange(this, new PanelOrder(), this);
+                JOptionPane.showMessageDialog(this, "Pedido enviado a transito", "Exito", JOptionPane.INFORMATION_MESSAGE);
+
             }
+            else{
+                JOptionPane.showMessageDialog(this, "Por favor seleccione un pedido", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
         }
     }//GEN-LAST:event_bttnConfirmActionPerformed
 

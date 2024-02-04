@@ -35,5 +35,8 @@ public class SupplierController implements CRUD<Supplier> {
     public void upDate(Supplier supplier) throws Exception {
         supplierService.upDate(supplier);
     }
+        public List<Supplier> findAllByCuit(String cuit) {
+        return supplierService.findAllSuppliersByCuit(cuit);
+    }
 
 }

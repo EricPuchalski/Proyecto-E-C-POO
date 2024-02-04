@@ -5,23 +5,27 @@
 package org.example.view;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.example.controller.OrderController;
 import org.example.controller.ViewController;
+import org.example.model.Order;
 
 /**
  *
  * @author ericp
  */
 public class PanelProcessOrder extends javax.swing.JPanel {
+
     private ViewController viewController;
     private OrderController orderController;
+
     /**
      * Creates new form PanelProcessOrder
      */
     public PanelProcessOrder() {
-                this.viewController = new ViewController();
-                this.orderController = new OrderController();
-        this.setSize(800,700);
+        this.viewController = new ViewController();
+        this.orderController = new OrderController();
+        this.setSize(800, 700);
         initComponents();
     }
 
@@ -183,10 +187,11 @@ public class PanelProcessOrder extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEmployee)
-                    .addComponent(txtEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bttnEmployee))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblEmployee, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bttnEmployee)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
@@ -198,7 +203,7 @@ public class PanelProcessOrder extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bttnEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnEmployeeActionPerformed
-       tblEmployees.setModel(viewController.modelTableEmployeesByCuit(txtEmployee.getText()));
+        tblEmployees.setModel(viewController.modelTableEmployeesByCuit(txtEmployee.getText()));
     }//GEN-LAST:event_bttnEmployeeActionPerformed
 
     private void bttnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnBackActionPerformed
@@ -206,19 +211,27 @@ public class PanelProcessOrder extends javax.swing.JPanel {
     }//GEN-LAST:event_bttnBackActionPerformed
 
     private void bttnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnConfirmActionPerformed
-        if(tblEmployees.getRowCount() > 0){
-            if(tblEmployees.getSelectedRow()!=-1){
-                if(tblOrders.getRowCount() > 0){
-                    if(tblOrders.getSelectedRow()!=-1){
-                        String orderNumber = String.valueOf(tblOrders.getValueAt(tblOrders.getSelectedRow(),3));
-                        String cuitEmployee = String.valueOf(tblEmployees.getValueAt(tblEmployees.getSelectedRow(),1));
+        if (tblEmployees.getRowCount() > 0) {
+            if (tblEmployees.getSelectedRow() != -1) {
+                if (tblOrders.getRowCount() > 0) {
+                    if (tblOrders.getSelectedRow() != -1) {
+                        String orderNumber = String.valueOf(tblOrders.getValueAt(tblOrders.getSelectedRow(), 3));
+                        String cuitEmployee = String.valueOf(tblEmployees.getValueAt(tblEmployees.getSelectedRow(), 1));
                         orderController.processOrder(orderNumber, cuitEmployee);
+                        JOptionPane.showMessageDialog(this, "Pedido procesado", "Exito", JOptionPane.INFORMATION_MESSAGE);
                         ViewController.panelChange(this, new PanelOrder(), this);
+
+                    } else{
+
+                    JOptionPane.showMessageDialog(this, "Por favor seleccione un pedido", "Error", JOptionPane.ERROR_MESSAGE);
+
                     }
                 }
-            }
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor seleccione un empleado", "Error", JOptionPane.ERROR_MESSAGE);
+
         }
-//        orderController.processOrder(txtOrder.getText(), );
+    }
     }//GEN-LAST:event_bttnConfirmActionPerformed
 
     private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
@@ -227,10 +240,10 @@ public class PanelProcessOrder extends javax.swing.JPanel {
     }//GEN-LAST:event_formAncestorAdded
 
     private void bttnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnOrderActionPerformed
-       tblOrders.setModel(viewController.modelTableOrdersByNumber(txtOrder.getText()));
+        tblOrders.setModel(viewController.modelTableOrdersByNumber(txtOrder.getText()));
     }//GEN-LAST:event_bttnOrderActionPerformed
 
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bttnBack;
     private javax.swing.JButton bttnConfirm;

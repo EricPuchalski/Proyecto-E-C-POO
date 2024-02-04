@@ -43,6 +43,9 @@ public class PanelConsultProduct extends javax.swing.JPanel {
         bttnDestroy = new javax.swing.JButton();
         bttnBack = new javax.swing.JButton();
         bttnEdit = new javax.swing.JButton();
+        lblProduct = new javax.swing.JLabel();
+        txtNameProduct = new javax.swing.JTextField();
+        bttnFindOneProduct = new javax.swing.JButton();
 
         addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
@@ -96,13 +99,31 @@ public class PanelConsultProduct extends javax.swing.JPanel {
             }
         });
 
+        lblProduct.setText("NOMBRE PRODUCTO");
+
+        bttnFindOneProduct.setText("BUSCAR");
+        bttnFindOneProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        bttnFindOneProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnFindOneProductActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(lblProduct)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtNameProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(bttnFindOneProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(bttnDestroy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -114,14 +135,23 @@ public class PanelConsultProduct extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 15, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bttnDestroy, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblProduct)
+                        .addComponent(txtNameProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bttnFindOneProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(bttnDestroy, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(49, 49, 49)
                         .addComponent(bttnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(51, 51, 51)
-                        .addComponent(bttnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(bttnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(159, 159, 159))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -154,6 +184,7 @@ public class PanelConsultProduct extends javax.swing.JPanel {
                 String codeProduct = String.valueOf(tblProducts.getValueAt(tblProducts.getSelectedRow(),1));
                 try {
                     productController.delete(codeProduct);
+                    
                     this.loadData();
                 } catch (NonexistentEntityException ex) {
                     Logger.getLogger(PanelConsultProduct.class.getName()).log(Level.SEVERE, null, ex);
@@ -182,6 +213,10 @@ public class PanelConsultProduct extends javax.swing.JPanel {
             this.loadData();
     }//GEN-LAST:event_formAncestorAdded
 
+    private void bttnFindOneProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnFindOneProductActionPerformed
+        tblProducts.setModel(viewController.modelTableWarehousesByEmail(txtNameProduct.getText()));
+    }//GEN-LAST:event_bttnFindOneProductActionPerformed
+
     private void loadData(){
        tblProducts.setModel(viewController.modelTableProducts());
 
@@ -190,9 +225,12 @@ public class PanelConsultProduct extends javax.swing.JPanel {
     private javax.swing.JButton bttnBack;
     private javax.swing.JButton bttnDestroy;
     private javax.swing.JButton bttnEdit;
+    private javax.swing.JButton bttnFindOneProduct;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblProduct;
     private javax.swing.JLabel lblWelcome;
     private javax.swing.JTable tblProducts;
+    private javax.swing.JTextField txtNameProduct;
     // End of variables declaration//GEN-END:variables
 }
