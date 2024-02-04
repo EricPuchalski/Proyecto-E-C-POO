@@ -1,10 +1,12 @@
 package org.example.controller;
 
-import org.example.dao.exceptions.NonexistentEntityException;
+
+import dao.exceptions.NonexistentEntityException;
 import org.example.model.Customer;
 import org.example.service.CustomerService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CustomerController implements CRUD<Customer>{
 
@@ -33,5 +35,9 @@ public class CustomerController implements CRUD<Customer>{
     }
     public void upDate(Customer customer) throws Exception {
         customerService.upDate(customer);
+    }
+    public List<Customer> findAllCustomersByCuit(String cuit){
+        return customerService.findAllCustomersByCuit(cuit);
+   
     }
 }

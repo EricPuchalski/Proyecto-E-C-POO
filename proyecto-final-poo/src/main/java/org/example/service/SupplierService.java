@@ -1,10 +1,14 @@
 package org.example.service;
 
+
 import org.example.dao.SupplierRepository;
 import org.example.dao.exceptions.NonexistentEntityException;
+
 import org.example.model.Supplier;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import org.example.model.Product;
 
 public class SupplierService implements CRUD<Supplier> {
     private SupplierRepository supplierRepository;
@@ -14,25 +18,44 @@ public class SupplierService implements CRUD<Supplier> {
     }
 
     @Override
-    public void save(Supplier supplier) {
-        if (!supplierRepository.findSupplierEntities().contains(supplier.getCuit())) {
-            }else{supplierRepository.create(supplier);
+    public void save(Supplier t) {
+        if (!(t.getCuit().isEmpty() || t.getName().isEmpty() ||  t.getAdress().isEmpty() || t.getPhone().isEmpty()||t.getEmail().isEmpty())) {
+        supplierRepository.create(t);
         }
     }
 
     @Override
     public Supplier findOne(String cuit) {
-        for (Supplier supplier : supplierRepository.findSupplierEntities()) {
-            if (cuit.equals(supplier.getCuit())) {
-                return supplier;
-            }
+    for (Supplier sp : supplierRepository.findSupplierEntities()) {
+        if(cuit.equals(sp.getCuit())){
+            return sp;
         }
         return null;
     }
 
+    
+    for (Supplier supplier : supplierRepository.findSupplierEntities()) {
+        if (cuit.equals(supplier.getCuit())) {
+            return supplier;
+        }
+    }
+    return null;
+}
+
     @Override
     public List<Supplier> findAll() {
         return supplierRepository.findSupplierEntities();
+    }
+    
+    public List<Supplier> findAllSuppliersByCuit(String cuit) {
+         if (cuit == null || cuit.isEmpty()) {
+            return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
+        }
+        List<Supplier> suppliersFound = this.findAll()
+                .stream()
+                .filter(tr -> tr.getCuit().toLowerCase().startsWith(cuit))
+                .collect(Collectors.toList());
+        return suppliersFound;
     }
 
     @Override

@@ -2,9 +2,11 @@ package org.example.service;
 
 import org.example.dao.CustomerRepository;
 import org.example.dao.exceptions.NonexistentEntityException;
+
 import org.example.model.Customer;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CustomerService implements CRUD<Customer>{
     private CustomerRepository customerRepository;
@@ -43,6 +45,20 @@ public class CustomerService implements CRUD<Customer>{
     public void save(Customer t) {
     if (!(t.getCuit().isEmpty() || t.getName().isEmpty() || t.getSurname().isEmpty() || t.getAdress().isEmpty() || t.getPhone().isEmpty())) {
         customerRepository.create(t);
-    }     }
+    }     
+    }
+    public List<Customer> findAllCustomersByCuit(String cuit){
+        if (cuit == null || cuit.isEmpty()) {
+            return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
+        }
+        String lowerCaseCuit = cuit.toLowerCase();
+        List<Customer> customersFound= new ArrayList<>();
+        customersFound = this.findAll()
+        .stream()
+        .filter(tr -> tr.getCuit().toLowerCase().startsWith(lowerCaseCuit))
+        .collect(Collectors.toList());
+        return customersFound;
+        }
+ 
 }
 

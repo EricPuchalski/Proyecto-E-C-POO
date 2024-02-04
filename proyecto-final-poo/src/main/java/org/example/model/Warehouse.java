@@ -37,6 +37,8 @@ public class Warehouse implements Serializable {
     private Position position;
     @Enumerated(EnumType.STRING)
     private Estado status;
+    @OneToOne
+    private Employee employee;
     @OneToMany
     @JoinColumn(name = "warehouse_id")
     private List<Sector> sectors;
@@ -44,11 +46,7 @@ public class Warehouse implements Serializable {
         ENABLED,
         DISABLED
     }
-//        @JoinTable(
-//        name = "depositoS_sectores",
-//        joinColumns = @JoinColumn(name = "sector_id"),
-//        inverseJoinColumns = @JoinColumn(name = "deposito_id")
-//    )
+
 
     public Warehouse(String code, String name, String adress, String phone, String email, String continent, Position position) {
         this.code = code;
@@ -60,9 +58,26 @@ public class Warehouse implements Serializable {
         this.position = position;
         this.status = Estado.ENABLED;
         this.sectors = new ArrayList<>();
+
     }
 
+        public Warehouse(String code, String name, String adress, String phone, String email, String continent, Position position, Employee employee) {
+        this.code = code;
+        this.name = name;
+        this.adress = adress;
+        this.phone = phone;
+        this.email = email;
+        this.continent = continent;
+        this.position = position;
+        this.status = Estado.ENABLED;
+        this.employee = employee;
+        this.sectors = new ArrayList<>();
 
+    }
+        public Warehouse(String code) {
+    this.code = code;
+    this.sectors = new ArrayList<>(); // Inicializa la lista de sectores
+}
 
     public Warehouse() {
         this.sectors = new ArrayList<>();
@@ -148,6 +163,19 @@ public class Warehouse implements Serializable {
         this.sectors = sectors;
     }
 
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
 
     
 }
+//        @JoinTable(
+//        name = "depositoS_sectores",
+//        joinColumns = @JoinColumn(name = "sector_id"),
+//        inverseJoinColumns = @JoinColumn(name = "deposito_id")
+//    )

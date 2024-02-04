@@ -2,9 +2,11 @@ package org.example.service;
 
 import org.example.dao.OrderRepository;
 import org.example.dao.exceptions.NonexistentEntityException;
+
 import org.example.model.Order;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class OrderService implements CRUD<Order> {
     private OrderRepository orderRepository;
@@ -15,9 +17,7 @@ public class OrderService implements CRUD<Order> {
 
     @Override
     public void save(Order order) {
-        if (!orderRepository.findOrderEntities().contains(order.getOrderNumber())) {
-            }else{orderRepository.create(order);
-        }
+        orderRepository.create(order);
     }
 
     @Override
@@ -48,6 +48,79 @@ public class OrderService implements CRUD<Order> {
         if (deleteOrder != null) {
             orderRepository.destroy(deleteOrder.getId());
         }
+    }
+    public void processOrder(String orderNumber, String cuitEmpleado){
+       Order order = orderRepository.findOrderByOrderNumber(orderNumber);
+       if (order != null && order.getWarehouseOrig() != null && order.getWarehouseOrig().getSectors() != null) {
+           orderRepository.processOrder(orderNumber, cuitEmpleado);
+       } else {
+           
+       }
+    }
+    public void completeOrder(String orderNumber){
+        Order orderFound = orderRepository.findOrderByOrderNumber(orderNumber);;
+        if (orderFound != null && orderFound.getWarehouseOrig() != null && orderFound.getWarehouseOrig().getSectors() != null) {
+            orderRepository.completeOrder(orderNumber);
+        }
+
+    }
+    public void sendOrderToDispatch(String orderNumber){
+        Order orderFound = orderRepository.findOrderByOrderNumber(orderNumber);;
+        if (orderFound != null && orderFound.getWarehouseOrig() != null && orderFound.getWarehouseOrig().getSectors() != null) {
+            orderRepository.sendOrderToDispatch(orderNumber);
+        }
+    }
+    public void dispatchOrder(String orderNumber){
+        Order orderFound = orderRepository.findOrderByOrderNumber(orderNumber);
+        if (orderFound != null && orderFound.getWarehouseOrig() != null && orderFound.getWarehouseOrig().getSectors() != null && orderFound.getDespatchNote() == null && orderFound.getTracking() == null) {
+            orderRepository.dispatchOrder(orderNumber);
+        }
+
+    }
+    public void orderTransit(String orderNumber){
+        Order orderFound = orderRepository.findOrderByOrderNumber(orderNumber);
+        if(orderFound != null){
+        orderRepository.orderTransit(orderNumber);
+    }
+
+    }
+    public void sendToDelivery(String orderNumber, String cuitEmployeeReceiv){
+        Order orderFound = orderRepository.findOrderByOrderNumber(orderNumber);
+        if (orderFound != null && orderFound.getWarehouseDest() != null && orderFound.getWarehouseDest().getSectors() != null && orderFound.getTracking() != null && orderFound.getDespatchNote()!=null ) {
+            orderRepository.sendToDelivery(orderNumber, cuitEmployeeReceiv);
+        }
+    }
+    public List<Order> findAllOrdersByCustomers(Long idCustomer){
+        List<Order> orders = new ArrayList();
+        for (Order order : this.findAll()) {
+            if (order.getCustomer().getId().equals(idCustomer)) {
+                orders.add(order);
+            }
+        }
+        return orders;
+    }
+    public List<Order> findAllOrdersByWarehouseOrig(Long idWarehouse){
+        List<Order> orders = new ArrayList();
+        for (Order order : this.findAll()) {
+            if (order.getWarehouseOrig().getId().equals(idWarehouse)) {
+                orders.add(order);
+            }
+        }
+        return orders;
+    }
+
+    public List<Order> findAllOrdersByNumber(String orderNumber) {
+        if (orderNumber == null || orderNumber.isEmpty()) {
+            return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
+        }
+
+        String lowercaseNumber = orderNumber.toLowerCase(); // Convertir el nombre de búsqueda a minúsculas
+
+        List<Order> ordersFound = this.findAll()
+                .stream()
+                .filter(tr -> tr.getOrderNumber().toLowerCase().startsWith(lowercaseNumber))
+                .collect(Collectors.toList());
+        return ordersFound;
     }
 }
 //package org.example.service;

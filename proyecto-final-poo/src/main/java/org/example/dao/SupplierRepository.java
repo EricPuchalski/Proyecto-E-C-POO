@@ -81,26 +81,7 @@ public class SupplierRepository implements Serializable {
         }
     }
 
-    public void destroy(Long id) throws NonexistentEntityException {
-        EntityManager em = null;
-        try {
-            em = getEntityManager();
-            em.getTransaction().begin();
-            Supplier supplier;
-            try {
-                supplier = em.getReference(Supplier.class, id);
-                supplier.getId();
-            } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The supplier with id " + id + " no longer exists.", enfe);
-            }
-            em.remove(supplier);
-            em.getTransaction().commit();
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
+   
 
     public List<Supplier> findSupplierEntities() {
         return findSupplierEntities(true, -1, -1);
@@ -147,5 +128,34 @@ public class SupplierRepository implements Serializable {
             em.close();
         }
     }
+    
+    public void destroy(Long id) throws NonexistentEntityException {
+    EntityManager em = null;
+    try {
+        em = getEntityManager();
+        em.getTransaction().begin();
+        
+        Supplier supplier;
+        try {
+            supplier = em.getReference(Supplier.class, id);
+            supplier.getId();
+        } catch (EntityNotFoundException enfe) {
+            throw new NonexistentEntityException("EL supplier con el id:  " + id + " ya no existe.", enfe);
+        }
+        // Elimina todos los productos asociados al proveedor en una sola transacción
+        Query query = em.createQuery("DELETE FROM Product p WHERE p.supplier.id = :supplierId");
+        query.setParameter("supplierId", id);
+        query.executeUpdate();
+        
+        // Finalmente, elimina el proveedor
+        em.remove(supplier);
+        
+        em.getTransaction().commit();
+    } finally {
+        if (em != null) {
+            em.close();
+        }
+    }
+}
     
 }

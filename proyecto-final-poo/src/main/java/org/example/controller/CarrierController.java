@@ -1,18 +1,23 @@
 package org.example.controller;
 
+
+
+
+
+
 import java.util.ArrayList;
-import org.example.model.Carrier;
+import java.util.List;
 import org.example.service.CarrierService;
 
-import java.util.List;
-import org.example.dao.exceptions.NonexistentEntityException;
 
 public class CarrierController {
     private CarrierService carrierService;
 
-  public CarrierController() {
-      this.carrierService = new CarrierService();
- }
+
+    public CarrierController() {
+        this.carrierService = new CarrierService();
+    }
+
 
     public void create(Carrier carrier){
         carrierService.save(carrier);
@@ -20,6 +25,7 @@ public class CarrierController {
 
     public Carrier findOne(String cuit){
        return carrierService.findOne(cuit);
+
     }
 
     public void delete(String cuit) throws NonexistentEntityException{
@@ -33,7 +39,7 @@ public class CarrierController {
     public void upDate(Carrier carrier) throws Exception {
         carrierService.upDate(carrier);
     }
-    public class CarrierTypeUtils {
+
         public static List<String> getCarrierTypes() {
             List<String> carrierTypes = new ArrayList();
             carrierTypes.add(Carrier.CarrierType.MARITIME.toString());
@@ -41,6 +47,12 @@ public class CarrierController {
             carrierTypes.add(Carrier.CarrierType.AIR.toString());
             return carrierTypes;
         }
+
+    
+        public List<Carrier> findAllCarriersByCuit(String cuit){
+         return carrierService.findAllCarriersByCuit(cuit);
+        }
+
     }
 
-}
+

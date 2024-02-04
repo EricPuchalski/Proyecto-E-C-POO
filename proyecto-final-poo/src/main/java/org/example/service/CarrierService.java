@@ -4,9 +4,12 @@ package org.example.service;
 import org.example.model.Carrier;
 //import org.example.repository.TransportistaRepository;
 //
+
 import org.example.dao.CarrierRepository;
 import org.example.dao.exceptions.NonexistentEntityException;
+
 import java.util.List;
+import java.util.stream.Collectors;
 //
     public class CarrierService implements CRUD<Carrier>{
 
@@ -53,7 +56,20 @@ import java.util.List;
         }
     }
  
- 
+     public List<Carrier> findAllCarriersByCuit(String cuit){
+         if (cuit == null || cuit.isEmpty()) {
+            return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
+        }
+        String lowerCaseCuit = cuit.toLowerCase();
+
+        List<Carrier> carriersFound= new ArrayList<>();
+        carriersFound = this.findAll()
+        .stream()
+        .filter(tr -> tr.getCuit().toLowerCase().startsWith(lowerCaseCuit))
+        .collect(Collectors.toList());
+        
+        return carriersFound;
+     }
  
  
  

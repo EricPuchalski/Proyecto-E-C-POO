@@ -6,8 +6,11 @@ package org.example.service;
 
 import org.example.dao.WarehouseRepository;
 import org.example.model.Warehouse;
+
 import org.example.dao.exceptions.NonexistentEntityException;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -17,17 +20,15 @@ import java.util.List;
 public class WarehouseService implements CRUD<Warehouse> {
     private WarehouseRepository warehouseRepository;
 
-    public WarehouseService(WarehouseRepository warehouseRepository) {
+    public WarehouseService() {
         this.warehouseRepository = new WarehouseRepository();
     }
     
 
     @Override
      public void save(Warehouse warehouse) {
-        if (!warehouseRepository.findWarehouseEntities().contains(warehouse.getCode())) {
-        }else{
-                        warehouseRepository.create(warehouse);
-                     }
+ 
+         warehouseRepository.create(warehouse);
     }
 
     @Override
@@ -46,6 +47,9 @@ public class WarehouseService implements CRUD<Warehouse> {
         }
         return null;
     }
+    public Warehouse findOneById(Long id){
+        return warehouseRepository.findWarehouse(id);
+    }
 
     @Override
     public List<Warehouse> findAll() {
@@ -59,6 +63,18 @@ public class WarehouseService implements CRUD<Warehouse> {
             warehouseRepository.destroy(deleteWarehouse.getId());
         }
     }
-    
+    public List<Warehouse> findAllWarehousesByEmail(String email){
+        if (email == null || email.isEmpty()) {
+            return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
+        }
+        String lowercaseEmail = email.toLowerCase();
+        List<Warehouse> warehousesFound= new ArrayList<>();
+        warehousesFound = this.findAll()
+        .stream()
+        .filter(tr -> tr.getEmail().toLowerCase().startsWith(lowercaseEmail))
+        .collect(Collectors.toList());
+        
+        return warehousesFound;
+    }
     
 }

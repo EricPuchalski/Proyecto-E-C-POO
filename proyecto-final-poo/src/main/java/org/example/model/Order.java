@@ -32,6 +32,8 @@ public class Order implements Serializable {
     private Customer customer;
     @OneToOne
     private Warehouse warehouseOrig;
+    @ManyToOne
+    private Employee employee;
     @OneToOne
     private Warehouse warehouseDest;
     @OneToOne
@@ -167,6 +169,14 @@ public class Order implements Serializable {
 
     public void setDespatchNote(DespatchNote despatchNote) {
         this.despatchNote = despatchNote;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     

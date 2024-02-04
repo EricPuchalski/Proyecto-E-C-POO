@@ -1,10 +1,13 @@
 package org.example.service;
 
+
 import org.example.dao.EmployeeRepository;
 import org.example.dao.exceptions.NonexistentEntityException;
+
 import org.example.model.Employee;
 
 import java.util.List;
+import java.util.stream.Collectors;
 public class EmployeeService implements CRUD<Employee> {
      private EmployeeRepository employeeRepository;
        public EmployeeService() {
@@ -14,8 +17,8 @@ public class EmployeeService implements CRUD<Employee> {
 
     @Override
     public void save(Employee employee) {
-        if (!employeeRepository.findEmployeeEntities().contains(employee.getCUIT())) {
-        }else{employeeRepository.create(employee);
+        if (!employeeRepository.findEmployeeEntities().contains(employee.getCuit())) {
+        employeeRepository.create(employee);
         }
     }
 
@@ -27,14 +30,20 @@ public class EmployeeService implements CRUD<Employee> {
     }
 
     @Override
-     public Employee findOne(String CUIT) {
-        for (Employee employee : employeeRepository.findEmployeeEntities()) {
-            if (CUIT.equals(employee.getCUIT())) {
-                return employee;
-            }
-        }
-        return null;
+     public Employee findOne(String CUIT) { 
+         if (CUIT == null) {
+        return null; // Manejar el caso de un CUIT nulo
     }
+    
+    for (Employee employee : employeeRepository.findEmployeeEntities()) {
+        if (CUIT.equals(employee.getCuit())) {
+            return employee;
+        }
+    }
+    return null;
+   }
+
+    
 
     @Override
      public List<Employee> findAll() {
@@ -48,7 +57,22 @@ public class EmployeeService implements CRUD<Employee> {
             employeeRepository.destroy(deleteEmployee.getId());
         }
     }
+    
+     public List<Employee> findAllEmployeesByCuit(String cuit){
+         if (cuit == null || cuit.isEmpty()) {
+            return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
+        }
 
+        String lowercaseCuit = cuit.toLowerCase(); // Convertir el nombre de búsqueda a minúsculas
+
+        List<Employee> employeesFound = this.findAll()
+                .stream()
+                .filter(tr -> tr.getCUIT().toLowerCase().startsWith(lowercaseCuit))
+                .collect(Collectors.toList());
+        
+        return employeesFound;
+
+     }
 
 }
 //

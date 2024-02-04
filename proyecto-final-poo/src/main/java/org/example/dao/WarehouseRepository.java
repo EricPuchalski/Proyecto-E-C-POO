@@ -11,6 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.example.model.Employee;
@@ -24,19 +26,19 @@ import org.example.util.Conexion;
  */
 public class WarehouseRepository implements Serializable {
     private SectorRepository sectorRepository;
+    private EmployeeRepository employeeRepository;
     
     public WarehouseRepository() {
         this.emf = Conexion.getEmf();
         this.sectorRepository = new SectorRepository();
+        this.employeeRepository = new EmployeeRepository();
     }
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    public void upLoad() {
-
-        
+    public void upLoad() throws Exception {
         Warehouse deposito1 = new Warehouse("1","Deposito China","Calle 1","34543534","depositoCH@gmail.com", "Asia",new Position(39.900853,116.399813));
         Warehouse deposito2 = new Warehouse("2","Deposito Australia","San martin 2324","1232312","depositoAU@gmail.com", "Oceania", new Position(-22.593680,144.544854));
         Warehouse deposito3 = new Warehouse("3","Deposito Argentina","San juan 2324","4132","depositoAR@gmail.com", "America",  new Position(-34.537211,-58.547629));
@@ -53,8 +55,34 @@ public class WarehouseRepository implements Serializable {
         this.create(deposito3);
         this.create(deposito4);
         this.create(deposito5);
+        
+        Employee empleado1 = new Employee("1235433", "Juan", "Perez", "Calle 273", "232323",this.findWarehouse(1l));
+        Employee empleado2 = new Employee("4562324", "María", "López", "Avenida 45", "454545",this.findWarehouse(2l));
+        Employee empleado3 = new Employee("7896754", "Augusto", "Britez", "Calle 67", "676767",this.findWarehouse(3l));
+        Employee empleado4 = new Employee("1067515", "Ruben", "Luka", "Avenida 819", "898989",this.findWarehouse(4l));
+        Employee empleado5 = new Employee("1217665", "Pepe", "Felix", "Calle 110", "101010",this.findWarehouse(5l));
+
+
+        employeeRepository.create(empleado1);
+        employeeRepository.create(empleado2);
+        employeeRepository.create(empleado3);
+        employeeRepository.create(empleado4);
+        employeeRepository.create(empleado5);    
+
+        
+        deposito1.setEmployee(empleado1);
+        this.edit(deposito1);
+                deposito2.setEmployee(empleado2);
+        this.edit(deposito2);
+                deposito3.setEmployee(empleado3);
+        this.edit(deposito3);
+                deposito4.setEmployee(empleado4);
+        this.edit(deposito4);
+                deposito5.setEmployee(empleado5);
+        this.edit(deposito5);
 
     }
+   
     public void create(Warehouse warehouse) {
         EntityManager em = null;
         try {
@@ -104,6 +132,9 @@ public class WarehouseRepository implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The warehouse with id " + id + " no longer exists.", enfe);
             }
+            // Obtén la lista de empleados asociados al depósito
+            Employee employee = warehouse.getEmployee();
+            employee.setDeposit(null);
             em.remove(warehouse);
             em.getTransaction().commit();
         } finally {

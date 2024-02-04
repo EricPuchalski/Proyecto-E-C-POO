@@ -14,6 +14,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.example.model.OrderLine;
+import org.example.util.Conexion;
 
 /**
  *
@@ -21,8 +22,8 @@ import org.example.model.OrderLine;
  */
 public class OrderLineRepository implements Serializable {
 
-    public OrderLineRepository(EntityManagerFactory emf) {
-        this.emf = emf;
+    public OrderLineRepository() {
+        this.emf = Conexion.getEmf();
     }
     private EntityManagerFactory emf = null;
 

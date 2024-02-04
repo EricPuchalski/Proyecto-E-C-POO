@@ -1,20 +1,26 @@
 package org.example.controller;
 
-import org.example.dao.exceptions.NonexistentEntityException;
+
+import dao.exceptions.NonexistentEntityException;
+
 import org.example.model.Product;
 import org.example.service.ProductService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductController implements CRUD<Product>{
     private final ProductService productService;
 
-    public ProductController(ProductService productService) {
-        this.productService = productService;
+    public ProductController() {
+        this.productService = new ProductService();
     }
 
 
+    public Product findOneById(Long id){
+        return productService.findOneById(id);
 
+    }
     public void create(Product product){
         productService.save(product);
     }
@@ -35,5 +41,8 @@ public class ProductController implements CRUD<Product>{
         productService.upDate(product);
     }
 
-
+    public List<Product> findAllProductsByName(String name) {
+        return productService.findAllProductsByName(name);
+    }
+    
 }

@@ -2,21 +2,23 @@ package org.example.service;
 
 import org.example.dao.ProductRepository;
 import org.example.dao.exceptions.NonexistentEntityException;
+
 import org.example.model.Product;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductService implements CRUD<Product>{
     private ProductRepository productRepository;
 
-    public ProductService(ProductRepository productRepository) {
+    public ProductService() {
         this.productRepository = new ProductRepository();
     }
 
     @Override
-       public void save(Product product) {
-        if (!productRepository.findProductEntities().contains(product.getCode())) {
-            }else{productRepository.create(product);
+    public void save(Product t) {
+        if (!(t.getSupplier().getName().isEmpty() || t.getCategory().getNombre().isEmpty() ||  t.getName().isEmpty())) {
+            productRepository.create(t);
         }
     }
 
@@ -37,7 +39,9 @@ public class ProductService implements CRUD<Product>{
         return null;
     }
 
-
+    public Product findOneById(Long id){
+        return productRepository.findProduct(id);
+    }
     @Override
     public List<Product> findAll() {
         return productRepository.findProductEntities();
@@ -49,6 +53,20 @@ public class ProductService implements CRUD<Product>{
         if (deleteProduct != null) {
             productRepository.destroy(deleteProduct.getId());
         }
+    }
+    
+    public List<Product> findAllProductsByName(String name){
+                if (name == null || name.isEmpty()) {
+            return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
+        }
+
+        String lowercaseName = name.toLowerCase(); // Convertir el nombre de búsqueda a minúsculas
+
+        List<Product> productsFound = this.findAll()
+                .stream()
+                .filter(tr -> tr.getName().toLowerCase().startsWith(lowercaseName))
+                .collect(Collectors.toList());
+        return productsFound;
     }
        
 
