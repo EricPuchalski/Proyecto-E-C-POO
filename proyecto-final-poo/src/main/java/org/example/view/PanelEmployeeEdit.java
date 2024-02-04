@@ -4,7 +4,7 @@
  */
 package org.example.view;
 
-import dao.WarehouseRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.example.controller.EmployeeController;
 import org.example.controller.ViewController;
+import org.example.dao.WarehouseRepository;
 import org.example.model.Employee;
 import org.example.model.Warehouse;
 

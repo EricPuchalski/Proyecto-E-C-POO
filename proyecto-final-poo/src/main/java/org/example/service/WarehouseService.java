@@ -4,6 +4,7 @@
  */
 package org.example.service;
 
+import java.util.ArrayList;
 import org.example.dao.WarehouseRepository;
 import org.example.model.Warehouse;
 

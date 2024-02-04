@@ -1,6 +1,5 @@
 package org.example.controller;
 
-import dao.exceptions.NonexistentEntityException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import org.example.model.OrderLine;
@@ -67,7 +66,7 @@ public class OrderController implements CRUD<Order> {
     }
 
     @Override
-    public void delete(String id) throws NonexistentEntityException {
+    public void delete(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
