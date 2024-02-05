@@ -237,6 +237,8 @@ public class PanelSupplierConsult extends javax.swing.JPanel {
         // Obtener el índice de la fila convertida al modelo de la tabla
         int modelRowIndex = tblSuppliers.convertRowIndexToModel(selectedRow);
         String cuit = String.valueOf(tblSuppliers.getModel().getValueAt(modelRowIndex, 1));
+         System.out.println("CUIT seleccionado: " + cuit);//para ser si putamadres selecciona o no
+
         ViewController.panelChange(this, new PanelSupplierEdit(cuit), this);
     }//NUEVO
     }//GEN-LAST:event_bttnEditActionPerformed

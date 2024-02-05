@@ -29,20 +29,13 @@ public class SupplierService implements CRUD<Supplier> {
 
     @Override
     public Supplier findOne(String cuit) {
-    for (Supplier sp : supplierRepository.findSupplierEntities()) {
+        for (Supplier sp : supplierRepository.findSupplierEntities()) {
         if(cuit.equals(sp.getCuit())){
             return sp;
         }
-        return null;
-    }
-
+    } //EL  ERROR ERA UN FOR DUPLICADO
     
-    for (Supplier supplier : supplierRepository.findSupplierEntities()) {
-        if (cuit.equals(supplier.getCuit())) {
-            return supplier;
-        }
-    }
-    return null;
+    return null;//el cambio nuevo
 }
 
     @Override

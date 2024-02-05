@@ -4,6 +4,7 @@
  */
 package org.example.view;
 
+import javax.swing.JOptionPane;
 import org.example.controller.SupplierController;
 import org.example.controller.ViewController;
 import org.example.model.Supplier;
@@ -213,6 +214,8 @@ public class PanelSupplierCreate extends javax.swing.JPanel {
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         supplierController.create(new Supplier(txtCuit.getText(), txtName.getText(), txtAdress.getText() , txtTel.getText(),txtEmail.getText()));
+         JOptionPane.showMessageDialog(this, "Proveedor creado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
         ViewController.panelChange(this, new PanelSupplier(), this);
     }//GEN-LAST:event_btnRegisterActionPerformed
 

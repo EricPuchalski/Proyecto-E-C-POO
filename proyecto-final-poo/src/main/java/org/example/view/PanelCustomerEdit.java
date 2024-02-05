@@ -191,7 +191,7 @@ public class PanelCustomerEdit extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bttnModifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnModifActionPerformed
-        if(!(txtName.getText().isEmpty()|| txtSurname.getText().isEmpty() || txtAdress.getText().isEmpty() || txtTel.getText().isEmpty() || txtCuit.getText().isEmpty())){
+           if(!(txtName.getText().isEmpty()|| txtSurname.getText().isEmpty() || txtAdress.getText().isEmpty() || txtTel.getText().isEmpty() || txtCuit.getText().isEmpty())){
             customerEdit.setName(txtName.getText());
             customerEdit.setSurname(txtSurname.getText());
             customerEdit.setCuit(txtCuit.getText());
