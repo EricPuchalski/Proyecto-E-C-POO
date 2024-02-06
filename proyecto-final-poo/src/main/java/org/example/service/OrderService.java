@@ -58,39 +58,52 @@ public class OrderService implements CRUD<Order> {
            
        }
     }
-    public void completeOrder(String orderNumber){
-        Order orderFound = orderRepository.findOrderByOrderNumber(orderNumber);;
-        if (orderFound != null && orderFound.getWarehouseOrig() != null && orderFound.getWarehouseOrig().getSectors() != null) {
+    public void completeOrder(String orderNumber) {
+        Order orderFound = orderRepository.findOrderByOrderNumber(orderNumber);
+        if (orderFound != null && orderFound.getOrderStatus().equals("En Proceso")) {
             orderRepository.completeOrder(orderNumber);
+        } else {
+            System.out.println("No se puede completar el pedido " + orderNumber + " porque no ha sido procesado.");
         }
-
-    }
-    public void sendOrderToDispatch(String orderNumber){
-        Order orderFound = orderRepository.findOrderByOrderNumber(orderNumber);;
-        if (orderFound != null && orderFound.getWarehouseOrig() != null && orderFound.getWarehouseOrig().getSectors() != null) {
+    }//nuevo
+    
+    public void sendOrderToDispatch(String orderNumber) {
+        Order orderFound = orderRepository.findOrderByOrderNumber(orderNumber);
+        if (orderFound != null && orderFound.getOrderStatus().equals("Completo")) {
             orderRepository.sendOrderToDispatch(orderNumber);
+        } else {
+            System.out.println("No se puede enviar a despacho el pedido " + orderNumber + " porque no está completo.");
         }
-    }
-    public void dispatchOrder(String orderNumber){
+    }//nuevo
+    
+     public void dispatchOrder(String orderNumber) {
         Order orderFound = orderRepository.findOrderByOrderNumber(orderNumber);
-        if (orderFound != null && orderFound.getWarehouseOrig() != null && orderFound.getWarehouseOrig().getSectors() != null && orderFound.getDespatchNote() == null && orderFound.getTracking() == null) {
+        if (orderFound != null && orderFound.getOrderStatus().equals("Esperando Despacho")) {
             orderRepository.dispatchOrder(orderNumber);
+        } else {
+            System.out.println("No se puede despachar el pedido " + orderNumber + " porque no está esperando despacho.");
         }
-
-    }
-    public void orderTransit(String orderNumber){
+    }//nuevo
+     
+   public void orderTransit(String orderNumber) {
         Order orderFound = orderRepository.findOrderByOrderNumber(orderNumber);
-        if(orderFound != null){
-        orderRepository.orderTransit(orderNumber);
-    }
-
-    }
-    public void sendToDelivery(String orderNumber, String cuitEmployeeReceiv){
+        if (orderFound != null && orderFound.getOrderStatus().equals("Despacho")) {
+            orderRepository.orderTransit(orderNumber);
+        } else {
+            System.out.println("No se puede poner en tránsito el pedido " + orderNumber + " porque no está despachado.");
+        }
+    }//nuevo
+    
+     public void sendToDelivery(String orderNumber, String cuitEmployeeReceiv) {
         Order orderFound = orderRepository.findOrderByOrderNumber(orderNumber);
-        if (orderFound != null && orderFound.getWarehouseDest() != null && orderFound.getWarehouseDest().getSectors() != null && orderFound.getTracking() != null && orderFound.getDespatchNote()!=null ) {
+        if (orderFound != null && orderFound.getOrderStatus().equals("En transito")) {
             orderRepository.sendToDelivery(orderNumber, cuitEmployeeReceiv);
+        } else {
+            System.out.println("No se puede enviar a entrega el pedido " + orderNumber + " porque no está en tránsito.");
         }
-    }
+    }//nuevo
+     
+     
     public List<Order> findAllOrdersByCustomers(Long idCustomer){
         List<Order> orders = new ArrayList();
         for (Order order : this.findAll()) {
