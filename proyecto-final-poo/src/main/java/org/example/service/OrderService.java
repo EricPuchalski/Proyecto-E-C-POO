@@ -1,5 +1,6 @@
 package org.example.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import org.example.dao.OrderRepository;
 import org.example.dao.exceptions.NonexistentEntityException;
@@ -102,6 +103,21 @@ public class OrderService implements CRUD<Order> {
             System.out.println("No se puede enviar a entrega el pedido " + orderNumber + " porque no está en tránsito.");
         }
     }//nuevo
+     
+     public void deliverOrder(String orderNumber,String cuitEmployee) {
+       Order orderFound = orderRepository.findOrderByOrderNumber(orderNumber);
+    if (orderFound != null && orderFound.getWarehouseDest() != null && orderFound.getWarehouseDest().getSectors() != null) {
+        // Actualizar el estado y la fecha de finalización de la orden
+        orderFound.setOrderStatus(orderFound.getWarehouseDest().getSectors().get(6).getDescription());
+        orderFound.setOrderFinish(LocalDate.now());
+
+        // Actualizar la entidad en la base de datos
+        orderRepository.deliverOrder(orderNumber, cuitEmployee);
+    } else {
+        System.out.println("No se puede entregar el pedido " + orderNumber + " porque no ha sido enviado a destino.");
+    }
+}//NUEVO A VER SI FUNKADOLizaaaaa
+
      
      
     public List<Order> findAllOrdersByCustomers(Long idCustomer){

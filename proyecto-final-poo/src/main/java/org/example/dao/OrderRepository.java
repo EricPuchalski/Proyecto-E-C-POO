@@ -264,7 +264,7 @@ public void orderTransit(String orderNumber) {
         }
     }
 
-    public void deliverOrder(String orderNumber, List<Integer> supplierRatings) {
+   public void deliverOrder(String orderNumber,String cuitEmployee) {
     EntityManager em = getEntityManager();
     EntityTransaction transaction = em.getTransaction();
     try {
@@ -272,38 +272,29 @@ public void orderTransit(String orderNumber) {
         Order orderFound = findOrderByOrderNumber(orderNumber);
 
         if (orderFound != null && orderFound.getWarehouseDest() != null && orderFound.getWarehouseDest().getSectors() != null) {
+            // Setear el empleado a la orden
+            orderFound.setEmployee(employeeRepository.findEmployeeByCuit(cuitEmployee));
+
+            // Actualizar el estado y la fecha de finalización de la orden
             orderFound.setOrderStatus(orderFound.getWarehouseDest().getSectors().get(6).getDescription());
-            List<OrderLine> orderLines = orderFound.getOrderLines();
+            orderFound.setOrderFinish(LocalDate.now());
 
-            if (orderLines.size() != supplierRatings.size()) {
-                System.out.println("Error: La cantidad de calificaciones no coincide con la cantidad de proveedores.");
-                return;
-            } else {
-                orderFound.setOrderFinish(LocalDate.now());
-            }
-
-            // Establecemos la calificación del proveedor para cada línea de pedido
-            for (int i = 0; i < orderLines.size(); i++) {
-                OrderLine orderLine = orderLines.get(i);
-                orderLine.setSupplierRating(supplierRatings.get(i));
-                orderLineRepository.edit(orderLine);
-            }
-
-            em.merge(orderFound); // Actualiza la entidad en la base de datos
+            // Actualizar la entidad en la base de datos
+            em.merge(orderFound);
         } else {
-            // Manejo de nulls o registro de errores según sea necesario
+            System.out.println("No se encontró el pedido con el número especificado o no se pudo determinar el almacén de destino.");
         }
 
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
-            // Manejo de excepciones según sea necesario
-        } finally {
-            em.close();
+        transaction.commit();
+    } catch (Exception e) {
+        if (transaction != null && transaction.isActive()) {
+            transaction.rollback();
         }
+        // Manejo de excepciones
+    } finally {
+        em.close();
     }
+}//Nuevo a ver si fuUNKASOOOOOOO XDLOL
 
     public Order findOrderByOrderNumber(String orderNumber) {
         EntityManager em = getEntityManager();

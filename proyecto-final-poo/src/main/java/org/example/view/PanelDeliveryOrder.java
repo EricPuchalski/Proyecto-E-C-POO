@@ -4,18 +4,29 @@
  */
 package org.example.view;
 
+import javax.swing.JOptionPane;
+import org.example.controller.OrderController;
+import org.example.controller.ViewController;
+
 /**
  *
  * @author ericp
  */
 public class PanelDeliveryOrder extends javax.swing.JPanel {
-
+     private ViewController viewController;
+    private OrderController orderController;    
+    
     /**
      * Creates new form PanelDeliveryOrder
      */
     public PanelDeliveryOrder() {
         this.setSize(800,700);
         initComponents();
+        this.viewController = new ViewController();
+        this.orderController = new OrderController();
+        this.setSize(800, 700);
+        initComponents();
+
     }
 
     /**
@@ -178,31 +189,38 @@ public class PanelDeliveryOrder extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bttnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnOrderActionPerformed
-//        tblOrders.setModel(viewController.modelTableOrdersByNumber(txtOrder.getText()));
+        tblOrders.setModel(viewController.modelTableOrdersByNumber(txtOrder.getText()));
+
     }//GEN-LAST:event_bttnOrderActionPerformed
 
     private void bttnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnBackActionPerformed
-//        ViewController.panelChange(this, new PanelOrder(), this);
+                ViewController.panelChange(this, new PanelOrder(), this);
+
     }//GEN-LAST:event_bttnBackActionPerformed
 
     private void bttnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnConfirmActionPerformed
-//        if(tblEmployees.getRowCount() > 0){
-//            if(tblEmployees.getSelectedRow()!=-1){
-//                if(tblOrders.getRowCount() > 0){
-//                    if(tblOrders.getSelectedRow()!=-1){
-//                        String orderNumber = String.valueOf(tblOrders.getValueAt(tblOrders.getSelectedRow(),3));
-//                        String cuitEmployee = String.valueOf(tblEmployees.getValueAt(tblEmployees.getSelectedRow(),1));
-//                        orderController.sendToDelivery(orderNumber, cuitEmployee);
-//                        ViewController.panelChange(this, new PanelOrder(), this);
-//                    }
-//                }
-//            }
-//        }
-        //        orderController.processOrder(txtOrder.getText(), );
+  if (tblEmployees.getRowCount() > 0) {
+            if (tblEmployees.getSelectedRow() != -1) {
+                if (tblOrders.getRowCount() > 0) {
+                    if (tblOrders.getSelectedRow() != -1) {
+                        String orderNumber = String.valueOf(tblOrders.getValueAt(tblOrders.getSelectedRow(), 3));
+                        String cuitEmployee = String.valueOf(tblEmployees.getValueAt(tblEmployees.getSelectedRow(), 1));
+                        orderController.deliverOrder(orderNumber, cuitEmployee);
+                        JOptionPane.showMessageDialog(this, "Pedido entregado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                        ViewController.panelChange(this, new PanelOrder(), this);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Por favor seleccione un pedido", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor seleccione un empleado", "Error", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_bttnConfirmActionPerformed
 
     private void bttnEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnEmployeeActionPerformed
-//        tblEmployees.setModel(viewController.modelTableEmployeesByCuit(txtEmployee.getText()));
+        tblEmployees.setModel(viewController.modelTableEmployeesByCuit(txtEmployee.getText()));
+
     }//GEN-LAST:event_bttnEmployeeActionPerformed
 
 

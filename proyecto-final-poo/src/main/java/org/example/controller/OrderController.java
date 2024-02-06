@@ -107,6 +107,10 @@ public class OrderController implements CRUD<Order> {
     public void sendToDelivery(String orderNumber, String cuitEmployeeReceiv) {
         orderService.sendToDelivery(orderNumber, cuitEmployeeReceiv);
     }
+    
+   public void deliverOrder(String orderNumber, String cuitEmployee) {
+    orderService.deliverOrder(orderNumber, cuitEmployee);
+}
 
     public List<Order> findAllOrdersByCustomer(Long idCustomer) {
         return orderService.findAllOrdersByCustomers(idCustomer);
