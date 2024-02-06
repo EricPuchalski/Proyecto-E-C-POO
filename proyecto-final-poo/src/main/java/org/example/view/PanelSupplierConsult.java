@@ -240,7 +240,7 @@ public class PanelSupplierConsult extends javax.swing.JPanel {
          System.out.println("CUIT seleccionado: " + cuit);//para ser si putamadres selecciona o no
 
         ViewController.panelChange(this, new PanelSupplierEdit(cuit), this);
-    }//NUEVO
+    }//BOTTON EDITACTION DE SUPPLIER
     }//GEN-LAST:event_bttnEditActionPerformed
 
     private void jPanel1formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jPanel1formAncestorAdded

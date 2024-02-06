@@ -177,7 +177,7 @@ public class PanelCarrierConsult extends javax.swing.JPanel {
     private void btnModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyActionPerformed
         if(tblCarriers.getRowCount() > 0){
             if(tblCarriers.getSelectedRow()!=-1){
-                String cuit = String.valueOf(tblCarriers.getValueAt(tblCarriers.getSelectedRow(),1));
+                String cuit = String.valueOf(tblCarriers.getValueAt(tblCarriers.getSelectedRow(),2));//1 por 2
                 
                 ViewController.panelChange(this, new PanelCarrierEdit(cuit), this);
             }

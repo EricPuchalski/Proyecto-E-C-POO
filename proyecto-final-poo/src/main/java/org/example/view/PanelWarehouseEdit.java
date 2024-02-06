@@ -369,12 +369,18 @@ public class PanelWarehouseEdit extends javax.swing.JPanel {
     }//GEN-LAST:event_bttnEmployeeActionPerformed
 
     private void bttnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnConfirmActionPerformed
-        try {
-            if (!(txtName.getText().isEmpty() || txtEmail.getText().isEmpty() || txtAdress.getText().isEmpty() || txtPhone.getText().isEmpty() || txtCode.getText().isEmpty() || txtLon.getText().isEmpty() || txtLat.getText().isEmpty())) {
-                if (tblEmployees.getRowCount() > 0) {
-                    if (tblEmployees.getSelectedRow() != -1) {
-                        String cuitEmpleado = String.valueOf(tblEmployees.getValueAt(tblEmployees.getSelectedRow(), 1));
-                        Employee emp = employeeController.findOne(cuitEmpleado);
+         try {
+        if (!(txtName.getText().isEmpty() || txtEmail.getText().isEmpty() || txtAdress.getText().isEmpty() || txtPhone.getText().isEmpty() || txtCode.getText().isEmpty() || txtLon.getText().isEmpty() || txtLat.getText().isEmpty())) {
+            if (tblEmployees.getRowCount() > 0) {
+                if (tblEmployees.getSelectedRow() != -1) {
+                    String cuitEmpleado = String.valueOf(tblEmployees.getValueAt(tblEmployees.getSelectedRow(), 1));
+                    Employee emp = employeeController.findOne(cuitEmpleado);
+                    
+                    // Verificar si el código ya está en uso por otro warehouse
+                    Warehouse existingWarehouse = warehouseController.findOne(txtCode.getText());//KODIGO NUEVOOOOOO
+                    if (existingWarehouse != null && !existingWarehouse.getCode().equals(warehouseEdit.getCode())) {
+                        JOptionPane.showMessageDialog(null, "El código ingresado ya está en uso por otro warehouse.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                    } else {
                         warehouseEdit.setName(txtName.getText());
                         warehouseEdit.setCode(txtCode.getText());
                         warehouseEdit.setAdress(txtAdress.getText());
@@ -384,20 +390,19 @@ public class PanelWarehouseEdit extends javax.swing.JPanel {
                         warehouseEdit.getPosition().setLatitude(Double.parseDouble(txtLat.getText()));
                         warehouseEdit.getPosition().setLongitude(Double.parseDouble(txtLon.getText()));
                         warehouseEdit.setEmployee(emp);
-                         warehouseController.upDate(warehouseEdit);
-                        JOptionPane.showMessageDialog(null, "Deposito modificado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                        
+                        warehouseController.upDate(warehouseEdit);
+                        JOptionPane.showMessageDialog(null, "Depósito modificado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                         ViewController.panelChange(this, new PanelWarehouseConsult(), this);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Un campo no puede estar vacio", "Advertencia", JOptionPane.WARNING_MESSAGE);
                     }
-
+                } else {
+                    JOptionPane.showMessageDialog(null, "Debe seleccionar un empleado.", "Advertencia", JOptionPane.WARNING_MESSAGE);
                 }
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Verifique los campos", "Advertencia", JOptionPane.WARNING_MESSAGE);
-
         }
-
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Verifique los campos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+    }
 
     }//GEN-LAST:event_bttnConfirmActionPerformed
 

@@ -276,8 +276,21 @@ private ViewController viewController;
 
     private void bttnModifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnModifActionPerformed
          if (!(txtName.getText().isEmpty() || txtAdress.getText().isEmpty() || txtTel.getText().isEmpty() || txtCuit.getText().isEmpty())) {
+        String newCuit = txtCuit.getText();
+        
+        // Verificar si el nuevo CUIT es diferente al actual
+        if (!newCuit.equals(employeeEdit.getCuit())) {
+            // Verificar si el nuevo CUIT ya existe en la base de datos para otro empleado
+            Employee existingEmployeeWithCuit = employeeController.findOne(newCuit);//NUEVOCOD
+            if (existingEmployeeWithCuit != null && !existingEmployeeWithCuit.getId().equals(employeeEdit.getId())) {
+                JOptionPane.showMessageDialog(null, "El CUIT ingresado ya pertenece a otro empleado.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return; // Salir del método si el CUIT ya existe para otro empleado
+            }
+        }
+        
+        // Continuar con la actualización del empleado en la base de datos
         employeeEdit.setNombre(txtName.getText());
-        employeeEdit.setCuit(txtCuit.getText());
+        employeeEdit.setCuit(newCuit);
         employeeEdit.setDireccion(txtAdress.getText());
         employeeEdit.setTelefono(txtTel.getText());
         

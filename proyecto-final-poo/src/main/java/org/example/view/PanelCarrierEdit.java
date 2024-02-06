@@ -195,22 +195,34 @@ public class PanelCarrierEdit extends javax.swing.JPanel {
     }//GEN-LAST:event_cmbTranspEditActionPerformed
 
     private void bttnModifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnModifActionPerformed
-        if(!(txtName.getText().isEmpty()|| txtTel.getText().isEmpty() || txtCuit.getText().isEmpty() || null == cmbTranspEdit.getSelectedItem())){
-            carrierEdit.setName(txtName.getText());
-            carrierEdit.setCuit(txtCuit.getText());
-            carrierEdit.setPhone(txtTel.getText());
-            carrierEdit.setEmail(txtEmail.getText());
-            carrierEdit.setType(loadCarrierType());
-            try {
-                carrierController.upDate(carrierEdit);
-            } catch (Exception ex) {
-                Logger.getLogger(PanelCarrierEdit.class.getName()).log(Level.SEVERE, null, ex);
-            }
+       if(!(txtName.getText().isEmpty() || txtTel.getText().isEmpty() || txtCuit.getText().isEmpty() || cmbTranspEdit.getSelectedIndex() == 0)){
+        carrierEdit.setName(txtName.getText());
+        carrierEdit.setPhone(txtTel.getText());
+        carrierEdit.setEmail(txtEmail.getText());
+        carrierEdit.setType(loadCarrierType());
+
+        // Verificar si el nuevo CUIT ya está en uso por otro transportista
+        String nuevoCuit = txtCuit.getText();
+        Carrier existingCarrier = carrierController.findOne(nuevoCuit);
+        if (existingCarrier != null && !existingCarrier.getCuit().equals(cuit)) {
+            JOptionPane.showMessageDialog(null, "El CUIT ingresado ya está en uso por otro transportista.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salir del método sin intentar la actualización
+        }
+
+        // Si el CUIT no está en uso por otro transportista, proceder con la actualización
+        carrierEdit.setCuit(nuevoCuit);
+
+        try {
+            carrierController.upDate(carrierEdit);
             JOptionPane.showMessageDialog(null, "Transportista modificado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             ViewController.panelChange(this, new PanelCarrierConsult(), this);
-        } else{
-            JOptionPane.showMessageDialog(null, "Un campo no puede estar vacio", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        } catch (Exception ex) {
+            Logger.getLogger(PanelCarrierEdit.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al intentar modificar el transportista.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    } else {
+        JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos y seleccione un tipo de transportista", "Advertencia", JOptionPane.WARNING_MESSAGE);
+    }//ULTIMA MODIFICACION
     }//GEN-LAST:event_bttnModifActionPerformed
 
     

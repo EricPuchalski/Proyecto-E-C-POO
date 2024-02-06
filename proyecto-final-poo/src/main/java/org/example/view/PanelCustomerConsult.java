@@ -8,6 +8,7 @@ import org.example.dao.exceptions.NonexistentEntityException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.example.controller.CustomerController;
 import org.example.controller.ViewController;
@@ -185,16 +186,14 @@ public class PanelCustomerConsult extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bttnDestroyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnDestroyActionPerformed
-       if(tblCustomers.getRowCount() > 0){
+         if(tblCustomers.getRowCount() > 0){
         if(tblCustomers.getSelectedRow()!=-1){
-            String customerCuit = String.valueOf(tblCustomers.getValueAt(tblCustomers.getSelectedRow(),1));
-            try {
-                customerController.delete(customerCuit);
-            } catch (NonexistentEntityException ex) {
-                Logger.getLogger(PanelCustomerConsult.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            String customerCuit = String.valueOf(tblCustomers.getValueAt(tblCustomers.getSelectedRow(),3));
+             {
+                customerController.disableAccountByCuit(customerCuit); // Cambiar a deshabilitar cuenta
+            } 
             cargarTabla();
-        }//
+        }
     }
     }
 
@@ -205,19 +204,45 @@ public class PanelCustomerConsult extends javax.swing.JPanel {
     private void bttnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnEditActionPerformed
         if(tblCustomers.getRowCount() > 0){
             if(tblCustomers.getSelectedRow()!=-1){
-                String cuit = String.valueOf(tblCustomers.getValueAt(tblCustomers.getSelectedRow(),1));         
-                ViewController.panelChange(this, new PanelCustomerEdit(cuit), this);
-            }
-        }
-    }//GEN-LAST:event_bttnEditActionPerformed
+                String cuit = String.valueOf(tblCustomers.getValueAt(tblCustomers.getSelectedRow(),3));  //COLUMNA DONDE ESTA EL CUIT       
+                  
+                System.out.println("CUIT seleccionado: " + cuit);//para ser si putamadres selecciona o no
 
+                ViewController.panelChange(this, new PanelCustomerEdit(cuit), this);
+            }               }
+    }//GEN-LAST:event_bttnEditActionPerformed BOTON EDIT ACTIN PERFORMED DE CUSTOMER
+    
     private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
         this.cargarTabla();
     }//GEN-LAST:event_formAncestorAdded
 
     private void bttnDestroy1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnDestroy1ActionPerformed
-        tblCustomers.setModel(viewController.modelTableCustomersByCuit(txtCuitCustomerFindOne.getText()));
-    }//GEN-LAST:event_bttnDestroy1ActionPerformed
+  String cuitToFind = txtCuitCustomerFindOne.getText().trim();
+    if (!cuitToFind.isEmpty()) {
+        List<Customer> customersFound = new CustomerController().findAllCustomersByCuit(cuitToFind);
+        if (!customersFound.isEmpty()) {
+            // Se encontraron clientes con el CUIT proporcionado
+            // Seleccionar el primero (asumiendo que no habrá duplicados)
+            Customer customer = customersFound.get(0);
+            // Actualizar la tabla para mostrar solo el cliente encontrado
+            DefaultTableModel model = new DefaultTableModel();
+            model.addColumn("ID");
+            model.addColumn("Nombre");
+            model.addColumn("Apellido");
+            model.addColumn("CUIT");
+            model.addColumn("Dirección");
+            model.addColumn("Teléfono");
+            model.addRow(new Object[]{customer.getId(), customer.getName(), customer.getSurname(), customer.getCuit(), customer.getAdress(), customer.getPhone()});
+            tblCustomers.setModel(model);
+        } else {
+            JOptionPane.showMessageDialog(this, "Cliente no encontrado.", "Búsqueda de Cliente", JOptionPane.INFORMATION_MESSAGE);
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Ingrese el CUIT del cliente a buscar.", "Búsqueda de Cliente", JOptionPane.WARNING_MESSAGE);
+    }
+    }//GEN-LAST:event_bttnDestroy1ActionPerformed//NUEVOCODIGOOOO ANDA
+    
+    
     private void cargarTabla(){
         tblCustomers.setModel(viewController.modelTableCustomers());
     }

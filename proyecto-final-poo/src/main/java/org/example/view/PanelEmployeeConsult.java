@@ -218,6 +218,9 @@ public class PanelEmployeeConsult extends javax.swing.JPanel {
         if(tblEmployees.getRowCount() > 0){
             if(tblEmployees.getSelectedRow()!=-1){
                 String cuit = String.valueOf(tblEmployees.getValueAt(tblEmployees.getSelectedRow(),1));
+                 
+                System.out.println("CUIT seleccionado: " + cuit);//para ser si putamadres selecciona o no
+
                 ViewController.panelChange(this, new PanelEmployeeEdit(cuit), this);
             }
         }

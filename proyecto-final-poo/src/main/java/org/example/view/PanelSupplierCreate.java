@@ -213,10 +213,18 @@ public class PanelSupplierCreate extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        supplierController.create(new Supplier(txtCuit.getText(), txtName.getText(), txtAdress.getText() , txtTel.getText(),txtEmail.getText()));
-         JOptionPane.showMessageDialog(this, "Proveedor creado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        String cuit = txtCuit.getText();
+    Supplier existingSupplier = supplierController.findOne(cuit);
 
+    if (existingSupplier != null) {
+        // Mostrar mensaje de error si ya existe un proveedor con el mismo CUIT
+        JOptionPane.showMessageDialog(this, "Ya existe un proveedor con el CUIT ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+    } else {
+        // Crear el proveedor si no existe un proveedor con el mismo CUIT
+        supplierController.create(new Supplier(cuit, txtName.getText(), txtAdress.getText(), txtTel.getText(), txtEmail.getText()));
+        JOptionPane.showMessageDialog(this, "Proveedor creado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         ViewController.panelChange(this, new PanelSupplier(), this);
+    }
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed

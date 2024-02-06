@@ -269,24 +269,27 @@ public class PanelCreateProduct extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bttnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnConfirmActionPerformed
-        Supplier sp = null;
-        for(Supplier p: supplierController.findAll()){
-            if(p.getName().equals(cmbSupplier.getSelectedItem())){
-                sp = p;
-            }
+       Supplier sp = null;
+    for(Supplier p: supplierController.findAll()){
+        if(p.getName().equals(cmbSupplier.getSelectedItem())){
+            sp = p;
         }
-        ProductCategory pC = productCategoryController.findByName(cmbCategories.getSelectedItem().toString());
+    }
+    ProductCategory pC = productCategoryController.findByName(cmbCategories.getSelectedItem().toString());
 
-        try {
+    try {
+        // Verificar si el código del producto ya está en uso
+        if (productController.findOne(txtCod.getText()) != null) {
+            JOptionPane.showMessageDialog(this, "El código ya pertenece a otro producto", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
             productController.create(new Product(txtCod.getText(), txtName.getText(),Double.valueOf(txtWidth.getText()) ,Double.valueOf(txtHigh.getText()) , Double.valueOf(txtLong.getText()),Double.valueOf(txtWeight.getText()) ,pC, sp));
-            JOptionPane.showMessageDialog(this, "Producto creado con exito", "Creación exitosa", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Producto creado con éxito", "Creación exitosa", JOptionPane.INFORMATION_MESSAGE);
             ViewController.panelChange(this, new PanelProduct(), this);
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Datos incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
-
         }
-
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Datos incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+//kodigo nuevo tambien
     }//GEN-LAST:event_bttnConfirmActionPerformed
 
     private void bttnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnBackActionPerformed

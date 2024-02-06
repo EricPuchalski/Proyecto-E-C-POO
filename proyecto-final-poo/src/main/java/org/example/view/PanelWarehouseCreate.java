@@ -424,29 +424,30 @@ public class PanelWarehouseCreate extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCodeActionPerformed
 
     private void bttnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnConfirmActionPerformed
-        try{
-            if(!(txtCode.getText().isEmpty()|| txtName.getText().isEmpty() || txtAdress.getText().isEmpty() || txtPhone.getText().isEmpty()|| txtEmail.getText().isEmpty()|| txtLat.getText().isEmpty()|| txtLon.getText().isEmpty())){
-                if(tblEmployees.getRowCount() > 0){
-                    if(tblEmployees.getSelectedRow()!=-1){
-                        String cuitEmpleado = String.valueOf(tblEmployees.getValueAt(tblEmployees.getSelectedRow(),1));
-                        Employee emp = employeeController.findOne(cuitEmpleado);
-                        warehouseController.create(new Warehouse(txtCode.getText(), txtName.getText(),txtAdress.getText(),txtPhone.getText(),txtEmail.getText(),String.valueOf(cbContinente.getSelectedItem()),new Position(Double.valueOf(txtLat.getText()),Double.valueOf(txtLon.getText())),employeeController.findOne(emp.getCuit())));
-                        JOptionPane.showMessageDialog(this, "Deposito creado con exito", "Creación exitosa", JOptionPane.INFORMATION_MESSAGE);
+        try {
+        if (!(txtCode.getText().isEmpty() || txtName.getText().isEmpty() || txtAdress.getText().isEmpty() || txtPhone.getText().isEmpty() || txtEmail.getText().isEmpty() || txtLat.getText().isEmpty() || txtLon.getText().isEmpty())) {
+            if (tblEmployees.getRowCount() > 0) {
+                if (tblEmployees.getSelectedRow() != -1) {
+                    String cuitEmpleado = String.valueOf(tblEmployees.getValueAt(tblEmployees.getSelectedRow(), 1));
+                    Employee emp = employeeController.findOne(cuitEmpleado);
+                    // Verificar si ya existe un usuario con el mismo código
+                    if (warehouseController.findOne(txtCode.getText()) != null) {//KODIGO NUEVO
+                        JOptionPane.showMessageDialog(this, "Ya existe un depósito con ese código", "Error", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        warehouseController.create(new Warehouse(txtCode.getText(), txtName.getText(), txtAdress.getText(), txtPhone.getText(), txtEmail.getText(), String.valueOf(cbContinente.getSelectedItem()), new Position(Double.valueOf(txtLat.getText()), Double.valueOf(txtLon.getText())), employeeController.findOne(emp.getCuit())));
+                        JOptionPane.showMessageDialog(this, "Depósito creado con éxito", "Creación exitosa", JOptionPane.INFORMATION_MESSAGE);
                         ViewController.panelChange(this, new PanelWarehouse(), this);
                     }
-                    else{
-                        JOptionPane.showMessageDialog(null, "Por favor elija un empleado", "Advertencia", JOptionPane.WARNING_MESSAGE);
-
-                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Por favor elija un empleado", "Advertencia", JOptionPane.WARNING_MESSAGE);
                 }
             }
-            else{
-                JOptionPane.showMessageDialog(null, "Un campo no puede estar vacio", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            }
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Verifique los campos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Un campo no puede estar vacío", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
-
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Verifique los campos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+    }
     }//GEN-LAST:event_bttnConfirmActionPerformed
 
     private void bttnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnBackActionPerformed

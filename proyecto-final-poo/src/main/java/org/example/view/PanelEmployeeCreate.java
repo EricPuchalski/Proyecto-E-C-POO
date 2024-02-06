@@ -281,7 +281,7 @@ public class PanelEmployeeCreate extends javax.swing.JPanel {
         ViewController.panelChange(this, new PanelEmployee(), this);
     } catch (Exception e) {
         // Maneja los errores que puedan ocurrir
-        JOptionPane.showMessageDialog(this, "Error al crear empleado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Error al crear empleado: " + " El cuit pertenece a otro empleado");
     }  
     }//GEN-LAST:event_btnRegisterActionPerformed
 

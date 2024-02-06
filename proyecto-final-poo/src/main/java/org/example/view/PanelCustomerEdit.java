@@ -191,7 +191,14 @@ public class PanelCustomerEdit extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bttnModifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnModifActionPerformed
-           if(!(txtName.getText().isEmpty()|| txtSurname.getText().isEmpty() || txtAdress.getText().isEmpty() || txtTel.getText().isEmpty() || txtCuit.getText().isEmpty())){
+            if(!(txtName.getText().isEmpty() || txtSurname.getText().isEmpty() || txtAdress.getText().isEmpty() || txtTel.getText().isEmpty() || txtCuit.getText().isEmpty())) {
+        Customer existingCustomer = customerController.findOne(txtCuit.getText());
+        
+        if (existingCustomer != null && !existingCustomer.getCuit().equals(cuit)) {
+            // Si se encuentra un cliente con el mismo CUIT pero diferente al cliente actual, mostrar un mensaje de error
+            JOptionPane.showMessageDialog(null, "Ya existe un cliente con el mismo CUIT", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Actualizar el cliente solo si no existe otro cliente con el mismo CUIT
             customerEdit.setName(txtName.getText());
             customerEdit.setSurname(txtSurname.getText());
             customerEdit.setCuit(txtCuit.getText());
@@ -199,14 +206,15 @@ public class PanelCustomerEdit extends javax.swing.JPanel {
             customerEdit.setPhone(txtTel.getText());
             try {
                 customerController.upDate(customerEdit);
+                JOptionPane.showMessageDialog(null, "Cliente modificado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                ViewController.panelChange(this, new PanelCustomerConsult(), this);
             } catch (Exception ex) {
                 Logger.getLogger(PanelCustomerEdit.class.getName()).log(Level.SEVERE, null, ex);
             }
-            JOptionPane.showMessageDialog(null, "Cliente modificado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            ViewController.panelChange(this, new PanelCustomerConsult(), this);
-        } else{
-            JOptionPane.showMessageDialog(null, "Un campo no puede estar vacio", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
+    } else {
+        JOptionPane.showMessageDialog(null, "Un campo no puede estar vacío", "Advertencia", JOptionPane.WARNING_MESSAGE);
+    }//NUEVOCODE
     }//GEN-LAST:event_bttnModifActionPerformed
 
     private void bttnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnCancelActionPerformed
@@ -217,13 +225,18 @@ public class PanelCustomerEdit extends javax.swing.JPanel {
        this.loadData(cuit);
     }//GEN-LAST:event_formAncestorAdded
     public void loadData(String cuit){
-        customerEdit = customerController.findOne(cuit);
+         System.out.println("CUIT recibido en loadData: " + cuit); // Registro de depuración
+    customerEdit = customerController.findOne(cuit);
+    if (customerEdit != null) {
+        System.out.println("Cliente encontrado: " + customerEdit.getName()); // Registro de depuración
         txtCuit.setText(customerEdit.getCuit());
         txtName.setText(customerEdit.getName());
         txtSurname.setText(customerEdit.getSurname());
         txtAdress.setText(customerEdit.getAdress());
         txtTel.setText(customerEdit.getPhone());
-       
+    } else {
+        System.out.println("Cliente no encontrado para el CUIT: " + cuit); // Registro de depuración
+    }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

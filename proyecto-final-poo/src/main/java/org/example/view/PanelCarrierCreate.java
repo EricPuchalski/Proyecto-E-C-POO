@@ -199,7 +199,7 @@ public class PanelCarrierCreate extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNameActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-           // Validar que se haya seleccionado un tipo de transportista
+     // Validar que se haya seleccionado un tipo de transportista
     if (cmbTransp.getSelectedItem().equals("<seleccionar>")) {
         JOptionPane.showMessageDialog(this, "Por favor seleccione un tipo de transportista.", "Error", JOptionPane.ERROR_MESSAGE);
         return; // Salir del método si no se ha seleccionado un tipo de transportista
@@ -215,14 +215,29 @@ public class PanelCarrierCreate extends javax.swing.JPanel {
     // Crear el transportista si todos los campos están completos
     Carrier.CarrierType type = loadCarrierType();
     if (type != null) {
-        // Crear el transportista y cambiar de panel si se ha seleccionado un tipo válido
-        carrierController.create(new Carrier(txtCuit.getText(), txtName.getText(), txtPhone.getText(), txtEmail.getText(), type));
-        ViewController.panelChange(this, new PanelCarrier(), this);
+        try {
+            // Crear el transportista y cambiar de panel si se ha seleccionado un tipo válido
+            carrierController.create(new Carrier(txtCuit.getText(), txtName.getText(), txtPhone.getText(), txtEmail.getText(), type));
+            ViewController.panelChange(this, new PanelCarrier(), this);
+        } catch (javax.persistence.RollbackException ex) {
+            // Capturar la excepción de violación de restricción de unicidad
+            Throwable cause = ex.getCause();
+            if (cause instanceof org.eclipse.persistence.exceptions.DatabaseException) {
+                org.eclipse.persistence.exceptions.DatabaseException databaseException = (org.eclipse.persistence.exceptions.DatabaseException) cause;
+                Throwable internalException = databaseException.getInternalException();
+                if (internalException instanceof java.sql.SQLIntegrityConstraintViolationException) {
+                    // Mostrar el mensaje de error si hay una violación de restricción de unicidad en el campo CUIT
+                    JOptionPane.showMessageDialog(this, "ERROR AL CREAR, YA EXISTE EXISTE ESE CUIT.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return; // Salir del método si hay una violación de restricción de unicidad
+                }
+            }
+            // Mostrar mensaje de error genérico si la excepción no es por violación de restricción de unicidad
+            JOptionPane.showMessageDialog(this, "Error al crear el transportista.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     } else {
         // Mostrar mensaje de error si no se ha seleccionado un tipo de transportista válido
         JOptionPane.showMessageDialog(this, "Por favor seleccione un tipo de transportista válido.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-       
+    }//NUEVO A VER SI ANDA
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed

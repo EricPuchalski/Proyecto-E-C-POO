@@ -274,14 +274,18 @@ public class PanelProductEdit extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bttnModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnModifyActionPerformed
-        ProductCategory pC = productCategoryController.findByName(cmbCategories.getSelectedItem().toString());
-        Supplier sp = null;
-        for (Supplier p : supplierController.findAll()) {
-            if (p.getName().equals(cmbSupplier.getSelectedItem())) {
-                sp = p;
-            }
+       ProductCategory pC = productCategoryController.findByName(cmbCategories.getSelectedItem().toString());
+    Supplier sp = null;
+    for (Supplier p : supplierController.findAll()) {
+        if (p.getName().equals(cmbSupplier.getSelectedItem())) {
+            sp = p;
         }
-        try {
+    }
+    try {
+        // Verificar si el código del producto está siendo utilizado por otro producto existente
+        if (productController.findOne(txtCod.getText()) != null && !productController.findOne(txtCod.getText()).getId().equals(product.getId())) {
+            JOptionPane.showMessageDialog(this, "El código ya pertenece a otro producto", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
             product.setHeight(Double.valueOf(txtHigh.getText()));
             product.setWeight(Double.valueOf(txtWeight.getText()));
             product.setWidth(Double.valueOf(txtWidth.getText()));
@@ -292,12 +296,12 @@ public class PanelProductEdit extends javax.swing.JPanel {
             product.setCategory(pC);
 
             productController.upDate(product);
-            JOptionPane.showMessageDialog(this, "Producto modificado con exito", "Creación exitosa", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Producto modificado con éxito", "Actualización exitosa", JOptionPane.INFORMATION_MESSAGE);
             ViewController.panelChange(this, new PanelConsultProduct(), this);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Datos incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
-
         }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Datos incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+    }
 
     }//GEN-LAST:event_bttnModifyActionPerformed
 

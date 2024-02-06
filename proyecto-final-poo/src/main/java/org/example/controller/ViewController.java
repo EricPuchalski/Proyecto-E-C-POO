@@ -48,11 +48,11 @@ public class ViewController {
                 return false;
             }
         };
-        String titulos[] = {"Id", "Nombre", "Apellido", "cuit"};
+        String titulos[] = {"Id", "Nombre", "Apellido", "cuit","ESTADO"};
         newModel.setColumnIdentifiers(titulos);
 
         for (Customer e : customerController.findAllEnabledCustomers()) {
-            Object[] obj = {e.getId(), e.getName(), e.getSurname(), e.getCuit()};
+            Object[] obj = {e.getId(), e.getName(), e.getSurname(), e.getCuit(),e.getEstado()};
             newModel.addRow(obj);
         }
         return newModel;
@@ -65,11 +65,11 @@ public class ViewController {
                 return false;
             }
         };
-        String titulos[] = {"Id", "Nombre", "Apellido", "cuit"};
+        String titulos[] = {"Id", "Nombre", "Apellido", "cuit","ESTADO"};
         newModel.setColumnIdentifiers(titulos);
 
         for (Customer e : customerController.findAllCustomersByCuit(cuit)) {
-            Object[] obj = {e.getId(), e.getName(), e.getSurname(), e.getCuit()};
+            Object[] obj = {e.getId(), e.getName(), e.getSurname(), e.getCuit(),e.getEstado()};
             newModel.addRow(obj);
         }
         return newModel;

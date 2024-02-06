@@ -190,15 +190,24 @@ public class PanelCustomerCreate extends javax.swing.JPanel {
 
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-    // Validar que todos los campos estén completos
+     // Validar que todos los campos estén completos
     if (txtName.getText().isEmpty() || txtSurname.getText().isEmpty() || 
         txtAdress.getText().isEmpty() || txtCuit.getText().isEmpty() || 
         txtTel.getText().isEmpty()) {
         // Mostrar mensaje de error en una ventana emergente
         JOptionPane.showMessageDialog(this, "Por favor complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
     } else {
-        // Todos los campos están completos, proceder con la creación del cliente
-        customerController.create(new Customer(txtCuit.getText(), txtName.getText(), txtSurname.getText(), txtAdress.getText(), txtTel.getText()));
+        // Verificar si ya existe un cliente con el mismo CUIT
+        String cuit = txtCuit.getText();
+        Customer existingCustomer = customerController.findOne(cuit);
+        if (existingCustomer != null) {
+            // Mostrar mensaje de error en una ventana emergente
+            JOptionPane.showMessageDialog(this, "Ya existe un cliente con el mismo CUIT.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salir del método sin crear el nuevo cliente
+        }
+        
+        // Todos los campos están completos y no hay un cliente con el mismo CUIT, proceder con la creación del cliente
+        customerController.create(new Customer(cuit, txtName.getText(), txtSurname.getText(), txtAdress.getText(), txtTel.getText()));
         ViewController.panelChange(this, new PanelCustomer(), this);
     }
     }//GEN-LAST:event_btnRegisterActionPerformed
