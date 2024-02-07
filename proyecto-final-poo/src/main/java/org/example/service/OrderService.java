@@ -19,7 +19,12 @@ public class OrderService implements CRUD<Order> {
 
     @Override
     public Order save(Order order) {
-        return orderRepository.create(order);
+                Order orderExist = findOne(order.getOrderNumber());
+        if (orderExist ==null) {
+                return orderRepository.create(order);
+        }
+        return null;
+
     }
 
     @Override
