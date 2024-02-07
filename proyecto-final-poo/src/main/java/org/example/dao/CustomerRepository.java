@@ -91,13 +91,14 @@ public class CustomerRepository implements Serializable {
         this.create(c27);
         this.create(c28);
     }
-    public void create(Customer customer) {
+    public Customer create(Customer customer) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(customer);
             em.getTransaction().commit();
+            return customer;
         } finally {
             if (em != null) {
                 em.close();
@@ -118,7 +119,7 @@ public class CustomerRepository implements Serializable {
             em.close();
         }
     }
-    public void disableAccountByCuit(String cuit) throws NonexistentEntityException{
+    public Customer disableAccountByCuit(String cuit) throws NonexistentEntityException{
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -129,27 +130,33 @@ public class CustomerRepository implements Serializable {
                 if (object.getCuit().equals(cuit)) {
                     customer = em.getReference(Customer.class, object.getId());
                     customer.setEstado(Customer.Estado.DISABLED);
+                                em.getTransaction().commit();
+                    return customer;
+
                 }
             }
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The customer with id " + cuit + " no longer exists.", enfe);
             }
             
-            em.getTransaction().commit();
+
         } finally {
             if (em != null) {
+
                 em.close();
             }
         }
+        return null;
     }
 
-    public void edit(Customer customer) throws NonexistentEntityException, Exception {
+    public Customer edit(Customer customer) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             customer = em.merge(customer);
             em.getTransaction().commit();
+            return customer;
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
@@ -178,6 +185,7 @@ public class CustomerRepository implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The customer with id " + id + " no longer exists.", enfe);
             }
+
             em.remove(customer);
             em.getTransaction().commit();
         } finally {

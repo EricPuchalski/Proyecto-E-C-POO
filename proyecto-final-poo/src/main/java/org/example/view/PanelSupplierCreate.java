@@ -214,11 +214,11 @@ public class PanelSupplierCreate extends javax.swing.JPanel {
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         String cuit = txtCuit.getText();
-    Supplier existingSupplier = supplierController.findOne(cuit);
+    boolean existingSupplier = supplierController.checkIfExistUniq(txtCuit.getText(), txtTel.getText(), txtEmail.getText());
 
-    if (existingSupplier != null) {
+    if (existingSupplier == true) {
         // Mostrar mensaje de error si ya existe un proveedor con el mismo CUIT
-        JOptionPane.showMessageDialog(this, "Ya existe un proveedor con el CUIT ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Ya existe este proveedor", "Error", JOptionPane.ERROR_MESSAGE);
     } else {
         // Crear el proveedor si no existe un proveedor con el mismo CUIT
         supplierController.create(new Supplier(cuit, txtName.getText(), txtAdress.getText(), txtTel.getText(), txtEmail.getText()));

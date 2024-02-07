@@ -22,8 +22,8 @@ public class ProductController implements CRUD<Product>{
         return productService.findOneById(id);
 
     }
-    public void create(Product product){
-        productService.save(product);
+    public Product create(Product product){
+        return productService.save(product);
     }
 
     public Product findOne(String codigo){
@@ -38,8 +38,8 @@ public class ProductController implements CRUD<Product>{
         productService.delete(codigo);
     }
 
-    public void upDate(Product product) throws Exception{
-        productService.upDate(product);
+    public Product upDate(Product product) throws Exception{
+        return productService.upDate(product);
     }
 
     public List<Product> findAllProductsByName(String name) {
@@ -49,8 +49,8 @@ public class ProductController implements CRUD<Product>{
     public Product findProductEnabledByCode(String code){
         return productService.findProductEnabledByCode(code);
     }
-    public void disableAccountByCuit(String code){
-        productService.disableAccountByCode(code);
+    public Product disableAccountByCuit(String code){
+        return productService.disableAccountByCode(code);
     }
     public List<Product> findAllEnabledEmployees(){
         return productService.findAllEnabledEmployees()

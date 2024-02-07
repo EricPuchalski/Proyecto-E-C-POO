@@ -36,7 +36,7 @@ public class OrderLineController implements CRUD<OrderLine>{
     }
 
     @Override
-    public void upDate(OrderLine t) throws Exception {
+    public OrderLine upDate(OrderLine t) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -46,8 +46,8 @@ public class OrderLineController implements CRUD<OrderLine>{
     }
 
     @Override
-    public void create(OrderLine t) {
-        orderLineService.save(t);
+    public OrderLine create(OrderLine t) {
+        return orderLineService.save(t);
     }
     
 }

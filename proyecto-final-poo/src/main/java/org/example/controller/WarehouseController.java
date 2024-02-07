@@ -19,8 +19,8 @@ public class WarehouseController implements CRUD<Warehouse>{
     }
 
     @Override
-    public void create(Warehouse deposit) {
-        warehouseService.save(deposit);
+    public Warehouse create(Warehouse deposit) {
+        return warehouseService.save(deposit);
     }
 
     @Override
@@ -39,8 +39,8 @@ public class WarehouseController implements CRUD<Warehouse>{
 
 
     @Override
-    public void upDate(Warehouse deposit) throws Exception {
-        warehouseService.upDate(deposit);
+    public Warehouse upDate(Warehouse deposit) throws Exception {
+        return warehouseService.upDate(deposit);
 
     }
 
@@ -56,11 +56,19 @@ public class WarehouseController implements CRUD<Warehouse>{
         return warehouseService.findAllEnabledWarehouses();
     }
     public Warehouse findWarehouseEnabledByCuit(String email){
-        return warehouseService.findWarehouseEnabledByCuit(email);
+        return warehouseService.findWarehouseEnabledByCode(email);
     }
     public void disableAccountByCuit(String email){
         warehouseService.disableAccountByEmail(email);
     }
+            public Warehouse findWarehouseEnabledByPhone(String phone){
+                return warehouseService.findWarehouseEnabledByPhone(phone);
+    }
+        public Warehouse findWarehouseEnabledByEmail(String email){
+            return warehouseService.findWarehouseEnabledByEmail(email);
+    }
+        public boolean checkIfExistUniq(String code, String phone, String email) {
+        return warehouseService.checkIfExistUniq(code, phone, email);}
     public List<Warehouse> warehousesIdForOrder(JTable tableOrig, JTable tableDest){
         List<Warehouse> warehouses = new ArrayList<>();
         if(tableOrig.getRowCount() > 0){
@@ -80,4 +88,5 @@ public class WarehouseController implements CRUD<Warehouse>{
         return warehouses;
         
     }
+    
 }

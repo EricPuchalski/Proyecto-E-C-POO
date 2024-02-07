@@ -19,17 +19,22 @@ public class ProductService implements CRUD<Product>{
     }
 
     @Override
-    public void save(Product t) {
+    public Product save(Product t) {
+        Product productExist = findProductEnabledByCode(t.getCode());
         if (!(t.getSupplier().getName().isEmpty() || t.getCategory().getNombre().isEmpty() ||  t.getName().isEmpty())) {
-            productRepository.create(t);
+            if (productExist==null) {
+                return productRepository.create(t);
+            }
         }
+        return null;
     }
 
     @Override
-     public void upDate(Product product) throws Exception {
+     public Product upDate(Product product) throws Exception {
         if (productRepository.findProduct(product.getId()) != null) {
-            productRepository.edit(product);
+           return productRepository.edit(product);
         }
+        return null;
     }
 
     @Override
@@ -79,15 +84,17 @@ public class ProductService implements CRUD<Product>{
             }
         return null;
     }
-    public void disableAccountByCode(String cuit){
+    public Product disableAccountByCode(String cuit){
         Product productFound = productRepository.findProductEnabledByCode(cuit);
         if (productFound!=null) {
             try {
                 productRepository.disableAccountByCode(cuit);
+                return productFound;
             } catch (NonexistentEntityException ex) {
                 Logger.getLogger(CustomerService.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return null;
     }
     public List<Product> findAllEnabledEmployees(){
         return productRepository.findProductEntities()

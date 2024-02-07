@@ -309,7 +309,7 @@ public void orderTransit(String orderNumber) {
         }
     }
 
-    public void create(Order order) {
+    public Order create(Order order) {
         EntityManager em = null;
 
         try {
@@ -320,6 +320,7 @@ public void orderTransit(String orderNumber) {
             order.setOrderNumber(randomOrderNumber);
             em.persist(order);
             em.getTransaction().commit();
+            return order;
         } finally {
             if (em != null) {
                 em.close();
@@ -327,7 +328,7 @@ public void orderTransit(String orderNumber) {
         }
     }
 
-    public void edit(Order order) throws NonexistentEntityException, Exception {
+    public Order edit(Order order) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -349,11 +350,14 @@ public void orderTransit(String orderNumber) {
                 if (oldOrderOfTracking != null) {
                     oldOrderOfTracking.setTracking(null);
                     oldOrderOfTracking = em.merge(oldOrderOfTracking);
+                    
                 }
                 trackingNew.setOrder(order);
                 trackingNew = em.merge(trackingNew);
             }
+            
             em.getTransaction().commit();
+            return order;
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {

@@ -18,8 +18,8 @@ public class OrderService implements CRUD<Order> {
     }
 
     @Override
-    public void save(Order order) {
-        orderRepository.create(order);
+    public Order save(Order order) {
+        return orderRepository.create(order);
     }
 
     @Override
@@ -38,10 +38,11 @@ public class OrderService implements CRUD<Order> {
     }
 
     @Override
-    public void upDate(Order order) throws Exception {
+    public Order upDate(Order order) throws Exception {
         if (orderRepository.findOrder(order.getId()) != null) {
-            orderRepository.edit(order);
+            return orderRepository.edit(order);
         }
+        return null;
     }
 
     @Override

@@ -83,7 +83,7 @@ public class WarehouseRepository implements Serializable {
 
     }
    
-        public void disableAccountByEmail(String email) throws NonexistentEntityException{
+        public Warehouse disableAccountByEmail(String email) throws NonexistentEntityException{
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -94,18 +94,20 @@ public class WarehouseRepository implements Serializable {
                 if (object.getEmail().equals(email)) {
                     warehouse = em.getReference(Warehouse.class, object.getId());
                     warehouse.setStatus(Warehouse.Estado.DISABLED);
+                                em.getTransaction().commit();
+                    return warehouse;
                 }
             }
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The customer with id " + email + " no longer exists.", enfe);
             }
-            
-            em.getTransaction().commit();
+
         } finally {
             if (em != null) {
                 em.close();
             }
         }
+        return null;
     }
         public Warehouse findWarehouseEnabledByCuit(String email) {
         EntityManager em = getEntityManager();
@@ -121,13 +123,14 @@ public class WarehouseRepository implements Serializable {
             em.close();
         }
     }
-    public void create(Warehouse warehouse) {
+    public Warehouse create(Warehouse warehouse) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(warehouse);
             em.getTransaction().commit();
+            return warehouse;
         } finally {
             if (em != null) {
                 em.close();
@@ -135,13 +138,14 @@ public class WarehouseRepository implements Serializable {
         }
     }
 
-    public void edit(Warehouse warehouse) throws NonexistentEntityException, Exception {
+    public Warehouse edit(Warehouse warehouse) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             warehouse = em.merge(warehouse);
             em.getTransaction().commit();
+            return warehouse;
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {

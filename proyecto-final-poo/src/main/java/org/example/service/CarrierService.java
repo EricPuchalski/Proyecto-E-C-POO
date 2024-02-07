@@ -1,6 +1,7 @@
 package org.example.service;
 //
 //
+
 import java.util.ArrayList;
 import org.example.model.Carrier;
 //import org.example.repository.TransportistaRepository;
@@ -14,32 +15,35 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 //
-    public class CarrierService implements CRUD<Carrier>{
 
+public class CarrierService implements CRUD<Carrier> {
+    
     public CarrierService() {
         this.carrierRepository = new CarrierRepository();
     }
-        
-
- private CarrierRepository carrierRepository;
-
+    
+    private CarrierRepository carrierRepository;
+    
     @Override
-    public void save(Carrier carrier) {
-    // Verificar que los campos obligatorios no estén vacíos
-    if (!(carrier.getCuit().isEmpty() || carrier.getName().isEmpty() || carrier.getPhone().isEmpty())) {
-        carrierRepository.create(carrier);
+    public Carrier save(Carrier carrier) {
+        if (!(carrier.getCuit().isEmpty() || carrier.getName().isEmpty() || carrier.getPhone().isEmpty())) {
+            if (!(checkIfExistUniq(carrier.getCuit(), carrier.getPhone(), carrier.getEmail()))) {
+                return carrierRepository.create(carrier);
+            }
         }
+        return null;
     }
-
+    
     @Override
-    public void upDate(Carrier carrier) throws Exception {
+    public Carrier upDate(Carrier carrier) throws Exception {
         if (carrierRepository.findCarrier(carrier.getId()) != null) {
-            carrierRepository.edit(carrier);
+            return carrierRepository.edit(carrier);
         }
+        return null;
     }
-
+    
     @Override
-     public Carrier findOne(String cuit) {
+    public Carrier findOne(String cuit) {
         for (Carrier carrier : carrierRepository.findCarrierEntities()) {
             if (cuit.equals(carrier.getCuit())) {
                 return carrier;
@@ -47,58 +51,91 @@ import java.util.stream.Collectors;
         }
         return null;
     }
-
-
+    
+    public boolean checkIfExistUniq(String cuit, String phone, String email) {
+        Carrier carrierByCuit = findCarrierEnabledByCuit(cuit);
+        Carrier carrierByEmail = findCarrierEnabledByEmail(email);
+        Carrier carrierByPhone = findCarrierEnabledByPhone(phone);
+        if (carrierByCuit != null || carrierByEmail != null || carrierByPhone != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     @Override
-   public List<Carrier> findAll() {
+    public List<Carrier> findAll() {
         return carrierRepository.findCarrierEntities();
     }
-
+    
     @Override
-     public void delete(String cuit) throws NonexistentEntityException {
+    public void delete(String cuit) throws NonexistentEntityException {
         Carrier deleteCarrier = findOne(cuit);
         if (deleteCarrier != null) {
             carrierRepository.destroy(deleteCarrier.getId());
         }
     }
- 
-     public List<Carrier> findAllCarriersByCuit(String cuit){
-         if (cuit == null || cuit.isEmpty()) {
+    
+    public List<Carrier> findAllCarriersByCuit(String cuit) {
+        if (cuit == null || cuit.isEmpty()) {
             return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
         }
         String lowerCaseCuit = cuit.toLowerCase();
-
-        List<Carrier> carriersFound= new ArrayList<>();
+        
+        List<Carrier> carriersFound = new ArrayList<>();
         carriersFound = this.findAllEnabledCustomers()
-        .stream()
-        .filter(tr -> tr.getCuit().toLowerCase().startsWith(lowerCaseCuit))
-        .collect(Collectors.toList());
+                .stream()
+                .filter(tr -> tr.getCuit().toLowerCase().startsWith(lowerCaseCuit))
+                .collect(Collectors.toList());
         
         return carriersFound;
-     }
- 
- 
-     public Carrier findCarrierEnabledByCuit(String cuit){
-        Carrier carrierFound = carrierRepository.findCarrierEnabledByCuit(cuit);
-        if (carrierFound.getStatus().equals(Carrier.Status.ENABLED)) {
-                return carrierRepository.findCarrierEnabledByCuit(cuit);
+    }
+
+    public Carrier findCarrierEnabledByPhone(String phone) {
+        for (Carrier cr : findAllEnabledCustomers()) {
+            if (cr.getPhone().equals(phone)) {
+                return cr;
             }
+        }
         return null;
     }
-    public void disableAccountByCuit(String cuit){
+
+    public Carrier findCarrierEnabledByEmail(String email) {
+        for (Carrier cr : findAllEnabledCustomers()) {
+            if (cr.getEmail().equals(email)) {
+                return cr;
+            }
+        }
+        return null;
+    }
+    
+    public Carrier findCarrierEnabledByCuit(String cuit) {
+        Carrier carrierFound = carrierRepository.findCarrierEnabledByCuit(cuit);
+        if (carrierFound!=null) {
+                    if (carrierFound.getStatus().equals(Carrier.Status.ENABLED)) {
+            return carrierRepository.findCarrierEnabledByCuit(cuit);
+        }
+        }
+
+        return null;
+    }
+
+    public Carrier disableAccountByCuit(String cuit) {
         Carrier customer = carrierRepository.findCarrierEnabledByCuit(cuit);
-        if (customer!=null) {
+        if (customer != null) {
             try {
-                carrierRepository.disableAccountByCuit(cuit);
+                return carrierRepository.disableAccountByCuit(cuit);
             } catch (NonexistentEntityException ex) {
                 Logger.getLogger(CarrierService.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return null;
     }
-    public List<Carrier> findAllEnabledCustomers(){
+
+    public List<Carrier> findAllEnabledCustomers() {
         return carrierRepository.findCarrierEntities()
-            .stream()
-            .filter(customer -> customer.getStatus().equals(Carrier.Status.ENABLED))
-            .collect(Collectors.toList());
+                .stream()
+                .filter(customer -> customer.getStatus().equals(Carrier.Status.ENABLED))
+                .collect(Collectors.toList());
     }
 }

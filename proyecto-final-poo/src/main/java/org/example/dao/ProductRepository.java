@@ -75,13 +75,14 @@ public class ProductRepository implements Serializable {
 
     }
     
-    public void create(Product product) {
+    public Product create(Product product) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(product);
             em.getTransaction().commit();
+            return product;
         } finally {
             if (em != null) {
                 em.close();
@@ -102,7 +103,7 @@ public class ProductRepository implements Serializable {
             em.close();
         }
     }
-    public void disableAccountByCode(String code) throws NonexistentEntityException{
+    public Product disableAccountByCode(String code) throws NonexistentEntityException{
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -113,27 +114,30 @@ public class ProductRepository implements Serializable {
                 if (object.getCode().equals(code)) {
                     product = em.getReference(Product.class, object.getId());
                     product.setStatus(Product.Status.DISABLED);
+                                em.getTransaction().commit();
+                    return product;
                 }
             }
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The customer with id " + code + " no longer exists.", enfe);
             }
-            
-            em.getTransaction().commit();
+ 
         } finally {
             if (em != null) {
                 em.close();
             }
         }
+        return null;
     }
 
-    public void edit(Product product) throws NonexistentEntityException, Exception {
+    public Product edit(Product product) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             product = em.merge(product);
             em.getTransaction().commit();
+            return product;
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {

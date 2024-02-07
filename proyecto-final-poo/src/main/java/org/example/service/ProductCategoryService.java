@@ -23,12 +23,12 @@ public class ProductCategoryService implements CRUD<ProductCategory>{
     
     
     @Override
-    public void save(ProductCategory t) {
+    public ProductCategory save(ProductCategory t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void upDate(ProductCategory t) throws Exception {
+    public ProductCategory upDate(ProductCategory t) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

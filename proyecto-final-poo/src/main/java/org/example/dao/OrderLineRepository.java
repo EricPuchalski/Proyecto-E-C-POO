@@ -31,13 +31,14 @@ public class OrderLineRepository implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(OrderLine orderLine) {
+    public OrderLine create(OrderLine orderLine) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(orderLine);
             em.getTransaction().commit();
+            return orderLine;
         } finally {
             if (em != null) {
                 em.close();

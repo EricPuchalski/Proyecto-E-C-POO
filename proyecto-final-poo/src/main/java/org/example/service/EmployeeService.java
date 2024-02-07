@@ -19,17 +19,20 @@ public class EmployeeService implements CRUD<Employee> {
 
 
     @Override
-    public void save(Employee employee) {
-        if (!employeeRepository.findEmployeeEntities().contains(employee.getCuit())) {
-        employeeRepository.create(employee);
+    public Employee save(Employee employee) {
+        Employee employeeExist = findEmployeeEnabledByCuit(employee.getCuit());
+        if (employeeExist ==null) {
+                return employeeRepository.create(employee);
         }
+        return null;
     }
 
     @Override
-     public void upDate(Employee employee) throws Exception {
-        if (employeeRepository.findEmployee(employee.getId()) != null) {
-            employeeRepository.edit(employee);
+     public Employee upDate(Employee employee) throws Exception {
+        if (employeeRepository.findEmployeeEnabledByCuit(employee.getCuit()) != null) {
+            return employeeRepository.edit(employee);
         }
+        return null;
     }
 
     @Override
@@ -84,15 +87,16 @@ public class EmployeeService implements CRUD<Employee> {
             }
         return null;
     }
-    public void disableAccountByCuit(String cuit){
+    public Employee disableAccountByCuit(String cuit){
         Employee employeeFound = employeeRepository.findEmployeeEnabledByCuit(cuit);
         if (employeeFound!=null) {
             try {
-                employeeRepository.disableAccountByCuit(cuit);
+                return employeeRepository.disableAccountByCuit(cuit);
             } catch (NonexistentEntityException ex) {
                 Logger.getLogger(CustomerService.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return null;
     }
     public List<Employee> findAllEnabledEmployees(){
         return employeeRepository.findEmployeeEntities()
@@ -100,6 +104,7 @@ public class EmployeeService implements CRUD<Employee> {
             .filter(customer -> customer.getEstado().equals(Employee.Status.ENABLED))
             .collect(Collectors.toList());
     }
+    
 }
 //
 //import org.example.model.Employee;
