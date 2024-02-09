@@ -7,6 +7,7 @@ package org.example.view;
 import javax.swing.JOptionPane;
 import org.example.controller.OrderController;
 import org.example.controller.ViewController;
+import org.example.model.Order;
 
 /**
  *
@@ -148,9 +149,16 @@ public class PanelTransitOrder extends javax.swing.JPanel {
         if(tblOrders.getRowCount() > 0){
             if(tblOrders.getSelectedRow()!=-1){
                 String orderNumber = String.valueOf(tblOrders.getValueAt(tblOrders.getSelectedRow(),3));
-                orderController.orderTransit(orderNumber);
-                ViewController.panelChange(this, new PanelOrder(), this);
-                JOptionPane.showMessageDialog(this, "Pedido enviado a transito", "Exito", JOptionPane.INFORMATION_MESSAGE);
+                Order orderFound = orderController.findOneByOrderNumber(orderNumber);
+                if (orderFound.getOrderStatus().equals("Despacho")) {
+                    orderController.orderTransit(orderNumber);
+                    JOptionPane.showMessageDialog(this, "Pedido enviado a transito", "Exito", JOptionPane.INFORMATION_MESSAGE);
+                    ViewController.panelChange(this, new PanelOrder(), this);
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "El pedido no está despachado", "Error", JOptionPane.ERROR_MESSAGE);
+                    System.out.println(orderFound.getOrderStatus());
+                }
 
             }
             else{

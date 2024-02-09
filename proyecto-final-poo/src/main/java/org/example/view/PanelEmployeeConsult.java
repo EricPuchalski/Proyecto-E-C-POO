@@ -235,25 +235,7 @@ public class PanelEmployeeConsult extends javax.swing.JPanel {
     }//GEN-LAST:event_bttnBuscarActionPerformed
 
 private void cargarTabla(){
-        DefaultTableModel modeloTabla = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int row, int column){
-                return false;
-            }
-        };
-        String titulos[] = {"Id", "Cuit", "Nombre", "Estado","Direccion","Teléfono","DEPOSITO"};
-        modeloTabla.setColumnIdentifiers(titulos);
-        List<Employee> listEmployees = employeeController.findAll();
-
-        if(!listEmployees.isEmpty()){
-            for (Employee em: listEmployees){
-
-                Object[] obj = {em.getId(),em.getCuit(),em.getNombre(),em.getEstado(),em.getDireccion(),em.getTelefono(),em.getDeposit().getEmail()};
-                modeloTabla.addRow(obj);
-            }
-        }
-
-        tblEmployees.setModel(modeloTabla);
+    this.tblEmployees.setModel(viewController.modelTableEmployees());
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bttnBack;

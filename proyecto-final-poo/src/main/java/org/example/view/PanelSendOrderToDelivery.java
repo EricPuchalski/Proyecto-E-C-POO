@@ -7,21 +7,24 @@ package org.example.view;
 import javax.swing.JOptionPane;
 import org.example.controller.OrderController;
 import org.example.controller.ViewController;
+import org.example.model.Order;
 
 /**
  *
  * @author ericp
  */
 public class PanelSendOrderToDelivery extends javax.swing.JPanel {
+
     private ViewController viewController;
     private OrderController orderController;
+
     /**
      * Creates new form PanelSendOrderToDelivery
      */
     public PanelSendOrderToDelivery() {
         this.viewController = new ViewController();
-         this.orderController = new OrderController();
-        this.setSize(800,700);
+        this.orderController = new OrderController();
+        this.setSize(800, 700);
         initComponents();
     }
 
@@ -209,22 +212,29 @@ public class PanelSendOrderToDelivery extends javax.swing.JPanel {
     }//GEN-LAST:event_bttnBackActionPerformed
 
     private void bttnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnConfirmActionPerformed
-        if(tblEmployees.getRowCount() > 0){
-            if(tblEmployees.getSelectedRow()!=-1){
-                if(tblOrders.getRowCount() > 0){
-                    if(tblOrders.getSelectedRow()!=-1){
-                        String orderNumber = String.valueOf(tblOrders.getValueAt(tblOrders.getSelectedRow(),3));
-                        String cuitEmployee = String.valueOf(tblEmployees.getValueAt(tblEmployees.getSelectedRow(),1));
+        if (tblEmployees.getRowCount() > 0) {
+            if (tblEmployees.getSelectedRow() != -1) {
+                if (tblOrders.getRowCount() > 0) {
+                    if (tblOrders.getSelectedRow() != -1) {
+                        String orderNumber = String.valueOf(tblOrders.getValueAt(tblOrders.getSelectedRow(), 3));
+                        String cuitEmployee = String.valueOf(tblEmployees.getValueAt(tblEmployees.getSelectedRow(), 1));
+                        Order orderFound = orderController.findOneByOrderNumber(orderNumber);
+                        if (orderFound.getOrderStatus().equals("En transito")) {
                         orderController.sendToDelivery(orderNumber, cuitEmployee);
-                        JOptionPane.showMessageDialog(this, "Pedido enviado a deposito desttino", "Exito", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Pedido enviado a deposito destino", "Exito", JOptionPane.INFORMATION_MESSAGE);
                         ViewController.panelChange(this, new PanelOrder(), this);
-                    }
-                    else{
+                        } 
+                        else {
+                        JOptionPane.showMessageDialog(this, "El pedido no está en transito", "Error", JOptionPane.ERROR_MESSAGE);
+
+                        }
+
+                    } else {
                         JOptionPane.showMessageDialog(this, "Por favor seleccione un pedido", "Error", JOptionPane.ERROR_MESSAGE);
 
                     }
                 }
-            } else{
+            } else {
                 JOptionPane.showMessageDialog(this, "Por favor seleccione un empleado", "Error", JOptionPane.INFORMATION_MESSAGE);
 
             }

@@ -39,16 +39,17 @@ public class OrderController implements CRUD<Order> {
         return cuits;
     }
 
-    public void createOrder(Order order, Warehouse warehouseOrig, Warehouse warehouseDest, String cuitCustomer, String cuitCarrier) {
-        Customer orderCustomer = customerController.findOne(cuitCustomer);
-        Carrier orderCarrier = carrierController.findOne(cuitCarrier);
-        order.setWarehouseOrig(warehouseOrig);
-        order.setWarehouseDest(warehouseDest);
-        order.setCustomer(orderCustomer);
-        order.setCarrier(orderCarrier);
-        order.setOrderStart(LocalDate.now());
-        order.setOrderStatus(order.getWarehouseOrig().getSectors().get(0).getDescription());
-        this.create(order);
+    public Order createOrder(Order order, Warehouse warehouseOrig, Warehouse warehouseDest, String cuitCustomer, String cuitCarrier) {
+//        Customer orderCustomer = customerController.findOne(cuitCustomer);
+//        Carrier orderCarrier = carrierController.findOne(cuitCarrier);
+//        order.setWarehouseOrig(warehouseOrig);
+//        order.setWarehouseDest(warehouseDest);
+//        order.setCustomer(orderCustomer);
+//        order.setCarrier(orderCarrier);
+//        order.setOrderStart(LocalDate.now());
+//        order.setOrderStatus(order.getWarehouseOrig().getSectors().get(0).getDescription());
+//        this.create(order);
+    return orderService.createOrder(order, warehouseOrig, warehouseDest, cuitCustomer, cuitCarrier);
     }
 
     public Order findOneByOrderNumber(String orderNumber) {
@@ -61,7 +62,7 @@ public class OrderController implements CRUD<Order> {
     }
 
     @Override
-    public void upDate(Order t) throws Exception {
+    public Order upDate(Order t) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -71,8 +72,8 @@ public class OrderController implements CRUD<Order> {
     }
 
     @Override
-    public void create(Order t) {
-        orderService.save(t);
+    public Order create(Order t) {
+        return orderService.save(t);
     }
 
     @Override
@@ -84,32 +85,32 @@ public class OrderController implements CRUD<Order> {
         return orderService.findAllOrdersByNumber(orderNumber);
     }
 
-    public void processOrder(String orderNumber, String cuitEmpleado) {
-        orderService.processOrder(orderNumber, cuitEmpleado);
+    public Order processOrder(String orderNumber, String cuitEmpleado) {
+        return orderService.processOrder(orderNumber, cuitEmpleado);
     }
 
-    public void completeOrder(String orderNumber) {
-        orderService.completeOrder(orderNumber);
+    public Order completeOrder(String orderNumber) {
+       return orderService.completeOrder(orderNumber);
     }
 
-    public void sendOrderToDispatch(String orderNumber) {
-        orderService.sendOrderToDispatch(orderNumber);
+    public Order sendOrderToDispatch(String orderNumber) {
+       return orderService.sendOrderToDispatch(orderNumber);
     }
 
-    public void dispatchOrder(String orderNumber) {
-        orderService.dispatchOrder(orderNumber);
+    public Order dispatchOrder(String orderNumber) {
+       return orderService.dispatchOrder(orderNumber);
     }
 
-    public void orderTransit(String orderNumber) {
-        orderService.orderTransit(orderNumber);
+    public Order orderTransit(String orderNumber) {
+       return orderService.orderTransit(orderNumber);
     }
 
-    public void sendToDelivery(String orderNumber, String cuitEmployeeReceiv) {
-        orderService.sendToDelivery(orderNumber, cuitEmployeeReceiv);
+    public Order sendToDelivery(String orderNumber, String cuitEmployeeReceiv) {
+       return orderService.sendToDelivery(orderNumber, cuitEmployeeReceiv);
     }
     
-   public void deliverOrder(String orderNumber, String cuitEmployee) {
-    orderService.deliverOrder(orderNumber, cuitEmployee);
+   public Order deliverOrder(String orderNumber) {
+   return orderService.deliverOrder(orderNumber);
 }
 
     public List<Order> findAllOrdersByCustomer(Long idCustomer) {

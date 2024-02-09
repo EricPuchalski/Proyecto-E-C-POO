@@ -15,6 +15,14 @@ public class SupplierController implements CRUD<Supplier> {
         this.supplierService = new SupplierService();
     }
 
+    public boolean checkIfExistUniq(String cuit, String phone, String email) {
+    return supplierService.checkIfExistUniq(cuit, phone, email);}
+    public Supplier findOneByPhoneNumber(String phoneNumber) {
+        return supplierService.findOneByPhoneNumber(phoneNumber);
+    }
+    public Supplier checkIfExistUniq(String cuit, String phoneNumber){
+        return new Supplier();
+    }
     public Supplier findOne(String cuit) {
         return supplierService.findOne(cuit);
     }
@@ -27,12 +35,12 @@ public class SupplierController implements CRUD<Supplier> {
         supplierService.delete(cuit);
     }
 
-    public void create(Supplier supplier) {
-        supplierService.save(supplier);
+    public Supplier create(Supplier supplier) {
+        return supplierService.save(supplier);
     }
 
-    public void upDate(Supplier supplier) throws Exception {
-        supplierService.upDate(supplier);
+    public Supplier upDate(Supplier supplier) throws Exception {
+        return supplierService.upDate(supplier);
     }
 
     public List<Supplier> findAllByCuit(String cuit) {
@@ -52,5 +60,12 @@ public class SupplierController implements CRUD<Supplier> {
                 .stream()
                 .filter(supplier -> supplier.getStatus().equals(Supplier.Status.ENABLED))
                 .collect(Collectors.toList());
+    }
+    public Supplier findSupplierEnabledByPhone(String phone) {
+        return supplierService.findSupplierEnabledByPhone(phone);
+    }
+
+    public Supplier findSupplierEnabledByEmail(String email) {
+   return supplierService.findSupplierEnabledByEmail(email);
     }
 }

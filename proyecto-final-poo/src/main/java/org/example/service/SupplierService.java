@@ -21,10 +21,14 @@ public class SupplierService implements CRUD<Supplier> {
     }
 
     @Override
-    public void save(Supplier t) {
+    public Supplier save(Supplier t) {
         if (!(t.getCuit().isEmpty() || t.getName().isEmpty() ||  t.getAdress().isEmpty() || t.getPhone().isEmpty()||t.getEmail().isEmpty())) {
-        supplierRepository.create(t);
+            if (!(checkIfExistUniq(t.getCuit(), t.getPhone(), t.getEmail()))) {
+                return supplierRepository.create(t);
+            }
+
         }
+        return null;
     }
 
     @Override
@@ -37,12 +41,32 @@ public class SupplierService implements CRUD<Supplier> {
     
     return null;//el cambio nuevo
 }
+   
+    public Supplier findOneByPhoneNumber(String phoneNumber) {
+        for (Supplier sp : supplierRepository.findSupplierEntities()) {
+        if(phoneNumber.equals(sp.getPhone())){
+            return sp;
+        }
+    } //EL  ERROR ERA UN FOR DUPLICADO
+    
+    return null;//el cambio nuevo
+}
 
     @Override
     public List<Supplier> findAll() {
         return supplierRepository.findSupplierEntities();
     }
     
+        public boolean checkIfExistUniq(String cuit, String phone, String email) {
+        Supplier carrierByCuit = findSupplierEnabledByCuit(cuit);
+        Supplier carrierByEmail = findSupplierEnabledByEmail(email);
+        Supplier carrierByPhone = findSupplierEnabledByPhone(phone);
+        if (carrierByCuit != null || carrierByEmail != null || carrierByPhone != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     public List<Supplier> findAllSuppliersByCuit(String cuit) {
          if (cuit == null || cuit.isEmpty()) {
             return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
@@ -55,10 +79,12 @@ public class SupplierService implements CRUD<Supplier> {
     }
 
     @Override
-    public void upDate(Supplier supplier) throws Exception {
+    public Supplier upDate(Supplier supplier) throws Exception {
         if (supplierRepository.findSupplier(supplier.getId()) != null) {
-            supplierRepository.edit(supplier);
+            return supplierRepository.edit(supplier);
         }
+        return null;
+        
     }
 
     @Override
@@ -76,15 +102,33 @@ public class SupplierService implements CRUD<Supplier> {
         return null;
     }
 
-    public void disableAccountByCuit(String cuit) {
+        public Supplier findSupplierEnabledByPhone(String phone) {
+        for (Supplier cr : findAllEnabledEmployees()) {
+            if (cr.getPhone().equals(phone)) {
+                return cr;
+            }
+        }
+        return null;
+    }
+
+    public Supplier findSupplierEnabledByEmail(String email) {
+        for (Supplier cr : findAllEnabledEmployees()) {
+            if (cr.getEmail().equals(email)) {
+                return cr;
+            }
+        }
+        return null;
+    }
+    public Supplier disableAccountByCuit(String cuit) {
         Supplier supplierFound = supplierRepository.findSupplierEnabledByCuit(cuit);
         if (supplierFound != null) {
             try {
-                supplierRepository.disableAccountByCuit(cuit);
+                return supplierRepository.disableAccountByCuit(cuit);
             } catch (NonexistentEntityException ex) {
                 Logger.getLogger(SupplierService.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return null;
     }
 
     public List<Supplier> findAllEnabledEmployees() {

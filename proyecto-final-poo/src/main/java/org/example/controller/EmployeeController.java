@@ -19,8 +19,8 @@ public class EmployeeController implements CRUD<Employee> {
     }
 
     @Override
-    public void create(Employee employee) {
-        employeeService.save(employee);
+    public Employee create(Employee employee) {
+        return employeeService.save(employee);
     }
 
     @Override
@@ -34,8 +34,8 @@ public class EmployeeController implements CRUD<Employee> {
     }
 
     @Override
-    public void upDate(Employee employee) throws Exception {
-        employeeService.upDate(employee);
+    public Employee upDate(Employee employee) throws Exception {
+        return employeeService.upDate(employee);
 
     }
 
@@ -57,7 +57,7 @@ public class EmployeeController implements CRUD<Employee> {
         return employeeService.findEmployeeEnabledByCuit(cuit);
     }
 
-    public void disableAccountByCuit(String cuit) {
-        employeeService.disableAccountByCuit(cuit);
+    public Employee disableAccountByCuit(String cuit) {
+        return employeeService.disableAccountByCuit(cuit);
     }
 }
