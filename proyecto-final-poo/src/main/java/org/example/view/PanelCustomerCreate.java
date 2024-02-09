@@ -208,6 +208,8 @@ public class PanelCustomerCreate extends javax.swing.JPanel {
         
         // Todos los campos están completos y no hay un cliente con el mismo CUIT, proceder con la creación del cliente
         customerController.create(new Customer(cuit, txtName.getText(), txtSurname.getText(), txtAdress.getText(), txtTel.getText()));
+          JOptionPane.showMessageDialog(this, "El cliente fue creado con éxito");
+
         ViewController.panelChange(this, new PanelCustomer(), this);
     }
     }//GEN-LAST:event_btnRegisterActionPerformed

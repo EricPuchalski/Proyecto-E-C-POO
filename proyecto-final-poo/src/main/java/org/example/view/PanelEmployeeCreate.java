@@ -276,6 +276,7 @@ public class PanelEmployeeCreate extends javax.swing.JPanel {
 
         // Llama al método create() del controlador de empleados para crear el empleado
         employeeController.create(employee);
+        JOptionPane.showMessageDialog(this, "El Empleado fue creado con éxito");
 
         // Cambia la vista
         ViewController.panelChange(this, new PanelEmployee(), this);

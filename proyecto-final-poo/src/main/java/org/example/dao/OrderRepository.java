@@ -264,36 +264,40 @@ public void orderTransit(String orderNumber) {
         }
     }
 
-   public void deliverOrder(String orderNumber,String cuitEmployee) {
-    EntityManager em = getEntityManager();
-    EntityTransaction transaction = em.getTransaction();
-    try {
-        transaction.begin();
-        Order orderFound = findOrderByOrderNumber(orderNumber);
+ public void deliverOrder(String orderNumber) {
 
-        if (orderFound != null && orderFound.getWarehouseDest() != null && orderFound.getWarehouseDest().getSectors() != null) {
-            // Setear el empleado a la orden
-            orderFound.setEmployee(employeeRepository.findEmployeeByCuit(cuitEmployee));
+  EntityManager em = getEntityManager();
+  EntityTransaction transaction = em.getTransaction();
 
-            // Actualizar el estado y la fecha de finalización de la orden
-            orderFound.setOrderStatus(orderFound.getWarehouseDest().getSectors().get(6).getDescription());
-            orderFound.setOrderFinish(LocalDate.now());
+  try {
+    transaction.begin();
 
-            // Actualizar la entidad en la base de datos
-            em.merge(orderFound);
-        } else {
-            System.out.println("No se encontró el pedido con el número especificado o no se pudo determinar el almacén de destino.");
-        }
+    Order orderFound = findOrderByOrderNumber(orderNumber);
 
-        transaction.commit();
-    } catch (Exception e) {
-        if (transaction != null && transaction.isActive()) {
-            transaction.rollback();
-        }
-        // Manejo de excepciones
-    } finally {
-        em.close();
+    if (orderFound != null && orderFound.getWarehouseDest() != null && orderFound.getWarehouseDest().getSectors() != null) {
+
+      // Actualizar el estado y la fecha de finalización de la orden
+      orderFound.setOrderStatus(orderFound.getWarehouseDest().getSectors().get(6).getDescription());  
+      orderFound.setOrderFinish(LocalDate.now());
+
+      // Actualizar la entidad en la base de datos
+      em.merge(orderFound);
+
+    } else {
+      System.out.println("No se encontró el pedido con el número especificado o no se pudo determinar el almacén de destino."); 
     }
+
+    transaction.commit();
+    
+  } catch (Exception e) {
+    if (transaction != null && transaction.isActive()) {
+      transaction.rollback();
+    }
+    // Manejo de excepciones
+  } finally {
+    em.close();
+  }
+
 }//Nuevo a ver si fuUNKASOOOOOOO XDLOL
 
     public Order findOrderByOrderNumber(String orderNumber) {

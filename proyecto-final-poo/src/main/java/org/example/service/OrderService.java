@@ -104,24 +104,27 @@ public class OrderService implements CRUD<Order> {
         }
     }//nuevo
      
-     public void deliverOrder(String orderNumber,String cuitEmployee) {
-        Order orderFound = orderRepository.findOrderByOrderNumber(orderNumber);
-    if (orderFound != null && orderFound.getWarehouseDest() != null && orderFound.getWarehouseDest().getSectors() != null) {
-        // Verificar si el pedido ha sido enviado antes de intentar entregarlo
-        if (orderFound.getOrderStatus().equals("Entrega")) {
-            // Actualizar el estado y la fecha de finalización de la orden
-            orderFound.setOrderStatus(orderFound.getWarehouseDest().getSectors().get(6).getDescription());
-            orderFound.setOrderFinish(LocalDate.now());
+     public void deliverOrder(String orderNumber) {
 
-            // Actualizar la entidad en la base de datos
-            orderRepository.deliverOrder(orderNumber, cuitEmployee);
-        } else {
-            System.out.println("No se puede entregar el pedido " + orderNumber + " porque no ha sido enviado.");
-        }
+  Order orderFound = orderRepository.findOrderByOrderNumber(orderNumber);
+
+  if (orderFound != null && orderFound.getWarehouseDest() != null && orderFound.getWarehouseDest().getSectors() != null) {
+
+    // Verificar si el pedido ha sido enviado antes de entregarlo
+    if(orderFound.getOrderStatus().equals("Entrega")) {
+
+      // Llamar al método en el repository sin pasar cuit de empleado
+      orderRepository.deliverOrder(orderNumber);
+
     } else {
-        System.out.println("No se puede entregar el pedido " + orderNumber + " porque no ha sido enviado a destino.");
-    }//elnuevito
-}//NUEVO A VER SI FUNKADOLizaaaaa
+      System.out.println("No se puede entregar el pedido " + orderNumber + " porque no ha sido enviado.");
+    }
+
+  } else {
+    System.out.println("No se puede entregar el pedido " + orderNumber + " porque no tiene un almacén de destino válido.");
+  }
+
+}
 
      
      
