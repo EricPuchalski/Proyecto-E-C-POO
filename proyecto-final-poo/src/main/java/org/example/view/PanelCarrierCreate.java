@@ -15,6 +15,7 @@ import org.example.model.Carrier.CarrierType;
  * @author Usuario
  */
 public class PanelCarrierCreate extends javax.swing.JPanel {
+
     private CarrierController carrierController;
 
     /**
@@ -23,7 +24,7 @@ public class PanelCarrierCreate extends javax.swing.JPanel {
     public PanelCarrierCreate() {
         initComponents();
         this.carrierController = new CarrierController();
-        this.setSize(800,700);
+        this.setSize(800, 700);
     }
 
     /**
@@ -199,45 +200,31 @@ public class PanelCarrierCreate extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNameActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-     // Validar que se haya seleccionado un tipo de transportista
-    if (cmbTransp.getSelectedItem().equals("<seleccionar>")) {
-        JOptionPane.showMessageDialog(this, "Por favor seleccione un tipo de transportista.", "Error", JOptionPane.ERROR_MESSAGE);
-        return; // Salir del método si no se ha seleccionado un tipo de transportista
-    }
-
-    // Validar que todos los campos estén completos
-    if (txtName.getText().isEmpty() || txtCuit.getText().isEmpty() || txtPhone.getText().isEmpty() || txtEmail.getText().isEmpty()) {
-        // Mostrar mensaje de error en una ventana emergente
-        JOptionPane.showMessageDialog(this, "Por favor complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-        return; // Salir del método si algún campo está vacío
-    }
-
-    // Crear el transportista si todos los campos están completos
-    Carrier.CarrierType type = loadCarrierType();
-    if (type != null) {
-        try {
-            // Crear el transportista y cambiar de panel si se ha seleccionado un tipo válido
-            carrierController.create(new Carrier(txtCuit.getText(), txtName.getText(), txtPhone.getText(), txtEmail.getText(), type));
-            ViewController.panelChange(this, new PanelCarrier(), this);
-        } catch (javax.persistence.RollbackException ex) {
-            // Capturar la excepción de violación de restricción de unicidad
-            Throwable cause = ex.getCause();
-            if (cause instanceof org.eclipse.persistence.exceptions.DatabaseException) {
-                org.eclipse.persistence.exceptions.DatabaseException databaseException = (org.eclipse.persistence.exceptions.DatabaseException) cause;
-                Throwable internalException = databaseException.getInternalException();
-                if (internalException instanceof java.sql.SQLIntegrityConstraintViolationException) {
-                    // Mostrar el mensaje de error si hay una violación de restricción de unicidad en el campo CUIT
-                    JOptionPane.showMessageDialog(this, "ERROR AL CREAR, YA EXISTE EXISTE ESE CUIT.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return; // Salir del método si hay una violación de restricción de unicidad
-                }
-            }
-            // Mostrar mensaje de error genérico si la excepción no es por violación de restricción de unicidad
-            JOptionPane.showMessageDialog(this, "Error al crear el transportista.", "Error", JOptionPane.ERROR_MESSAGE);
+        // Validar que se haya seleccionado un tipo de transportista
+        if (cmbTransp.getSelectedItem().equals("<seleccionar>")) {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione un tipo de transportista.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salir del método si no se ha seleccionado un tipo de transportista
         }
-    } else {
-        // Mostrar mensaje de error si no se ha seleccionado un tipo de transportista válido
-        JOptionPane.showMessageDialog(this, "Por favor seleccione un tipo de transportista válido.", "Error", JOptionPane.ERROR_MESSAGE);
-    }//NUEVO A VER SI ANDA
+
+        // Validar que todos los campos estén completos
+        if (txtName.getText().isEmpty() || txtCuit.getText().isEmpty() || txtPhone.getText().isEmpty() || txtEmail.getText().isEmpty()) {
+            // Mostrar mensaje de error en una ventana emergente
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salir del método si algún campo está vacío
+        }
+
+        // Crear el transportista si todos los campos están completos
+        Carrier.CarrierType type = loadCarrierType();
+
+        if (type != null) {
+            if (carrierController.checkIfExistUniq(txtCuit.getText(), txtPhone.getText(), txtEmail.getText()) == false) {
+                carrierController.create(new Carrier(txtCuit.getText(), txtName.getText(), txtPhone.getText(), txtEmail.getText(), type));
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Campo unico ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+
+            }
+        }
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -249,14 +236,14 @@ public class PanelCarrierCreate extends javax.swing.JPanel {
     }//GEN-LAST:event_txtEmailActionPerformed
 
     private void cmbTranspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTranspActionPerformed
-        
+
     }//GEN-LAST:event_cmbTranspActionPerformed
-    private CarrierType loadCarrierType(){
-        if (cmbTransp.getSelectedItem() == "Aereo"){
+    private CarrierType loadCarrierType() {
+        if (cmbTransp.getSelectedItem() == "Aereo") {
             return Carrier.CarrierType.AIR;
-        }else if(cmbTransp.getSelectedItem() == "Maritimo"){
+        } else if (cmbTransp.getSelectedItem() == "Maritimo") {
             return Carrier.CarrierType.MARITIME;
-        }else if(cmbTransp.getSelectedItem() == "Terrestre"){
+        } else if (cmbTransp.getSelectedItem() == "Terrestre") {
             return Carrier.CarrierType.LAND;
         }
         return null;

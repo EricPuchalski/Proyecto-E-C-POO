@@ -21,12 +21,12 @@ public class OrderLineService implements CRUD<OrderLine>{
     }
 
     @Override
-    public void save(OrderLine t) {
-        orderLineRepository.create(t);
+    public OrderLine save(OrderLine t) {
+        return orderLineRepository.create(t);
     }
 
     @Override
-    public void upDate(OrderLine t) throws Exception {
+    public OrderLine upDate(OrderLine t) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

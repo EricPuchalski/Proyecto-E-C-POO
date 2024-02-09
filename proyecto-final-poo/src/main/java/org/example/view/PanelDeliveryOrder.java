@@ -7,6 +7,7 @@ package org.example.view;
 import javax.swing.JOptionPane;
 import org.example.controller.OrderController;
 import org.example.controller.ViewController;
+import org.example.model.Order;
 
 /**
  *

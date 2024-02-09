@@ -29,16 +29,21 @@ public class WarehouseService implements CRUD<Warehouse> {
     
 
     @Override
-     public void save(Warehouse warehouse) {
- 
-         warehouseRepository.create(warehouse);
+    public Warehouse save(Warehouse warehouse) {
+        if (!(warehouse.getCode().isEmpty() || warehouse.getName().isEmpty() || warehouse.getPhone().isEmpty())) {
+            if (checkIfExistUniq(warehouse.getCode(), warehouse.getPhone(), warehouse.getEmail()) == false) {
+                return warehouseRepository.create(warehouse);
+            }
+        }
+        return null;
     }
 
     @Override
-     public void upDate(Warehouse warehouse) throws Exception {
+     public Warehouse upDate(Warehouse warehouse) throws Exception {
         if (warehouseRepository.findWarehouse(warehouse.getId()) != null) {
-            warehouseRepository.edit(warehouse);
+            return warehouseRepository.edit(warehouse);
         }
+        return null;
     }
 
     @Override
@@ -97,12 +102,42 @@ public class WarehouseService implements CRUD<Warehouse> {
         }
     }
 
-                public Warehouse findWarehouseEnabledByCuit(String email){
+                public Warehouse findWarehouseEnabledByCode(String email){
         Warehouse warehouseFound = warehouseRepository.findWarehouseEnabledByCuit(email);
-        if (warehouseFound.getStatus().equals(Warehouse.Estado.ENABLED)) {
+        if(warehouseFound!=null){
+                    if (warehouseFound.getStatus().equals(Warehouse.Estado.ENABLED)) {
                 return warehouseRepository.findWarehouseEnabledByCuit(email);
             }
+        }
+
         return null;
     }
+        public Warehouse findWarehouseEnabledByPhone(String phone){
+        for(Warehouse cr: findAllEnabledWarehouses()){
+            if (cr.getPhone().equals(phone)) {
+                return cr;
+            }
+        }
+        return null;
+    }
+        public Warehouse findWarehouseEnabledByEmail(String email){
+        for(Warehouse cr: findAllEnabledWarehouses()){
+            if (cr.getEmail().equals(email)) {
+                return cr;
+            }
+        }
+        return null;
+    }
+        public boolean checkIfExistUniq(String code, String phone, String email) {
+        Warehouse carrierByCuit = findWarehouseEnabledByCode(code);
+        Warehouse carrierByEmail = findWarehouseEnabledByEmail(email);
+        Warehouse carrierByPhone = findWarehouseEnabledByPhone(phone);
+        if (carrierByCuit != null || carrierByEmail != null || carrierByPhone != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     
 }

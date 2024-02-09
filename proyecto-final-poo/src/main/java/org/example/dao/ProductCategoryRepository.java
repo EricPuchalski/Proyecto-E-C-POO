@@ -46,13 +46,14 @@ public class ProductCategoryRepository implements Serializable {
         this.create(electronic);
         this.create(toy);
     }
-    public void create(ProductCategory productCategory) {
+    public ProductCategory create(ProductCategory productCategory) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(productCategory);
             em.getTransaction().commit();
+            return productCategory;
         } finally {
             if (em != null) {
                 em.close();
@@ -60,13 +61,14 @@ public class ProductCategoryRepository implements Serializable {
         }
     }
     
-    public void edit(ProductCategory productCategory) throws NonexistentEntityException, Exception {
+    public ProductCategory edit(ProductCategory productCategory) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             productCategory = em.merge(productCategory);
             em.getTransaction().commit();
+            return productCategory;
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {

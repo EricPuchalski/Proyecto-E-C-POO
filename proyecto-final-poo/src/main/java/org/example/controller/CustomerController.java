@@ -32,18 +32,18 @@ public class CustomerController implements CRUD<Customer>{
     public Customer findCustomerEnabledByCuit(String cuit){
         return customerService.findCustomerEnabledByCuit(cuit);
     }
-    public void disableAccountByCuit(String cuit){
-        customerService.disableAccountByCuit(cuit);
+    public Customer disableAccountByCuit(String cuit){
+        return customerService.disableAccountByCuit(cuit);
     }
     public void delete(String cuit) throws NonexistentEntityException {
         customerService.delete(cuit);
     }
 
-    public  void create(Customer customer){
-        customerService.save(customer);
+    public  Customer create(Customer customer){
+        return customerService.save(customer);
     }
-    public void upDate(Customer customer) throws Exception {
-        customerService.upDate(customer);
+    public Customer upDate(Customer customer) throws Exception {
+        return customerService.upDate(customer);
     }
     public List<Customer> findAllCustomersByCuit(String cuit){
         return customerService.findAllCustomersByCuit(cuit);

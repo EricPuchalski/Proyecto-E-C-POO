@@ -44,13 +44,14 @@ public class SupplierRepository implements Serializable {
         this.create(p5);
     }
 
-    public void create(Supplier supplier) {
+    public Supplier create(Supplier supplier) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(supplier);
             em.getTransaction().commit();
+            return supplier;
         } finally {
             if (em != null) {
                 em.close();
@@ -73,7 +74,7 @@ public class SupplierRepository implements Serializable {
         }
     }
 
-    public void disableAccountByCuit(String cuit) throws NonexistentEntityException {
+    public Supplier disableAccountByCuit(String cuit) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -84,27 +85,31 @@ public class SupplierRepository implements Serializable {
                     if (object.getCuit().equals(cuit)) {
                         supplier = em.getReference(Supplier.class, object.getId());
                         supplier.setStatus(Supplier.Status.DISABLED);
+                                    em.getTransaction().commit();
+                        return supplier;
                     }
                 }
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The customer with id " + cuit + " no longer exists.", enfe);
             }
 
-            em.getTransaction().commit();
+
         } finally {
             if (em != null) {
                 em.close();
             }
         }
+        return null;
     }
 
-    public void edit(Supplier supplier) throws NonexistentEntityException, Exception {
+    public Supplier edit(Supplier supplier) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             supplier = em.merge(supplier);
             em.getTransaction().commit();
+            return supplier;
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {

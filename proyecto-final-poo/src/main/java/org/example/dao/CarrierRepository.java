@@ -50,13 +50,14 @@ public class CarrierRepository implements Serializable {
             
 
     }
-    public void create(Carrier carrier) {
+    public Carrier create(Carrier carrier) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(carrier);
             em.getTransaction().commit();
+            return carrier;
         } finally {
             if (em != null) {
                 em.close();
@@ -78,7 +79,7 @@ public class CarrierRepository implements Serializable {
             em.close();
         }
     }
-    public void disableAccountByCuit(String cuit) throws NonexistentEntityException{
+    public Carrier disableAccountByCuit(String cuit) throws NonexistentEntityException{
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -89,26 +90,34 @@ public class CarrierRepository implements Serializable {
                 if (object.getCuit().equals(cuit)) {
                     carrier = em.getReference(Carrier.class, object.getId());
                     carrier.setStatus(Carrier.Status.DISABLED);
+                    em.getTransaction().commit();
+                    return carrier;
+
                 }
+                
             }
+                
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The customer with id " + cuit + " no longer exists.", enfe);
             }
             
-            em.getTransaction().commit();
+            
+            
         } finally {
             if (em != null) {
                 em.close();
             }
         }
+        return null;
     }
-    public void edit(Carrier carrier) throws NonexistentEntityException, Exception {
+    public Carrier edit(Carrier carrier) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             carrier = em.merge(carrier);
             em.getTransaction().commit();
+            return carrier;
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {

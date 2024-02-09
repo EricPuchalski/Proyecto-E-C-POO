@@ -215,11 +215,19 @@ public class PanelProcessOrder extends javax.swing.JPanel {
             if (tblEmployees.getSelectedRow() != -1) {
                 if (tblOrders.getRowCount() > 0) {
                     if (tblOrders.getSelectedRow() != -1) {
+                        
                         String orderNumber = String.valueOf(tblOrders.getValueAt(tblOrders.getSelectedRow(), 3));
+                        Order orderFound = orderController.findOneByOrderNumber(orderNumber);
                         String cuitEmployee = String.valueOf(tblEmployees.getValueAt(tblEmployees.getSelectedRow(), 1));
                         orderController.processOrder(orderNumber, cuitEmployee);
-                        JOptionPane.showMessageDialog(this, "Pedido procesado", "Exito", JOptionPane.INFORMATION_MESSAGE);
+                        if(orderFound.getOrderStatus().equals("Pendiente")){
+                                                    JOptionPane.showMessageDialog(this, "Pedido procesado", "Exito", JOptionPane.INFORMATION_MESSAGE);
                         ViewController.panelChange(this, new PanelOrder(), this);
+                        } else {
+                             JOptionPane.showMessageDialog(this, "El pedido no está pendiente", "Error", JOptionPane.ERROR_MESSAGE);
+
+                        }
+
 
                     } else{
 

@@ -61,7 +61,7 @@ import org.example.util.Conexion;
             em.close();
         }
     }
-    public void disableAccountByCuit(String cuit) throws NonexistentEntityException{
+    public Employee disableAccountByCuit(String cuit) throws NonexistentEntityException{
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -72,27 +72,30 @@ import org.example.util.Conexion;
                 if (object.getCuit().equals(cuit)) {
                     customer = em.getReference(Employee.class, object.getId());
                     customer.setEstado(Employee.Status.DISABLED);
+                                em.getTransaction().commit();
+                    return customer;
                 }
             }
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The customer with id " + cuit + " no longer exists.", enfe);
             }
-            
-            em.getTransaction().commit();
+
         } finally {
             if (em != null) {
                 em.close();
             }
         }
+        return null;
     }
            
-        public void create(Employee employee) {
+        public Employee create(Employee employee) {
             EntityManager em = null;
             try {
                 em = getEntityManager();
                 em.getTransaction().begin();
                 em.persist(employee);
                 em.getTransaction().commit();
+                return employee;
             } finally {
                 if (em != null) {
                     em.close();
@@ -100,13 +103,14 @@ import org.example.util.Conexion;
             }
         }
 
-        public void edit(Employee employee) throws NonexistentEntityException, Exception {
+        public Employee edit(Employee employee) throws NonexistentEntityException, Exception {
             EntityManager em = null;
             try {
                 em = getEntityManager();
                 em.getTransaction().begin();
                 employee = em.merge(employee);
                 em.getTransaction().commit();
+                return employee;
             } catch (Exception ex) {
                 String msg = ex.getLocalizedMessage();
                 if (msg == null || msg.length() == 0) {

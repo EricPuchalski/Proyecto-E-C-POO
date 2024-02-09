@@ -22,6 +22,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.example.model.Carrier;
+import org.example.model.Customer;
 import org.example.model.DespatchNote;
 import org.example.model.Employee;
 import org.example.model.Order;
@@ -36,6 +37,7 @@ import org.example.util.GenerateOrderNumber;
  * @author ericp
  */
 public class OrderRepository implements Serializable {
+
     private CustomerRepository customerRepository;
     private WarehouseRepository warehouseRepository;
     private CarrierRepository carrierRepository;
@@ -55,7 +57,7 @@ public class OrderRepository implements Serializable {
         this.trackingRepository = new TrackingRepository();
     }
 
-    public void upload(){
+    public void upload() {
 
         Order o1 = new Order("123", customerRepository.findCustomer(1l), warehouseRepository.findWarehouse(1l), warehouseRepository.findWarehouse(2l), carrierRepository.findCarrier(1l), warehouseRepository.findWarehouse(1l).getSectors().get(3).getDescription(), LocalDate.now());
         Order o2 = new Order("129", customerRepository.findCustomer(2l), warehouseRepository.findWarehouse(2l), warehouseRepository.findWarehouse(1l), carrierRepository.findCarrier(2l), warehouseRepository.findWarehouse(1l).getSectors().get(1).getDescription(), LocalDate.of(2023, 1, 2));
@@ -66,7 +68,7 @@ public class OrderRepository implements Serializable {
         Order o7 = new Order("183", customerRepository.findCustomer(2l), warehouseRepository.findWarehouse(2l), warehouseRepository.findWarehouse(1l), carrierRepository.findCarrier(3l), warehouseRepository.findWarehouse(1l).getSectors().get(1).getDescription(), LocalDate.of(2023, 1, 3));
         Order o8 = new Order("132", customerRepository.findCustomer(2l), warehouseRepository.findWarehouse(3l), warehouseRepository.findWarehouse(2l), carrierRepository.findCarrier(4l), warehouseRepository.findWarehouse(1l).getSectors().get(2).getDescription(), LocalDate.of(2023, 1, 1));
         Order o9 = new Order("126", customerRepository.findCustomer(1l), warehouseRepository.findWarehouse(3l), warehouseRepository.findWarehouse(2l), carrierRepository.findCarrier(4l), warehouseRepository.findWarehouse(1l).getSectors().get(1).getDescription(), LocalDate.of(2023, 1, 3));
-        
+
         this.create(o1);
         this.create(o2);
         this.create(o3);
@@ -76,16 +78,16 @@ public class OrderRepository implements Serializable {
         this.create(o7);
         this.create(o8);
         this.create(o9);
-        
+
     }
-    
+
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
-    public void processOrder(String orderNumber, String cuitEmpleado) {
+    public Order processOrder(String orderNumber, String cuitEmpleado) {
         EntityManager em = getEntityManager();
         EntityTransaction transaction = em.getTransaction();
         try {
@@ -95,6 +97,7 @@ public class OrderRepository implements Serializable {
             order.setOrderStatus(order.getWarehouseOrig().getSectors().get(1).getDescription());
             em.merge(order); // Actualiza la entidad en la base de datos
             transaction.commit();
+            return order;
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
@@ -102,9 +105,10 @@ public class OrderRepository implements Serializable {
         } finally {
             em.close();
         }
+        return null;
     }
 
-    public void completeOrder(String orderNumber) {
+    public Order completeOrder(String orderNumber) {
         EntityManager em = getEntityManager();
         EntityTransaction transaction = em.getTransaction();
 
@@ -114,6 +118,7 @@ public class OrderRepository implements Serializable {
             orderFound.setOrderStatus(orderFound.getWarehouseOrig().getSectors().get(2).getDescription());
             em.merge(orderFound); // Actualiza la entidad en la base de datos
             transaction.commit();
+            return orderFound;
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
@@ -122,8 +127,10 @@ public class OrderRepository implements Serializable {
         } finally {
             em.close();
         }
+        return null;
     }
-        public void sendOrderToDispatch(String orderNumber) {
+
+    public Order sendOrderToDispatch(String orderNumber) {
         EntityManager em = getEntityManager();
         EntityTransaction transaction = em.getTransaction();
 
@@ -133,6 +140,7 @@ public class OrderRepository implements Serializable {
             orderEncontrado.setOrderStatus(orderEncontrado.getWarehouseOrig().getSectors().get(3).getDescription());
             em.merge(orderEncontrado); // Actualiza la entidad en la base de datos
             transaction.commit();
+            return orderEncontrado;
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
@@ -141,164 +149,150 @@ public class OrderRepository implements Serializable {
         } finally {
             em.close();
         }
+        return null;
     }
-        
-    public void dispatchOrder(String orderNumber) {
-    EntityManager em = getEntityManager();
-    EntityTransaction transaction = em.getTransaction();
 
-       try {
-           transaction.begin();
-           Order orderFound = findOrderByOrderNumber(orderNumber);
+    public Order dispatchOrder(String orderNumber) {
+        EntityManager em = getEntityManager();
+        EntityTransaction transaction = em.getTransaction();
 
-               orderFound.setOrderStatus(orderFound.getWarehouseOrig().getSectors().get(4).getDescription());
+        try {
+            transaction.begin();
+            Order orderFound = findOrderByOrderNumber(orderNumber);
 
-                // Generar el remito y agregarlo al pedido
-                LocalDate fechaEmision = LocalDate.now();
-                Carrier carrier = orderFound.getCarrier();
-                Employee employeeEmisor = orderFound.getEmployee();
-                Employee employeeReceptor = null; // El receptor se establecerá cuando se entregue el pedido
-                DespatchNote despatchNote = new DespatchNote(fechaEmision, carrier, employeeEmisor, employeeReceptor);
-                despatchNoteRepository.create(despatchNote);
-                orderFound.setDespatchNote(despatchNote);
+            orderFound.setOrderStatus(orderFound.getWarehouseOrig().getSectors().get(4).getDescription());
 
-                Tracking tracking = new Tracking(orderFound);
+            // Generar el remito y agregarlo al pedido
+            LocalDate fechaEmision = LocalDate.now();
+            Carrier carrier = orderFound.getCarrier();
+            Employee employeeEmisor = orderFound.getEmployee();
+            Employee employeeReceptor = null; // El receptor se establecerá cuando se entregue el pedido
+            DespatchNote despatchNote = new DespatchNote(fechaEmision, carrier, employeeEmisor, employeeReceptor);
+            despatchNoteRepository.create(despatchNote);
+            orderFound.setDespatchNote(despatchNote);
 
-                // Obtener la latitud y longitud del depósito de origen
-                Warehouse depositOrigen = orderFound.getWarehouseOrig();
-                double latitud = depositOrigen.getPosition().getLatitude();
-                double longitud = depositOrigen.getPosition().getLongitude();
+            Tracking tracking = new Tracking(orderFound);
 
-                tracking.setLatitude(latitud);
-                tracking.setLongitude(longitud);
-                tracking.setDateAndTime(LocalDate.now());
-                tracking.setTrackingNumber(tracking.generarNumeroRastreo());
+            // Obtener la latitud y longitud del depósito de origen
+            Warehouse depositOrigen = orderFound.getWarehouseOrig();
+            double latitud = depositOrigen.getPosition().getLatitude();
+            double longitud = depositOrigen.getPosition().getLongitude();
 
-                orderFound.setTracking(tracking);
-               
+            tracking.setLatitude(latitud);
+            tracking.setLongitude(longitud);
+            tracking.setDateAndTime(LocalDate.now());
+            tracking.setTrackingNumber(tracking.generarNumeroRastreo());
 
-               em.merge(orderFound); // Actualiza la entidad en la base de datos
-          
+            orderFound.setTracking(tracking);
 
-           transaction.commit();
-       } catch (Exception e) {
-           if (transaction != null && transaction.isActive()) {
-               transaction.rollback();
-           }
-           // Manejo de excepciones según sea necesario
-       } finally {
-           em.close();
-       }
-   }
-public void orderTransit(String orderNumber) {
-    EntityManager em = emf.createEntityManager();
-    EntityTransaction transaction = em.getTransaction();
+            em.merge(orderFound); // Actualiza la entidad en la base de datos
 
-    try {
-        transaction.begin();
-
-        Order order = findOrderByOrderNumber(orderNumber);
-
-        order.setOnTransit(true);
-        order.setOrderStatus("En transito");
-        this.edit(order);
-
-
-        transaction.commit();
-    } catch (Exception e) {
-        if (transaction != null && transaction.isActive()) {
-            transaction.rollback();
-        }
-        e.printStackTrace();
-    } finally {
-        if (em != null) {
+            transaction.commit();
+            return orderFound;
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            // Manejo de excepciones según sea necesario
+        } finally {
             em.close();
         }
+        return null;
     }
-}
 
-    public void sendToDelivery(String orderNumber, String cuitEmployeeReceiv) {
-    EntityManager em = getEntityManager();
-    EntityTransaction transaction = em.getTransaction();
+    public Order orderTransit(String orderNumber) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
 
-    try {
-        transaction.begin();
+        try {
+            transaction.begin();
+
+            Order order = findOrderByOrderNumber(orderNumber);
+
+            order.setOnTransit(true);
+            order.setOrderStatus("En transito");
+            this.edit(order);
+
+            transaction.commit();
+            return order;
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return null;
+    }
+
+    public Order sendToDelivery(String orderNumber, String cuitEmployeeReceiv) throws Exception {
+
         Order orderFound = findOrderByOrderNumber(orderNumber);
 
-            orderFound.setOrderStatus(orderFound.getWarehouseDest().getSectors().get(5).getDescription());
-                // Obtener la latitud y longitud del depósito de destino para el seguimiento
-                Warehouse depositDestino = orderFound.getWarehouseDest();
-                double latitud = depositDestino.getPosition().getLatitude();
-                double longitud = depositDestino.getPosition().getLongitude();
+        orderFound.setOrderStatus(orderFound.getWarehouseDest().getSectors().get(5).getDescription());
+        // Obtener la latitud y longitud del depósito de destino para el seguimiento
 
-                // Actualizamos la latitud y longitud en el seguimiento
-                orderFound.getTracking().setLatitude(latitud);
-                orderFound.getTracking().setLongitude(longitud);
-                
-                trackingRepository.edit(orderFound.getTracking());
-                orderFound.setOnTransit(false);
-            
+        Warehouse depositDestino = orderFound.getWarehouseDest();
+        double latitud = depositDestino.getPosition().getLatitude();
+        double longitud = depositDestino.getPosition().getLongitude();
 
-            DespatchNote despatchNote = despatchNoteRepository.findDespatchNote(orderFound.getDespatchNote().getId()) ;
+        // Actualizamos la latitud y longitud en el seguimiento
+        orderFound.getTracking().setLatitude(latitud);
+        orderFound.getTracking().setLongitude(longitud);
 
-                // Buscar el empleado receptor por su CUIT
-                Employee employeeReceptor = employeeRepository.findEmployeeByCuit(cuitEmployeeReceiv);
-               
-                if (employeeReceptor != null) {
-                    // Asignar el empleado receptor al remito
-                    despatchNote.setEmployeeReceiver(employeeReceptor);
-                    despatchNoteRepository.edit(despatchNote);
+        trackingRepository.edit(orderFound.getTracking());
+        orderFound.setOnTransit(false);
+        this.edit(orderFound);
 
-                
+        DespatchNote despatchNote = despatchNoteRepository.findDespatchNote(orderFound.getDespatchNote().getId());
+
+        // Buscar el empleado receptor por su CUIT
+        Employee employeeReceptor = employeeRepository.findEmployeeByCuit(cuitEmployeeReceiv);
+
+        if (employeeReceptor != null) {
+            // Asignar el empleado receptor al remito
+            despatchNote.setEmployeeReceiver(employeeReceptor);
+            despatchNoteRepository.edit(despatchNote);
+
+        }
+
+        return orderFound;
+    }
+
+    public Order deliverOrder(String orderNumber) {
+        EntityManager em = getEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+        try {
+            transaction.begin();
+            Order orderFound = findOrderByOrderNumber(orderNumber);
+
+            if (orderFound != null && orderFound.getWarehouseDest() != null && orderFound.getWarehouseDest().getSectors() != null) {
+                // Setear el empleado a la orden
+                // Actualizar el estado y la fecha de finalización de la orden
+                orderFound.setOrderStatus(orderFound.getWarehouseDest().getSectors().get(6).getDescription());
+                orderFound.setOrderFinish(LocalDate.now());
+
+                // Actualizar la entidad en la base de datos
+                em.merge(orderFound);
+                return orderFound;
+            } else {
+                System.out.println("No se encontró el pedido con el número especificado o no se pudo determinar el almacén de destino.");
             }
 
-
-        transaction.commit();
+            transaction.commit();
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
-            // Manejo de excepciones según sea necesario
+            // Manejo de excepciones
         } finally {
             em.close();
         }
-    }
-
- public void deliverOrder(String orderNumber) {
-
-  EntityManager em = getEntityManager();
-  EntityTransaction transaction = em.getTransaction();
-
-  try {
-    transaction.begin();
-
-    Order orderFound = findOrderByOrderNumber(orderNumber);
-
-    if (orderFound != null && orderFound.getWarehouseDest() != null && orderFound.getWarehouseDest().getSectors() != null) {
-
-      // Actualizar el estado y la fecha de finalización de la orden
-      orderFound.setOrderStatus(orderFound.getWarehouseDest().getSectors().get(6).getDescription());  
-      orderFound.setOrderFinish(LocalDate.now());
-
-      // Actualizar la entidad en la base de datos
-      em.merge(orderFound);
-
-    } else {
-      System.out.println("No se encontró el pedido con el número especificado o no se pudo determinar el almacén de destino."); 
-    }
-
-    transaction.commit();
-    
-  } catch (Exception e) {
-    if (transaction != null && transaction.isActive()) {
-      transaction.rollback();
-    }
-    // Manejo de excepciones
-  } finally {
-    em.close();
-  }
-
-}//Nuevo a ver si fuUNKASOOOOOOO XDLOL
+        return null;
+    }//Nuevo a ver si fuUNKASOOOOOOO XDLOL
 
     public Order findOrderByOrderNumber(String orderNumber) {
         EntityManager em = getEntityManager();
@@ -308,12 +302,40 @@ public void orderTransit(String orderNumber) {
             return query.getSingleResult();
         } catch (NoResultException e) {
             return null;
-           } finally {
+        } finally {
             em.close();
         }
     }
 
-    public void create(Order order) {
+    public Order createOrder(Order order, Warehouse warehouseOrig, Warehouse warehouseDest, String cuitCustomer, String cuitCarrier) {
+        EntityManager em = null;
+
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            GenerateOrderNumber generateOrderNumber = new GenerateOrderNumber();
+            String randomOrderNumber = generateOrderNumber.generateRandomOrderNumber();
+            order.setOrderNumber(randomOrderNumber);
+            Customer orderCustomer = customerRepository.findCustomerEnabledByCuit(cuitCustomer);
+            Carrier orderCarrier = carrierRepository.findCarrierEnabledByCuit(cuitCarrier);
+            order.setWarehouseOrig(warehouseOrig);
+            order.setWarehouseDest(warehouseDest);
+            order.setCustomer(orderCustomer);
+            order.setCarrier(orderCarrier);
+            order.setOrderStart(LocalDate.now());
+            order.setOrderStatus(order.getWarehouseOrig().getSectors().get(0).getDescription());
+
+            em.persist(order);
+            em.getTransaction().commit();
+            return order;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    public Order create(Order order) {
         EntityManager em = null;
 
         try {
@@ -324,6 +346,7 @@ public void orderTransit(String orderNumber) {
             order.setOrderNumber(randomOrderNumber);
             em.persist(order);
             em.getTransaction().commit();
+            return order;
         } finally {
             if (em != null) {
                 em.close();
@@ -331,7 +354,7 @@ public void orderTransit(String orderNumber) {
         }
     }
 
-    public void edit(Order order) throws NonexistentEntityException, Exception {
+    public Order edit(Order order) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -353,11 +376,14 @@ public void orderTransit(String orderNumber) {
                 if (oldOrderOfTracking != null) {
                     oldOrderOfTracking.setTracking(null);
                     oldOrderOfTracking = em.merge(oldOrderOfTracking);
+
                 }
                 trackingNew.setOrder(order);
                 trackingNew = em.merge(trackingNew);
             }
+
             em.getTransaction().commit();
+            return order;
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
@@ -445,5 +471,5 @@ public void orderTransit(String orderNumber) {
             em.close();
         }
     }
-    
+
 }
