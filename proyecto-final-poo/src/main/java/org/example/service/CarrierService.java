@@ -21,6 +21,11 @@ public class CarrierService implements CRUD<Carrier> {
     public CarrierService() {
         this.carrierRepository = new CarrierRepository();
     }
+
+    public CarrierService(CarrierRepository carrierRepository) {
+        this.carrierRepository = carrierRepository;
+    }
+    
     
     private CarrierRepository carrierRepository;
     

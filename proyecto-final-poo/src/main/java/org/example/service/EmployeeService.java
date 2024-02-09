@@ -17,6 +17,11 @@ public class EmployeeService implements CRUD<Employee> {
         this.employeeRepository = new EmployeeRepository();
     }
 
+    public EmployeeService(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
+       
+
 
     @Override
     public Employee save(Employee employee) {

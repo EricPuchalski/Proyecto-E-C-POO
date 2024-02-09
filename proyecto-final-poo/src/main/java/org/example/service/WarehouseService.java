@@ -26,6 +26,11 @@ public class WarehouseService implements CRUD<Warehouse> {
     public WarehouseService() {
         this.warehouseRepository = new WarehouseRepository();
     }
+
+    public WarehouseService(WarehouseRepository warehouseRepository) {
+        this.warehouseRepository = warehouseRepository;
+    }
+    
     
 
     @Override

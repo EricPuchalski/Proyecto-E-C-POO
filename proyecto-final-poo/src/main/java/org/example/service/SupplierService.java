@@ -20,6 +20,12 @@ public class SupplierService implements CRUD<Supplier> {
         this.supplierRepository = new SupplierRepository();
     }
 
+    public SupplierService(SupplierRepository supplierRepository) {
+        this.supplierRepository = supplierRepository;
+    }
+
+    
+
     @Override
     public Supplier save(Supplier t) {
         if (!(t.getCuit().isEmpty() || t.getName().isEmpty() ||  t.getAdress().isEmpty() || t.getPhone().isEmpty()||t.getEmail().isEmpty())) {
