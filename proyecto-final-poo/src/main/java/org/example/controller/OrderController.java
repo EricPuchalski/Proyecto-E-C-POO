@@ -119,4 +119,7 @@ public class OrderController implements CRUD<Order> {
         public List<Order> findAllOrdersByWarehouseOrig(Long idWarehouse) {
         return orderService.findAllOrdersByWarehouseOrig(idWarehouse);
     }
+        public List<Order> findAllUndeliveredOrders() {
+    return orderService.findAllUndeliveredOrders();
+}
 }

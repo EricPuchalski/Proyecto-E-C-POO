@@ -258,21 +258,22 @@ public class ViewController {
 
     public TableModel modelTableOrders() {
         DefaultTableModel newModel = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-
-        String titulos[] = {"Id", "Cliente", "Transportista", "Numero"};
-        newModel.setColumnIdentifiers(titulos);
-        if (!orderController.findAll().isEmpty()) {
-            for (Order e : orderController.findAll()) {
-                Object[] obj = {e.getId(), e.getCustomer().getName(), e.getCarrier().getName(), e.getOrderNumber()};
-                newModel.addRow(obj);
-            }
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
         }
-        return newModel;
+    };
+
+    String titulos[] = {"Id", "Cliente", "Transportista", "Numero","Estado"};
+    newModel.setColumnIdentifiers(titulos);
+    List<Order> undeliveredOrders = orderController.findAllUndeliveredOrders(); // Cambio aquí
+    if (!undeliveredOrders.isEmpty()) {
+        for (Order e : undeliveredOrders) { // Cambio aquí
+            Object[] obj = {e.getId(), e.getCustomer().getName(), e.getCarrier().getName(), e.getOrderNumber(),e.getOrderStatus()};
+            newModel.addRow(obj);
+        }
+    }
+    return newModel;
     }
 
     public TableModel modelTableOrdersByNumber(String orderNumber) {
