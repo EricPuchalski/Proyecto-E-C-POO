@@ -138,7 +138,7 @@ public class OrderService implements CRUD<Order> {
 
     public Order deliverOrder(String orderNumber) {
         Order orderFound = orderRepository.findOrderByOrderNumber(orderNumber);
-        if (orderFound != null && orderFound.getWarehouseDest() != null && orderFound.getOrderStatus().equals("Esperando entrega")) {
+        if (orderFound != null && orderFound.getWarehouseDest() != null && orderFound.getOrderStatus().equals("Esperando Entrega")) {
             return orderRepository.deliverOrder(orderNumber);
         } else {
             return null;
@@ -178,6 +178,12 @@ public class OrderService implements CRUD<Order> {
                 .collect(Collectors.toList());
         return ordersFound;
     }
+    public List<Order> findAllUndeliveredOrders() {
+    return orderRepository.findOrderEntities()
+            .stream()
+            .filter(order -> !order.getOrderStatus().equals("Entrega"))
+            .collect(Collectors.toList());
+}
 }
 //package org.example.service;
 //

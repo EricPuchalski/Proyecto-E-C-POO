@@ -263,35 +263,31 @@ public class OrderRepository implements Serializable {
     }
 
     public Order deliverOrder(String orderNumber) {
-        EntityManager em = getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        try {
-            transaction.begin();
-            Order orderFound = findOrderByOrderNumber(orderNumber);
+       EntityManager em = getEntityManager();
+    EntityTransaction transaction = em.getTransaction();
 
-            if (orderFound != null && orderFound.getWarehouseDest() != null && orderFound.getWarehouseDest().getSectors() != null) {
-                // Setear el empleado a la orden
-                // Actualizar el estado y la fecha de finalización de la orden
-                orderFound.setOrderStatus(orderFound.getWarehouseDest().getSectors().get(6).getDescription());
-                orderFound.setOrderFinish(LocalDate.now());
+    try {
+        transaction.begin();
+        Order orderFound = findOrderByOrderNumber(orderNumber);
 
-                // Actualizar la entidad en la base de datos
-                em.merge(orderFound);
-                return orderFound;
-            } else {
-                System.out.println("No se encontró el pedido con el número especificado o no se pudo determinar el almacén de destino.");
-            }
+        // Actualizar el estado y la fecha de finalización de la orden
+        orderFound.setOrderStatus(orderFound.getWarehouseDest().getSectors().get(6).getDescription());
+        orderFound.setOrderFinish(LocalDate.now());
 
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
-            // Manejo de excepciones
-        } finally {
-            em.close();
+        // Actualizar la entidad en la base de datos
+        em.merge(orderFound);
+
+        transaction.commit();
+        return orderFound;
+    } catch (Exception e) {
+        if (transaction != null && transaction.isActive()) {
+            transaction.rollback();
         }
-        return null;
+        // Manejo de excepciones
+    } finally {
+        em.close();
+    }
+    return null;
     }//Nuevo a ver si fuUNKASOOOOOOO XDLOL
 
     public Order findOrderByOrderNumber(String orderNumber) {
