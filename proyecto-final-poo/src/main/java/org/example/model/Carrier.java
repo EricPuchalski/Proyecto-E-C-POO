@@ -41,6 +41,7 @@ public class Carrier implements Serializable {
     public Carrier() {
     }
 
+
     public Carrier(String cuit, String name, String phone, String email, CarrierType type) {
         this.cuit = cuit;
         this.name = name;
@@ -48,6 +49,14 @@ public class Carrier implements Serializable {
         this.email = email;
         this.type = type;
         this.status = Status.ENABLED;
+    }
+    public Carrier(String cuit, String name, String phone, String email) {
+        this.cuit = cuit;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.type = null; //para el test
+        this.status = Status.ENABLED; //
     }
 
     public Long getId() {

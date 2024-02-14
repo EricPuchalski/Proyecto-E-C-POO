@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 
 public class CarrierService implements CRUD<Carrier> {
     
-    public CarrierService() {
-        this.carrierRepository = new CarrierRepository();
+    public CarrierService(CarrierRepository carrierRepository) {
+        this.carrierRepository = carrierRepository;
     }
     
     private CarrierRepository carrierRepository;
@@ -138,4 +138,6 @@ public class CarrierService implements CRUD<Carrier> {
                 .filter(customer -> customer.getStatus().equals(Carrier.Status.ENABLED))
                 .collect(Collectors.toList());
     }
+
+
 }

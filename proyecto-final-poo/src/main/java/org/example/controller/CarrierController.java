@@ -12,7 +12,7 @@ public class CarrierController {
     private CarrierService carrierService;
     
     public CarrierController() {
-        this.carrierService = new CarrierService();
+        this.carrierService =  carrierService;
     }
     
     public void create(Carrier carrier) {
