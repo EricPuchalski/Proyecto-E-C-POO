@@ -68,8 +68,8 @@ public class CarrierController {
         return carrierService.findCarrierEnabledByEmail(email);
     }
 
-    public List<Carrier> findAllEnabledCustomers() {
-        return carrierService.findAllEnabledCustomers()
+    public List<Carrier> findAllEnabledCarriers() {
+        return carrierService.findAllEnabledCarriers()
                 .stream()
                 .filter(customer -> customer.getStatus().equals(Carrier.Status.ENABLED))
                 .collect(Collectors.toList());
