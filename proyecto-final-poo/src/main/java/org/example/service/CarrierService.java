@@ -121,8 +121,8 @@ public class CarrierService implements CRUD<Carrier> {
     }
 
     public Carrier disableAccountByCuit(String cuit) {
-        Carrier customer = carrierRepository.findCarrierEnabledByCuit(cuit);
-        if (customer != null) {
+        Carrier carrier = carrierRepository.findCarrierEnabledByCuit(cuit);
+        if (carrier != null) {
             try {
                 return carrierRepository.disableAccountByCuit(cuit);
             } catch (NonexistentEntityException ex) {

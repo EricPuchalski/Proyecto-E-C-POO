@@ -109,7 +109,7 @@ public class PanelCarrierConsult extends javax.swing.JPanel {
             }
         });
 
-        lblCarrier.setText("NOMBRE PRODUCTO");
+        lblCarrier.setText("CUIT TRANSPORTISTA");
 
         bttnFindOneCarrier.setText("BUSCAR");
         bttnFindOneCarrier.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));

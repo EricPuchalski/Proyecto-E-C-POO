@@ -3,13 +3,15 @@ package org.example.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.example.dao.CarrierRepository;
 import org.example.dao.exceptions.NonexistentEntityException;
 import org.example.model.Carrier;
 import org.example.service.CarrierService;
 
 public class CarrierController {
-
-    private CarrierService carrierService;
+    private CarrierRepository carrierRepository=new CarrierRepository();
+    private CarrierService carrierService=new CarrierService(carrierRepository);
     
     public CarrierController() {
         this.carrierService =  carrierService;
