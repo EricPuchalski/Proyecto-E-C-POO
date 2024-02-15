@@ -10,8 +10,7 @@ import org.example.model.Carrier;
 import org.example.service.CarrierService;
 
 public class CarrierController {
-    private CarrierRepository carrierRepository=new CarrierRepository();
-    private CarrierService carrierService=new CarrierService(carrierRepository);
+    private CarrierService carrierService=new CarrierService();
     
     public CarrierController() {
         this.carrierService =  carrierService;

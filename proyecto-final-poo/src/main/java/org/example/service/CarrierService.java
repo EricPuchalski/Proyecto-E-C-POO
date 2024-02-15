@@ -17,12 +17,14 @@ import java.util.stream.Collectors;
 //
 
 public class CarrierService implements CRUD<Carrier> {
-    
+    public CarrierService() {
+    }
+
     public CarrierService(CarrierRepository carrierRepository) {
         this.carrierRepository = carrierRepository;
     }
     
-    private CarrierRepository carrierRepository;
+    private CarrierRepository carrierRepository=new CarrierRepository();
     
     @Override
     public Carrier save(Carrier carrier) {
