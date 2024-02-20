@@ -3,11 +3,15 @@ import org.example.model.Carrier;
 import org.example.service.CarrierService;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class CarrierServiceTest {
+public class CarrierService2Test {
     @Test
     public void testSaveValidCarrier() {
         // Arrange
@@ -25,15 +29,20 @@ public class CarrierServiceTest {
         assertEquals(validCarrier, savedCarrier);
     }
     @Test
-    public void testSaveCarrierWithEmptyFields() {
+    public void testFindAllCarriersByCuit() {
         // Arrange
         CarrierRepository carrierRepositoryMock = mock(CarrierRepository.class);
         CarrierService carrierService = new CarrierService(carrierRepositoryMock);
-        Carrier carrierWithEmptyFields = new Carrier("", "", "", "");
+        String cuit = "123";
+        List<Carrier> expectedCarriers = new ArrayList<>();
+        expectedCarriers.add(new Carrier("1234567890", "Carrier1", "123456789", "example1@example.com"));
+        expectedCarriers.add(new Carrier("1239876543", "Carrier2", "987654321", "example2@example.com"));
+        expectedCarriers.add(new Carrier("1238765432", "Carrier3", "876543210", "example3@example.com"));
+        when(carrierRepositoryMock.findCarrierEntities()).thenReturn(expectedCarriers);
         // Act
-        Carrier savedCarrier = carrierService.save(carrierWithEmptyFields);
+        List<Carrier> foundCarriers = carrierService.findAllCarriersByCuit(cuit);
         // Assert
-        assertNull(savedCarrier);
+        assertEquals(3, foundCarriers.size()); // Verifica que se encuentren todos los transportistas con el CUIT que comienza con "123"
     }
-//Prueba que un trans con campos vacíos no se pueda guardar en el repositorio
+    // Prueba que se puedan encontrar todos los transportistas cuyo CUIT comience con el valor especificado en el repositorio.
 }
