@@ -1,16 +1,17 @@
-
 import org.example.dao.ProductRepository;
-        import org.example.dao.exceptions.NonexistentEntityException;
-        import org.example.model.Product;
-        import org.example.model.ProductCategory;
-        import org.example.model.Supplier;
-        import org.example.service.ProductService;
-        import org.junit.Before;
-        import org.junit.Test;
+import org.example.dao.exceptions.NonexistentEntityException;
+import org.example.model.Product;
+import org.example.model.ProductCategory;
+import org.example.model.Supplier;
+import org.example.service.ProductService;
+import org.junit.Before;
+import org.junit.Test;
 
-        import static org.junit.Assert.assertEquals;
-        import static org.junit.Assert.assertNotNull;
-        import static org.mockito.Mockito.*;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.*;
 
 public class ProductServiceTest {
     private ProductService productService;
@@ -58,4 +59,99 @@ public class ProductServiceTest {
         verify(productRepositoryMock).edit(existingProduct);
         verify(productRepositoryMock).findProduct(existingProduct.getId());
     }
+    @Test
+    public void testFindOneProduct() {
+        // Arrange
+        String code = "1";
+        Product expectedProduct = new Product(code, "Existing Product", 20.0, 8, 2, 19, null, null);
+        when(productRepositoryMock.findProductEntities()).thenReturn(List.of(expectedProduct));
+
+        // Act
+        Product foundProduct = productService.findOne(code);
+
+        // Assert
+        assertNotNull(foundProduct);
+        assertEquals(expectedProduct, foundProduct);
+    }
+    @Test
+    public void testFindAllProducts() {
+        // Arrange
+        Product product1 = new Product("1", "Product 1", 10.0, 5, 1, 19, null, null);
+        Product product2 = new Product("2", "Product 2", 15.0, 7, 2, 19, null, null);
+        when(productRepositoryMock.findProductEntities()).thenReturn(List.of(product1, product2));
+
+        // Act
+        List<Product> foundProducts = productService.findAll();
+
+        // Assert
+        assertNotNull(foundProducts);
+        assertEquals(2, foundProducts.size());
+        assertEquals(product1, foundProducts.get(0));
+        assertEquals(product2, foundProducts.get(1));
+    }
+
+    @Test
+    public void testFindAllProductsByName() {
+        // Arrange
+        String name = "Product";
+        Product product1 = new Product("1", "Product 1", 10.0, 5, 1, 19, null, null);
+        Product product2 = new Product("2", "Product 2", 15.0, 7, 2, 19, null, null);
+        when(productRepositoryMock.findProductEntities()).thenReturn(List.of(product1, product2));
+
+        // Act
+        List<Product> foundProducts = productService.findAllProductsByName(name);
+
+        // Assert
+        assertNotNull(foundProducts);
+        assertEquals(2, foundProducts.size());
+        assertEquals(product1, foundProducts.get(0));
+        assertEquals(product2, foundProducts.get(1));
+    }
+    @Test
+    public void testFindProductEnabledByCode() {
+        // Arrange
+        String code = "123456789012345"; // Código del producto como String
+        Product expectedProduct = new Product(code, "Product to Delete", 10.0, 5, 1, 19, null, null);
+        when(productRepositoryMock.findProductEnabledByCode(code)).thenReturn(expectedProduct);
+
+        // Act
+        Product foundProduct = productService.findProductEnabledByCode(code);
+
+        // Assert
+        assertNotNull(foundProduct);
+        assertEquals(expectedProduct, foundProduct);
+    }
+    @Test
+    public void testDisableAccountByCode() throws NonexistentEntityException {
+        // Arrange
+        String code = "123456789012345"; // Código del producto como String
+        Product productToDisable = new Product(code, "Product to Disable", 10.0, 5, 1, 19, null, null);
+        when(productRepositoryMock.findProductEnabledByCode(code)).thenReturn(productToDisable);
+
+        // Act
+        Product disabledProduct = productService.disableAccountByCode(code);
+
+        // Assert
+        assertNotNull(disabledProduct);
+        assertEquals(productToDisable, disabledProduct);
+        verify(productRepositoryMock).disableAccountByCode(code);
+    }
 }
+
+
+
+/*
+@Test
+public void testDeleteProduct() throws NonexistentEntityException {
+    // Arrange
+    String code = "123456789012345"; // Código del producto como String
+    Product deleteProduct = new Product(code, "Product to Delete", 10.0, 5, 1, 19, null, null);
+    when(productRepositoryMock.findProductEnabledByCode(code)).thenReturn(deleteProduct); // Cambia al método que busca por código
+
+    // Act
+    productService.delete(code); // Pasar el código como String
+
+    // Assert
+    verify(productRepositoryMock).destroy(deleteProduct.getId());
+}
+*/

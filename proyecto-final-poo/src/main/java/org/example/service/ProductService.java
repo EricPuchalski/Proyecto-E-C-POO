@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class ProductService implements CRUD<Product>{
-    private ProductRepository productRepository;
+    private ProductRepository productRepository=new ProductRepository();
     public ProductService(){
 
     }
