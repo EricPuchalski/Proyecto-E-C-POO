@@ -9,8 +9,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class ProductServiceTest {
@@ -136,6 +135,25 @@ public class ProductServiceTest {
         assertEquals(productToDisable, disabledProduct);
         verify(productRepositoryMock).disableAccountByCode(code);
     }
+    @Test
+    public void testSaveProductWithExistingCode() {
+        // Arrange
+        String existingCode = "1234567890";
+        ProductCategory category = new ProductCategory("Electronics");
+        Supplier supplier = new Supplier("12345678901", "Proveedor prueba", "Calle prueba 123", "123456789", "proveedor@example.com");
+        Product existingProduct = new Product(existingCode, "Existing Product", 20.0, 8, 2, 19, category, supplier);
+        when(productRepositoryMock.findProductEnabledByCode(existingCode)).thenReturn(existingProduct);
+
+        // Act
+        Product newProductWithExistingCode = new Product(existingCode, "New Product with Existing Code", 30.0, 10, 3, 19, category, supplier);
+        Product savedProduct = productService.save(newProductWithExistingCode);
+
+        // Assert
+        assertNull(savedProduct);
+        verify(productRepositoryMock, never()).create(any(Product.class));
+    }
+
+
 }
 
 

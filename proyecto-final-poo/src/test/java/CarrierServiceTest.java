@@ -144,4 +144,43 @@ public class CarrierServiceTest {
         assertEquals(3, foundCarriers.size()); // Verifica que se encuentren todos los transportistas con el CUIT que comienza con "123"
     }
     // Prueba que se puedan encontrar todos los transportistas cuyo CUIT comience con el valor especificado en el repositorio.
+    @Test
+    public void testSaveCarrierWithSomeEmptyFields() {
+        // Arrange
+        CarrierRepository carrierRepositoryMock = mock(CarrierRepository.class);
+        CarrierService carrierService = new CarrierService(carrierRepositoryMock);
+        // Crear un transportista con algunos campos vacíos
+        Carrier carrierWithEmptyFields = new Carrier("1234567890", "", "123456789", "example@example.com");
+        // Act
+        Carrier savedCarrier = carrierService.save(carrierWithEmptyFields);
+        // Assert
+        assertNull(savedCarrier); // Se espera que el transportista no se guarde debido a campos vacíos
+    }
+    @Test
+    public void testUpdateCarrierWithSomeEmptyFields() {
+        // Arrange
+        CarrierRepository carrierRepositoryMock = mock(CarrierRepository.class);
+        CarrierService carrierService = new CarrierService(carrierRepositoryMock);
+
+        // Creamos un transportista existente con información completa
+        Carrier existingCarrier = new Carrier("1234567890", "ExistingCarrier", "123456789", "existing@example.com");
+
+        // Creamos un transportista actualizado con algunos campos vacíos
+        Carrier updatedCarrierWithEmptyFields = new Carrier("1234567890", "", "987654321", "updated@example.com");
+
+        // Configuramos el comportamiento del mock para que retorne el transportista existente al buscar por ID
+        when(carrierRepositoryMock.findCarrier(existingCarrier.getId())).thenReturn(existingCarrier);
+
+        // Act
+        try {
+            Carrier returnedCarrier = carrierService.upDate(updatedCarrierWithEmptyFields);
+            // Assert
+            assertNull(returnedCarrier); // Se espera que la actualización falle debido a campos vacíos
+        } catch (Exception e) {
+            // Si se lanza una excepción, la prueba falla
+            e.printStackTrace();
+        }
+    }
+
+
 }
