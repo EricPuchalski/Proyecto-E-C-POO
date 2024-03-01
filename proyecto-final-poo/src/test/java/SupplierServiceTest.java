@@ -112,5 +112,6 @@ public class SupplierServiceTest {
         assertNotNull(foundSupplier);
         assertEquals(existingSupplier, foundSupplier);
     }
+
 }
 
