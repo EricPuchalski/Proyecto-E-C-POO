@@ -14,19 +14,26 @@ import java.util.stream.Collectors;
 import org.example.model.Product;
 
 public class SupplierService implements CRUD<Supplier> {
-    private SupplierRepository supplierRepository;
+    private SupplierRepository supplierRepository=new SupplierRepository();
 
-    public SupplierService() {
-        this.supplierRepository = new SupplierRepository();
+    public SupplierService(SupplierRepository supplierRepository) {
+        this.supplierRepository = supplierRepository;
     }
+
+    public SupplierService(){}
+
 
     @Override
     public Supplier save(Supplier t) {
-        if (!(t.getCuit().isEmpty() || t.getName().isEmpty() ||  t.getAdress().isEmpty() || t.getPhone().isEmpty()||t.getEmail().isEmpty())) {
-            if (!(checkIfExistUniq(t.getCuit(), t.getPhone(), t.getEmail()))) {
+        if (t != null && t.getCuit() != null && !t.getCuit().isEmpty() &&
+                t.getName() != null && !t.getName().isEmpty() &&
+                t.getAdress() != null && !t.getAdress().isEmpty() &&
+                t.getPhone() != null && !t.getPhone().isEmpty() &&
+                t.getEmail() != null && !t.getEmail().isEmpty()) {
+
+            if (!checkIfExistUniq(t.getCuit(), t.getPhone(), t.getEmail())) {
                 return supplierRepository.create(t);
             }
-
         }
         return null;
     }
@@ -94,15 +101,17 @@ public class SupplierService implements CRUD<Supplier> {
             supplierRepository.destroy(deleteSupplier.getId());
         }
     }
-    public Supplier findSupplierEnabledByCuit(String cuit) {
-        Supplier supplierFound = supplierRepository.findSupplierEnabledByCuit(cuit);
-        if (supplierFound.getStatus().equals(Product.Status.ENABLED)) {
-            return supplierRepository.findSupplierEnabledByCuit(cuit);
-        }
-        return null;
-    }
 
-        public Supplier findSupplierEnabledByPhone(String phone) {
+        public Supplier findSupplierEnabledByCuit(String cuit) {
+            Supplier supplierFound = supplierRepository.findSupplierEnabledByCuit(cuit); //abajos cambiemor Product.Status kjjj
+            if (supplierFound != null && supplierFound.getStatus().equals(Supplier.Status.ENABLED)) {
+                return supplierFound;
+            }
+            return null;
+        }
+
+
+    public Supplier findSupplierEnabledByPhone(String phone) {
         for (Supplier cr : findAllEnabledEmployees()) {
             if (cr.getPhone().equals(phone)) {
                 return cr;
@@ -138,6 +147,21 @@ public class SupplierService implements CRUD<Supplier> {
                 .collect(Collectors.toList());
     }
 }
+
+/* CAMBIADO POR EL OTRO
+@Override
+    public Supplier save(Supplier t) {
+        if (!(t.getCuit().isEmpty() || t.getName().isEmpty() ||  t.getAdress().isEmpty() || t.getPhone().isEmpty()||t.getEmail().isEmpty())) {
+            if (!(checkIfExistUniq(t.getCuit(), t.getPhone(), t.getEmail()))) {
+                return supplierRepository.create(t);
+            }
+
+        }
+        return null;
+    }
+
+ */
+
 //package org.example.service;
 
 //import org.example.model.Supplier;
@@ -151,7 +175,15 @@ public class SupplierService implements CRUD<Supplier> {
  //   public SupplierService(ProveedorRepository proveedorRepository) {
  //       this.proveedorRepository = proveedorRepository;
  //   }
-
+/*
+ public Supplier findSupplierEnabledByCuit(String cuit) {
+        Supplier supplierFound = supplierRepository.findSupplierEnabledByCuit(cuit);
+        if (supplierFound.getStatus().equals(Product.Status.ENABLED)) {
+            return supplierRepository.findSupplierEnabledByCuit(cuit);
+        }
+        return null;
+    }
+*/
   //  public void save(Supplier supplier) {
   //      if (findOne(supplier.getCuit()) == null) {
   //          proveedorRepository.save(supplier);
