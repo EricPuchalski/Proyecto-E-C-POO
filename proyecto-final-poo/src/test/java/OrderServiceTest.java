@@ -7,6 +7,7 @@ import org.mockito.Mock;
 
 import java.time.LocalDate;
 
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -54,7 +55,32 @@ public class OrderServiceTest {
         verify(orderRepositoryMock).createOrder(any(Order.class), any(Warehouse.class), any(Warehouse.class), anyString(), anyString());
     }
 
+    @Test
+    public void createOrder_NullEntities() {
+        // Datos de prueba con cliente, almacén de origen, almacén de destino o transportista nulos
+        Customer nullCustomer = null;
+        Warehouse nullWarehouseOrig = null;
+        Warehouse nullWarehouseDest = null;
+        Carrier nullCarrier = null;
+        LocalDate orderStart = LocalDate.now(); // Utiliza la fecha actual
 
+        Order newOrder = new Order("12", nullCustomer, nullWarehouseOrig, nullWarehouseDest, nullCarrier, "HABILITADO", orderStart); // Orden con entidades nulas
+
+        String cuitCustomer = "12345";
+        String cuitCarrier = "67890";
+
+        // Configurar comportamiento del mock
+        when(orderRepositoryMock.findOrderByOrderNumber(anyString())).thenReturn(null); // Si no existe orderNumber
+        when(orderRepositoryMock.createOrder(any(Order.class), any(Warehouse.class), any(Warehouse.class), anyString(), anyString()))
+                .thenReturn(newOrder); // Retornar la orden creada
+
+        // Ejecutar el método que se está probando
+        Order createdOrder = orderService.createOrder(newOrder, nullWarehouseOrig, nullWarehouseDest, cuitCustomer, cuitCarrier);
+
+        // Verificaciones
+        assertNull(createdOrder); // La orden creada debe ser nula ya que al menos una de las entidades (cliente, almacén de origen, almacén de destino, transportista) es nula
+        verify(orderRepositoryMock, never()).createOrder(any(Order.class), any(Warehouse.class), any(Warehouse.class), anyString(), anyString()); // No debe llamarse al método de creación de orden en el repositorio
+    }
 
 
 }
