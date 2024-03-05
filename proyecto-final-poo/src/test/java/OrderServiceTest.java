@@ -239,6 +239,24 @@ public class OrderServiceTest {
         verify(orderRepositoryMock).findOrderByOrderNumber(orderNumber);
         verify(orderRepositoryMock).deliverOrder(orderNumber);
     }
+   
+
+    @Test
+    public void deliverOrder_NonExistingOrder() {
+        // Datos de prueba
+        String orderNumber = "1234";
+
+        // Configurar comportamiento del mock
+        when(orderRepositoryMock.findOrderByOrderNumber(orderNumber)).thenReturn(null);
+
+        // Ejecutar el método que se está probando
+        Order deliveredOrder = orderService.deliverOrder(orderNumber);
+
+        // Verificaciones
+        assertNull(deliveredOrder);
+        verify(orderRepositoryMock).findOrderByOrderNumber(orderNumber);
+        verify(orderRepositoryMock, never()).deliverOrder(orderNumber);
+    }
 
 
 }
