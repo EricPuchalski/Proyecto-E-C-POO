@@ -183,6 +183,7 @@ public class OrderService implements CRUD<Order> {
             .filter(order -> !order.getOrderStatus().equals("Entrega"))
             .collect(Collectors.toList());
 }
+
 }
 
 /*

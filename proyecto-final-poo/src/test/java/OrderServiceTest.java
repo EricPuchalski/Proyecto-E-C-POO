@@ -82,6 +82,164 @@ public class OrderServiceTest {
         verify(orderRepositoryMock, never()).createOrder(any(Order.class), any(Warehouse.class), any(Warehouse.class), anyString(), anyString()); // No debe llamarse al método de creación de orden en el repositorio
     }
 
+    @Test
+    public void processOrder_Success() {
+        // Datos de prueba
+        String orderNumber = "12";
+        String cuitEmpleado = "123456";
+
+        // Crear un objeto Customer
+        Customer customer = new Customer("123", "Nombre", "Apellido", "email@example.com", "123456");
+
+        // Crear objetos Warehouse
+        Warehouse warehouseOrig = new Warehouse("001", "Origen", "Dirección Origen", "123", "email@origen.com", "Origen", new Position(0, 0));
+        Warehouse warehouseDest = new Warehouse("002", "Destino", "Dirección Destino", "456", "email@destino.com", "Destino", new Position(0, 0));
+
+        // Crear un objeto Carrier
+        Carrier carrier = new Carrier("789", "Transportista", "Apellido", "email@transportista.com", Carrier.CarrierType.AIR);
+
+        // Fecha actual
+        LocalDate orderStart = LocalDate.now();
+
+        // Configurar comportamiento del mock
+        Order order = new Order(orderNumber, customer, warehouseOrig, warehouseDest, carrier, "Pendiente", orderStart);
+        when(orderRepositoryMock.findOrderByOrderNumber(orderNumber)).thenReturn(order);
+        when(orderRepositoryMock.processOrder(orderNumber, cuitEmpleado)).thenReturn(order);
+
+        // Ejecutar el método que se está probando
+        Order processedOrder = orderService.processOrder(orderNumber, cuitEmpleado);
+
+        // Verificaciones
+        assertNotNull(processedOrder);
+        verify(orderRepositoryMock).findOrderByOrderNumber(orderNumber);
+        verify(orderRepositoryMock).processOrder(orderNumber, cuitEmpleado);
+    }
+
+    @Test
+    public void completeOrder_Success() {
+        // Datos de prueba
+        String orderNumber = "1234";
+
+        // Configurar comportamiento del mock
+        Order order = new Order(orderNumber, null, null, null, null, "En Proceso", null);
+        when(orderRepositoryMock.findOrderByOrderNumber(orderNumber)).thenReturn(order);
+        when(orderRepositoryMock.completeOrder(orderNumber)).thenReturn(order);
+
+        // Ejecutar el método que se está probando
+        Order completedOrder = orderService.completeOrder(orderNumber);
+
+        // Verificaciones
+        assertNotNull(completedOrder);
+        verify(orderRepositoryMock).findOrderByOrderNumber(orderNumber);
+        verify(orderRepositoryMock).completeOrder(orderNumber);
+    }
+
+    @Test
+    public void sendOrderToDispatch_Success() {
+        // Datos de prueba
+        String orderNumber = "1234";
+
+        // Configurar comportamiento del mock
+        Order order = new Order(orderNumber, null, null, null, null, "Completo", null);
+        when(orderRepositoryMock.findOrderByOrderNumber(orderNumber)).thenReturn(order);
+        when(orderRepositoryMock.sendOrderToDispatch(orderNumber)).thenReturn(order);
+
+        // Ejecutar el método que se está probando
+        Order dispatchedOrder = orderService.sendOrderToDispatch(orderNumber);
+
+        // Verificaciones
+        assertNotNull(dispatchedOrder);
+        verify(orderRepositoryMock).findOrderByOrderNumber(orderNumber);
+        verify(orderRepositoryMock).sendOrderToDispatch(orderNumber);
+    }
+
+    @Test
+    public void dispatchOrder_Success() {
+        // Datos de prueba
+        String orderNumber = "1234";
+
+        // Configurar comportamiento del mock
+        Order order = new Order(orderNumber, null, null, null, null, "Esperando Despacho", null);
+        when(orderRepositoryMock.findOrderByOrderNumber(orderNumber)).thenReturn(order);
+        when(orderRepositoryMock.dispatchOrder(orderNumber)).thenReturn(order);
+
+        // Ejecutar el método que se está probando
+        Order dispatchedOrder = orderService.dispatchOrder(orderNumber);
+
+        // Verificaciones
+        assertNotNull(dispatchedOrder);
+        verify(orderRepositoryMock).findOrderByOrderNumber(orderNumber);
+        verify(orderRepositoryMock).dispatchOrder(orderNumber);
+    }
+
+    @Test
+    public void orderTransit_Success() {
+        // Datos de prueba
+        String orderNumber = "1234";
+
+        // Configurar comportamiento del mock
+        Order order = new Order(orderNumber, null, null, null, null, "Despacho", null);
+        when(orderRepositoryMock.findOrderByOrderNumber(orderNumber)).thenReturn(order);
+        when(orderRepositoryMock.orderTransit(orderNumber)).thenReturn(order);
+
+        // Ejecutar el método que se está probando
+        Order transitOrder = orderService.orderTransit(orderNumber);
+
+        // Verificaciones
+        assertNotNull(transitOrder);
+        verify(orderRepositoryMock).findOrderByOrderNumber(orderNumber);
+        verify(orderRepositoryMock).orderTransit(orderNumber);
+    }
+
+    @Test
+    public void sendToDelivery_Success() {
+        // Datos de prueba
+        String orderNumber = "1234";
+        String cuitEmployeeReceiv = "987654321";
+
+        // Configurar comportamiento del mock
+        Order order = new Order(orderNumber, null, null, null, null, "En transito", null);
+        when(orderRepositoryMock.findOrderByOrderNumber(orderNumber)).thenReturn(order);
+        try {
+            when(orderRepositoryMock.sendToDelivery(orderNumber, cuitEmployeeReceiv)).thenReturn(order);
+        } catch (Exception ignored) {}
+
+        // Ejecutar el método que se está probando
+        Order deliveredOrder = orderService.sendToDelivery(orderNumber, cuitEmployeeReceiv);
+
+        // Verificaciones
+        assertNotNull(deliveredOrder);
+        verify(orderRepositoryMock).findOrderByOrderNumber(orderNumber);
+        try {
+            verify(orderRepositoryMock).sendToDelivery(orderNumber, cuitEmployeeReceiv);
+        } catch (Exception ignored) {}
+    }
+    @Test
+    public void deliverOrder_Success() {
+        // Datos de prueba
+        String orderNumber = "1234";
+
+        // Crear objetos relacionados
+        Customer customer = new Customer("1", "John", "Doe", "john.doe@example.com", "123456789");
+        Warehouse warehouseOrig = new Warehouse("1", "Warehouse Orig", "Address 1", "123", "warehouse.orig@example.com", "Europe", new Position(10, 20));
+        Warehouse warehouseDest = new Warehouse("2", "Warehouse Dest", "Address 2", "456", "warehouse.dest@example.com", "Asia", new Position(30, 40));
+        Carrier carrier = new Carrier("1", "Carrier", "Lastname", "carrier@example.com", Carrier.CarrierType.AIR);
+        LocalDate orderStart = LocalDate.now();
+
+        // Configurar comportamiento del mock
+        Order order = new Order(orderNumber, customer, warehouseOrig, warehouseDest, carrier, "Esperando Entrega", orderStart);
+        when(orderRepositoryMock.findOrderByOrderNumber(orderNumber)).thenReturn(order);
+        when(orderRepositoryMock.deliverOrder(orderNumber)).thenReturn(order);
+
+        // Ejecutar el método que se está probando
+        Order deliveredOrder = orderService.deliverOrder(orderNumber);
+
+        // Verificaciones
+        assertNotNull(deliveredOrder);
+        verify(orderRepositoryMock).findOrderByOrderNumber(orderNumber);
+        verify(orderRepositoryMock).deliverOrder(orderNumber);
+    }
+
 
 }
 
