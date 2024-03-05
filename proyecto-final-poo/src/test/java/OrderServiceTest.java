@@ -239,7 +239,7 @@ public class OrderServiceTest {
         verify(orderRepositoryMock).findOrderByOrderNumber(orderNumber);
         verify(orderRepositoryMock).deliverOrder(orderNumber);
     }
-   
+
 
     @Test
     public void deliverOrder_NonExistingOrder() {
@@ -257,7 +257,19 @@ public class OrderServiceTest {
         verify(orderRepositoryMock).findOrderByOrderNumber(orderNumber);
         verify(orderRepositoryMock, never()).deliverOrder(orderNumber);
     }
+    @Test
+    public void deliverOrder_EmptyOrderNumber() {
+        // Configurar comportamiento del mock
+        when(orderRepositoryMock.findOrderByOrderNumber("")).thenReturn(null);
 
+        // Ejecutar el método que se está probando
+        Order deliveredOrder = orderService.deliverOrder("");
+
+        // Verificaciones
+        assertNull(deliveredOrder);
+        verify(orderRepositoryMock).findOrderByOrderNumber("");
+        verify(orderRepositoryMock, never()).deliverOrder("");
+    }
 
 }
 
