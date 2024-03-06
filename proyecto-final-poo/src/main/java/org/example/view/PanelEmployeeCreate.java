@@ -236,54 +236,57 @@ public class PanelEmployeeCreate extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-     try {
-        // Verificar que todos los campos estén completos
-        if (txtName.getText().isEmpty() || txtAdress.getText().isEmpty() || txtCuit.getText().isEmpty() || txtTel.getText().isEmpty() || txtSur.getText().isEmpty()) {
-            throw new Exception("Debe completar todos los campos.");
-        }
+        try {
+            // Verificar que todos los campos estén completos
+            if (txtName.getText().isEmpty() || txtAdress.getText().isEmpty() || txtCuit.getText().isEmpty() || txtTel.getText().isEmpty() || txtSur.getText().isEmpty()) {
+                throw new Exception("Debe completar todos los campos.");
+            }
 
-        // Crea un objeto Employee con los datos del empleado y el almacén
-        Employee employee = new Employee(
-            txtCuit.getText(),
-            txtName.getText(),
-            txtSur.getText(),
-            txtAdress.getText(),
-            txtTel.getText()
-        );
+            // Crea un objeto Employee con los datos del empleado y el almacén
+            Employee employee = new Employee(
+                    txtCuit.getText(),
+                    txtName.getText(),
+                    txtSur.getText(),
+                    txtAdress.getText(),
+                    txtTel.getText()
+            );
 
-        // Obtén el nombre del almacén seleccionado del JComboBox
-        String selectedWarehouseName = (String) warehouseCombobox.getSelectedItem();
+            // Obtén el nombre del almacén seleccionado del JComboBox
+            String selectedWarehouseName = (String) warehouseCombobox.getSelectedItem();
 
-        // Utiliza el controlador de almacenes para encontrar todos los almacenes
-        List<Warehouse> warehouses = warehouseController.findAll();
+            // Utiliza el controlador de almacenes para encontrar todos los almacenes
+            List<Warehouse> warehouses = warehouseController.findAll();
 
-        // Encuentra el almacén con el nombre seleccionado
-        Warehouse selectedWarehouse = null;
-        for (Warehouse warehouse : warehouses) {
-            if (warehouse.getName().equals(selectedWarehouseName)) {
-                selectedWarehouse = warehouse;
-                break;
+            // Encuentra el almacén con el nombre seleccionado
+            Warehouse selectedWarehouse = null;
+            for (Warehouse warehouse : warehouses) {
+                if (warehouse.getName().equals(selectedWarehouseName)) {
+                    selectedWarehouse = warehouse;
+                    break;
+                }
+            }
+
+            // Verifica si se encontró el almacén
+            if (selectedWarehouse == null) {
+                throw new Exception("No se encontró el almacén con el nombre seleccionado");
+            }
+
+            // Asocia el almacén seleccionado al empleado
+            employee.setDeposit(selectedWarehouse);
+
+            // Llama al método create() del controlador de empleados para crear el empleado
+            employeeController.create(employee);
+            JOptionPane.showMessageDialog(this, "El Empleado fue creado con éxito");
+
+            // Cambia la vista
+            ViewController.panelChange(this, new PanelEmployee(), this);
+        } catch (Exception e) {
+            if (e.getMessage().contains("cuit pertenece a otro empleado")) {
+                JOptionPane.showMessageDialog(this, "Error al crear empleado: El CUIT pertenece a otro empleado");
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al crear empleado: " + e.getMessage());
             }
         }
-
-        // Verifica si se encontró el almacén
-        if (selectedWarehouse == null) {
-            throw new Exception("No se encontró el almacén con el nombre seleccionado");
-        }
-
-        // Asocia el almacén seleccionado al empleado
-        employee.setDeposit(selectedWarehouse);
-
-        // Llama al método create() del controlador de empleados para crear el empleado
-        employeeController.create(employee);
-        JOptionPane.showMessageDialog(this, "El Empleado fue creado con éxito");
-
-        // Cambia la vista
-        ViewController.panelChange(this, new PanelEmployee(), this);
-    } catch (Exception e) {
-        // Maneja los errores que puedan ocurrir
-        JOptionPane.showMessageDialog(this, "Error al crear empleado: " + " El cuit pertenece a otro empleado");
-    }  
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed

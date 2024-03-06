@@ -275,51 +275,51 @@ private ViewController viewController;
     }//GEN-LAST:event_bttnCancelActionPerformed
 
     private void bttnModifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnModifActionPerformed
-         if (!(txtName.getText().isEmpty() || txtAdress.getText().isEmpty() || txtTel.getText().isEmpty() || txtCuit.getText().isEmpty())) {
-        String newCuit = txtCuit.getText();
-        
-        // Verificar si el nuevo CUIT es diferente al actual
-        if (!newCuit.equals(employeeEdit.getCuit())) {
-            // Verificar si el nuevo CUIT ya existe en la base de datos para otro empleado
-            Employee existingEmployeeWithCuit = employeeController.findOne(newCuit);//NUEVOCOD
-            if (existingEmployeeWithCuit != null && !existingEmployeeWithCuit.getId().equals(employeeEdit.getId())) {
-                JOptionPane.showMessageDialog(null, "El CUIT ingresado ya pertenece a otro empleado.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-                return; // Salir del método si el CUIT ya existe para otro empleado
+        if (!(txtName.getText().isEmpty() || txtAdress.getText().isEmpty() || txtTel.getText().isEmpty())) {
+            String newCuit = txtCuit.getText();
+
+            // Verificar si el nuevo CUIT es diferente al actual
+            if (!newCuit.equals(employeeEdit.getCuit())) {
+                // Verificar si el nuevo CUIT ya existe en la base de datos para otro empleado
+                Employee existingEmployeeWithCuit = employeeController.findOne(newCuit);
+                if (existingEmployeeWithCuit != null && !existingEmployeeWithCuit.getId().equals(employeeEdit.getId())) {
+                    JOptionPane.showMessageDialog(null, "El CUIT ingresado ya pertenece a otro empleado.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                    return; // Salir del método si el CUIT ya existe para otro empleado
+                }
             }
-        }
-        
-        // Continuar con la actualización del empleado en la base de datos
-        employeeEdit.setNombre(txtName.getText());
-        employeeEdit.setCuit(newCuit);
-        employeeEdit.setDireccion(txtAdress.getText());
-        employeeEdit.setTelefono(txtTel.getText());
-        
-        // Obtener el código del almacén seleccionado en la tabla
-        int selectedRow = tblWarehouses.getSelectedRow();
-        if (selectedRow != -1) { // Verificar si se seleccionó una fila
-            String warehouseCode = (String) tblWarehouses.getValueAt(selectedRow, 0);
+
+            // Continuar con la actualización del empleado en la base de datos
+            employeeEdit.setNombre(txtName.getText());
+            employeeEdit.setCuit(newCuit); // Se actualiza el CUIT solo si es diferente
+            employeeEdit.setDireccion(txtAdress.getText());
+            employeeEdit.setTelefono(txtTel.getText());
+
+            // Obtener el código del almacén seleccionado en la tabla
+            int selectedRow = tblWarehouses.getSelectedRow();
+            if (selectedRow != -1) { // Verificar si se seleccionó una fila
+                String warehouseCode = (String) tblWarehouses.getValueAt(selectedRow, 0);
+                try {
+                    Long warehouseId = Long.parseLong(warehouseCode); // Convertir el código a Long
+                    Warehouse selectedWarehouse = warehouseRepository.findWarehouse(warehouseId);
+                    employeeEdit.setDeposit(selectedWarehouse);
+                } catch (NumberFormatException ex) {
+                    // Manejar la excepción si el código no es un número válido
+                    JOptionPane.showMessageDialog(null, "El código de almacén no es válido", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                    return; // Salir del método si hay un error
+                }
+            }
+
+            // Actualizar el empleado en la base de datos
             try {
-                Long warehouseId = Long.parseLong(warehouseCode); // Convertir el código a Long
-                Warehouse selectedWarehouse = warehouseRepository.findWarehouse(warehouseId);
-                employeeEdit.setDeposit(selectedWarehouse);
-            } catch (NumberFormatException ex) {
-                // Manejar la excepción si el código no es un número válido
-                JOptionPane.showMessageDialog(null, "El código de almacén no es válido", "Advertencia", JOptionPane.WARNING_MESSAGE);
-                return; // Salir del método si hay un error
+                employeeController.upDate(employeeEdit);
+                JOptionPane.showMessageDialog(null, "Empleado modificado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                ViewController.panelChange(this, new PanelEmployeeConsult(), this);
+            } catch (Exception ex) {
+                Logger.getLogger(PanelEmployeeEdit.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        
-        // Actualizar el empleado en la base de datos
-        try {
-            employeeController.upDate(employeeEdit);
-            JOptionPane.showMessageDialog(null, "Empleado modificado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            ViewController.panelChange(this, new PanelEmployeeConsult(), this);
-        } catch (Exception ex) {
-            Logger.getLogger(PanelEmployeeEdit.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    } else {
-        JOptionPane.showMessageDialog(null, "Un campo no puede estar vacío", "Advertencia", JOptionPane.WARNING_MESSAGE);
-    }
+        } else {
+            JOptionPane.showMessageDialog(null, "Un campo no puede estar vacío", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }//
     }//GEN-LAST:event_bttnModifActionPerformed
 
     private void txtWarehouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtWarehouseActionPerformed

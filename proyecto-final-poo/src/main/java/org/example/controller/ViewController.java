@@ -229,7 +229,7 @@ public class ViewController {
         String titulos[] = {"Id", "Cuit", "Nombre", "Apellido", "Deposito"};
         newModel.setColumnIdentifiers(titulos);
         if (!employeeController.findAll().isEmpty()) {
-            for (Employee e : employeeController.findAllEnabledCustomers()) {
+            for (Employee e : employeeController.findAllEnabledEmployees()) {
                 Object[] obj = {e.getId(), e.getCuit(), e.getNombre(), e.getApellido(), e.getDeposit().getEmail()};
                 newModel.addRow(obj);
             }

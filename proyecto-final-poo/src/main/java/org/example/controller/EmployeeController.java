@@ -1,12 +1,11 @@
 package org.example.controller;
 
 
-import java.util.ArrayList;
 import org.example.model.Employee;
 import org.example.service.EmployeeService;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 import org.example.dao.exceptions.NonexistentEntityException;
 
 public class EmployeeController implements CRUD<Employee> {
@@ -49,7 +48,7 @@ public class EmployeeController implements CRUD<Employee> {
         return employeeService.findAllEmployeesByCuit(cuit);
     }
 
-    public List<Employee> findAllEnabledCustomers() {
+    public List<Employee> findAllEnabledEmployees() {
         return employeeService.findAllEnabledEmployees();
     }
 
