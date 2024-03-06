@@ -22,18 +22,18 @@ import org.example.model.Warehouse;
  * @author facundo
  */
 public class PanelEmployeeEdit extends javax.swing.JPanel {
-private String cuit;
-private EmployeeController employeeController;
-private Employee employeeEdit;
-private WarehouseRepository warehouseRepository;
-private ViewController viewController;
+    private String cuit;
+    private EmployeeController employeeController;
+    private Employee employeeEdit;
+    private WarehouseRepository warehouseRepository;
+    private ViewController viewController;
 
     /**
      * Creates new form PanelEmployeeEdit
      */
     public PanelEmployeeEdit(String cuit) {
         this.employeeController= new EmployeeController();
-         this.viewController = new ViewController();
+        this.viewController = new ViewController();
         this.warehouseRepository=new WarehouseRepository();
         employeeEdit=employeeController.findOne(cuit);
         this.cuit=cuit;
@@ -41,7 +41,7 @@ private ViewController viewController;
         this.setSize(800, 700);
         loadAllWarehouses();
 
-        
+
 
     }
 
@@ -155,15 +155,15 @@ private ViewController viewController;
         });
 
         tblWarehouses.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
+                new Object [][] {
+                        {null, null, null, null},
+                        {null, null, null, null},
+                        {null, null, null, null},
+                        {null, null, null, null}
+                },
+                new String [] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }
         ));
         jScrollPane1.setViewportView(tblWarehouses);
 
@@ -174,95 +174,95 @@ private ViewController viewController;
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(129, 129, 129)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblAdress)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblName)
-                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(lblWelcome)
-                                .addComponent(lblComplement))
-                            .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCuit)
-                            .addComponent(txtCuit, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblTel)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(121, 121, 121)
-                        .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(bttnModif, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(62, 62, 62)
-                                .addComponent(bttnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(207, 207, 207))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblWarehouse)
-                        .addGap(18, 18, 18)
-                        .addComponent(bttnWarehouse)
-                        .addGap(54, 54, 54)
-                        .addComponent(txtWarehouse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(386, 386, 386))))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(129, 129, 129)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(lblAdress)
+                                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(lblName)
+                                                                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addComponent(lblWelcome)
+                                                                .addComponent(lblComplement))
+                                                        .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(lblCuit)
+                                                        .addComponent(txtCuit, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(lblTel)))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(121, 121, 121)
+                                                .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addComponent(bttnModif, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(62, 62, 62)
+                                                                .addComponent(bttnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGap(207, 207, 207))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                .addComponent(lblWarehouse)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(bttnWarehouse)
+                                                .addGap(54, 54, 54)
+                                                .addComponent(txtWarehouse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(386, 386, 386))))
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblWelcome)
-                .addGap(18, 18, 18)
-                .addComponent(lblComplement)
-                .addGap(18, 18, 18)
-                .addComponent(lblName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblAdress)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblCuit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCuit, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtWarehouse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bttnWarehouse)
-                    .addComponent(lblWarehouse))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bttnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bttnModif, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(78, 78, 78))
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(lblWelcome)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblComplement)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblName)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblAdress)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblCuit)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCuit, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblTel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(txtWarehouse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(bttnWarehouse)
+                                        .addComponent(lblWarehouse))
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(bttnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(bttnModif, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(78, 78, 78))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -275,104 +275,104 @@ private ViewController viewController;
     }//GEN-LAST:event_bttnCancelActionPerformed
 
     private void bttnModifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnModifActionPerformed
-         if (!(txtName.getText().isEmpty() || txtAdress.getText().isEmpty() || txtTel.getText().isEmpty() || txtCuit.getText().isEmpty())) {
-        String newCuit = txtCuit.getText();
-        
-        // Verificar si el nuevo CUIT es diferente al actual
-        if (!newCuit.equals(employeeEdit.getCuit())) {
-            // Verificar si el nuevo CUIT ya existe en la base de datos para otro empleado
-            Employee existingEmployeeWithCuit = employeeController.findOne(newCuit);//NUEVOCOD
-            if (existingEmployeeWithCuit != null && !existingEmployeeWithCuit.getId().equals(employeeEdit.getId())) {
-                JOptionPane.showMessageDialog(null, "El CUIT ingresado ya pertenece a otro empleado.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-                return; // Salir del método si el CUIT ya existe para otro empleado
+        if (!(txtName.getText().isEmpty() || txtAdress.getText().isEmpty() || txtTel.getText().isEmpty())) {
+            String newCuit = txtCuit.getText();
+
+            // Verificar si el nuevo CUIT es diferente al actual
+            if (!newCuit.equals(employeeEdit.getCuit())) {
+                // Verificar si el nuevo CUIT ya existe en la base de datos para otro empleado
+                Employee existingEmployeeWithCuit = employeeController.findOne(newCuit);
+                if (existingEmployeeWithCuit != null && !existingEmployeeWithCuit.getId().equals(employeeEdit.getId())) {
+                    JOptionPane.showMessageDialog(null, "El CUIT ingresado ya pertenece a otro empleado.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                    return; // Salir del método si el CUIT ya existe para otro empleado
+                }
             }
-        }
-        
-        // Continuar con la actualización del empleado en la base de datos
-        employeeEdit.setNombre(txtName.getText());
-        employeeEdit.setCuit(newCuit);
-        employeeEdit.setDireccion(txtAdress.getText());
-        employeeEdit.setTelefono(txtTel.getText());
-        
-        // Obtener el código del almacén seleccionado en la tabla
-        int selectedRow = tblWarehouses.getSelectedRow();
-        if (selectedRow != -1) { // Verificar si se seleccionó una fila
-            String warehouseCode = (String) tblWarehouses.getValueAt(selectedRow, 0);
+
+            // Continuar con la actualización del empleado en la base de datos
+            employeeEdit.setNombre(txtName.getText());
+            employeeEdit.setCuit(newCuit); // Se actualiza el CUIT solo si es diferente
+            employeeEdit.setDireccion(txtAdress.getText());
+            employeeEdit.setTelefono(txtTel.getText());
+
+            // Obtener el código del almacén seleccionado en la tabla
+            int selectedRow = tblWarehouses.getSelectedRow();
+            if (selectedRow != -1) { // Verificar si se seleccionó una fila
+                String warehouseCode = (String) tblWarehouses.getValueAt(selectedRow, 0);
+                try {
+                    Long warehouseId = Long.parseLong(warehouseCode); // Convertir el código a Long
+                    Warehouse selectedWarehouse = warehouseRepository.findWarehouse(warehouseId);
+                    employeeEdit.setDeposit(selectedWarehouse);
+                } catch (NumberFormatException ex) {
+                    // Manejar la excepción si el código no es un número válido
+                    JOptionPane.showMessageDialog(null, "El código de almacén no es válido", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                    return; // Salir del método si hay un error
+                }
+            }
+
+            // Actualizar el empleado en la base de datos
             try {
-                Long warehouseId = Long.parseLong(warehouseCode); // Convertir el código a Long
-                Warehouse selectedWarehouse = warehouseRepository.findWarehouse(warehouseId);
-                employeeEdit.setDeposit(selectedWarehouse);
-            } catch (NumberFormatException ex) {
-                // Manejar la excepción si el código no es un número válido
-                JOptionPane.showMessageDialog(null, "El código de almacén no es válido", "Advertencia", JOptionPane.WARNING_MESSAGE);
-                return; // Salir del método si hay un error
+                employeeController.upDate(employeeEdit);
+                JOptionPane.showMessageDialog(null, "Empleado modificado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                ViewController.panelChange(this, new PanelEmployeeConsult(), this);
+            } catch (Exception ex) {
+                Logger.getLogger(PanelEmployeeEdit.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        
-        // Actualizar el empleado en la base de datos
-        try {
-            employeeController.upDate(employeeEdit);
-            JOptionPane.showMessageDialog(null, "Empleado modificado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            ViewController.panelChange(this, new PanelEmployeeConsult(), this);
-        } catch (Exception ex) {
-            Logger.getLogger(PanelEmployeeEdit.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    } else {
-        JOptionPane.showMessageDialog(null, "Un campo no puede estar vacío", "Advertencia", JOptionPane.WARNING_MESSAGE);
-    }
+        } else {
+            JOptionPane.showMessageDialog(null, "Un campo no puede estar vacío", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }//
     }//GEN-LAST:event_bttnModifActionPerformed
 
     private void txtWarehouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtWarehouseActionPerformed
-      
+
         // Obtener el código ingresado en el campo de búsqueda
-    String warehouseCode = txtWarehouse.getText();
+        String warehouseCode = txtWarehouse.getText();
 
-    if (!warehouseCode.isEmpty()) {
-        // Obtener la lista de todos los almacenes
-        List<Warehouse> allWarehouses = warehouseRepository.findWarehouseEntities();
-        
-        // Buscar manualmente el almacén por su código
-        List<Warehouse> matchingWarehouses = new ArrayList<>();
-        for (Warehouse warehouse : allWarehouses) {
-            if (warehouse.getCode().equals(warehouseCode)) {
-                matchingWarehouses.add(warehouse);
-            }
-        }
+        if (!warehouseCode.isEmpty()) {
+            // Obtener la lista de todos los almacenes
+            List<Warehouse> allWarehouses = warehouseRepository.findWarehouseEntities();
 
-        if (!matchingWarehouses.isEmpty()) {
-            // Creamos un modelo de tabla para los almacenes encontrados
-            DefaultTableModel model = new DefaultTableModel();
-            model.addColumn("Código");
-            model.addColumn("Nombre");
-            model.addColumn("Dirección");
-            model.addColumn("Teléfono");
-            model.addColumn("Email");
-            model.addColumn("Continente");
-            
-            // Limpiamos la tabla
-            DefaultTableModel tableModel = (DefaultTableModel) tblWarehouses.getModel();
-            tableModel.setRowCount(0);
-            
-            // Agregamos las filas de los almacenes encontrados al modelo de la tabla
-            for (Warehouse warehouse : matchingWarehouses) {
-                model.addRow(new Object[]{warehouse.getCode(), warehouse.getName(), warehouse.getAdress(), warehouse.getPhone(), warehouse.getEmail(), warehouse.getContinent()});
+            // Buscar manualmente el almacén por su código
+            List<Warehouse> matchingWarehouses = new ArrayList<>();
+            for (Warehouse warehouse : allWarehouses) {
+                if (warehouse.getCode().equals(warehouseCode)) {
+                    matchingWarehouses.add(warehouse);
+                }
             }
-            
-            // Actualizamos la tabla con el nuevo modelo
-            tblWarehouses.setModel(model);
-        } else {
-            JOptionPane.showMessageDialog(null, "No se encontraron depósitos para el código ingresado.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+
+            if (!matchingWarehouses.isEmpty()) {
+                // Creamos un modelo de tabla para los almacenes encontrados
+                DefaultTableModel model = new DefaultTableModel();
+                model.addColumn("Código");
+                model.addColumn("Nombre");
+                model.addColumn("Dirección");
+                model.addColumn("Teléfono");
+                model.addColumn("Email");
+                model.addColumn("Continente");
+
+                // Limpiamos la tabla
+                DefaultTableModel tableModel = (DefaultTableModel) tblWarehouses.getModel();
+                tableModel.setRowCount(0);
+
+                // Agregamos las filas de los almacenes encontrados al modelo de la tabla
+                for (Warehouse warehouse : matchingWarehouses) {
+                    model.addRow(new Object[]{warehouse.getCode(), warehouse.getName(), warehouse.getAdress(), warehouse.getPhone(), warehouse.getEmail(), warehouse.getContinent()});
+                }
+
+                // Actualizamos la tabla con el nuevo modelo
+                tblWarehouses.setModel(model);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontraron depósitos para el código ingresado.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            }
+        } else{
+            JOptionPane.showMessageDialog(null, "Por favor ingrese un código de depósito.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
-    } else{
-        JOptionPane.showMessageDialog(null, "Por favor ingrese un código de depósito.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-    }
     }//GEN-LAST:event_txtWarehouseActionPerformed
 
     private void bttnWarehouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnWarehouseActionPerformed
-            txtWarehouseActionPerformed(evt);
+        txtWarehouseActionPerformed(evt);
 
     }//GEN-LAST:event_bttnWarehouseActionPerformed
-public void loadData(String cuit){
+    public void loadData(String cuit){
         employeeEdit = employeeController.findOne(cuit);
         txtCuit.setText(employeeEdit.getCuit());
         txtName.setText(employeeEdit.getNombre());
@@ -380,7 +380,7 @@ public void loadData(String cuit){
         txtTel.setText(employeeEdit.getTelefono());
     }
 
-  private void loadAllWarehouses() {
+    private void loadAllWarehouses() {
         // Obtener el modelo de tabla de depósitos desde ViewController
         DefaultTableModel model = viewController.modelTableWarehousess();
 
