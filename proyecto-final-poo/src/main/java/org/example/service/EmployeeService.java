@@ -12,8 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 public class EmployeeService implements CRUD<Employee> {
-     private EmployeeRepository employeeRepository;
-       public EmployeeService() {
+    private EmployeeRepository employeeRepository;
+    public EmployeeService() {
         this.employeeRepository = new EmployeeRepository();
     }
 
@@ -22,50 +22,55 @@ public class EmployeeService implements CRUD<Employee> {
     public Employee save(Employee employee) {
         Employee employeeExist = findEmployeeEnabledByCuit(employee.getCuit());
         if (employeeExist ==null) {
-                return employeeRepository.create(employee);
+            return employeeRepository.create(employee);
         }
         return null;
     }
 
     @Override
-     public Employee upDate(Employee employee) throws Exception {
-        if (employeeRepository.findEmployeeEnabledByCuit(employee.getCuit()) != null) {
-            return employeeRepository.edit(employee);
+    public Employee upDate(Employee employee) throws Exception {
+        Employee existingEmployee = employeeRepository.findEmployeeEnabledByCuit(employee.getCuit());
+
+        // Verifica si existe otro empleado con el mismo CUIT pero con diferente ID
+        if (existingEmployee != null && !existingEmployee.getId().equals(employee.getId())) {
+            throw new Exception("El CUIT ingresado ya pertenece a otro empleado."); // Excepción más informativa
+        }
+
+        // Si no ha cambiado el CUIT, o si cambia pero no existe conflicto
+        return employeeRepository.edit(employee);
+    }
+
+    @Override
+    public Employee findOne(String CUIT) {
+        if (CUIT == null) {
+            return null; // Manejar el caso de un CUIT nulo
+        }
+
+        for (Employee employee : employeeRepository.findEmployeeEntities()) {
+            if (CUIT.equals(employee.getCuit())) {
+                return employee;
+            }
         }
         return null;
     }
 
-    @Override
-     public Employee findOne(String CUIT) { 
-         if (CUIT == null) {
-        return null; // Manejar el caso de un CUIT nulo
-    }
-    
-    for (Employee employee : employeeRepository.findEmployeeEntities()) {
-        if (CUIT.equals(employee.getCuit())) {
-            return employee;
-        }
-    }
-    return null;
-   }
 
-    
 
     @Override
-     public List<Employee> findAll() {
+    public List<Employee> findAll() {
         return employeeRepository.findEmployeeEntities();
     }
 
     @Override
-     public void delete(String CUIT) throws NonexistentEntityException {
+    public void delete(String CUIT) throws NonexistentEntityException {
         Employee deleteEmployee = findOne(CUIT);
         if (deleteEmployee != null) {
             employeeRepository.destroy(deleteEmployee.getId());
         }
     }
-    
-     public List<Employee> findAllEmployeesByCuit(String cuit){
-         if (cuit == null || cuit.isEmpty()) {
+
+    public List<Employee> findAllEmployeesByCuit(String cuit){
+        if (cuit == null || cuit.isEmpty()) {
             return new ArrayList<>(); // Si el nombre es nulo o vacío, retornar una lista vacía
         }
 
@@ -75,18 +80,19 @@ public class EmployeeService implements CRUD<Employee> {
                 .stream()
                 .filter(tr -> tr.getCuit().toLowerCase().startsWith(lowercaseCuit))
                 .collect(Collectors.toList());
-        
+
         return employeesFound;
 
-     }
+    }
 
-     public Employee findEmployeeEnabledByCuit(String cuit){
+    public Employee findEmployeeEnabledByCuit(String cuit) {
         Employee employeeFound = employeeRepository.findEmployeeEnabledByCuit(cuit);
-        if (employeeFound.getEstado().equals(Employee.Status.ENABLED)) {
-                return employeeRepository.findEmployeeEnabledByCuit(cuit);
-            }
+        if (employeeFound != null && employeeFound.getEstado() != null && employeeFound.getEstado().equals(Employee.Status.ENABLED)) {
+            return employeeFound;
+        }
         return null;
     }
+
     public Employee disableAccountByCuit(String cuit){
         Employee employeeFound = employeeRepository.findEmployeeEnabledByCuit(cuit);
         if (employeeFound!=null) {
@@ -100,13 +106,24 @@ public class EmployeeService implements CRUD<Employee> {
     }
     public List<Employee> findAllEnabledEmployees(){
         return employeeRepository.findEmployeeEntities()
-            .stream()
-            .filter(customer -> customer.getEstado().equals(Employee.Status.ENABLED))
-            .collect(Collectors.toList());
+                .stream()
+                .filter(customer -> customer.getEstado().equals(Employee.Status.ENABLED))
+                .collect(Collectors.toList());
     }
-    
+
 }
 //
+/*
+CAMBIADO
+public Employee findEmployeeEnabledByCuit(String cuit){
+        Employee employeeFound = employeeRepository.findEmployeeEnabledByCuit(cuit);
+        if (employeeFound.getEstado().equals(Employee.Status.ENABLED)) {
+                return employeeRepository.findEmployeeEnabledByCuit(cuit);
+            }
+        return null;
+    }
+ */
+
 //import org.example.model.Employee;
 //import org.example.repository.EmpleadoRepository;
 //
