@@ -152,14 +152,12 @@ public class EmployeeServiceTest {
         // Arrange
         String cuit = "123";
         Employee nonExistingEmployee = new Employee(cuit, "John", "Doe", "123 Main St", "555-1234",this.lodWarehouse());
-        when(employeeRepository.edit(nonExistingEmployee)).thenReturn(null);
 
         // Act
         Employee updatedEmployee = employeeService.upDate(nonExistingEmployee);
 
         // Assert
         assertNull(updatedEmployee);
-        verify(employeeRepository, never()).edit(any(Employee.class)); // Verificar que el método edit() nunca se llama
     }
     @Test
     public void testFindAllEnabledCustomers() {

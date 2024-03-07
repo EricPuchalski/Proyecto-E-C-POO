@@ -74,7 +74,7 @@ public class CustomerServiceTest {
         // Arrange
         String existingCuit = "151011";
         Customer existingCustomer = new Customer(existingCuit, "Eric", "Puch", "Josesito 232", "3243242");
-        when(customerRepository.findCustomerEntities()).thenReturn(Collections.singletonList(existingCustomer));
+        when(customerRepository.findCustomerEnabledByCuit(existingCuit)).thenReturn(existingCustomer);
 
         // Act
         Customer foundCustomer = customerService.findCustomerEnabledByCuit(existingCuit);
@@ -87,7 +87,7 @@ public class CustomerServiceTest {
     public void testFindOneWithNonExistingCuit() {
         // Arrange
         String nonExistingCuit = "999999";
-        when(customerRepository.findCustomerEntities()).thenReturn(Collections.emptyList());
+        when(customerRepository.findCustomerEnabledByCuit(nonExistingCuit)).thenReturn(null);
 
         // Act
         Customer foundCustomer = customerService.findCustomerEnabledByCuit(nonExistingCuit);
