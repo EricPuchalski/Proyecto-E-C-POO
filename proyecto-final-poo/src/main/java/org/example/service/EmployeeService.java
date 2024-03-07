@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.example.dao.EmployeeRepository;
 import org.example.dao.exceptions.NonexistentEntityException;
 
+import org.example.model.Customer;
 import org.example.model.Employee;
 
 import java.util.List;
@@ -16,6 +17,11 @@ public class EmployeeService implements CRUD<Employee> {
     public EmployeeService() {
         this.employeeRepository = new EmployeeRepository();
     }
+
+    public EmployeeService(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
+       
 
 
     @Override
@@ -85,13 +91,15 @@ public class EmployeeService implements CRUD<Employee> {
 
     }
 
+
     public Employee findEmployeeEnabledByCuit(String cuit) {
         Employee employeeFound = employeeRepository.findEmployeeEnabledByCuit(cuit);
-        if (employeeFound != null && employeeFound.getEstado() != null && employeeFound.getEstado().equals(Employee.Status.ENABLED)) {
-            return employeeFound;
+        if (employeeFound != null) {
+            if (employeeFound.getEstado().equals(Customer.Estado.ENABLED)) {
+                return employeeRepository.findEmployeeEnabledByCuit(cuit);
+            }
         }
-        return null;
-    }
+
 
     public Employee disableAccountByCuit(String cuit){
         Employee employeeFound = employeeRepository.findEmployeeEnabledByCuit(cuit);

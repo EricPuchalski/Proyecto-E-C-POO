@@ -19,6 +19,11 @@ public class CustomerService implements CRUD<Customer> {
         this.customerRepository = new CustomerRepository();
     }
 
+    public CustomerService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
+    
+
     public Customer findCustomerEnabledByCuit(String cuit) {
         Customer customerFound = customerRepository.findCustomerEnabledByCuit(cuit);
         if (customerFound != null) {
@@ -100,5 +105,7 @@ public class CustomerService implements CRUD<Customer> {
                 .collect(Collectors.toList());
         return customersFound;
     }
+
+
 
 }

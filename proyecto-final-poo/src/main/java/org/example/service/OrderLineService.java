@@ -20,6 +20,11 @@ public class OrderLineService implements CRUD<OrderLine>{
         this.orderLineRepository = new OrderLineRepository();
     }
 
+    public OrderLineService(OrderLineRepository orderLineRepository) {
+        this.orderLineRepository = orderLineRepository;
+    }
+
+    
     @Override
     public OrderLine save(OrderLine t) {
         return orderLineRepository.create(t);

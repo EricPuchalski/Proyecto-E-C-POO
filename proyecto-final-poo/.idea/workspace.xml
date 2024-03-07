@@ -5,10 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e042aeb7-fc34-459c-a045-09091da24f8c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/example/service/WarehouseServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/CarrierController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/CarrierController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/ViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/ViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/CarrierService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/CarrierService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/EmployeeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/EmployeeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/WarehouseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/WarehouseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/PanelEmployeeCreate.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/view/PanelEmployeeCreate.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/PanelEmployeeCreate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/view/PanelEmployeeCreate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/service/CustomerServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/service/CustomerServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/service/EmployeeServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/service/EmployeeServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,23 +49,91 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+
     &quot;last_opened_file_path&quot;: &quot;/home/facundo/Vídeos/repositorioalternativo/proyectoo/proyecto-final-poo&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.Main" />
+
+  <component name="RunManager" selected="JUnit.WarehouseServiceTest.testDisableAccountByEmail">
+    <configuration name="WarehouseServiceTest.testDisableAccountByEmail" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="proyecto" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.example.*" />
+          <option name="PATTERN" value="org.example.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="org.example.service" />
+      <option name="MAIN_CLASS_NAME" value="org.example.service.WarehouseServiceTest" />
+      <option name="METHOD_NAME" value="testDisableAccountByEmail" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WarehouseServiceTest.testFindAllEnabledWarehouses" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="proyecto" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example.service" />
+      <option name="MAIN_CLASS_NAME" value="org.example.service.WarehouseServiceTest" />
+      <option name="METHOD_NAME" value="testFindAllEnabledWarehouses" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WarehouseServiceTest.testFindOneWithNullCode" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="proyecto" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example.service" />
+      <option name="MAIN_CLASS_NAME" value="org.example.service.WarehouseServiceTest" />
+      <option name="METHOD_NAME" value="testFindOneWithNullCode" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WarehouseServiceTest.testUpdateExistingWarehouse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="proyecto" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example.service" />
+      <option name="MAIN_CLASS_NAME" value="org.example.service.WarehouseServiceTest" />
+      <option name="METHOD_NAME" value="testUpdateExistingWarehouse" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WarehouseServiceTest.testUpdateNonExistingWarehouse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="proyecto" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example.service" />
+      <option name="MAIN_CLASS_NAME" value="org.example.service.WarehouseServiceTest" />
+      <option name="METHOD_NAME" value="testUpdateNonExistingWarehouse" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -132,11 +204,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.CarrierServiceTest.testDisableAccountByCuit" />
-        <item itemvalue="JUnit.CarrierServiceTest.testFindAllCarriersByCuit" />
-        <item itemvalue="JUnit.CarrierServiceTest.testFindNonExistingCarrierByCuit" />
-        <item itemvalue="JUnit.CarrierServiceTest.testFindExistingCarrierByCuit" />
+        <item itemvalue="JUnit.WarehouseServiceTest.testDisableAccountByEmail" />
+        <item itemvalue="JUnit.WarehouseServiceTest.testFindAllEnabledWarehouses" />
+        <item itemvalue="JUnit.WarehouseServiceTest.testUpdateNonExistingWarehouse" />
+        <item itemvalue="JUnit.WarehouseServiceTest.testUpdateExistingWarehouse" />
+        <item itemvalue="JUnit.WarehouseServiceTest.testFindOneWithNullCode" />
       </list>
     </recent_temporary>
   </component>

@@ -287,6 +287,7 @@ public class PanelEmployeeCreate extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Error al crear empleado: " + e.getMessage());
             }
         }
+
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed

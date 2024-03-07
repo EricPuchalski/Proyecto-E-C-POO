@@ -22,6 +22,11 @@ public class OrderService implements CRUD<Order> {
         this.orderRepository = orderRepository;
     }
 
+    public OrderService(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
+
+    
     @Override
     public Order save(Order order) {
 

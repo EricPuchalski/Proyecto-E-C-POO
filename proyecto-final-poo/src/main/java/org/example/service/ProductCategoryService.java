@@ -20,6 +20,11 @@ public class ProductCategoryService implements CRUD<ProductCategory>{
     public ProductCategoryService() {
         this.productCategoryRepository = new ProductCategoryRepository();
     }
+
+    public ProductCategoryService(ProductCategoryRepository productCategoryRepository) {
+        this.productCategoryRepository = productCategoryRepository;
+    }
+    
     
     
     @Override

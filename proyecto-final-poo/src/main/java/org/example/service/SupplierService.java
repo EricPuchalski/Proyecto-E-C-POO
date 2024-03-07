@@ -20,6 +20,10 @@ public class SupplierService implements CRUD<Supplier> {
         this.supplierRepository = supplierRepository;
     }
 
+    public SupplierService(SupplierRepository supplierRepository) {
+        this.supplierRepository = supplierRepository;
+    }
+
     public SupplierService(){}
 
 

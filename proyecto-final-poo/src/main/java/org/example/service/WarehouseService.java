@@ -26,6 +26,11 @@ public class WarehouseService implements CRUD<Warehouse> {
     public WarehouseService() {
         this.warehouseRepository = new WarehouseRepository();
     }
+
+    public WarehouseService(WarehouseRepository warehouseRepository) {
+        this.warehouseRepository = warehouseRepository;
+    }
+    
     
 
     @Override
@@ -40,7 +45,7 @@ public class WarehouseService implements CRUD<Warehouse> {
 
     @Override
      public Warehouse upDate(Warehouse warehouse) throws Exception {
-        if (warehouseRepository.findWarehouse(warehouse.getId()) != null) {
+        if (warehouseRepository.findWarehouseEnabledByCuit(warehouse.getEmail()) != null) {
             return warehouseRepository.edit(warehouse);
         }
         return null;
@@ -91,15 +96,16 @@ public class WarehouseService implements CRUD<Warehouse> {
             .filter(customer -> customer.getStatus().equals(Warehouse.Estado.ENABLED))
             .collect(Collectors.toList());
     }
-        public void disableAccountByEmail(String email){
+        public Warehouse disableAccountByEmail(String email){
         Warehouse warehouse = warehouseRepository.findWarehouseEnabledByCuit(email);
         if (warehouse!=null) {
             try {
-                warehouseRepository.disableAccountByEmail(email);
+                return warehouseRepository.disableAccountByEmail(email);
             } catch (NonexistentEntityException ex) {
                 Logger.getLogger(CustomerService.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return null;
     }
 
                 public Warehouse findWarehouseEnabledByCode(String email){
