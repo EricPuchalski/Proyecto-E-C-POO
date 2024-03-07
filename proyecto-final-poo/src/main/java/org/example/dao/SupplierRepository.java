@@ -27,6 +27,8 @@ public class SupplierRepository implements Serializable {
     }
     private EntityManagerFactory emf = null;
 
+
+
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
@@ -73,6 +75,7 @@ public class SupplierRepository implements Serializable {
             em.close();
         }
     }
+
 
     public Supplier disableAccountByCuit(String cuit) throws NonexistentEntityException {
         EntityManager em = null;

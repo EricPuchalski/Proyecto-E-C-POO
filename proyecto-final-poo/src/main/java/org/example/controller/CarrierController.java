@@ -3,16 +3,17 @@ package org.example.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.example.dao.CarrierRepository;
 import org.example.dao.exceptions.NonexistentEntityException;
 import org.example.model.Carrier;
 import org.example.service.CarrierService;
 
 public class CarrierController {
-
-    private CarrierService carrierService;
+    private CarrierService carrierService=new CarrierService();
     
     public CarrierController() {
-        this.carrierService = new CarrierService();
+        this.carrierService =  carrierService;
     }
     
     public void create(Carrier carrier) {
@@ -68,8 +69,8 @@ public class CarrierController {
         return carrierService.findCarrierEnabledByEmail(email);
     }
 
-    public List<Carrier> findAllEnabledCustomers() {
-        return carrierService.findAllEnabledCustomers()
+    public List<Carrier> findAllEnabledCarriers() {
+        return carrierService.findAllEnabledCarriers()
                 .stream()
                 .filter(customer -> customer.getStatus().equals(Carrier.Status.ENABLED))
                 .collect(Collectors.toList());

@@ -43,15 +43,21 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblAdress" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lblName" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtName" alignment="0" min="-2" pref="457" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="lblName" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="387" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="lblWelcome" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblComplement" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                                      <Component id="lblComplement" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
+                              <Component id="txtName" alignment="0" min="-2" pref="457" max="-2" attributes="0"/>
+                              <Component id="lblSur" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtSur" alignment="0" min="-2" pref="457" max="-2" attributes="0"/>
+                              <Component id="lblAdress" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="txtAdress" alignment="0" min="-2" pref="457" max="-2" attributes="0"/>
                               <Component id="lblCuit" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="txtCuit" alignment="0" min="-2" pref="457" max="-2" attributes="0"/>
@@ -59,35 +65,29 @@
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
+                          <Component id="bttnModif" min="-2" pref="215" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="bttnCancel" min="-2" pref="215" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
                           <Component id="txtTel" min="-2" pref="457" max="-2" attributes="0"/>
                       </Group>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane1" min="-2" pref="413" max="-2" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Component id="bttnModif" min="-2" pref="215" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
-                                  <Component id="bttnCancel" min="-2" pref="215" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace min="-2" pref="207" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
                           <Component id="lblWarehouse" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="bttnWarehouse" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                           <Component id="txtWarehouse" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="386" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="416" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace pref="465" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -96,12 +96,16 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblWelcome" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblComplement" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblName" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="txtName" min="-2" pref="29" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lblSur" min="-2" pref="25" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="txtSur" min="-2" pref="15" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblAdress" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -110,24 +114,24 @@
                   <Component id="lblCuit" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="txtCuit" min="-2" pref="29" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="lblTel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="txtTel" min="-2" pref="29" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtWarehouse" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="bttnWarehouse" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblWarehouse" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="184" max="-2" attributes="0"/>
-                  <EmptySpace pref="83" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="113" max="-2" attributes="0"/>
+                  <EmptySpace pref="29" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="bttnCancel" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="bttnModif" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                      <Component id="bttnCancel" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="193" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -314,6 +318,19 @@
               <Color blue="ff" green="ff" red="cc" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Deposito"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblSur">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="16" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Apellido"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtSur">
+          <Properties>
+            <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
           </Properties>
         </Component>
       </SubComponents>

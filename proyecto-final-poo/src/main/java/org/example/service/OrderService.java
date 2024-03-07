@@ -15,10 +15,11 @@ import org.example.model.Warehouse;
 
 public class OrderService implements CRUD<Order> {
 
-    private OrderRepository orderRepository;
+    private OrderRepository orderRepository=new OrderRepository();
+    public OrderService(){}
 
-    public OrderService() {
-        this.orderRepository = new OrderRepository();
+    public OrderService(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
     }
 
     public OrderService(OrderRepository orderRepository) {
@@ -42,6 +43,8 @@ public class OrderService implements CRUD<Order> {
         return null;
     }
 
+
+
     @Override
     public Order findOne(String orderNumber) {
         Order orderExist = orderRepository.findOrderByOrderNumber(orderNumber);
@@ -55,6 +58,7 @@ public class OrderService implements CRUD<Order> {
         }
         return null;
     }
+
 
     @Override
     public List<Order> findAll() {
@@ -184,7 +188,15 @@ public class OrderService implements CRUD<Order> {
             .filter(order -> !order.getOrderStatus().equals("Entrega"))
             .collect(Collectors.toList());
 }
+
 }
+
+/*
+
+
+ */
+
+
 //package org.example.service;
 //
 //import org.example.model.OrderLine;

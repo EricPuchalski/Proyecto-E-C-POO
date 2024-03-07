@@ -125,7 +125,7 @@ public class ViewController {
         String titulos[] = {"Id", "Nombre", "cuit", "Tipo"};
         newModel.setColumnIdentifiers(titulos);
 
-        for (Carrier e : carrierController.findAllEnabledCustomers()) {
+        for (Carrier e : carrierController.findAllEnabledCarriers()) {
             Object[] obj = {e.getId(), e.getName(), e.getCuit(), e.getType()};
             newModel.addRow(obj);
         }

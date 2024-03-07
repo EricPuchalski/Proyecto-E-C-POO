@@ -12,10 +12,13 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class ProductService implements CRUD<Product>{
-    private ProductRepository productRepository;
+    private ProductRepository productRepository=new ProductRepository();
+    public ProductService(){
 
-    public ProductService() {
-        this.productRepository = new ProductRepository();
+    }
+
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
     public ProductService(ProductRepository productRepository) {
@@ -81,14 +84,15 @@ public class ProductService implements CRUD<Product>{
                 .collect(Collectors.toList());
         return productsFound;
     }
-       
-         public Product findProductEnabledByCode(String code){
+
+    public Product findProductEnabledByCode(String code){
         Product productFound = productRepository.findProductEnabledByCode(code);
-        if (productFound.getStatus().equals(Product.Status.ENABLED)) {
-                return productRepository.findProductEnabledByCode(code);
-            }
+        if (productFound != null && productFound.getStatus().equals(Product.Status.ENABLED)) {
+            return productFound;
+        }
         return null;
     }
+
     public Product disableAccountByCode(String cuit){
         Product productFound = productRepository.findProductEnabledByCode(cuit);
         if (productFound!=null) {

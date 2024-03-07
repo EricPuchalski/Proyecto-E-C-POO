@@ -20,9 +20,9 @@ import org.example.model.Warehouse;
  */
 public class PanelEmployeeCreate extends javax.swing.JPanel {
     private EmployeeController employeeController;
-        private JComboBox<String> warehouseCombobox;
-            private ViewController viewController;
-      private WarehouseController warehouseController;
+    private JComboBox<String> warehouseCombobox;
+    private ViewController viewController;
+    private WarehouseController warehouseController;
 
 
     /**
@@ -30,19 +30,19 @@ public class PanelEmployeeCreate extends javax.swing.JPanel {
      */
     public PanelEmployeeCreate() {
         this.employeeController = new EmployeeController();
-    this.viewController = new ViewController();
-    this.warehouseController = new WarehouseController();
+        this.viewController = new ViewController();
+        this.warehouseController = new WarehouseController();
 
-    initComponents();
-    this.setSize(800, 700);
-    
-    // Inicializamos la lista desplegable de almacenes
-    warehouseCombobox = new JComboBox<>(); // Cambio realizado aquí
-    warehouseCombobox.setBounds(200, 450, 250, 30);
-    jPanel1.add(warehouseCombobox);
-    
-    // Llenamos la lista desplegable con los almacenes disponibles
-    fillWarehouseComboBox();
+        initComponents();
+        this.setSize(800, 700);
+
+        // Inicializamos la lista desplegable de almacenes
+        warehouseCombobox = new JComboBox<>(); // Cambio realizado aquí
+        warehouseCombobox.setBounds(200, 450, 250, 30);
+        jPanel1.add(warehouseCombobox);
+
+        // Llenamos la lista desplegable con los almacenes disponibles
+        fillWarehouseComboBox();
     }
 
     /**
@@ -147,149 +147,153 @@ public class PanelEmployeeCreate extends javax.swing.JPanel {
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCuit, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblTel)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblSur)
-                            .addComponent(txtSur, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblComplement)
-                            .addComponent(lblWelcome)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblName)
-                                    .addComponent(lblAdress)
-                                    .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblCuit)))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(btnRegister)
-                        .addGap(354, 354, 354)
-                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(488, Short.MAX_VALUE))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(127, 127, 127)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(txtCuit, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(lblTel)
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addGap(6, 6, 6)
+                                                                .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(lblSur)
+                                                        .addComponent(txtSur, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(127, 127, 127)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(lblComplement)
+                                                        .addComponent(lblWelcome)
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addGap(6, 6, 6)
+                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(lblName)
+                                                                        .addComponent(lblAdress)
+                                                                        .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(lblCuit)))))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(32, 32, 32)
+                                                .addComponent(btnRegister)
+                                                .addGap(354, 354, 354)
+                                                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(488, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblWelcome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblComplement)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblAdress)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblCuit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCuit, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblSur)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtSur, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(btnCancel))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(82, 82, 82)
-                        .addComponent(btnRegister)))
-                .addContainerGap(470, Short.MAX_VALUE))
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(lblWelcome)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblComplement)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblName)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblAdress)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblCuit)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCuit, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblTel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblSur)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtSur, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(72, 72, 72)
+                                                .addComponent(btnCancel))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(82, 82, 82)
+                                                .addComponent(btnRegister)))
+                                .addContainerGap(470, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(35, 35, 35))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(35, 35, 35))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-     try {
-        // Verificar que todos los campos estén completos
-        if (txtName.getText().isEmpty() || txtAdress.getText().isEmpty() || txtCuit.getText().isEmpty() || txtTel.getText().isEmpty() || txtSur.getText().isEmpty()) {
-            throw new Exception("Debe completar todos los campos.");
-        }
+        try {
+            // Verificar que todos los campos estén completos
+            if (txtName.getText().isEmpty() || txtAdress.getText().isEmpty() || txtCuit.getText().isEmpty() || txtTel.getText().isEmpty() || txtSur.getText().isEmpty()) {
+                throw new Exception("Debe completar todos los campos.");
+            }
 
-        // Crea un objeto Employee con los datos del empleado y el almacén
-        Employee employee = new Employee(
-            txtCuit.getText(),
-            txtName.getText(),
-            txtSur.getText(),
-            txtAdress.getText(),
-            txtTel.getText()
-        );
+            // Crea un objeto Employee con los datos del empleado y el almacén
+            Employee employee = new Employee(
+                    txtCuit.getText(),
+                    txtName.getText(),
+                    txtSur.getText(),
+                    txtAdress.getText(),
+                    txtTel.getText()
+            );
 
-        // Obtén el nombre del almacén seleccionado del JComboBox
-        String selectedWarehouseName = (String) warehouseCombobox.getSelectedItem();
+            // Obtén el nombre del almacén seleccionado del JComboBox
+            String selectedWarehouseName = (String) warehouseCombobox.getSelectedItem();
 
-        // Utiliza el controlador de almacenes para encontrar todos los almacenes
-        List<Warehouse> warehouses = warehouseController.findAll();
+            // Utiliza el controlador de almacenes para encontrar todos los almacenes
+            List<Warehouse> warehouses = warehouseController.findAll();
 
-        // Encuentra el almacén con el nombre seleccionado
-        Warehouse selectedWarehouse = null;
-        for (Warehouse warehouse : warehouses) {
-            if (warehouse.getName().equals(selectedWarehouseName)) {
-                selectedWarehouse = warehouse;
-                break;
+            // Encuentra el almacén con el nombre seleccionado
+            Warehouse selectedWarehouse = null;
+            for (Warehouse warehouse : warehouses) {
+                if (warehouse.getName().equals(selectedWarehouseName)) {
+                    selectedWarehouse = warehouse;
+                    break;
+                }
+            }
+
+            // Verifica si se encontró el almacén
+            if (selectedWarehouse == null) {
+                throw new Exception("No se encontró el almacén con el nombre seleccionado");
+            }
+
+            // Asocia el almacén seleccionado al empleado
+            employee.setDeposit(selectedWarehouse);
+
+            // Llama al método create() del controlador de empleados para crear el empleado
+            employeeController.create(employee);
+            JOptionPane.showMessageDialog(this, "El Empleado fue creado con éxito");
+
+            // Cambia la vista
+            ViewController.panelChange(this, new PanelEmployee(), this);
+        } catch (Exception e) {
+            if (e.getMessage().contains("cuit pertenece a otro empleado")) {
+                JOptionPane.showMessageDialog(this, "Error al crear empleado: El CUIT pertenece a otro empleado");
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al crear empleado: " + e.getMessage());
             }
         }
 
-        // Verifica si se encontró el almacén
-        if (selectedWarehouse == null) {
-            throw new Exception("No se encontró el almacén con el nombre seleccionado");
-        }
-
-        // Asocia el almacén seleccionado al empleado
-        employee.setDeposit(selectedWarehouse);
-
-        // Llama al método create() del controlador de empleados para crear el empleado
-        employeeController.create(employee);
-
-        // Cambia la vista
-        ViewController.panelChange(this, new PanelEmployee(), this);
-    } catch (Exception e) {
-        // Maneja los errores que puedan ocurrir
-         System.out.println(e.getMessage());
-        JOptionPane.showMessageDialog(this, "Error al crear empleado: " + " El cuit pertenece a otro empleado");
-    }  
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         ViewController.panelChange(this, new PanelEmployee(), this);
     }//GEN-LAST:event_btnCancelActionPerformed
- // Método para llenar la lista desplegable con los almacenes disponibles
+    // Método para llenar la lista desplegable con los almacenes disponibles
     private void fillWarehouseComboBox() {
         ViewController viewController = new ViewController();
         DefaultTableModel warehouseModel = viewController.modelTableWarehousess();

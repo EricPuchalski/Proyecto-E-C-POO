@@ -17,9 +17,11 @@ import java.util.stream.Collectors;
 //
 
 public class CarrierService implements CRUD<Carrier> {
-    
     public CarrierService() {
-        this.carrierRepository = new CarrierRepository();
+    }
+
+    public CarrierService(CarrierRepository carrierRepository) {
+        this.carrierRepository = carrierRepository;
     }
 
     public CarrierService(CarrierRepository carrierRepository) {
@@ -27,7 +29,7 @@ public class CarrierService implements CRUD<Carrier> {
     }
     
     
-    private CarrierRepository carrierRepository;
+    private CarrierRepository carrierRepository=new CarrierRepository();
     
     @Override
     public Carrier save(Carrier carrier) {
@@ -88,7 +90,7 @@ public class CarrierService implements CRUD<Carrier> {
         String lowerCaseCuit = cuit.toLowerCase();
         
         List<Carrier> carriersFound = new ArrayList<>();
-        carriersFound = this.findAllEnabledCustomers()
+        carriersFound = this.findAllEnabledCarriers()
                 .stream()
                 .filter(tr -> tr.getCuit().toLowerCase().startsWith(lowerCaseCuit))
                 .collect(Collectors.toList());
@@ -97,7 +99,7 @@ public class CarrierService implements CRUD<Carrier> {
     }
 
     public Carrier findCarrierEnabledByPhone(String phone) {
-        for (Carrier cr : findAllEnabledCustomers()) {
+        for (Carrier cr : findAllEnabledCarriers()) {
             if (cr.getPhone().equals(phone)) {
                 return cr;
             }
@@ -106,7 +108,7 @@ public class CarrierService implements CRUD<Carrier> {
     }
 
     public Carrier findCarrierEnabledByEmail(String email) {
-        for (Carrier cr : findAllEnabledCustomers()) {
+        for (Carrier cr : findAllEnabledCarriers()) {
             if (cr.getEmail().equals(email)) {
                 return cr;
             }
@@ -126,8 +128,8 @@ public class CarrierService implements CRUD<Carrier> {
     }
 
     public Carrier disableAccountByCuit(String cuit) {
-        Carrier customer = carrierRepository.findCarrierEnabledByCuit(cuit);
-        if (customer != null) {
+        Carrier carrier = carrierRepository.findCarrierEnabledByCuit(cuit);
+        if (carrier != null) {
             try {
                 return carrierRepository.disableAccountByCuit(cuit);
             } catch (NonexistentEntityException ex) {
@@ -137,10 +139,12 @@ public class CarrierService implements CRUD<Carrier> {
         return null;
     }
 
-    public List<Carrier> findAllEnabledCustomers() {
+    public List<Carrier> findAllEnabledCarriers() {
         return carrierRepository.findCarrierEntities()
                 .stream()
-                .filter(customer -> customer.getStatus().equals(Carrier.Status.ENABLED))
+                .filter(carrier -> carrier.getStatus().equals(Carrier.Status.ENABLED))
                 .collect(Collectors.toList());
     }
+
+
 }
