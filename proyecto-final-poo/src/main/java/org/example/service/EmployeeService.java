@@ -90,18 +90,7 @@ public class EmployeeService implements CRUD<Employee> {
         return employeesFound;
 
     }
-
-
-    public Employee findEmployeeEnabledByCuit(String cuit) {
-        Employee employeeFound = employeeRepository.findEmployeeEnabledByCuit(cuit);
-        if (employeeFound != null) {
-            if (employeeFound.getEstado().equals(Customer.Estado.ENABLED)) {
-                return employeeRepository.findEmployeeEnabledByCuit(cuit);
-            }
-        }
-
-
-    public Employee disableAccountByCuit(String cuit){
+        public Employee disableAccountByCuit(String cuit){
         Employee employeeFound = employeeRepository.findEmployeeEnabledByCuit(cuit);
         if (employeeFound!=null) {
             try {
@@ -112,14 +101,27 @@ public class EmployeeService implements CRUD<Employee> {
         }
         return null;
     }
-    public List<Employee> findAllEnabledEmployees(){
+            public List<Employee> findAllEnabledEmployees(){
         return employeeRepository.findEmployeeEntities()
                 .stream()
                 .filter(customer -> customer.getEstado().equals(Employee.Status.ENABLED))
                 .collect(Collectors.toList());
     }
 
+    public Employee findEmployeeEnabledByCuit(String cuit) {
+        Employee employeeFound = employeeRepository.findEmployeeEnabledByCuit(cuit);
+        if (employeeFound != null) {
+            if (employeeFound.getEstado().equals(Customer.Estado.ENABLED)) {
+                return employeeRepository.findEmployeeEnabledByCuit(cuit);
+            }
+        }
+
+        return null;
+
+
+    }
 }
+
 //
 /*
 CAMBIADO

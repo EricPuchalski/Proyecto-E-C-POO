@@ -21,9 +21,6 @@ public class ProductService implements CRUD<Product>{
         this.productRepository = productRepository;
     }
 
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
     
 
     @Override
