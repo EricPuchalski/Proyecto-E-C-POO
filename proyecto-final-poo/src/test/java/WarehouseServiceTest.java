@@ -184,7 +184,6 @@ public class WarehouseServiceTest {
     public void testUpdateNonExistingWarehouse() throws Exception {
         // Arrange
         Warehouse deposito1 = new Warehouse("12321","Deposito China","Calle 1","34543534","depositoCH@gmail.com", "Asia",new Position(39.900853,116.399813));
-        when(warehouseRepository.edit(deposito1)).thenReturn(null);
 
 
         // Act
