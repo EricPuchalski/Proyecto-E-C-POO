@@ -17,6 +17,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+
+import org.example.model.Position;
+import org.example.model.Warehouse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.mockito.ArgumentMatchers.any;
@@ -40,16 +43,18 @@ public class EmployeeServiceTest {
     @InjectMocks
     public EmployeeService employeeService;
 
-    public void loadData(){
+    public Warehouse lodWarehouse(){
 
+        Warehouse deposito1 = new Warehouse("12321","Deposito China","Calle 1","34543534","depositoCH@gmail.com", "Asia",new Position(39.900853,116.399813));
+        return deposito1;
     }
-     //   public Employee(String cuit, String name, String surname, String address, String phoneNumber) {
+
 
 
     @Test
     public void crearEmpleadoExitosamente() {
         // Arrange
-        Employee employee = new Employee("15101qwewq1", "Eric", "Puch", "Josesito 232", "3243242");
+        Employee employee = new Employee("15101qwewq1", "Eric", "Puch", "Josesito 232", "3243242", this.lodWarehouse());
 
         // Configurar el comportamiento esperado del mock de CustomerRepository
         when(employeeRepository.create(employee)).thenReturn(employee);
@@ -63,145 +68,145 @@ public class EmployeeServiceTest {
         assertEquals(employee.getApellido(), savedEmployee.getApellido());
         assertEquals(employee.getDireccion(), savedEmployee.getDireccion());
         assertEquals(employee.getTelefono(), savedEmployee.getTelefono());
+        assertEquals(employee.getDeposit().getEmail(), savedEmployee.getDeposit().getEmail());
+
+    }
+    @Test
+    public void crearEmpleadoConCuitYaExistente() {
+        // Arrange
+        Employee newEmployee = new Employee("1510", "Juan", "Puch", "Asd 232", "3243242", this.lodWarehouse());
+
+        // Configurar el comportamiento esperado del mock de CustomerRepository
+        when(employeeRepository.create(newEmployee)).thenReturn(null); // Simular que el cliente no se puede crear debido al CUIT duplicado
+
+        // Act
+        Employee savedEmployee = employeeService.save(newEmployee);
+
+        // Assert
+        assertNull(savedEmployee); // Verificar que el cliente devuelto es null
 
         // Verificar que se llamó al método create() de customerRepository
-        verify(employeeRepository, times(1)).create(employee);
+        verify(employeeRepository, times(1)).create(newEmployee);
     }
-//    @Test
-//    public void crearClienteConCuitYaExistente() {
-//        // Arrange
-//        Customer newCustomer = new Customer("1510", "Juan", "Puch", "Asd 232", "3243242");
-//
-//        // Configurar el comportamiento esperado del mock de CustomerRepository
-//        when(employeeRepository.create(newCustomer)).thenReturn(null); // Simular que el cliente no se puede crear debido al CUIT duplicado
-//
-//        // Act
-//        Customer savedCustomer = employeeService.save(newCustomer);
-//
-//        // Assert
-//        assertNull(savedCustomer); // Verificar que el cliente devuelto es null
-//
-//        // Verificar que se llamó al método create() de customerRepository
-//        verify(employeeRepository, times(1)).create(newCustomer);
-//    }
-//
-//
-//    @Test
-//    public void testFindOneWithExistingCuit() {
-//        // Arrange
-//        String existingCuit = "151011";
-//        Customer existingCustomer = new Customer(existingCuit, "Eric", "Puch", "Josesito 232", "3243242");
-//        when(employeeRepository.findCustomerEntities()).thenReturn(Collections.singletonList(existingCustomer));
-//
-//        // Act
-//        Customer foundCustomer = employeeService.findOne(existingCuit);
-//
-//        // Assert
-//        assertNotNull(foundCustomer);
-//        assertEquals(existingCustomer, foundCustomer);
-//    }
-//    @Test
-//    public void testFindOneWithNonExistingCuit() {
-//        // Arrange
-//        String nonExistingCuit = "999999";
-//        when(employeeRepository.findCustomerEntities()).thenReturn(Collections.emptyList());
-//
-//        // Act
-//        Customer foundCustomer = employeeService.findOne(nonExistingCuit);
-//
-//        // Assert
-//        assertNull(foundCustomer);
-//    }
-//    @Test
-//    public void testFindOneWithNullCuit() {
-//        // Act
-//        Customer foundCustomer = employeeService.findOne(null);
-//
-//        // Assert
-//        assertNull(foundCustomer);
-//    }
-//    @Test
-//    public void testUpdateExistingCustomer() throws Exception {
-//        // Arrange
-//        String existingCuit = "151011";
-//        Customer existingCustomer = new Customer(existingCuit, "Eric", "Puch", "Josesito 232", "3243242");
-//        when(employeeRepository.findCustomer(existingCustomer.getId())).thenReturn(existingCustomer);
-//        Customer customerEdit = new Customer("151011", "John", null, null, null); // Editar solo el nombre
-//        when(employeeRepository.edit(customerEdit)).thenReturn(customerEdit);
-//
-//        // Act
-//        Customer updatedCustomer = employeeService.upDate(customerEdit);
-//
-//        // Assert
-//        assertNotNull(updatedCustomer);
-//        assertEquals(existingCustomer.getId(), updatedCustomer.getId());
-//        assertEquals(customerEdit.getCuit(), updatedCustomer.getCuit());
-//        assertNotEquals(existingCustomer.getName(), updatedCustomer.getName());
-//        assertNull(updatedCustomer.getSurname()); // Verificar que el apellido no cambió
-//        assertNull(updatedCustomer.getAdress());  // Verificar que la dirección no cambió
-//        assertNull(updatedCustomer.getPhone());   // Verificar que el teléfono no cambió
-//        verify(employeeRepository, times(1)).edit(customerEdit);
-//    }
-//    @Test
-//    public void testUpdateNonExistingCustomer() throws Exception {
-//        // Arrange
-//        String cuit = "123";
-//        Customer nonExistingCustomer = new Customer(cuit, "John", "Doe", "123 Main St", "555-1234");
-//        when(employeeRepository.edit(nonExistingCustomer)).thenReturn(null);
-//
-//        // Act
-//        Customer updatedCustomer = employeeService.upDate(nonExistingCustomer);
-//
-//        // Assert
-//        assertNull(updatedCustomer);
-//        verify(employeeRepository, never()).edit(any(Customer.class)); // Verificar que el método edit() nunca se llama
-//    }
-//    @Test
-//    public void testFindAllEnabledCustomers() {
-//        // Arrange
-//        Customer customer1 = new Customer("1", "John", "Doe", "123 Main St", "555-1234");
-//        customer1.setEstado(Customer.Estado.ENABLED);
-//        Customer customer2 = new Customer("2", "Jane", "Smith", "456 Oak St", "555-5678");
-//        customer2.setEstado(Customer.Estado.DISABLED);
-//        Customer customer3 = new Customer("3", "Bob", "Jones", "789 Elm St", "555-9012");
-//        customer3.setEstado(Customer.Estado.ENABLED);
-//
-//        List<Customer> allCustomers = Arrays.asList(customer1, customer2, customer3);
-//
-//        // Configurar el comportamiento esperado del mock de CustomerRepository
-//        when(employeeRepository.findCustomerEntities()).thenReturn(allCustomers);
-//
-//        // Act
-//        List<Customer> enabledCustomers = employeeService.findAllEnabledCustomers();
-//
-//        // Assert
-//        List<Customer> expectedEnabledCustomers = allCustomers.stream()
-//                .filter(customer -> customer.getEstado().equals(Customer.Estado.ENABLED))
-//                .collect(Collectors.toList());
-//
-//        assertEquals(expectedEnabledCustomers.size(), enabledCustomers.size());
-//        for (int i = 0; i < expectedEnabledCustomers.size(); i++) {
-//            assertEquals(expectedEnabledCustomers.get(i), enabledCustomers.get(i));
-//        }
-//    }
-//
-//    @Test
-//    public void testDisableAccountByCuit() throws NonexistentEntityException {
-//        // Arrange
-//        Customer enabledCustomer = new Customer("232", "John", "Doe", "123 Main St", "555-1234");
-//        Customer disabledCustomer = new Customer("232", "John", "Doe", "123 Main St", "555-1234");
-//        disabledCustomer.setEstado(Customer.Estado.DISABLED);
-//
-//        // Configurar el comportamiento del mock para devolver el objeto disabledCustomer cuando se llame a disableAccountByCuit(cuit) con el CUIT correspondiente
-//        when(employeeRepository.findCustomerEnabledByCuit("232")).thenReturn(enabledCustomer);
-//        when(employeeRepository.disableAccountByCuit("232")).thenReturn(disabledCustomer);
-//
-//        // Act
-//        Customer updatedCustomer = employeeService.disableAccountByCuit("232");
-//
-//        // Assert
-//        assertNotNull(updatedCustomer);
-//        assertEquals(disabledCustomer, updatedCustomer);
-//        assertEquals(Customer.Estado.DISABLED, updatedCustomer.getEstado());
-//    }
+
+
+    @Test
+    public void testFindOneWithExistingCuit() {
+        // Arrange
+        String existingCuit = "151011";
+        Employee newEmployee = new Employee(existingCuit, "Eric", "Puch", "Josesito 232", "3243242", this.lodWarehouse());
+        when(employeeRepository.findEmployeeEntities()).thenReturn(Collections.singletonList(newEmployee));
+
+        // Act
+        Employee foundEmployee = employeeService.findOne(existingCuit);
+
+        // Assert
+        assertNotNull(foundEmployee);
+        assertEquals(newEmployee, foundEmployee);
+    }
+    @Test
+    public void testFindOneWithNonExistingCuit() {
+        // Arrange
+        String nonExistingCuit = "999999";
+        when(employeeRepository.findEmployeeEntities()).thenReturn(Collections.emptyList());
+
+        // Act
+        Employee foundEmployee = employeeService.findOne(nonExistingCuit);
+
+        // Assert
+        assertNull(foundEmployee);
+    }
+    @Test
+    public void testFindOneWithNullCuit() {
+        // Act
+        Employee foundEmployee = employeeService.findEmployeeEnabledByCuit(null);
+
+
+        // Assert
+        assertNull(foundEmployee);
+    }
+    @Test
+    public void testUpdateExistingEmployee() throws Exception {
+        // Arrange
+        String existingCuit = "151011";
+        Employee newEmployee = new Employee(existingCuit, "Eric", "Puch", "Josesito 232", "3243242", this.lodWarehouse());
+        when(employeeRepository.findEmployeeEnabledByCuit(newEmployee.getCuit())).thenReturn(newEmployee);
+        Employee employeeEdit = new Employee("151011", "John", null, null, null); // Editar solo el nombre
+        when(employeeRepository.edit(newEmployee)).thenReturn(employeeEdit);
+
+        // Act
+        Employee updatedEmployee = employeeService.upDate(newEmployee);
+
+        // Assert
+        assertNotNull(updatedEmployee);
+        assertEquals(employeeEdit.getId(), updatedEmployee.getId());
+        assertEquals(employeeEdit.getCuit(), updatedEmployee.getCuit());
+        assertEquals(employeeEdit.getNombre(), updatedEmployee.getNombre());
+        assertNull(updatedEmployee.getApellido()); // Verificar que el apellido no cambió
+        assertNull(updatedEmployee.getDireccion());  // Verificar que la dirección no cambió
+        assertNull(updatedEmployee.getTelefono());   // Verificar que el teléfono no cambió
+        verify(employeeRepository, times(1)).edit(newEmployee);
+    }
+    @Test
+    public void testUpdateNonExistingCustomer() throws Exception {
+        // Arrange
+        String cuit = "123";
+        Employee nonExistingEmployee = new Employee(cuit, "John", "Doe", "123 Main St", "555-1234",this.lodWarehouse());
+        when(employeeRepository.edit(nonExistingEmployee)).thenReturn(null);
+
+        // Act
+        Employee updatedEmployee = employeeService.upDate(nonExistingEmployee);
+
+        // Assert
+        assertNull(updatedEmployee);
+        verify(employeeRepository, never()).edit(any(Employee.class)); // Verificar que el método edit() nunca se llama
+    }
+    @Test
+    public void testFindAllEnabledCustomers() {
+        // Arrange
+        Employee employee1 = new Employee("1", "John", "Doe", "123 Main St", "555-1234",this.lodWarehouse());
+        employee1.setEstado(Employee.Status.ENABLED);
+        Employee employee2 = new Employee("2", "Jane", "Smith", "456 Oak St", "555-5678",this.lodWarehouse());
+        employee2.setEstado(Employee.Status.DISABLED);
+        Employee employee3 = new Employee("3", "Bob", "Jones", "789 Elm St", "555-9012",this.lodWarehouse());
+        employee3.setEstado(Employee.Status.ENABLED);
+
+        List<Employee> allEmployees = Arrays.asList(employee1, employee2, employee3);
+
+        // Configurar el comportamiento esperado del mock de CustomerRepository
+        when(employeeRepository.findEmployeeEntities()).thenReturn(allEmployees);
+
+        // Act
+        List<Employee> enabledEmployees = employeeService.findAllEnabledEmployees();
+
+        // Assert
+        List<Employee> expectedEnabledCustomers = allEmployees.stream()
+                .filter(employee -> employee.getEstado().equals(Employee.Status.ENABLED))
+                .collect(Collectors.toList());
+
+        assertEquals(expectedEnabledCustomers.size(), enabledEmployees.size());
+        for (int i = 0; i < expectedEnabledCustomers.size(); i++) {
+            assertEquals(expectedEnabledCustomers.get(i), enabledEmployees.get(i));
+        }
+    }
+
+    @Test
+    public void testDisableAccountByCuit() throws NonexistentEntityException {
+        // Arrange
+        Employee enabledEmployee = new Employee("232", "John", "Doe", "123 Main St", "555-1234");
+        Employee disabledEmployee = new Employee("232", "John", "Doe", "123 Main St", "555-1234");
+        disabledEmployee.setEstado(Employee.Status.DISABLED);
+
+        // Configurar el comportamiento del mock para devolver el objeto disabledCustomer cuando se llame a disableAccountByCuit(cuit) con el CUIT correspondiente
+        when(employeeRepository.findEmployeeEnabledByCuit("232")).thenReturn(enabledEmployee);
+        when(employeeRepository.disableAccountByCuit("232")).thenReturn(disabledEmployee);
+
+        // Act
+        Employee updatedEmployee = employeeService.disableAccountByCuit("232");
+
+        // Assert
+        assertNotNull(updatedEmployee);
+        assertEquals(disabledEmployee, updatedEmployee);
+        assertEquals(Employee.Status.DISABLED, updatedEmployee.getEstado());
+    }
 }

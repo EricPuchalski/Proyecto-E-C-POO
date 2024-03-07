@@ -78,7 +78,7 @@ public class CustomerServiceTest {
         when(customerRepository.findCustomerEntities()).thenReturn(Collections.singletonList(existingCustomer));
 
         // Act
-        Customer foundCustomer = customerService.findOne(existingCuit);
+        Customer foundCustomer = customerService.findCustomerEnabledByCuit(existingCuit);
 
         // Assert
         assertNotNull(foundCustomer);
@@ -91,7 +91,7 @@ public class CustomerServiceTest {
         when(customerRepository.findCustomerEntities()).thenReturn(Collections.emptyList());
 
         // Act
-        Customer foundCustomer = customerService.findOne(nonExistingCuit);
+        Customer foundCustomer = customerService.findCustomerEnabledByCuit(nonExistingCuit);
 
         // Assert
         assertNull(foundCustomer);
@@ -99,7 +99,7 @@ public class CustomerServiceTest {
     @Test
     public void testFindOneWithNullCuit() {
         // Act
-        Customer foundCustomer = customerService.findOne(null);
+        Customer foundCustomer = customerService.findCustomerEnabledByCuit(null);
 
         // Assert
         assertNull(foundCustomer);
