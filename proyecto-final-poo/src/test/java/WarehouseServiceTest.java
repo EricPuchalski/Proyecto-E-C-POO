@@ -1,11 +1,10 @@
-package org.example.service;
-
 import org.example.dao.EmployeeRepository;
 import org.example.dao.WarehouseRepository;
 import org.example.dao.exceptions.NonexistentEntityException;
 import org.example.model.Employee;
 import org.example.model.Position;
 import org.example.model.Warehouse;
+import org.example.service.WarehouseService;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;

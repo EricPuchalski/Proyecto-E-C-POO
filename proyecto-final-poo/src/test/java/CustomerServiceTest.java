@@ -1,9 +1,8 @@
-package org.example.service;
-
 import org.example.dao.CustomerRepository;
 import org.example.dao.exceptions.NonexistentEntityException;
 import org.example.model.Customer;
 
+import org.example.service.CustomerService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
