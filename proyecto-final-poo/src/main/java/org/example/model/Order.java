@@ -60,7 +60,10 @@
     //        this.tracking = tracking;
 
         }
+        public Order(String orderNumber) {
+            this.orderNumber = orderNumber;
 
+        }//sobre carga de constructores por las dudas
 
         public Order() {
             this.orderLines = new ArrayList<>();

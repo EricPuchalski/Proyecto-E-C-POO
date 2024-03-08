@@ -50,10 +50,10 @@ public class ProductController implements CRUD<Product>{
         return productService.findProductEnabledByCode(code);
     }
     public Product disableAccountByCuit(String code){
-        return productService.disableAccountByCode(code);
+        return productService.disableProductByCode(code);
     }
     public List<Product> findAllEnabledEmployees(){
-        return productService.findAllEnabledEmployees()
+        return productService.findAllEnabledProducts()
             .stream()
             .filter(customer -> customer.getStatus().equals(Product.Status.ENABLED))
             .collect(Collectors.toList());

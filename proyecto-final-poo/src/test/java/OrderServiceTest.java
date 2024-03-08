@@ -1,15 +1,18 @@
 import org.example.dao.OrderRepository;
+import org.example.dao.exceptions.NonexistentEntityException;
 import org.example.model.*;
 import org.example.service.OrderService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -270,7 +273,86 @@ public class OrderServiceTest {
         verify(orderRepositoryMock).findOrderByOrderNumber("");
         verify(orderRepositoryMock, never()).deliverOrder("");
     }
+    @Test
+    public void findAllUndeliveredOrders_Success() {
+        // Datos de prueba
+        List<Order> allOrders = Arrays.asList(
+                new Order("1", null, null, null, null, "Pendiente", LocalDate.now()),
+                new Order("2", null, null, null, null, "Completo", LocalDate.now()),
+                new Order("3", null, null, null, null, "En transito", LocalDate.now()),
+                new Order("4", null, null, null, null, "Entrega", LocalDate.now()),
+                new Order("5", null, null, null, null, "Pendiente", LocalDate.now())
+        );
+
+        // Mockear el comportamiento del orderRepository
+        OrderRepository orderRepositoryMock = Mockito.mock(OrderRepository.class);
+        when(orderRepositoryMock.findOrderEntities()).thenReturn(allOrders);
+
+        // Crear el servicio de órdenes con el mock del repository
+        OrderService orderService = new OrderService(orderRepositoryMock);
+
+        // Ejecutar el método que se está probando
+        List<Order> undeliveredOrders = orderService.findAllUndeliveredOrders();
+
+        // Verificaciones
+        assertNotNull(undeliveredOrders);
+        assertEquals(4, undeliveredOrders.size()); // Deberían haber 4 órdenes no entregadas
+        for (Order order : undeliveredOrders) {
+            assertNotEquals("Entrega", order.getOrderStatus()); // Ninguna orden debe tener estado "Entrega"
+        }
+    }
+    @Test
+    public void findAllOrdersByNumber_Success() {
+        // Datos de prueba
+        List<Order> allOrders = Arrays.asList(
+                new Order("12345", null, null, null, null, "Pendiente", LocalDate.now()),
+                new Order("12346", null, null, null, null, "Completo", LocalDate.now()),
+                new Order("22345", null, null, null, null, "En tránsito", LocalDate.now()),
+                new Order("22346", null, null, null, null, "Entrega", LocalDate.now()),
+                new Order("32345", null, null, null, null, "Pendiente", LocalDate.now())
+        );
+
+        // Mockear el comportamiento del orderRepository
+        OrderRepository orderRepositoryMock = Mockito.mock(OrderRepository.class);
+        when(orderRepositoryMock.findOrderEntities()).thenReturn(allOrders);
+
+        // Crear el servicio de órdenes con el mock del repository
+        OrderService orderService = new OrderService(orderRepositoryMock);
+
+        // Ejecutar el método que se está probando
+        List<Order> foundOrders = orderService.findAllOrdersByNumber("123");
+
+        // Verificaciones
+        assertNotNull(foundOrders);
+        assertEquals(2, foundOrders.size()); // Deberían haber 2 órdenes cuyo número comienza con "123"
+        for (Order order : foundOrders) {
+            assertTrue(order.getOrderNumber().startsWith("123")); // Todas las órdenes deben tener un número que comience con "123"
+        }
+    }
+
+
+    @Test
+    public void saveTest() {
+        // Datos de prueba
+        Order order = new Order(/* Datos de la orden */);
+
+        // Configuración del comportamiento del mock del repositorio
+        when(orderRepositoryMock.save(order)).thenReturn(null);
+
+        // Ejecutar el método que se está probando
+        Order savedOrder = orderService.save(order);
+
+        // Verificaciones
+        assertNull(savedOrder); // Verificar que el resultado es null
+        verify(orderRepositoryMock).save(order); // Verificar que el método save del repositorio es llamado correctamente con el argumento adecuado
+    }
+
+
+
 
 }
+
+
+
 
 

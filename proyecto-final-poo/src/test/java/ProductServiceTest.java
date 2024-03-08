@@ -121,14 +121,14 @@ public class ProductServiceTest {
         assertEquals(expectedProduct, foundProduct);
     }
     @Test
-    public void testDisableAccountByCode() throws NonexistentEntityException {
+    public void testDisableProductByCode() throws NonexistentEntityException {
         // Arrange
         String code = "123456789012345"; // Código del producto como String
         Product productToDisable = new Product(code, "Product to Disable", 10.0, 5, 1, 19, null, null);
         when(productRepositoryMock.findProductEnabledByCode(code)).thenReturn(productToDisable);
 
         // Act
-        Product disabledProduct = productService.disableAccountByCode(code);
+        Product disabledProduct = productService.disableProductByCode(code);
 
         // Assert
         assertNotNull(disabledProduct);
@@ -151,6 +151,21 @@ public class ProductServiceTest {
         // Assert
         assertNull(savedProduct);
         verify(productRepositoryMock, never()).create(any(Product.class));
+    }
+    @Test
+    public void testDeleteProduct() throws NonexistentEntityException {
+        // Arrange
+        String code = "1";
+        Product productToDelete = new Product(code, "Product to Delete", 10.0, 5, 1, 19, null, null);
+        when(productRepositoryMock.findProductEnabledByCode(code)).thenReturn(productToDelete);
+
+        // Act
+        productService.delete(code);
+
+        // Assert
+        if (productToDelete != null && productToDelete.getId() != null) {
+            verify(productRepositoryMock).destroy(productToDelete.getId());
+        }
     }
 
 

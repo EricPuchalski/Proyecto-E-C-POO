@@ -90,7 +90,7 @@ public class ProductService implements CRUD<Product>{
         return null;
     }
 
-    public Product disableAccountByCode(String cuit){
+    public Product disableProductByCode(String cuit){
         Product productFound = productRepository.findProductEnabledByCode(cuit);
         if (productFound!=null) {
             try {
@@ -102,7 +102,7 @@ public class ProductService implements CRUD<Product>{
         }
         return null;
     }
-    public List<Product> findAllEnabledEmployees(){
+    public List<Product> findAllEnabledProducts(){
         return productRepository.findProductEntities()
             .stream()
             .filter(customer -> customer.getStatus().equals(Product.Status.ENABLED))
