@@ -1,4 +1,5 @@
 import org.example.dao.CarrierRepository;
+import org.example.dao.exceptions.NonexistentEntityException;
 import org.example.model.Carrier;
 import org.example.service.CarrierService;
 import org.junit.Test;
@@ -181,6 +182,34 @@ public class CarrierServiceTest {
             e.printStackTrace();
         }
     }
+    @Test
+    public void testDisableAccountByCuit() throws NonexistentEntityException {
+
+// Arrange
+        CarrierRepository carrierRepositoryMock = mock(CarrierRepository.class);
+        CarrierService carrierService = new CarrierService(carrierRepositoryMock);
+
+        String cuit = "1234567890";
+
+        Carrier existingCarrier = new Carrier(cuit, "name", "doc", "email");
+
+        when(carrierRepositoryMock.findCarrierEnabledByCuit(cuit)).thenReturn(existingCarrier);
+        when(carrierRepositoryMock.disableAccountByCuit(cuit)).thenReturn(existingCarrier);
+
+// Act
+        Carrier disabledCarrier = carrierService.disableAccountByCuit(cuit);
+
+// Assert
+        assertEquals(existingCarrier, disabledCarrier);
+
+        verify(carrierRepositoryMock).findCarrierEnabledByCuit(cuit);
+        verify(carrierRepositoryMock).disableAccountByCuit(cuit);
+
+    }
+
+
+
+
 
 
 }

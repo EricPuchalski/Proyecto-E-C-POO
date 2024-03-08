@@ -468,4 +468,9 @@ public class OrderRepository implements Serializable {
         }
     }
 
+
+    public Order save(Order order) {
+        // Este método no hace nada, simplemente devuelve null jajaja
+        return null;
+    }
 }

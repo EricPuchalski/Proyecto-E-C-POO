@@ -1,5 +1,9 @@
 package org.example.service;
 
+import lombok.Getter;
+import lombok.Setter;
+
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import org.example.dao.OrderRepository;
@@ -15,8 +19,10 @@ import org.example.model.Warehouse;
 
 public class OrderService implements CRUD<Order> {
 
-    private OrderRepository orderRepository=new OrderRepository();
-    public OrderService(){}
+    private OrderRepository orderRepository = new OrderRepository();
+
+    public OrderService() {
+    }
 
     public OrderService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
@@ -24,9 +30,8 @@ public class OrderService implements CRUD<Order> {
 
     @Override
     public Order save(Order order) {
-
-        return null;
-
+        // Llamamos al método save del repositorio y retornamos su resultado, no hace nada jaja
+        return orderRepository.save(order);
     }
 
     public Order createOrder(Order order, Warehouse warehouseOrig, Warehouse warehouseDest, String cuitCustomer, String cuitCarrier) {
@@ -37,7 +42,6 @@ public class OrderService implements CRUD<Order> {
         }
         return null;
     }
-
 
 
     @Override
@@ -130,7 +134,7 @@ public class OrderService implements CRUD<Order> {
             } catch (Exception ex) {
                 Logger.getLogger(OrderService.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
         return null;
     }
@@ -177,17 +181,30 @@ public class OrderService implements CRUD<Order> {
                 .collect(Collectors.toList());
         return ordersFound;
     }
+
     public List<Order> findAllUndeliveredOrders() {
-    return orderRepository.findOrderEntities()
-            .stream()
-            .filter(order -> !order.getOrderStatus().equals("Entrega"))
-            .collect(Collectors.toList());
-}
+        return orderRepository.findOrderEntities()
+                .stream()
+                .filter(order -> !order.getOrderStatus().equals("Entrega"))
+                .collect(Collectors.toList());
+    }
+
 
 }
-
 /*
+ @Override ASI ORIGINALMENTE ESTABA
+    public Order findOne(String orderNumber) {
+        Order orderExist = orderRepository.findOrderByOrderNumber(orderNumber);
+        for (Order order : orderRepository.findOrderEntities()) {
+            if (orderExist != null) {
+                if (orderNumber.equals(order.getOrderNumber())) {
+                    return order;
+                }
+            }
 
+        }
+        return null;
+    }
 
  */
 
@@ -300,3 +317,15 @@ public class OrderService implements CRUD<Order> {
 //}
 //
 //
+
+/* CAMBIADO POR EL NUEVO
+   public List<Order> findAllOrdersByWarehouseOrig(Long idWarehouse) {
+        List<Order> orders = new ArrayList();
+        for (Order order : this.findAll()) {
+            if (order.getWarehouseOrig().getId().equals(idWarehouse)) {
+                orders.add(order);
+            }
+        }
+        return orders;
+    }
+ */
