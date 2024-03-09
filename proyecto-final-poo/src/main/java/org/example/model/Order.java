@@ -63,7 +63,13 @@
         public Order(String orderNumber) {
             this.orderNumber = orderNumber;
 
-        }//sobre carga de constructores por las dudas
+        }
+        public Order(String orderNumber, Customer customer) {
+            this.orderNumber = orderNumber;
+            this.customer = customer;
+        }
+
+        //sobre carga de constructores por las dudas
 
         public Order() {
             this.orderLines = new ArrayList<>();

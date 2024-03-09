@@ -77,7 +77,8 @@ public class OrderService implements CRUD<Order> {
 
     @Override
     public void delete(String orderNumber) throws NonexistentEntityException {
-        Order deleteOrder = findOne(orderNumber);
+        Order deleteOrder = orderRepository.findOrderByOrderNumber(orderNumber);
+// Order deleteOrder = findOne(orderNumber);
         if (deleteOrder != null) {
             orderRepository.destroy(deleteOrder.getId());
         }
@@ -118,7 +119,7 @@ public class OrderService implements CRUD<Order> {
         } else {
             return null;
         }
-    }//nuevo
+    }
 
     public Order orderTransit(String orderNumber) {
         Order orderFound = orderRepository.findOrderByOrderNumber(orderNumber);

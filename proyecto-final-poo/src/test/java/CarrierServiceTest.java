@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -207,9 +208,132 @@ public class CarrierServiceTest {
 
     }
 
+    @Test
+    public void testDisableAccountByNonexistentCuit() throws NonexistentEntityException {
+        // Arrange
+        CarrierRepository carrierRepositoryMock = mock(CarrierRepository.class);
+        CarrierService carrierService = new CarrierService(carrierRepositoryMock);
 
+        String nonexistentCuit = "9999999999"; // CUIT que no existe en el repositorio
+        when(carrierRepositoryMock.findCarrierEnabledByCuit(nonexistentCuit)).thenReturn(null);
 
+        // Act
+        try {
+            Carrier disabledCarrier = carrierService.disableAccountByCuit(nonexistentCuit);
+            // Assert
+            assertNull(disabledCarrier); // Se espera que no se desactive ninguna cuenta ya que el CUIT no existe
+            verify(carrierRepositoryMock).findCarrierEnabledByCuit(nonexistentCuit);
+            verify(carrierRepositoryMock, never()).disableAccountByCuit(nonexistentCuit);
+        } catch (NonexistentEntityException e) {
+            // Si se lanza una excepción, la prueba falla
+            e.printStackTrace();
+        }
+    }
 
+    @Test
+    public void testDisableAccountWithNullCarrier() throws NonexistentEntityException {
+        // Arrange
+        CarrierRepository carrierRepositoryMock = mock(CarrierRepository.class);
+        CarrierService carrierService = new CarrierService(carrierRepositoryMock);
+
+        String nonExistentCuit = "9999999999"; // CUIT que no existe en el repositorio
+        when(carrierRepositoryMock.findCarrierEnabledByCuit(nonExistentCuit)).thenReturn(null);
+
+        // Act
+        Carrier disabledCarrier = carrierService.disableAccountByCuit(nonExistentCuit);
+
+        // Assert
+        assertNull(disabledCarrier); // Se espera que no se desactive ninguna cuenta ya que el CUIT no existe
+        verify(carrierRepositoryMock).findCarrierEnabledByCuit(nonExistentCuit);
+        verify(carrierRepositoryMock, never()).disableAccountByCuit(nonExistentCuit);
+    }
+
+    @Test
+    public void testFindOne() {
+        // Arrange
+        CarrierRepository carrierRepositoryMock = mock(CarrierRepository.class);
+        CarrierService carrierService = new CarrierService(carrierRepositoryMock);
+
+        // Crear una lista de transportistas simulada
+        List<Carrier> carriers = new ArrayList<>();
+        carriers.add(new Carrier("1234567890", "Carrier1", "123456789", "example1@example.com"));
+        carriers.add(new Carrier("2345678901", "Carrier2", "234567890", "example2@example.com"));
+        carriers.add(new Carrier("3456789012", "Carrier3", "345678901", "example3@example.com"));
+        when(carrierRepositoryMock.findCarrierEntities()).thenReturn(carriers);
+
+        // Act
+        Carrier foundCarrier = carrierService.findOne("2345678901");
+
+        // Assert
+        assertNotNull(foundCarrier);
+        assertEquals("Carrier2", foundCarrier.getName());
+        assertEquals("2345678901", foundCarrier.getCuit());
+    }
+
+    @Test
+    public void testFindAll() {
+        // Arrange
+        CarrierRepository carrierRepositoryMock = mock(CarrierRepository.class);
+        CarrierService carrierService = new CarrierService(carrierRepositoryMock);
+
+        // Crear una lista simulada de transportistas
+        List<Carrier> expectedCarriers = new ArrayList<>();
+        expectedCarriers.add(new Carrier("1234567890", "Carrier1", "123456789", "example1@example.com"));
+        expectedCarriers.add(new Carrier("2345678901", "Carrier2", "234567890", "example2@example.com"));
+        expectedCarriers.add(new Carrier("3456789012", "Carrier3", "345678901", "example3@example.com"));
+        when(carrierRepositoryMock.findCarrierEntities()).thenReturn(expectedCarriers);
+
+        // Act
+        List<Carrier> foundCarriers = carrierService.findAll();
+
+        // Assert
+        assertEquals(expectedCarriers.size(), foundCarriers.size());
+        for (int i = 0; i < expectedCarriers.size(); i++) {
+            Carrier expectedCarrier = expectedCarriers.get(i);
+            Carrier foundCarrier = foundCarriers.get(i);
+            assertEquals(expectedCarrier.getId(), foundCarrier.getId());
+            assertEquals(expectedCarrier.getName(), foundCarrier.getName());
+            assertEquals(expectedCarrier.getCuit(), foundCarrier.getCuit());
+            assertEquals(expectedCarrier.getEmail(), foundCarrier.getEmail());
+        }
+    }
+
+    @Test
+    public void testFindCarrierEnabledByEmail() {
+        // Arrange
+        String expectedEmail = "test@example.com";
+        CarrierRepository carrierRepositoryMock = mock(CarrierRepository.class);
+        CarrierService carrierService = new CarrierService(carrierRepositoryMock);
+
+        // Crear una lista de transportistas simulada
+        List<Carrier> carriers = new ArrayList<>();
+        carriers.add(new Carrier("1234567890", "Carrier1", "123456789", "example1@example.com"));
+        carriers.add(new Carrier("2345678901", "Carrier2", "234567890", expectedEmail));
+        carriers.add(new Carrier("3456789012", "Carrier3", "345678901", "example3@example.com"));
+        when(carrierRepositoryMock.findCarrierEntities()).thenReturn(carriers);
+
+        // Act
+        Carrier foundCarrier = carrierService.findCarrierEnabledByEmail(expectedEmail);
+
+        // Assert
+        assertEquals("Carrier2", foundCarrier.getName());
+        assertEquals("2345678901", foundCarrier.getCuit());
+        assertEquals(expectedEmail, foundCarrier.getEmail());
+    }
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
