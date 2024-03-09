@@ -42,6 +42,7 @@ public class PanelDispatchOrder extends javax.swing.JPanel {
         tblOrders = new javax.swing.JTable();
         bttnBack = new javax.swing.JButton();
         bttnConfirm = new javax.swing.JButton();
+        bttnOrder = new javax.swing.JButton();
 
         addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
@@ -78,7 +79,7 @@ public class PanelDispatchOrder extends javax.swing.JPanel {
         bttnBack.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         bttnBack.setForeground(new java.awt.Color(255, 255, 255));
         bttnBack.setText("Cancelar");
-        bttnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnBackActionPerformed(evt);
@@ -89,10 +90,17 @@ public class PanelDispatchOrder extends javax.swing.JPanel {
         bttnConfirm.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         bttnConfirm.setForeground(new java.awt.Color(255, 255, 255));
         bttnConfirm.setText("Confirmar");
-        bttnConfirm.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnConfirm.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnConfirmActionPerformed(evt);
+            }
+        });
+
+        bttnOrder.setText("Buscar");
+        bttnOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnOrderActionPerformed(evt);
             }
         });
 
@@ -103,7 +111,15 @@ public class PanelDispatchOrder extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(130, 130, 130)
                 .addComponent(lblWelcome)
-                .addContainerGap(186, Short.MAX_VALUE))
+                .addGap(47, 186, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(lblOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(txtOrder)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bttnOrder)
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(107, 107, 107)
@@ -112,32 +128,29 @@ public class PanelDispatchOrder extends javax.swing.JPanel {
                             .addComponent(bttnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(67, 67, 67)
                             .addComponent(bttnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(35, 35, 35)
-                            .addComponent(txtOrder))
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(49, 49, 49)))
+                    .addContainerGap(173, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(64, 64, 64)
                 .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(592, Short.MAX_VALUE))
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblOrder)
+                    .addComponent(bttnOrder))
+                .addContainerGap(525, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(154, 154, 154)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblOrder)
-                        .addComponent(txtOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
+                    .addGap(194, 194, 194)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(41, 41, 41)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(bttnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(bttnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(75, Short.MAX_VALUE)))
+                    .addContainerGap(77, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -171,10 +184,15 @@ public class PanelDispatchOrder extends javax.swing.JPanel {
         tblOrders.setModel(viewController.modelTableOrders());
     }//GEN-LAST:event_formAncestorAdded
 
+    private void bttnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnOrderActionPerformed
+        tblOrders.setModel(viewController.modelTableOrdersByNumber(txtOrder.getText()));
+    }//GEN-LAST:event_bttnOrderActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bttnBack;
     private javax.swing.JButton bttnConfirm;
+    private javax.swing.JButton bttnOrder;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JLabel lblOrder;
     private javax.swing.JLabel lblWelcome;

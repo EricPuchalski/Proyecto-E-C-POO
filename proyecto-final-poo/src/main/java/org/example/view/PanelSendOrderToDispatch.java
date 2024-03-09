@@ -87,7 +87,7 @@ public class PanelSendOrderToDispatch extends javax.swing.JPanel {
         bttnBack.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         bttnBack.setForeground(new java.awt.Color(255, 255, 255));
         bttnBack.setText("Cancelar");
-        bttnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnBackActionPerformed(evt);
@@ -98,7 +98,7 @@ public class PanelSendOrderToDispatch extends javax.swing.JPanel {
         bttnConfirm.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         bttnConfirm.setForeground(new java.awt.Color(255, 255, 255));
         bttnConfirm.setText("Confirmar");
-        bttnConfirm.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnConfirm.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnConfirmActionPerformed(evt);
