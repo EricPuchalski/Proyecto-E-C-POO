@@ -225,6 +225,95 @@ public class SupplierServiceTest {
         assertNull(resultSupplier);
     }
 
+    @Test
+    public void testDisableAccountByCuitNotFound() throws NonexistentEntityException {
+        // Arrange
+        String cuit = "12345678901";
+        when(supplierRepositoryMock.findSupplierEnabledByCuit(cuit)).thenReturn(null);
+
+        // Act
+        Supplier resultSupplier = supplierService.disableAccountByCuit(cuit);
+
+        // Assert
+        assertNull(resultSupplier);
+        verify(supplierRepositoryMock, never()).disableAccountByCuit(cuit);
+    }
+    @Test
+    public void testFindSupplierByPhoneWithMultipleSuppliers() {
+        // Arrange
+        String phoneNumber = "Existing Phone";
+        List<Supplier> suppliers = Arrays.asList(
+                new Supplier("12345678901", "Supplier1", "Address1", phoneNumber, "supplier1@example.com"),
+                new Supplier("12345678902", "Supplier2", "Address2", phoneNumber, "supplier2@example.com"),
+                new Supplier("12345678903", "Supplier3", "Address3", phoneNumber, "supplier3@example.com")
+        );
+        when(supplierRepositoryMock.findSupplierEntities()).thenReturn(suppliers);
+
+        // Act
+        Supplier foundSupplier = supplierService.findSupplierEnabledByPhone(phoneNumber);
+
+        // Assert
+        assertNotNull(foundSupplier);
+        assertTrue(suppliers.contains(foundSupplier));
+    }
+
+    @Test
+    public void testFindSupplierByPhoneWithDisabledSupplier() {
+        // Arrange
+        String phoneNumber = "Existing Phone";
+        Supplier disabledSupplier = new Supplier("12345678901", "Supplier", "Address", phoneNumber, "supplier@example.com");
+        disabledSupplier.setStatus(Supplier.Status.DISABLED);
+        when(supplierRepositoryMock.findSupplierEntities()).thenReturn(Collections.singletonList(disabledSupplier));
+
+        // Act
+        Supplier foundSupplier = supplierService.findSupplierEnabledByPhone(phoneNumber);
+
+        // Assert
+        assertNull(foundSupplier);
+    }
+
+    @Test
+    public void testFindSupplierByNonexistentPhone() {
+        // Arrange
+        String phoneNumber = "Nonexistent Phone";
+        when(supplierRepositoryMock.findSupplierEntities()).thenReturn(Collections.emptyList());
+
+        // Act
+        Supplier foundSupplier = supplierService.findSupplierEnabledByPhone(phoneNumber);
+
+        // Assert
+        assertNull(foundSupplier);
+    }
+
+    @Test
+    public void testUpdateExistingSupplier() throws Exception {
+        // Arrange
+        Supplier existingSupplier = new Supplier("12345678901", "Existing Supplier", "Existing Address", "Existing Phone", "existing@example.com");
+        when(supplierRepositoryMock.findSupplier(existingSupplier.getId())).thenReturn(existingSupplier);
+        when(supplierRepositoryMock.edit(existingSupplier)).thenReturn(existingSupplier);
+
+        // Act
+        Supplier updatedSupplier = supplierService.upDate(existingSupplier);
+
+        // Assert
+        assertNotNull(updatedSupplier);
+        assertEquals(existingSupplier, updatedSupplier);
+    }
+
+    @Test
+    public void testUpdateNonExistingSupplier() throws Exception {
+        // Arrange
+        Supplier nonExistingSupplier = new Supplier("12345678901", "Non Existing Supplier", "Non Existing Address", "Non Existing Phone", "nonexisting@example.com");
+        when(supplierRepositoryMock.findSupplier(nonExistingSupplier.getId())).thenReturn(null);
+
+        // Act
+        Supplier updatedSupplier = supplierService.upDate(nonExistingSupplier);
+
+        // Assert
+        assertNull(updatedSupplier);
+    }
+
+
 }
 
 
