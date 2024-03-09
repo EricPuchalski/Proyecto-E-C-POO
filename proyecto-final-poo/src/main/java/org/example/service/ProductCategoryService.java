@@ -14,7 +14,7 @@ import org.example.model.ProductCategory;
  *
  * @author ericp
  */
-public class ProductCategoryService implements CRUD<ProductCategory>{
+public class ProductCategoryService{
     private ProductCategoryRepository productCategoryRepository;
 
     public ProductCategoryService() {
@@ -24,32 +24,12 @@ public class ProductCategoryService implements CRUD<ProductCategory>{
     public ProductCategoryService(ProductCategoryRepository productCategoryRepository) {
         this.productCategoryRepository = productCategoryRepository;
     }
-    
-    
-    
-    @Override
-    public ProductCategory save(ProductCategory t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
-    @Override
-    public ProductCategory upDate(ProductCategory t) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
-    @Override
-    public ProductCategory findOne(String cuit) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
-    @Override
     public List<ProductCategory> findAll() {
         return productCategoryRepository.findProductCategoryEntities();
     }
 
-    @Override
-    public void delete(String cuit) throws NonexistentEntityException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
 }

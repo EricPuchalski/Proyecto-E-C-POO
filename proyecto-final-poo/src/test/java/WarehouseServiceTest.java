@@ -1,6 +1,7 @@
 import org.example.dao.EmployeeRepository;
 import org.example.dao.WarehouseRepository;
 import org.example.dao.exceptions.NonexistentEntityException;
+import org.example.model.Customer;
 import org.example.model.Employee;
 import org.example.model.Position;
 import org.example.model.Warehouse;
@@ -57,6 +58,34 @@ public class WarehouseServiceTest {
         assertEquals(deposito1.getPhone(), savedWarehouse.getPhone());
         assertEquals(deposito1.getEmail(), savedWarehouse.getEmail());
         assertEquals(deposito1.getContinent(), savedWarehouse.getContinent());
+
+    }
+
+    @Test
+    public void createWarehouseWithEmptyFields() {
+        // Arrange
+        Warehouse deposito1 = new Warehouse("","","","","", "",new Position(39.900853,116.399813));
+
+        // Act
+        Warehouse savedWarehouse = warehouseService.save(deposito1);
+
+        // Assert
+        assertNull(savedWarehouse);
+
+    }
+
+    //Sin importar los estados
+    @Test
+    public void findWarehouseById() {
+        // Arrange
+        Warehouse deposito1 = new Warehouse("12321","Deposito China","Calle 1","34543534","depositoCH@gmail.com", "Asia",new Position(39.900853,116.399813));
+        // Act
+        when(warehouseService.findOneById(3L)).thenReturn(deposito1);
+        Warehouse savedWarehouse = warehouseService.findOneById(3L);
+
+        // Assert
+        assertNotNull(savedWarehouse);
+        assertEquals(deposito1.getName(),savedWarehouse.getName());
 
     }
     @Test
@@ -239,5 +268,89 @@ public class WarehouseServiceTest {
         assertNotNull(updatedWarehouse);
         assertEquals(warehouseDisabled, updatedWarehouse);
         assertEquals(Warehouse.Estado.DISABLED, updatedWarehouse.getStatus());
+    }
+    @Test
+    public void testDisableAccountByCuitWithEmailNoExist() throws NonexistentEntityException {
+        // Arrange
+        Warehouse warehouseDisabled = new Warehouse("3421","Deposito Japon","Calle 123","3432334","depositoJP@gmail.com", "Asia",new Position(39.954653,316.399813));
+        warehouseDisabled.setStatus(Warehouse.Estado.DISABLED);
+        Warehouse warehouseEnabled = new Warehouse("3455","Deposito Japon","Calle 123","3432334","depositoJP@gmail.com", "Asia",new Position(39.954653,316.399813));
+
+        // Configurar el comportamiento del mock para devolver el objeto disabledCustomer cuando se llame a disableAccountByCuit(cuit) con el CUIT correspondiente
+        when(warehouseRepository.findWarehouseEnabledByCuit("dasdas@gmail.com")).thenReturn(null);
+
+        // Act
+        Warehouse updatedWarehouse = warehouseService.disableAccountByEmail("dasdas@gmail.com");
+
+        // Assert
+        assertNull(updatedWarehouse);
+
+    }
+    //Sin importar estados
+    @Test
+    public void testFindAllWarehouses() {
+        Warehouse warehouseDisabled = new Warehouse("3421","Deposito Japon","Calle 123","3432334","depositoJP@gmail.com", "Asia",new Position(39.954653,316.399813));
+        warehouseDisabled.setStatus(Warehouse.Estado.DISABLED);
+        Warehouse warehouseEnabled = new Warehouse("3455","Deposito Japon","Calle 123","3432334","depositoJP@gmail.com", "Asia",new Position(39.954653,316.399813));
+
+
+        List<Warehouse> warehouseList = Arrays.asList(
+                warehouseDisabled,
+                warehouseEnabled
+        );
+
+        // Mock repository behavior
+        when(warehouseRepository.findWarehouseEntities()).thenReturn(warehouseList);
+
+        // Call the service method
+        List<Warehouse> retrievedWarehouseList = warehouseService.findAll();
+
+        // Assert results
+        assertEquals(2, retrievedWarehouseList.size());
+        assertEquals("3421", retrievedWarehouseList.get(0).getCode());
+        assertEquals("3455", retrievedWarehouseList.get(1).getCode());
+    }
+    @Test
+    public void testFindAllEnabledWarehousesByEmail() {
+        // Arrange
+        Warehouse deposito1 = new Warehouse("3421","Deposito Japon","Calle 123","3432334","depositoJP@gmail.com", "Asia",new Position(39.954653,316.399813));
+        deposito1.setStatus(Warehouse.Estado.ENABLED);
+        Warehouse deposito2 = new Warehouse("12541","Deposito China","Calle 144","34454534","depositoCH@gmail.com", "Asia",new Position(39.123253,216.399813));
+        deposito2.setStatus(Warehouse.Estado.DISABLED);
+        Warehouse deposito3 = new Warehouse("1261","Deposito Argentina","Calle 3","346533534","depositoAR@gmail.com", "Asia",new Position(39.540853,116.399813));
+        deposito3.setStatus(Warehouse.Estado.ENABLED);
+
+        List<Warehouse> warehouseList = Arrays.asList(deposito1, deposito2, deposito3);
+
+        // Configurar el comportamiento esperado del mock de WarehouseRepository
+        when(warehouseRepository.findWarehouseEntities()).thenReturn(warehouseList);
+        // Act
+        List<Warehouse> enabledWarehouses = warehouseService.findAllWarehousesByEmail("depo");
+
+        // Assert
+
+        assertEquals(2, enabledWarehouses.size());
+
+    }
+    @Test
+    public void testFindAllEnabledWarehousesByEmailWithEmptyEmail() {
+        // Arrange
+        Warehouse deposito1 = new Warehouse("3421","Deposito Japon","Calle 123","3432334","depositoJP@gmail.com", "Asia",new Position(39.954653,316.399813));
+        deposito1.setStatus(Warehouse.Estado.ENABLED);
+        Warehouse deposito2 = new Warehouse("12541","Deposito China","Calle 144","34454534","depositoCH@gmail.com", "Asia",new Position(39.123253,216.399813));
+        deposito2.setStatus(Warehouse.Estado.DISABLED);
+        Warehouse deposito3 = new Warehouse("1261","Deposito Argentina","Calle 3","346533534","depositoAR@gmail.com", "Asia",new Position(39.540853,116.399813));
+        deposito3.setStatus(Warehouse.Estado.ENABLED);
+
+        List<Warehouse> warehouseList = Arrays.asList(deposito1, deposito2, deposito3);
+
+        // Configurar el comportamiento esperado del mock de WarehouseRepository
+        // Act
+        List<Warehouse> enabledWarehouses = warehouseService.findAllWarehousesByEmail("");
+
+        // Assert
+
+        assertEquals(0, enabledWarehouses.size());
+
     }
 }
