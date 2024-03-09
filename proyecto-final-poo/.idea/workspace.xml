@@ -5,14 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e042aeb7-fc34-459c-a045-09091da24f8c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/example/service/WarehouseServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/OrderLineServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ProductCategoryRepositoryTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/EmployeeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/EmployeeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/WarehouseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/WarehouseService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/PanelEmployeeCreate.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/view/PanelEmployeeCreate.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/PanelEmployeeCreate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/view/PanelEmployeeCreate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/service/CustomerServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/service/CustomerServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/service/EmployeeServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/service/EmployeeServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/OrderLineService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/OrderLineService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/ProductCategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/ProductCategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/PanelEmployeeEdit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/view/PanelEmployeeEdit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/CustomerServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CustomerServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/EmployeeServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/EmployeeServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/WarehouseServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/WarehouseServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,9 +58,45 @@
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
   }
 }</component>
-
-  <component name="RunManager" selected="JUnit.WarehouseServiceTest.testDisableAccountByEmail">
-    <configuration name="WarehouseServiceTest.testDisableAccountByEmail" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.java in proyecto">
+    <configuration name="OrderLineServiceTest.saveOrderLine" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="proyecto" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="OrderLineServiceTest" />
+      <option name="METHOD_NAME" value="saveOrderLine" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductCategoryRepositoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="proyecto" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ProductCategoryRepositoryTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductCategoryRepositoryTest.findAllProductCategories" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="proyecto" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ProductCategoryRepositoryTest" />
+      <option name="METHOD_NAME" value="findAllProductCategories" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="java in proyecto" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="proyecto" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="$PROJECT_DIR$/src/test/java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="org.example.service in proyecto" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="proyecto" />
       <extension name="coverage">
         <pattern>
@@ -67,148 +105,20 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="org.example.service" />
-      <option name="MAIN_CLASS_NAME" value="org.example.service.WarehouseServiceTest" />
-      <option name="METHOD_NAME" value="testDisableAccountByEmail" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WarehouseServiceTest.testFindAllEnabledWarehouses" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="proyecto" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.example.service" />
-      <option name="MAIN_CLASS_NAME" value="org.example.service.WarehouseServiceTest" />
-      <option name="METHOD_NAME" value="testFindAllEnabledWarehouses" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WarehouseServiceTest.testFindOneWithNullCode" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="proyecto" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.example.service" />
-      <option name="MAIN_CLASS_NAME" value="org.example.service.WarehouseServiceTest" />
-      <option name="METHOD_NAME" value="testFindOneWithNullCode" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WarehouseServiceTest.testUpdateExistingWarehouse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="proyecto" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.example.service" />
-      <option name="MAIN_CLASS_NAME" value="org.example.service.WarehouseServiceTest" />
-      <option name="METHOD_NAME" value="testUpdateExistingWarehouse" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WarehouseServiceTest.testUpdateNonExistingWarehouse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="proyecto" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.example.service" />
-      <option name="MAIN_CLASS_NAME" value="org.example.service.WarehouseServiceTest" />
-      <option name="METHOD_NAME" value="testUpdateNonExistingWarehouse" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CarrierServiceTest.testDisableAccountByCuit" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="proyecto" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.test" />
-      <option name="MAIN_CLASS_NAME" value="org.test.CarrierServiceTest" />
-      <option name="METHOD_NAME" value="testDisableAccountByCuit" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CarrierServiceTest.testFindAllCarriersByCuit" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="proyecto" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.test" />
-      <option name="MAIN_CLASS_NAME" value="org.test.CarrierServiceTest" />
-      <option name="METHOD_NAME" value="testFindAllCarriersByCuit" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CarrierServiceTest.testFindExistingCarrierByCuit" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="proyecto" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.test" />
-      <option name="MAIN_CLASS_NAME" value="org.test.CarrierServiceTest" />
-      <option name="METHOD_NAME" value="testFindExistingCarrierByCuit" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CarrierServiceTest.testFindNonExistingCarrierByCuit" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="proyecto" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.test" />
-      <option name="MAIN_CLASS_NAME" value="org.test.CarrierServiceTest" />
-      <option name="METHOD_NAME" value="testFindNonExistingCarrierByCuit" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.WarehouseServiceTest.testDisableAccountByEmail" />
-        <item itemvalue="JUnit.WarehouseServiceTest.testFindAllEnabledWarehouses" />
-        <item itemvalue="JUnit.WarehouseServiceTest.testUpdateNonExistingWarehouse" />
-        <item itemvalue="JUnit.WarehouseServiceTest.testUpdateExistingWarehouse" />
-        <item itemvalue="JUnit.WarehouseServiceTest.testFindOneWithNullCode" />
+        <item itemvalue="JUnit.java in proyecto" />
+        <item itemvalue="JUnit.OrderLineServiceTest.saveOrderLine" />
+        <item itemvalue="JUnit.ProductCategoryRepositoryTest" />
+        <item itemvalue="JUnit.ProductCategoryRepositoryTest.findAllProductCategories" />
+        <item itemvalue="JUnit.org.example.service in proyecto" />
       </list>
     </recent_temporary>
   </component>
@@ -233,5 +143,11 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/proyecto_final_poo$java_in_proyecto.ic" NAME="java in proyecto Coverage Results" MODIFIED="1709948541444" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/proyecto_final_poo$org_example_service_in_proyecto.ic" NAME="org.example.service in proyecto Coverage Results" MODIFIED="1709948083549" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.example.service.*</FILTER>
+    </SUITE>
   </component>
 </project>

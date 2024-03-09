@@ -13,7 +13,7 @@ import org.example.model.OrderLine;
  *
  * @author ericp
  */
-public class OrderLineService implements CRUD<OrderLine>{
+public class OrderLineService{
     private OrderLineRepository orderLineRepository;
 
     public OrderLineService() {
@@ -25,33 +25,10 @@ public class OrderLineService implements CRUD<OrderLine>{
     }
 
     
-    @Override
+
     public OrderLine save(OrderLine t) {
         return orderLineRepository.create(t);
     }
 
-    @Override
-    public OrderLine upDate(OrderLine t) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public OrderLine findOne(String cuit) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public List<OrderLine> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void delete(String cuit) throws NonexistentEntityException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
-    
-    
-    
     
 }

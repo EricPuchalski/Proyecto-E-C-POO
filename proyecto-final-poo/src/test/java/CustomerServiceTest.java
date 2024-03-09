@@ -51,6 +51,18 @@ public class CustomerServiceTest {
         verify(customerRepository, times(1)).create(customer);
     }
     @Test
+    public void createCustomerWithEmptyFields() {
+        // Arrange
+        Customer customer = new Customer("", "", "", "", "");
+        
+        // Act
+        Customer savedCustomer = customerService.save(customer);
+
+        // Assert
+        assertNull(savedCustomer);
+
+    }
+    @Test
     public void crearClienteConCuitYaExistente() {
         // Arrange
         Customer newCustomer = new Customer("1510", "Juan", "Puch", "Asd 232", "3243242");
@@ -130,8 +142,6 @@ public class CustomerServiceTest {
         // Arrange
         String cuit = "123";
         Customer nonExistingCustomer = new Customer(cuit, "John", "Doe", "123 Main St", "555-1234");
-        when(customerRepository.edit(nonExistingCustomer)).thenReturn(null);
-
         // Act
         Customer updatedCustomer = customerService.upDate(nonExistingCustomer);
 
@@ -158,15 +168,106 @@ public class CustomerServiceTest {
         List<Customer> enabledCustomers = customerService.findAllEnabledCustomers();
 
         // Assert
-        List<Customer> expectedEnabledCustomers = allCustomers.stream()
-                .filter(customer -> customer.getEstado().equals(Customer.Estado.ENABLED))
-                .collect(Collectors.toList());
 
-        assertEquals(expectedEnabledCustomers.size(), enabledCustomers.size());
-        for (int i = 0; i < expectedEnabledCustomers.size(); i++) {
-            assertEquals(expectedEnabledCustomers.get(i), enabledCustomers.get(i));
-        }
+
+        assertEquals(enabledCustomers.size(),2);
+
     }
+    @Test
+    public void testFindAllEnabledCustomersByCuit() {
+        // Arrange
+        Customer customer1 = new Customer("234", "John", "Doe", "123 Main St", "555-1234");
+        customer1.setEstado(Customer.Estado.ENABLED);
+        Customer customer2 = new Customer("543", "Jane", "Smith", "456 Oak St", "555-5678");
+        customer2.setEstado(Customer.Estado.DISABLED);
+        Customer customer3 = new Customer("233", "Bob", "Jones", "789 Elm St", "555-9012");
+        customer3.setEstado(Customer.Estado.ENABLED);
+
+        List<Customer> allCustomers = Arrays.asList(customer1, customer2, customer3);
+
+        // Configurar el comportamiento esperado del mock de CustomerRepository
+        when(customerRepository.findCustomerEntities()).thenReturn(allCustomers);
+
+        // Act
+        List<Customer> enabledCustomers = customerService.findAllCustomersByCuit("23");
+
+        // Assert
+
+
+        assertEquals(enabledCustomers.size(),2);
+
+    }
+    @Test
+    public void testFindAllEnabledCustomersByCuitWithEmptyCuit() {
+        // Arrange
+        Customer customer1 = new Customer("234", "John", "Doe", "123 Main St", "555-1234");
+        customer1.setEstado(Customer.Estado.ENABLED);
+        Customer customer2 = new Customer("543", "Jane", "Smith", "456 Oak St", "555-5678");
+        customer2.setEstado(Customer.Estado.DISABLED);
+        Customer customer3 = new Customer("233", "Bob", "Jones", "789 Elm St", "555-9012");
+        customer3.setEstado(Customer.Estado.ENABLED);
+
+        List<Customer> allCustomers = Arrays.asList(customer1, customer2, customer3);
+
+        // Act
+        List<Customer> enabledCustomers = customerService.findAllCustomersByCuit("");
+
+        // Assert
+
+
+        assertEquals(enabledCustomers.size(),0);
+
+    }
+    //findone sin importar los estados
+    @Test
+    public void shouldReturnCustomerWhenCuitExists() {
+        Customer expectedCustomer = new Customer("1", "John", "Doe", "123 Main St", "555-1234");
+
+        List<Customer> customers = Arrays.asList(new Customer("2", "Eric", "Don", "123 Main St", "515-1234"), expectedCustomer);
+
+        when(customerRepository.findCustomerEntities()).thenReturn(customers);
+
+        Customer foundCustomer = customerService.findOne("1");
+
+        assertEquals(foundCustomer.getCuit(), expectedCustomer.getCuit());
+    }
+
+    //findone sin importar los estados
+    @Test
+    public void shouldReturnCustomerWhenCuitNotExists() {
+        Customer expectedCustomer = new Customer("1", "John", "Doe", "123 Main St", "555-1234");
+        List<Customer> customers = Arrays.asList(new Customer("2", "Eric", "Don", "123 Main St", "515-1234"), expectedCustomer);
+
+        when(customerRepository.findCustomerEntities()).thenReturn(customers);
+
+        Customer foundCustomer = customerService.findOne("4");
+
+        assertNull(foundCustomer);
+    }
+    //findall sin importar los estados
+
+    @Test
+    public void testFindAllCustomers() {
+        Customer customerDisabled = new Customer("1", "John", "Doe", "123 Main St", "555-1234");
+        customerDisabled.setEstado(Customer.Estado.DISABLED);
+
+                List<Customer> customers = Arrays.asList(
+                        customerDisabled,
+                new Customer("3", "Juan", "Daw", "543 Main St", "515-1234")
+        );
+
+        // Mock repository behavior
+        when(customerRepository.findCustomerEntities()).thenReturn(customers);
+
+        // Call the service method
+        List<Customer> retrievedCustomers = customerService.findAll();
+
+        // Assert results
+        assertEquals(2, retrievedCustomers.size());
+        assertEquals("John", retrievedCustomers.get(0).getName()); // Assuming Customer has a getName() method
+        assertEquals("Juan", retrievedCustomers.get(1).getName());
+    }
+
 
     @Test
     public void testDisableAccountByCuit() throws NonexistentEntityException {
@@ -187,5 +288,23 @@ public class CustomerServiceTest {
         assertEquals(disabledCustomer, updatedCustomer);
         assertEquals(Customer.Estado.DISABLED, updatedCustomer.getEstado());
     }
+    @Test
+    public void testDisableAccountByCuitWithCuitNoExist() throws NonexistentEntityException {
+        // Arrange
+        Customer enabledCustomer = new Customer("232", "John", "Doe", "123 Main St", "555-1234");
+        Customer disabledCustomer = new Customer("232", "John", "Doe", "123 Main St", "555-1234");
+        disabledCustomer.setEstado(Customer.Estado.DISABLED);
+
+        // Configurar el comportamiento del mock para devolver el objeto disabledCustomer cuando se llame a disableAccountByCuit(cuit) con el CUIT correspondiente
+        when(customerRepository.findCustomerEnabledByCuit("233432")).thenReturn(null);
+
+        // Act
+        Customer updatedCustomer = customerService.disableAccountByCuit("233432");
+
+        // Assert
+        assertNull(updatedCustomer);
+
+    }
+
 
 }

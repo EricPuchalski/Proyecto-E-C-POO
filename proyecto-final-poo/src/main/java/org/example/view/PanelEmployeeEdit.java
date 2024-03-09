@@ -292,14 +292,14 @@ public class PanelEmployeeEdit extends javax.swing.JPanel {
             String newCuit = txtCuit.getText();
 
             // Verificar si el nuevo CUIT es diferente al actual
-            if (!newCuit.equals(employeeEdit.getCuit())) {
+//            if (!newCuit.equals(employeeEdit.getCuit())) {
                 // Verificar si el nuevo CUIT ya existe en la base de datos para otro empleado
                 Employee existingEmployeeWithCuit = employeeController.findOne(newCuit);
                 if (existingEmployeeWithCuit != null && !existingEmployeeWithCuit.getId().equals(employeeEdit.getId())) {
                     JOptionPane.showMessageDialog(null, "El CUIT ingresado ya pertenece a otro empleado.", "Advertencia", JOptionPane.WARNING_MESSAGE);
                     return; // Salir del método si el CUIT ya existe para otro empleado
                 }
-            }
+            //}
 
             // Continuar con la actualización del empleado en la base de datos
             employeeEdit.setNombre(txtName.getText());

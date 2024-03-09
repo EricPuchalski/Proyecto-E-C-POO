@@ -39,7 +39,7 @@ public class EmployeeService implements CRUD<Employee> {
 
         // Verifica si existe otro empleado con el mismo CUIT pero con diferente ID
         if (existingEmployee != null ) {
-            return employeeRepository.edit(employee);
+            return employeeRepository.edit(existingEmployee);
         }
         return null;
 
@@ -112,7 +112,7 @@ public class EmployeeService implements CRUD<Employee> {
     public Employee findEmployeeEnabledByCuit(String cuit) {
         Employee employeeFound = employeeRepository.findEmployeeEnabledByCuit(cuit);
         if (employeeFound != null) {
-            if (employeeFound.getEstado().equals(Customer.Estado.ENABLED)) {
+            if (employeeFound.getEstado().equals(Employee.Status.ENABLED)) {
                 return employeeRepository.findEmployeeEnabledByCuit(cuit);
             }
         }
