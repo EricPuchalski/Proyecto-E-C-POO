@@ -6,26 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="e042aeb7-fc34-459c-a045-09091da24f8c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/CRUD.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/ClienteRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/DepositoRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/EmpleadoRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/InformeRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/PedidoRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/ProductoRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/ProveedorRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/RemitoRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/SectorRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/TransportistaRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/MenuCliente.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/MenuDeposito.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/MenuInforme.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/MenuPedido.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/MenuPrincipal.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/MenuProducto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/MenuProveedor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/MenuTransportista.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/PanelCustomerCreate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/view/PanelCustomerCreate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/ViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/ViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dao/CarrierRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dao/CarrierRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dao/SupplierRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dao/SupplierRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/PanelReport.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/view/PanelReport.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/PanelReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/view/PanelReport.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +54,7 @@
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.java in proyecto">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.Main" />
       <module name="proyecto" />
@@ -114,6 +99,8 @@
     </configuration>
     <configuration name="java in proyecto" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="proyecto" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="directory" />
       <dir value="$PROJECT_DIR$/src/test/java" />
       <method v="2">
@@ -122,8 +109,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.java in proyecto" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.OrderLineServiceTest.saveOrderLine" />
         <item itemvalue="JUnit.ProductCategoryRepositoryTest" />
         <item itemvalue="JUnit.ProductCategoryRepositoryTest.findAllProductCategories" />
@@ -153,7 +140,7 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/proyecto_final_poo$java_in_proyecto.ic" NAME="java in proyecto Coverage Results" MODIFIED="1710013193695" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/proyecto_final_poo$java_in_proyecto.ic" NAME="java in proyecto Coverage Results" MODIFIED="1710183188816" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/proyecto_final_poo$org_example_service_in_proyecto.ic" NAME="org.example.service in proyecto Coverage Results" MODIFIED="1709948083549" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>org.example.service.*</FILTER>
     </SUITE>
