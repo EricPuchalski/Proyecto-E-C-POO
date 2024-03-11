@@ -56,7 +56,7 @@ public class PanelOrder extends javax.swing.JPanel {
         bttnCreateOrder.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         bttnCreateOrder.setForeground(new java.awt.Color(0, 195, 225));
         bttnCreateOrder.setText("CREAR PEDIDO");
-        bttnCreateOrder.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnCreateOrder.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnCreateOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnCreateOrderActionPerformed(evt);
@@ -67,7 +67,7 @@ public class PanelOrder extends javax.swing.JPanel {
         bttnProcessOrder.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         bttnProcessOrder.setForeground(new java.awt.Color(0, 195, 225));
         bttnProcessOrder.setText("PROCESAR PEDIDO");
-        bttnProcessOrder.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnProcessOrder.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnProcessOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnProcessOrderActionPerformed(evt);
@@ -78,7 +78,7 @@ public class PanelOrder extends javax.swing.JPanel {
         bttnCompleteOrder.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         bttnCompleteOrder.setForeground(new java.awt.Color(0, 195, 225));
         bttnCompleteOrder.setText("COMPLETAR PEDIDO");
-        bttnCompleteOrder.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnCompleteOrder.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnCompleteOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnCompleteOrderActionPerformed(evt);
@@ -89,7 +89,7 @@ public class PanelOrder extends javax.swing.JPanel {
         bttnSendToDispatch.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         bttnSendToDispatch.setForeground(new java.awt.Color(0, 195, 225));
         bttnSendToDispatch.setText("ENVIAR A DESPACHO");
-        bttnSendToDispatch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnSendToDispatch.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnSendToDispatch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnSendToDispatchActionPerformed(evt);
@@ -100,7 +100,7 @@ public class PanelOrder extends javax.swing.JPanel {
         bttnDispatchOrder.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         bttnDispatchOrder.setForeground(new java.awt.Color(0, 195, 225));
         bttnDispatchOrder.setText("DESPACHAR PEDIDO");
-        bttnDispatchOrder.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnDispatchOrder.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnDispatchOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnDispatchOrderActionPerformed(evt);
@@ -111,7 +111,7 @@ public class PanelOrder extends javax.swing.JPanel {
         bttnTransitOrder.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         bttnTransitOrder.setForeground(new java.awt.Color(0, 195, 225));
         bttnTransitOrder.setText("TRANSITAR PEDIDO");
-        bttnTransitOrder.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnTransitOrder.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnTransitOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnTransitOrderActionPerformed(evt);
@@ -122,7 +122,7 @@ public class PanelOrder extends javax.swing.JPanel {
         bttnSendToWarehouseDest.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         bttnSendToWarehouseDest.setForeground(new java.awt.Color(0, 195, 225));
         bttnSendToWarehouseDest.setText("ENVIAR A DÉPOSITO DESTINO");
-        bttnSendToWarehouseDest.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnSendToWarehouseDest.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnSendToWarehouseDest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnSendToWarehouseDestActionPerformed(evt);
@@ -133,7 +133,7 @@ public class PanelOrder extends javax.swing.JPanel {
         bttnDeliveryOrder.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         bttnDeliveryOrder.setForeground(new java.awt.Color(0, 195, 225));
         bttnDeliveryOrder.setText("ENTREGAR PEDIDO");
-        bttnDeliveryOrder.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnDeliveryOrder.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnDeliveryOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnDeliveryOrderActionPerformed(evt);
@@ -144,7 +144,7 @@ public class PanelOrder extends javax.swing.JPanel {
         bttnBack.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         bttnBack.setForeground(new java.awt.Color(204, 255, 255));
         bttnBack.setText("SALIR");
-        bttnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnBackActionPerformed(evt);
@@ -160,7 +160,7 @@ public class PanelOrder extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(bttnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblComplement, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
+                        .addComponent(lblComplement, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 444, Short.MAX_VALUE)
                         .addComponent(bttnCreateOrder, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bttnProcessOrder, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bttnCompleteOrder, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

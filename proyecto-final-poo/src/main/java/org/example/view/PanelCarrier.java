@@ -35,7 +35,7 @@ public class PanelCarrier extends javax.swing.JPanel {
         btnConsultCarrier = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(0, 51, 51));
+        setBackground(new java.awt.Color(0, 0, 150));
 
         lbltitle.setFont(new java.awt.Font("Roboto Black", 1, 48)); // NOI18N
         lbltitle.setForeground(new java.awt.Color(232, 245, 255));
@@ -67,7 +67,7 @@ public class PanelCarrier extends javax.swing.JPanel {
 
         btnBack.setBackground(new java.awt.Color(204, 0, 51));
         btnBack.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btnBack.setForeground(new java.awt.Color(255, 51, 0));
+        btnBack.setForeground(new java.awt.Color(0, 51, 0));
         btnBack.setText("SALIR");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

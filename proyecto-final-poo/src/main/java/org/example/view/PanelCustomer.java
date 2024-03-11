@@ -35,11 +35,13 @@ public class PanelCustomer extends javax.swing.JPanel {
         bttnComplement = new javax.swing.JLabel();
         lblPresent = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(0, 0, 150));
+
         bttnBack.setBackground(new java.awt.Color(217, 74, 51));
         bttnBack.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         bttnBack.setForeground(new java.awt.Color(204, 255, 255));
         bttnBack.setText("SALIR");
-        bttnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnBackActionPerformed(evt);
@@ -50,7 +52,7 @@ public class PanelCustomer extends javax.swing.JPanel {
         bttnConsultCustomer.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         bttnConsultCustomer.setForeground(new java.awt.Color(0, 195, 225));
         bttnConsultCustomer.setText("CONSULTAR,MODIFICAR,ELIMINAR");
-        bttnConsultCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnConsultCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnConsultCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnConsultCustomerActionPerformed(evt);
@@ -61,7 +63,7 @@ public class PanelCustomer extends javax.swing.JPanel {
         bttnCreateCustomer.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         bttnCreateCustomer.setForeground(new java.awt.Color(0, 195, 225));
         bttnCreateCustomer.setText("CREAR CLIENTE");
-        bttnCreateCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnCreateCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnCreateCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnCreateCustomerActionPerformed(evt);
