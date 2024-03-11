@@ -13,6 +13,7 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import org.example.model.Product;
 import org.example.model.Supplier;
 import org.example.util.Conexion;
 
@@ -88,6 +89,10 @@ public class SupplierRepository implements Serializable {
                     if (object.getCuit().equals(cuit)) {
                         supplier = em.getReference(Supplier.class, object.getId());
                         supplier.setStatus(Supplier.Status.DISABLED);
+                          em.createQuery("UPDATE Product p SET p.status = :status WHERE p.supplier.cuit = :cuit")
+                            .setParameter("status", Product.Status.DISABLED) 
+                            .setParameter("cuit", cuit)
+                            .executeUpdate();
                                     em.getTransaction().commit();
                         return supplier;
                     }

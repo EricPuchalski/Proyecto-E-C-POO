@@ -15,6 +15,7 @@ import org.example.model.Carrier;
 import org.example.model.Customer;
 import org.example.model.Employee;
 import org.example.model.Order;
+import org.example.model.OrderLine;
 import org.example.model.Product;
 import org.example.model.Supplier;
 import org.example.model.Warehouse;
@@ -293,6 +294,24 @@ public class ViewController {
             }
         }
         return newModel;
+    }
+        public TableModel modelTableOrderLinesByOrder(String orderNumber) {
+        DefaultTableModel modeloNuevo = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
+        Order order = orderController.findOneByOrderNumber(orderNumber);
+        String titulos[] = {"Id", "Producto", "Cantidad"};
+        modeloNuevo.setColumnIdentifiers(titulos);
+        if(!order.getOrderLines().isEmpty()){
+            for (OrderLine e: order.getOrderLines()){
+                Object[] obj = {e.getId(), e.getProduct().getName(), e.getQuantity()};
+                modeloNuevo.addRow(obj);
+            }
+        }
+        return modeloNuevo;
     }
 
     public TableModel modelTableOrdersByCustomer(Long idCustomer) {
