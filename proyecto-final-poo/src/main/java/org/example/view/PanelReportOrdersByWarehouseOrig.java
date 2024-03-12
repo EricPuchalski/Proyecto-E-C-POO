@@ -4,6 +4,8 @@
  */
 package org.example.view;
 
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import org.example.controller.ViewController;
 
 /**
@@ -192,8 +194,20 @@ public class PanelReportOrdersByWarehouseOrig extends javax.swing.JPanel {
 
     private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
         tblWarehouses.setModel(viewController.modelTableWarehouses());
+        this.tblOrdersByWarehouse.setModel(this.loadTitles());
     }//GEN-LAST:event_formAncestorAdded
+    private TableModel loadTitles(){
+                DefaultTableModel newModel = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
 
+        String titulos[] = {"Id", "Cliente", "Transportista", "Numero"};
+        newModel.setColumnIdentifiers(titulos);
+        return newModel;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bttnBack;

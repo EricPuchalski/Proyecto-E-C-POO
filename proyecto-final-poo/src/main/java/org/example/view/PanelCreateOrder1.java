@@ -5,6 +5,7 @@
 package org.example.view;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.example.controller.CarrierController;
 import org.example.controller.CustomerController;
@@ -215,7 +216,12 @@ public class PanelCreateOrder1 extends javax.swing.JPanel {
 
     private void bttnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnConfirmActionPerformed
         List<String> cuits = orderController.returnCuitsCustomerCarrier(tblCustomers, tblCarriers);
-        ViewController.panelChange(this, new PanelCreateOrder2(cuits.get(0), cuits.get(1)), this);
+        if(cuits.size()<2){
+            JOptionPane.showMessageDialog(this, "Por favor seleccione los datos requeridos!", "Error", JOptionPane.ERROR_MESSAGE);
+
+        } else{
+                    ViewController.panelChange(this, new PanelCreateOrder2(cuits.get(0), cuits.get(1)), this);
+        }
     }//GEN-LAST:event_bttnConfirmActionPerformed
     private void loadData(){
         tblCustomers.setModel(viewController.modelTableCustomers());

@@ -6,6 +6,7 @@ package org.example.view;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.example.controller.ViewController;
 import org.example.controller.WarehouseController;
 import org.example.model.Warehouse;
@@ -232,14 +233,17 @@ public class PanelCreateOrder2 extends javax.swing.JPanel {
 
     private void bttnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnConfirmActionPerformed
         List<Warehouse> warehouses = warehouseController.warehousesIdForOrder(tblWarehouseOrig, tblWarehouseDest);
-        ViewController.panelChange(this, new PanelCreateOrder3(cuitCustomer, cuitCarrier, warehouses.get(0), warehouses.get(1)), this);
+        if(warehouses.size()<2){
+             JOptionPane.showMessageDialog(this, "Seleccione los depositos!", "Error", JOptionPane.ERROR_MESSAGE);
+
+        } else{
+                    ViewController.panelChange(this, new PanelCreateOrder3(cuitCustomer, cuitCarrier, warehouses.get(0), warehouses.get(1)), this);
+
+        }
     }//GEN-LAST:event_bttnConfirmActionPerformed
 
     private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
         this.loadData();
-//        System.out.println("cuit cliente" + cuitCustomer);
-//        System.out.println("cuit tranbsportstia " + cuitCarrier);
- 
     }//GEN-LAST:event_formAncestorAdded
     public void loadData(){
         this.tblWarehouseDest.setModel(viewController.modelTableWarehouses());

@@ -39,12 +39,15 @@ public class PanelMain extends javax.swing.JPanel {
         bttnProduct = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(0, 0, 150));
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
             }
         });
 
+        bttnEmployee.setBackground(new java.awt.Color(0, 0, 102));
+        bttnEmployee.setForeground(new java.awt.Color(204, 255, 255));
         bttnEmployee.setText("EMPLEADO");
         bttnEmployee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -52,6 +55,8 @@ public class PanelMain extends javax.swing.JPanel {
             }
         });
 
+        bttnCarrier.setBackground(new java.awt.Color(0, 0, 102));
+        bttnCarrier.setForeground(new java.awt.Color(204, 255, 255));
         bttnCarrier.setText("TRANSPORTISTA");
         bttnCarrier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,6 +64,8 @@ public class PanelMain extends javax.swing.JPanel {
             }
         });
 
+        bttnSupplier.setBackground(new java.awt.Color(0, 0, 102));
+        bttnSupplier.setForeground(new java.awt.Color(204, 255, 255));
         bttnSupplier.setText("PROVEEDOR");
         bttnSupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,6 +73,8 @@ public class PanelMain extends javax.swing.JPanel {
             }
         });
 
+        btnCustomer.setBackground(new java.awt.Color(0, 0, 102));
+        btnCustomer.setForeground(new java.awt.Color(204, 255, 255));
         btnCustomer.setText("CLIENTE");
         btnCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,6 +82,8 @@ public class PanelMain extends javax.swing.JPanel {
             }
         });
 
+        bttnReport.setBackground(new java.awt.Color(0, 0, 102));
+        bttnReport.setForeground(new java.awt.Color(204, 255, 255));
         bttnReport.setText("INFORME");
         bttnReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,6 +91,8 @@ public class PanelMain extends javax.swing.JPanel {
             }
         });
 
+        bttnWarehouse.setBackground(new java.awt.Color(0, 0, 102));
+        bttnWarehouse.setForeground(new java.awt.Color(204, 255, 255));
         bttnWarehouse.setText("DÉPOSITO");
         bttnWarehouse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,6 +100,8 @@ public class PanelMain extends javax.swing.JPanel {
             }
         });
 
+        bttnOrder.setBackground(new java.awt.Color(0, 0, 102));
+        bttnOrder.setForeground(new java.awt.Color(204, 255, 255));
         bttnOrder.setText("PEDIDO");
         bttnOrder.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -94,6 +109,8 @@ public class PanelMain extends javax.swing.JPanel {
             }
         });
 
+        bttnProduct.setBackground(new java.awt.Color(0, 0, 102));
+        bttnProduct.setForeground(new java.awt.Color(204, 255, 255));
         bttnProduct.setText("PRODUCTO");
         bttnProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,7 +118,8 @@ public class PanelMain extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 40)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(204, 255, 255));
         jLabel1.setText("BIENVENIDO A LDE SYSTEM");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -115,19 +133,19 @@ public class PanelMain extends javax.swing.JPanel {
                     .addComponent(bttnProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(bttnOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1))
                     .addComponent(bttnWarehouse, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bttnReport, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bttnCarrier, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bttnEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bttnSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addContainerGap(171, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(67, Short.MAX_VALUE)
+                .addContainerGap(68, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bttnOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
