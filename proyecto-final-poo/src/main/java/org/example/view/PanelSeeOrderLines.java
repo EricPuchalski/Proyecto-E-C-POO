@@ -4,6 +4,8 @@
  */
 package org.example.view;
 
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import org.example.controller.OrderController;
 import org.example.controller.ViewController;
 import org.example.model.Order;
@@ -187,8 +189,22 @@ public class PanelSeeOrderLines extends javax.swing.JPanel {
 
     private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
         tblOrders.setModel(viewController.modelTableOrders());
-    }//GEN-LAST:event_formAncestorAdded
+        tblOrderLines.setModel(titlesOrderLines());
 
+    }//GEN-LAST:event_formAncestorAdded
+    private TableModel titlesOrderLines(){
+         DefaultTableModel modeloNuevo = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
+
+        String titulos[] = {"Id", "Producto", "Cantidad"};
+        modeloNuevo.setColumnIdentifiers(titulos);
+        
+        return modeloNuevo;
+    }
     private void bttnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnConfirmActionPerformed
         if (tblOrders.getRowCount() > 0) {
             if (tblOrders.getSelectedRow() != -1) {

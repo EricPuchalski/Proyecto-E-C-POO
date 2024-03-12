@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -39,7 +40,7 @@ public class Warehouse implements Serializable {
     private Estado status;
     @OneToOne
     private Employee employee;
-    @OneToMany
+    @ManyToMany
     @JoinColumn(name = "warehouse_id")
     private List<Sector> sectors;
     public enum Estado{

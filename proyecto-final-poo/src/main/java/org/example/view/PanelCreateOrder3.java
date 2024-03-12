@@ -5,6 +5,8 @@
 package org.example.view;
 
 import javax.swing.JOptionPane;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import org.example.controller.OrderController;
@@ -266,6 +268,14 @@ public class PanelCreateOrder3 extends javax.swing.JPanel {
     }//GEN-LAST:event_formAncestorAdded
     private void loadData(){
         this.tblProducts.setModel(viewController.modelTableProducts());
+        this.tblOrderLines.setModel(loadOrderLines());
+                SpinnerModel model = new SpinnerNumberModel(
+            0,  // Valor inicial
+            0,                   // Valor mínimo
+            Integer.MAX_VALUE,   // Valor máximo
+            1                    // Paso
+        );
+        this.spQuantity.setModel(model);
     }
     private TableModel loadOrderLines(){
         DefaultTableModel modeloNuevo = new DefaultTableModel(){
