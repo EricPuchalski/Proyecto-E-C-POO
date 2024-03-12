@@ -35,6 +35,8 @@ public class PanelProduct extends javax.swing.JPanel {
         bttnConsultProduct = new javax.swing.JButton();
         bttnBack = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(0, 0, 150));
+
         lblWelc.setFont(new java.awt.Font("Roboto Black", 1, 48)); // NOI18N
         lblWelc.setText("Gestion de Productos");
 
@@ -45,7 +47,7 @@ public class PanelProduct extends javax.swing.JPanel {
         bttnCreateProduct.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         bttnCreateProduct.setForeground(new java.awt.Color(0, 195, 225));
         bttnCreateProduct.setText("CREAR PRODUCTO");
-        bttnCreateProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnCreateProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnCreateProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnCreateProductActionPerformed(evt);
@@ -56,7 +58,7 @@ public class PanelProduct extends javax.swing.JPanel {
         bttnConsultProduct.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         bttnConsultProduct.setForeground(new java.awt.Color(0, 195, 225));
         bttnConsultProduct.setText("CONSULTAR,MODIFICAR,ELIMINAR");
-        bttnConsultProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnConsultProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnConsultProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnConsultProductActionPerformed(evt);
@@ -67,7 +69,7 @@ public class PanelProduct extends javax.swing.JPanel {
         bttnBack.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         bttnBack.setForeground(new java.awt.Color(204, 255, 255));
         bttnBack.setText("SALIR");
-        bttnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnBackActionPerformed(evt);

@@ -36,7 +36,7 @@ public class PanelReport extends javax.swing.JPanel {
         bttnBack = new javax.swing.JButton();
         bttnCreateCustomer1 = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(102, 153, 255));
+        setBackground(new java.awt.Color(0, 0, 150));
 
         lblPresent.setFont(new java.awt.Font("Roboto Black", 1, 48)); // NOI18N
         lblPresent.setForeground(new java.awt.Color(232, 245, 255));
@@ -50,7 +50,7 @@ public class PanelReport extends javax.swing.JPanel {
         bttnOrderLines.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         bttnOrderLines.setForeground(new java.awt.Color(0, 195, 225));
         bttnOrderLines.setText("VER LINEAS DE PEDIDO");
-        bttnOrderLines.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnOrderLines.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnOrderLines.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnOrderLinesActionPerformed(evt);
@@ -61,7 +61,7 @@ public class PanelReport extends javax.swing.JPanel {
         bttnConsultCustomer.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         bttnConsultCustomer.setForeground(new java.awt.Color(0, 195, 225));
         bttnConsultCustomer.setText("PEDIDOS POR DEPOSITO DE ORIGEN");
-        bttnConsultCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnConsultCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnConsultCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnConsultCustomerActionPerformed(evt);
@@ -72,7 +72,7 @@ public class PanelReport extends javax.swing.JPanel {
         bttnBack.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         bttnBack.setForeground(new java.awt.Color(204, 255, 255));
         bttnBack.setText("SALIR");
-        bttnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnBackActionPerformed(evt);
@@ -83,7 +83,7 @@ public class PanelReport extends javax.swing.JPanel {
         bttnCreateCustomer1.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         bttnCreateCustomer1.setForeground(new java.awt.Color(0, 195, 225));
         bttnCreateCustomer1.setText("VER PEDIDOS DE UN CLIENTE");
-        bttnCreateCustomer1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnCreateCustomer1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnCreateCustomer1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnCreateCustomer1ActionPerformed(evt);

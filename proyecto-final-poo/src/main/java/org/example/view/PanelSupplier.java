@@ -36,6 +36,8 @@ public class PanelSupplier extends javax.swing.JPanel {
         bttnComplement = new javax.swing.JLabel();
         lblPresent = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(0, 0, 150));
+
         bttnBack.setBackground(new java.awt.Color(217, 74, 51));
         bttnBack.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         bttnBack.setForeground(new java.awt.Color(204, 255, 255));
