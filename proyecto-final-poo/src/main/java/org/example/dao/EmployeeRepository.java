@@ -55,7 +55,7 @@ import org.example.util.Conexion;
                     return em.find(Employee.class, object.getId());
                 }
             }
-            // Si no se encontró ningún cliente con el CUIT especificado
+            // Si no se encontró ningún empleado con el CUIT especificado
             return null;
         } finally {
             em.close();
