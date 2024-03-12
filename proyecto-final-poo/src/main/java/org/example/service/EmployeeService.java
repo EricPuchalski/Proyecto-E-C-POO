@@ -38,13 +38,12 @@ public class EmployeeService implements CRUD<Employee> {
         Employee existingEmployee = employeeRepository.findEmployeeEnabledByCuit(employee.getCuit());
 
         // Verifica si existe otro empleado con el mismo CUIT pero con diferente ID
-        if (existingEmployee != null ) {
-            return employeeRepository.edit(existingEmployee);
+        if (existingEmployee != null && !existingEmployee.getId().equals(employee.getId())) {
+            throw new Exception("El CUIT ingresado ya pertenece a otro empleado."); // Excepción más informativa
         }
-        return null;
 
         // Si no ha cambiado el CUIT, o si cambia pero no existe conflicto
-
+        return employeeRepository.edit(employee);
     }
 
     @Override

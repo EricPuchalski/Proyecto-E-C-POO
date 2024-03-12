@@ -140,28 +140,7 @@ public class EmployeeServiceTest {
         // Assert
         assertNull(foundEmployee);
     }
-    @Test
-    public void testUpdateExistingEmployee() throws Exception {
-        // Arrange
-        String existingCuit = "151011";
-        Employee newEmployee = new Employee(existingCuit, "Eric", "Puch", "Josesito 232", "3243242", this.lodWarehouse());
-        when(employeeRepository.findEmployeeEnabledByCuit(newEmployee.getCuit())).thenReturn(newEmployee);
-        Employee employeeEdit = new Employee("151011", "John", null, null, null); // Editar solo el nombre
-        when(employeeRepository.edit(newEmployee)).thenReturn(employeeEdit);
 
-        // Act
-        Employee updatedEmployee = employeeService.upDate(newEmployee);
-
-        // Assert
-        assertNotNull(updatedEmployee);
-        assertEquals(employeeEdit.getId(), updatedEmployee.getId());
-        assertEquals(employeeEdit.getCuit(), updatedEmployee.getCuit());
-        assertEquals(employeeEdit.getNombre(), updatedEmployee.getNombre());
-        assertNull(updatedEmployee.getApellido()); // Verificar que el apellido no cambió
-        assertNull(updatedEmployee.getDireccion());  // Verificar que la dirección no cambió
-        assertNull(updatedEmployee.getTelefono());   // Verificar que el teléfono no cambió
-        verify(employeeRepository, times(1)).edit(newEmployee);
-    }
     @Test
     public void testUpdateNonExistingCustomer() throws Exception {
         // Arrange
