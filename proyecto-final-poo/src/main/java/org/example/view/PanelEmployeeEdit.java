@@ -139,6 +139,11 @@ public class PanelEmployeeEdit extends javax.swing.JPanel {
         txtWarehouse.setText("Ingresa un codigo del 1 al 5 y selecciona");
         txtWarehouse.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
         txtWarehouse.setVerifyInputWhenFocusTarget(false);
+        txtWarehouse.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtWarehouseFocusGained(evt);
+            }
+        });
         txtWarehouse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtWarehouseActionPerformed(evt);
@@ -170,8 +175,8 @@ public class PanelEmployeeEdit extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tblWarehouses);
 
         lblWarehouse.setFont(new java.awt.Font("Roboto Light", 1, 15)); // NOI18N
-        lblWarehouse.setForeground(new java.awt.Color(204, 255, 255));
-        lblWarehouse.setText("Deposito");
+        lblWarehouse.setForeground(new java.awt.Color(0, 153, 51));
+        lblWarehouse.setText("CODIGO");
 
         lblSur.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblSur.setText("Apellido");
@@ -214,9 +219,9 @@ public class PanelEmployeeEdit extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(110, 110, 110)
                         .addComponent(lblWarehouse)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bttnWarehouse)
-                        .addGap(54, 54, 54)
+                        .addGap(66, 66, 66)
                         .addComponent(txtWarehouse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(116, 116, 116)
@@ -386,6 +391,12 @@ public class PanelEmployeeEdit extends javax.swing.JPanel {
         txtWarehouseActionPerformed(evt);
 
     }//GEN-LAST:event_bttnWarehouseActionPerformed
+
+    private void txtWarehouseFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtWarehouseFocusGained
+       if (txtWarehouse.getText().equals("Ingresa un codigo del 1 al 5 y selecciona")) {
+        txtWarehouse.setText("");
+    }
+    }//GEN-LAST:event_txtWarehouseFocusGained
     public void loadData(String cuit){
         employeeEdit = employeeController.findOne(cuit);
         txtCuit.setText(employeeEdit.getCuit());

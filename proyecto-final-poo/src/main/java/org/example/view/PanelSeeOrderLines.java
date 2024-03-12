@@ -90,7 +90,7 @@ public class PanelSeeOrderLines extends javax.swing.JPanel {
         bttnConfirm.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         bttnConfirm.setForeground(new java.awt.Color(255, 255, 255));
         bttnConfirm.setText("Seleccionar");
-        bttnConfirm.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnConfirm.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnConfirmActionPerformed(evt);
@@ -101,7 +101,7 @@ public class PanelSeeOrderLines extends javax.swing.JPanel {
         bttnBack.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         bttnBack.setForeground(new java.awt.Color(255, 255, 255));
         bttnBack.setText("Cancelar");
-        bttnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnBackActionPerformed(evt);
@@ -134,26 +134,27 @@ public class PanelSeeOrderLines extends javax.swing.JPanel {
                 .addComponent(lblWelcome)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(81, 81, 81)
+                .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
                         .addComponent(lblOrderLines)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(bttnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(67, 67, 67)
                                 .addComponent(bttnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(lblOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(35, 35, 35)
                                 .addComponent(txtOrder)
                                 .addGap(26, 26, 26)
-                                .addComponent(bttnOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane5))
+                                .addComponent(bttnOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(130, 130, 130))))
         );
         layout.setVerticalGroup(

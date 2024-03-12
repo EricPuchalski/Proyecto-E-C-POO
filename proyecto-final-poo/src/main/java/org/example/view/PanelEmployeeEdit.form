@@ -77,9 +77,9 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
                           <Component id="lblWarehouse" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="bttnWarehouse" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
                           <Component id="txtWarehouse" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -265,6 +265,7 @@
             <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
           </Properties>
           <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtWarehouseFocusGained"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtWarehouseActionPerformed"/>
           </Events>
         </Component>
@@ -315,9 +316,9 @@
               <Font name="Roboto Light" size="15" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="cc" type="rgb"/>
+              <Color blue="33" green="99" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Deposito"/>
+            <Property name="text" type="java.lang.String" value="CODIGO"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblSur">
