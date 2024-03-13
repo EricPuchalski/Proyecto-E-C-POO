@@ -16,22 +16,22 @@ import org.example.model.Supplier;
  * @author facundo
  */
 public class PanelSupplierEdit extends javax.swing.JPanel {
-     private String cuit;
+
+    private String cuit;
     private SupplierController supplierController;
     private Supplier supplierEdit;
- 
 
     /**
      * Creates new form PanelSupplierEdit
      */
-   public PanelSupplierEdit(String cuit) {
-    this.supplierController = new SupplierController();
-    supplierEdit = supplierController.findOne(cuit); // Cargar datos del proveedor
-    this.cuit = cuit;
-    initComponents();
-    this.setSize(800, 700);
-    loadData(cuit); // Llamar al método loadData para mostrar los datos
-}
+    public PanelSupplierEdit(String cuit) {
+        this.supplierController = new SupplierController();
+        supplierEdit = supplierController.findOne(cuit); // Cargar datos del proveedor
+        this.cuit = cuit;
+        initComponents();
+        this.setSize(800, 700);
+        loadData(cuit); // Llamar al método loadData para mostrar los datos
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -218,20 +218,28 @@ public class PanelSupplierEdit extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bttnModifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnModifActionPerformed
-        if(!(txtName.getText().isEmpty()|| txtEmail.getText().isEmpty() || txtAdress.getText().isEmpty() || txtTel.getText().isEmpty() || txtCuit.getText().isEmpty())){
+        if (!(txtName.getText().isEmpty() || txtEmail.getText().isEmpty() || txtAdress.getText().isEmpty() || txtTel.getText().isEmpty() || txtCuit.getText().isEmpty())) {
             supplierEdit.setName(txtName.getText());
             supplierEdit.setEmail(txtEmail.getText());
             supplierEdit.setCuit(txtCuit.getText());
             supplierEdit.setAdress(txtAdress.getText());
             supplierEdit.setPhone(txtTel.getText());
             try {
-                supplierController.upDate(supplierEdit);
-            } catch (Exception ex) {
-                Logger.getLogger(PanelSupplierEdit.class.getName()).log(Level.SEVERE, null, ex);
+                Supplier supplierByCuit = supplierController.findSupplierEnabledByCuit(txtCuit.getText());
+                if (!supplierByCuit.equals(txtCuit.getText())) {
+                    supplierController.upDate(supplierEdit);
+                    JOptionPane.showMessageDialog(null, "Proveedor modificado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    ViewController.panelChange(this, new PanelSupplierConsult(), this);
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Proveedor ya existe", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+                }
+            } catch (Exception SQLException) {
+                JOptionPane.showMessageDialog(null, "Dato único duplicado", "Error", JOptionPane.WARNING_MESSAGE);
+
             }
-            JOptionPane.showMessageDialog(null, "Proveedor modificado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            ViewController.panelChange(this, new PanelSupplierConsult(), this);
-        } else{
+        } else {
             JOptionPane.showMessageDialog(null, "Un campo no puede estar vacio", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_bttnModifActionPerformed
@@ -243,24 +251,22 @@ public class PanelSupplierEdit extends javax.swing.JPanel {
     private void jPanel1formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jPanel1formAncestorAdded
         this.loadData(cuit);
     }//GEN-LAST:event_jPanel1formAncestorAdded
-public void loadData(String cuit){
-    System.out.println("CUIT recibido en loadData: " + cuit); 
+    public void loadData(String cuit) {
         if (supplierController != null) {
-        supplierEdit = supplierController.findOne(cuit);
-         System.out.println("supplier encontrado: " + supplierEdit.getName()); // Registro de depuración
+            supplierEdit = supplierController.findOne(cuit);
 
-        if (supplierEdit != null) {
-            txtCuit.setText(supplierEdit.getCuit());
-            txtName.setText(supplierEdit.getName());
-            txtEmail.setText(supplierEdit.getEmail());
-            txtAdress.setText(supplierEdit.getAdress());
-            txtTel.setText(supplierEdit.getPhone());
+            if (supplierEdit != null) {
+                txtCuit.setText(supplierEdit.getCuit());
+                txtName.setText(supplierEdit.getName());
+                txtEmail.setText(supplierEdit.getEmail());
+                txtAdress.setText(supplierEdit.getAdress());
+                txtTel.setText(supplierEdit.getPhone());
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ningún proveedor con el CUIT proporcionado", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "No se encontró ningún proveedor con el CUIT proporcionado", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ocurrió un problema interno. Por favor, inténtalo de nuevo más tarde", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    } else {
-        JOptionPane.showMessageDialog(null, "Ocurrió un problema interno. Por favor, inténtalo de nuevo más tarde", "Error", JOptionPane.ERROR_MESSAGE);
-    }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
