@@ -221,19 +221,7 @@ public class PanelCustomerConsult extends javax.swing.JPanel {
     if (!cuitToFind.isEmpty()) {
         List<Customer> customersFound = new CustomerController().findAllCustomersByCuit(cuitToFind);
         if (!customersFound.isEmpty()) {
-            // Se encontraron clientes con el CUIT proporcionado
-            // Seleccionar el primero (asumiendo que no habrá duplicados)
-            Customer customer = customersFound.get(0);
-            // Actualizar la tabla para mostrar solo el cliente encontrado
-            DefaultTableModel model = new DefaultTableModel();
-            model.addColumn("ID");
-            model.addColumn("Nombre");
-            model.addColumn("Apellido");
-            model.addColumn("CUIT");
-            model.addColumn("Dirección");
-            model.addColumn("Teléfono");
-            model.addRow(new Object[]{customer.getId(), customer.getName(), customer.getSurname(), customer.getCuit(), customer.getAdress(), customer.getPhone()});
-            tblCustomers.setModel(model);
+            tblCustomers.setModel(viewController.modelTableCustomersByCuit(txtCuitCustomerFindOne.getText()));
         } else {
             JOptionPane.showMessageDialog(this, "Cliente no encontrado.", "Búsqueda de Cliente", JOptionPane.INFORMATION_MESSAGE);
         }

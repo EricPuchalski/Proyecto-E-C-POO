@@ -74,7 +74,7 @@ public class PanelCreateOrder2 extends javax.swing.JPanel {
         lblWelcome.setText("SELECCIONAR DÉPOSITOS");
 
         lblOrig.setFont(new java.awt.Font("Roboto Light", 1, 18)); // NOI18N
-        lblOrig.setForeground(new java.awt.Color(204, 255, 255));
+        lblOrig.setForeground(new java.awt.Color(0, 0, 0));
         lblOrig.setText("Origen");
 
         bttnWarehouseOrig.setText("Buscar");
@@ -98,7 +98,7 @@ public class PanelCreateOrder2 extends javax.swing.JPanel {
         jScrollPane5.setViewportView(tblWarehouseOrig);
 
         lblDest.setFont(new java.awt.Font("Roboto Light", 1, 18)); // NOI18N
-        lblDest.setForeground(new java.awt.Color(204, 255, 255));
+        lblDest.setForeground(new java.awt.Color(0, 0, 0));
         lblDest.setText("Destino");
 
         txtDEST.addActionListener(new java.awt.event.ActionListener() {
