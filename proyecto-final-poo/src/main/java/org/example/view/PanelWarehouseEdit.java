@@ -379,7 +379,7 @@ public class PanelWarehouseEdit extends javax.swing.JPanel {
                     // Verificar si el código ya está en uso por otro warehouse
                     Warehouse existingWarehouse = warehouseController.findOne(txtCode.getText());//KODIGO NUEVOOOOOO
                     if (existingWarehouse != null && !existingWarehouse.getCode().equals(warehouseEdit.getCode())) {
-                        JOptionPane.showMessageDialog(null, "El código ingresado ya está en uso por otro warehouse.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "El código ingresado ya está en uso por otro deposito.", "Advertencia", JOptionPane.WARNING_MESSAGE);
                     } else {
                         warehouseEdit.setName(txtName.getText());
                         warehouseEdit.setCode(txtCode.getText());
@@ -400,7 +400,8 @@ public class PanelWarehouseEdit extends javax.swing.JPanel {
                 }
             }
         }
-    } catch (Exception e) {
+    }
+         catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Verifique los campos", "Advertencia", JOptionPane.WARNING_MESSAGE);
     }
 

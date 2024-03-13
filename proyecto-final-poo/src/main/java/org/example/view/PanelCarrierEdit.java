@@ -4,6 +4,7 @@
  */
 package org.example.view;
 
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -216,10 +217,10 @@ public class PanelCarrierEdit extends javax.swing.JPanel {
             carrierController.upDate(carrierEdit);
             JOptionPane.showMessageDialog(null, "Transportista modificado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             ViewController.panelChange(this, new PanelCarrierConsult(), this);
-        } catch (Exception ex) {
-            Logger.getLogger(PanelCarrierEdit.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Error al intentar modificar el transportista.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        } 
+          catch (Exception ex) { 
+                        JOptionPane.showMessageDialog(null, "Dato único duplicado", "Error", JOptionPane.ERROR_MESSAGE);
+           } 
     } else {
         JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos y seleccione un tipo de transportista", "Advertencia", JOptionPane.WARNING_MESSAGE);
     }//ULTIMA MODIFICACION
