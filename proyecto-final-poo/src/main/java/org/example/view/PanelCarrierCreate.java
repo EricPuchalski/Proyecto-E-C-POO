@@ -219,6 +219,9 @@ public class PanelCarrierCreate extends javax.swing.JPanel {
         if (type != null) {
             if (carrierController.checkIfExistUniq(txtCuit.getText(), txtPhone.getText(), txtEmail.getText()) == false) {
                 carrierController.create(new Carrier(txtCuit.getText(), txtName.getText(), txtPhone.getText(), txtEmail.getText(), type));
+                        JOptionPane.showMessageDialog(this, "Transportista creado", "Exito", JOptionPane.INFORMATION_MESSAGE);
+
+                ViewController.panelChange(this, new PanelCarrier(), this);
 
             } else {
                 JOptionPane.showMessageDialog(this, "Campo unico ya existe", "Error", JOptionPane.ERROR_MESSAGE);
