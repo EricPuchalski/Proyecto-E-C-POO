@@ -41,6 +41,7 @@ public class PanelOrder extends javax.swing.JPanel {
         bttnSendToWarehouseDest = new javax.swing.JButton();
         bttnDeliveryOrder = new javax.swing.JButton();
         bttnBack = new javax.swing.JButton();
+        bttnTrackingOrder = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 0, 153));
 
@@ -151,6 +152,17 @@ public class PanelOrder extends javax.swing.JPanel {
             }
         });
 
+        bttnTrackingOrder.setBackground(new java.awt.Color(0, 0, 102));
+        bttnTrackingOrder.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        bttnTrackingOrder.setForeground(new java.awt.Color(0, 195, 225));
+        bttnTrackingOrder.setText("SEGUIMIENTO DE PEDIDO");
+        bttnTrackingOrder.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        bttnTrackingOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnTrackingOrderActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -158,9 +170,9 @@ public class PanelOrder extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(166, 166, 166)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(bttnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bttnBack, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblComplement, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 444, Short.MAX_VALUE)
+                        .addComponent(lblComplement, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
                         .addComponent(bttnCreateOrder, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bttnProcessOrder, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bttnCompleteOrder, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -168,7 +180,8 @@ public class PanelOrder extends javax.swing.JPanel {
                         .addComponent(bttnSendToDispatch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bttnTransitOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bttnSendToWarehouseDest, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
-                        .addComponent(bttnDeliveryOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(bttnDeliveryOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bttnTrackingOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblWelcome)
                         .addGap(3, 3, 3)))
@@ -177,11 +190,11 @@ public class PanelOrder extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(lblComplement, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bttnCreateOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bttnProcessOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -198,8 +211,10 @@ public class PanelOrder extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bttnDeliveryOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bttnTrackingOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bttnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55))
+                .addGap(27, 27, 27))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -241,6 +256,10 @@ public class PanelOrder extends javax.swing.JPanel {
         ViewController.panelChange(this, new PanelMain(), this);
     }//GEN-LAST:event_bttnBackActionPerformed
 
+    private void bttnTrackingOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnTrackingOrderActionPerformed
+        ViewController.panelChange(this, new PanelTrackingOrder(), this);
+    }//GEN-LAST:event_bttnTrackingOrderActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bttnBack;
@@ -251,6 +270,7 @@ public class PanelOrder extends javax.swing.JPanel {
     private javax.swing.JButton bttnProcessOrder;
     private javax.swing.JButton bttnSendToDispatch;
     private javax.swing.JButton bttnSendToWarehouseDest;
+    private javax.swing.JButton bttnTrackingOrder;
     private javax.swing.JButton bttnTransitOrder;
     private javax.swing.JLabel lblComplement;
     private javax.swing.JLabel lblWelcome;

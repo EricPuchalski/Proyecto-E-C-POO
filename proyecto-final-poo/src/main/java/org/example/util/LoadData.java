@@ -31,8 +31,6 @@ public class LoadData {
         productRepository.upLoad();
         CarrierRepository carrierRepository = new CarrierRepository();
         carrierRepository.upLoad();
-        OrderRepository orderRepository = new OrderRepository();
-        orderRepository.upload();
 
     }
 }
