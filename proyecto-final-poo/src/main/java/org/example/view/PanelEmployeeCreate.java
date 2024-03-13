@@ -19,11 +19,11 @@ import org.example.model.Warehouse;
  * @author facundo
  */
 public class PanelEmployeeCreate extends javax.swing.JPanel {
+
     private EmployeeController employeeController;
     private JComboBox<String> warehouseCombobox;
     private ViewController viewController;
     private WarehouseController warehouseController;
-
 
     /**
      * Creates new form PanelEmployeeCreate
@@ -271,11 +271,16 @@ public class PanelEmployeeCreate extends javax.swing.JPanel {
             employee.setDeposit(selectedWarehouse);
 
             // Llama al método create() del controlador de empleados para crear el empleado
-            employeeController.create(employee);
-            JOptionPane.showMessageDialog(this, "El Empleado fue creado con éxito");
+            if (employeeController.findCustomerEnabledByCuit(employee.getCuit()) == null) {
+                employeeController.create(employee);
+                JOptionPane.showMessageDialog(this, "El Empleado fue creado con éxito", "Exito", JOptionPane.INFORMATION_MESSAGE);
+                ViewController.panelChange(this, new PanelEmployee(), this);
+            } else {
+                JOptionPane.showMessageDialog(this, "El cuit del empleado ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+
+            }
 
             // Cambia la vista
-            ViewController.panelChange(this, new PanelEmployee(), this);
         } catch (Exception e) {
             if (e.getMessage().contains("cuit pertenece a otro empleado")) {
                 JOptionPane.showMessageDialog(this, "Error al crear empleado: El CUIT pertenece a otro empleado");
