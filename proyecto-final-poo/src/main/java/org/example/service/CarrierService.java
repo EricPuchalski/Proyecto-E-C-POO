@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import org.example.dao.OrderRepository;
+import org.example.model.Order;
 //
 
 public class CarrierService implements CRUD<Carrier> {
@@ -28,7 +30,6 @@ public class CarrierService implements CRUD<Carrier> {
     
     
     private CarrierRepository carrierRepository=new CarrierRepository();
-    
     @Override
     public Carrier save(Carrier carrier) {
         if (!(carrier.getCuit().isEmpty() || carrier.getName().isEmpty() || carrier.getPhone().isEmpty())) {
@@ -38,7 +39,8 @@ public class CarrierService implements CRUD<Carrier> {
         }
         return null;
     }
-    
+
+
     @Override
     public Carrier upDate(Carrier carrier) throws Exception {
         if (carrierRepository.findCarrier(carrier.getId()) != null) {

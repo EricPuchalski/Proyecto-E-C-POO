@@ -34,6 +34,7 @@ public class PanelCarrier extends javax.swing.JPanel {
         btnCreate = new javax.swing.JButton();
         btnConsultCarrier = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        btnConsultCarrier1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 0, 150));
 
@@ -75,6 +76,16 @@ public class PanelCarrier extends javax.swing.JPanel {
             }
         });
 
+        btnConsultCarrier1.setBackground(new java.awt.Color(51, 51, 255));
+        btnConsultCarrier1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnConsultCarrier1.setForeground(new java.awt.Color(0, 204, 255));
+        btnConsultCarrier1.setText("ACTUALIZAR UBICACIÓN DE PEDIDO");
+        btnConsultCarrier1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultCarrier1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -89,11 +100,13 @@ public class PanelCarrier extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(bttnComplement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnCreate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnConsultCarrier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(389, 389, 389)
-                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(180, Short.MAX_VALUE))
+                            .addComponent(btnConsultCarrier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnConsultCarrier1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(35, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(246, 246, 246))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,9 +119,11 @@ public class PanelCarrier extends javax.swing.JPanel {
                 .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addComponent(btnConsultCarrier, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(18, 18, 18)
+                .addComponent(btnConsultCarrier1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -124,10 +139,15 @@ public class PanelCarrier extends javax.swing.JPanel {
         ViewController.panelChange(this, new PanelMain(), this);
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void btnConsultCarrier1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultCarrier1ActionPerformed
+        ViewController.panelChange(this, new PanelCarrierTrackingOrder(), this);
+    }//GEN-LAST:event_btnConsultCarrier1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnConsultCarrier;
+    private javax.swing.JButton btnConsultCarrier1;
     private javax.swing.JButton btnCreate;
     private javax.swing.JLabel bttnComplement;
     private javax.swing.JLabel lbltitle;

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.example.dao.CarrierRepository;
 import org.example.dao.exceptions.NonexistentEntityException;
 import org.example.model.Carrier;
+import org.example.model.Order;
 import org.example.service.CarrierService;
 
 public class CarrierController {
@@ -15,11 +16,14 @@ public class CarrierController {
     public CarrierController() {
         this.carrierService =  carrierService;
     }
+        public CarrierController(CarrierService carrierService) {
+        this.carrierService =  carrierService;
+    }
     
     public void create(Carrier carrier) {
         carrierService.save(carrier);
     }
-    
+
     public Carrier findOne(String cuit) {
         return carrierService.findOne(cuit);
         

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.example.dao.OrderRepository;
 import org.example.dao.exceptions.NonexistentEntityException;
 
+import org.example.model.Carrier;
 import org.example.model.Order;
 
 import java.util.List;
@@ -83,7 +84,14 @@ public class OrderService implements CRUD<Order> {
             orderRepository.destroy(deleteOrder.getId());
         }
     }
-
+    public boolean informOrderPosition(String cuitCarrier, String orderNumber, double latitud, double longitud) throws Exception {
+        Order order = findOne(orderNumber);
+        if (order!=null && cuitCarrier.equals(order.getCarrier().getCuit())) {
+            return orderRepository.informOrderPosition(orderNumber, latitud, longitud);
+        } else{
+            return false;
+        }
+    }
     public Order processOrder(String orderNumber, String cuitEmpleado) {
         Order order = orderRepository.findOrderByOrderNumber(orderNumber);
         if (order != null && order.getWarehouseOrig() != null && order.getOrderStatus().equals("Pendiente")) {

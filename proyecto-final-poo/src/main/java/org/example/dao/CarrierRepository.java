@@ -11,9 +11,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.EntityTransaction;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.example.model.Carrier;
+import org.example.model.Order;
 import org.example.util.Conexion;
 
 /**
@@ -21,11 +23,13 @@ import org.example.util.Conexion;
  * @author ericp
  */
 public class CarrierRepository implements Serializable {
+    private OrderRepository orderRepository;
+
 
     public CarrierRepository() {
-  
         this.emf = Conexion.getEmf();
     }
+    
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
@@ -79,6 +83,8 @@ public class CarrierRepository implements Serializable {
             em.close();
         }
     }
+
+
     public Carrier disableAccountByCuit(String cuit) throws NonexistentEntityException{
         EntityManager em = null;
         try {

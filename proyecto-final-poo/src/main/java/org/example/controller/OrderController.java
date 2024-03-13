@@ -40,17 +40,12 @@ public class OrderController implements CRUD<Order> {
     }
 
     public Order createOrder(Order order, Warehouse warehouseOrig, Warehouse warehouseDest, String cuitCustomer, String cuitCarrier) {
-//        Customer orderCustomer = customerController.findOne(cuitCustomer);
-//        Carrier orderCarrier = carrierController.findOne(cuitCarrier);
-//        order.setWarehouseOrig(warehouseOrig);
-//        order.setWarehouseDest(warehouseDest);
-//        order.setCustomer(orderCustomer);
-//        order.setCarrier(orderCarrier);
-//        order.setOrderStart(LocalDate.now());
-//        order.setOrderStatus(order.getWarehouseOrig().getSectors().get(0).getDescription());
-//        this.create(order);
     return orderService.createOrder(order, warehouseOrig, warehouseDest, cuitCustomer, cuitCarrier);
     }
+    public boolean informOrderPosition(String cuitCarrier, String orderNumber, double latitud, double longitud) throws Exception {
+        return orderService.informOrderPosition(cuitCarrier, orderNumber, latitud, longitud);
+    }
+
 
     public Order findOneByOrderNumber(String orderNumber) {
         return orderService.findOne(orderNumber);
