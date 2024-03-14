@@ -192,9 +192,9 @@ public class WarehouseServiceTest {
     @Test
     public void testUpdateExistingWarehouse() throws Exception {
         // Arrange
-        Warehouse deposito1 = new Warehouse("12321","Deposito China","Calle 1","34543534","depositoCH@gmail.com", "Asia",new Position(39.900853,116.399813));
-        when(warehouseRepository.findWarehouseEnabledByCuit(deposito1.getEmail())).thenReturn(deposito1);
-        Warehouse depositoEdit = new Warehouse("12321","Deposito China",null,null,"depositoCH@gmail.com", "Asia",new Position(39.900853,116.399813));
+        Warehouse deposito1 = new Warehouse("12321", "Deposito China", "Calle 1", "34543534", "depositoCH@gmail.com", "Asia", new Position(39.900853, 116.399813));
+        when(warehouseRepository.findWarehouse(deposito1.getId())).thenReturn(deposito1);
+        Warehouse depositoEdit = new Warehouse("12321", "Deposito China", null, null, "depositoCH@gmail.com", "Asia", new Position(39.900853, 116.399813));
         when(warehouseRepository.edit(deposito1)).thenReturn(depositoEdit);
 
         // Act
@@ -205,7 +205,7 @@ public class WarehouseServiceTest {
         assertEquals(depositoEdit.getId(), updatedWarehouse.getId());
         assertEquals(depositoEdit.getCode(), updatedWarehouse.getCode());
         assertEquals(depositoEdit.getPhone(), updatedWarehouse.getPhone());
-        assertNull(updatedWarehouse.getPhone());
+        assertNull(updatedWarehouse.getAdress());
         assertNull(updatedWarehouse.getAdress());
 
     }
