@@ -4,8 +4,6 @@
  */
 package org.example.view;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.example.controller.EmployeeController;
 import org.example.controller.ViewController;
@@ -387,7 +385,7 @@ public class PanelWarehouseEdit extends javax.swing.JPanel {
                         warehouseEdit.getPosition().setLongitude(Double.parseDouble(txtLon.getText()));
                         warehouseEdit.setEmployee(emp);
                         try {
-                            Warehouse existingWarehouse = warehouseController.findWarehouseEnabledByCuit(txtCode.getText());//KODIGO NUEVOOOOOO
+                            Warehouse existingWarehouse = warehouseController.findWarehouseEnabledByCode(txtCode.getText());//KODIGO NUEVOOOOOO
                             if (existingWarehouse != null && !existingWarehouse.getCode().equals(code)) {
                                 JOptionPane.showMessageDialog(null, "El codigo ya está en uso por otro deposito", "Error", JOptionPane.WARNING_MESSAGE);
                             } else {

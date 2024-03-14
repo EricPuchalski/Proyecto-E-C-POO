@@ -200,7 +200,7 @@ public class PanelWarehouseConsult extends javax.swing.JPanel {
                 warehouseController.disableAccountByCuit(email);
             }
         }
-        tblWarehouses.setModel(viewController.modelTableWarehouses());
+        tblWarehouses.setModel(viewController.modelTableWarehousess());
     }//GEN-LAST:event_bttnDestroyActionPerformed
 
     private void bttnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnBackActionPerformed
@@ -217,7 +217,7 @@ public class PanelWarehouseConsult extends javax.swing.JPanel {
     }//GEN-LAST:event_bttnModifActionPerformed
 
     private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
-        tblWarehouses.setModel(viewController.modelTableWarehouses());
+        tblWarehouses.setModel(viewController.modelTableWarehousess());
     }//GEN-LAST:event_formAncestorAdded
 
     private void bttnFindOneWarehouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnFindOneWarehouseActionPerformed
