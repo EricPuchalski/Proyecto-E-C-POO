@@ -23,15 +23,16 @@ public class PanelWarehouseEdit extends javax.swing.JPanel {
     private EmployeeController employeeController;
     private WarehouseController warehouseController;
     private Warehouse warehouseEdit;
-    private String code;
+    private final String code;
 
     /**
      * Creates new form PanelWarehouseEdit
+     * @param code
      */
     public PanelWarehouseEdit(String code) {
 
         this.setSize(800, 700);
-        this.warehouseEdit = new Warehouse();
+        
         this.viewController = new ViewController();
         this.employeeController = new EmployeeController();
         this.warehouseController = new WarehouseController();
@@ -85,7 +86,7 @@ public class PanelWarehouseEdit extends javax.swing.JPanel {
         });
 
         lblWelc.setFont(new java.awt.Font("Roboto Black", 1, 48)); // NOI18N
-        lblWelc.setForeground(new java.awt.Color(232, 245, 255));
+        lblWelc.setForeground(new java.awt.Color(0, 0, 0));
         lblWelc.setText("MODIFICAR DEPOSITO");
 
         lblComplement.setFont(new java.awt.Font("Roboto Medium", 2, 24)); // NOI18N
@@ -93,7 +94,7 @@ public class PanelWarehouseEdit extends javax.swing.JPanel {
         lblComplement.setText("Por favor ingrese los datos requeridos");
 
         lblName.setFont(new java.awt.Font("Roboto Light", 1, 15)); // NOI18N
-        lblName.setForeground(new java.awt.Color(204, 255, 255));
+        lblName.setForeground(new java.awt.Color(0, 0, 0));
         lblName.setText("Nombre");
 
         txtCode.setBackground(new java.awt.Color(34, 131, 210));
@@ -103,7 +104,7 @@ public class PanelWarehouseEdit extends javax.swing.JPanel {
         txtCode.setVerifyInputWhenFocusTarget(false);
 
         lblCode.setFont(new java.awt.Font("Roboto Light", 1, 15)); // NOI18N
-        lblCode.setForeground(new java.awt.Color(204, 255, 255));
+        lblCode.setForeground(new java.awt.Color(0, 0, 0));
         lblCode.setText("Codigo");
 
         txtName.setBackground(new java.awt.Color(34, 131, 210));
@@ -113,7 +114,7 @@ public class PanelWarehouseEdit extends javax.swing.JPanel {
         txtName.setVerifyInputWhenFocusTarget(false);
 
         lblAdress.setFont(new java.awt.Font("Roboto Light", 1, 15)); // NOI18N
-        lblAdress.setForeground(new java.awt.Color(204, 255, 255));
+        lblAdress.setForeground(new java.awt.Color(0, 0, 0));
         lblAdress.setText("Dirección");
 
         txtAdress.setBackground(new java.awt.Color(34, 131, 210));
@@ -123,7 +124,7 @@ public class PanelWarehouseEdit extends javax.swing.JPanel {
         txtAdress.setVerifyInputWhenFocusTarget(false);
 
         lblPhone.setFont(new java.awt.Font("Roboto Light", 1, 15)); // NOI18N
-        lblPhone.setForeground(new java.awt.Color(204, 255, 255));
+        lblPhone.setForeground(new java.awt.Color(0, 0, 0));
         lblPhone.setText("Teléfono");
 
         txtPhone.setBackground(new java.awt.Color(34, 131, 210));
@@ -133,7 +134,7 @@ public class PanelWarehouseEdit extends javax.swing.JPanel {
         txtPhone.setVerifyInputWhenFocusTarget(false);
 
         lblEmail.setFont(new java.awt.Font("Roboto Light", 1, 15)); // NOI18N
-        lblEmail.setForeground(new java.awt.Color(204, 255, 255));
+        lblEmail.setForeground(new java.awt.Color(0, 0, 0));
         lblEmail.setText("Email");
 
         txtEmail.setBackground(new java.awt.Color(34, 131, 210));
@@ -143,13 +144,13 @@ public class PanelWarehouseEdit extends javax.swing.JPanel {
         txtEmail.setVerifyInputWhenFocusTarget(false);
 
         lblCont.setFont(new java.awt.Font("Roboto Light", 1, 15)); // NOI18N
-        lblCont.setForeground(new java.awt.Color(204, 255, 255));
+        lblCont.setForeground(new java.awt.Color(0, 0, 0));
         lblCont.setText("Continente");
 
         cbContinente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "América", "Asia", "Africa", "Europa", "Oceania" }));
 
         lblLat.setFont(new java.awt.Font("Roboto Light", 1, 15)); // NOI18N
-        lblLat.setForeground(new java.awt.Color(204, 255, 255));
+        lblLat.setForeground(new java.awt.Color(0, 0, 0));
         lblLat.setText("Latitud");
 
         txtLat.setBackground(new java.awt.Color(34, 131, 210));
@@ -159,7 +160,7 @@ public class PanelWarehouseEdit extends javax.swing.JPanel {
         txtLat.setVerifyInputWhenFocusTarget(false);
 
         lblLong.setFont(new java.awt.Font("Roboto Light", 1, 15)); // NOI18N
-        lblLong.setForeground(new java.awt.Color(204, 255, 255));
+        lblLong.setForeground(new java.awt.Color(0, 0, 0));
         lblLong.setText("Longitud");
 
         txtLon.setBackground(new java.awt.Color(34, 131, 210));
@@ -169,7 +170,7 @@ public class PanelWarehouseEdit extends javax.swing.JPanel {
         txtLon.setVerifyInputWhenFocusTarget(false);
 
         lblEmployee.setFont(new java.awt.Font("Roboto Light", 1, 15)); // NOI18N
-        lblEmployee.setForeground(new java.awt.Color(204, 255, 255));
+        lblEmployee.setForeground(new java.awt.Color(0, 0, 0));
         lblEmployee.setText("Empleado");
 
         txtEmployee.setBackground(new java.awt.Color(34, 131, 210));
@@ -193,7 +194,7 @@ public class PanelWarehouseEdit extends javax.swing.JPanel {
         bttnEmployee.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         bttnEmployee.setForeground(new java.awt.Color(204, 255, 255));
         bttnEmployee.setText("Buscar");
-        bttnEmployee.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnEmployee.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnEmployee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnEmployeeActionPerformed(evt);
@@ -217,7 +218,7 @@ public class PanelWarehouseEdit extends javax.swing.JPanel {
         bttnConfirm.setFont(new java.awt.Font("Roboto Medium", 1, 18)); // NOI18N
         bttnConfirm.setForeground(new java.awt.Color(232, 245, 255));
         bttnConfirm.setText("Registrar");
-        bttnConfirm.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnConfirm.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnConfirmActionPerformed(evt);
@@ -228,7 +229,7 @@ public class PanelWarehouseEdit extends javax.swing.JPanel {
         bttnBack.setFont(new java.awt.Font("Roboto Medium", 1, 18)); // NOI18N
         bttnBack.setForeground(new java.awt.Color(232, 245, 255));
         bttnBack.setText("Cancelar");
-        bttnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bttnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnBackActionPerformed(evt);
@@ -401,11 +402,12 @@ public class PanelWarehouseEdit extends javax.swing.JPanel {
                                         warehouseController.upDate(warehouseEdit);
                                         JOptionPane.showMessageDialog(null, "Depósito modificado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                                         ViewController.panelChange(this, new PanelWarehouseConsult(), this);
+                                    
                                     }
                                 }
                             }
                         } catch (Exception ex) {
-                            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar modificar el proveedor", "Error", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar modificar el Depósito", "Error", JOptionPane.ERROR_MESSAGE);
                             ex.printStackTrace();
                         }
 
@@ -426,11 +428,14 @@ public class PanelWarehouseEdit extends javax.swing.JPanel {
 
     private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
         tblEmployees.setModel(viewController.modelTableEmployees());
-        this.loadDataWarehouse();
+        this.loadDataWarehouse(code);
     }//GEN-LAST:event_formAncestorAdded
 
-    private void loadDataWarehouse() {
-        warehouseEdit = warehouseController.findOne(code);
+    private void loadDataWarehouse(String code) {
+       
+       warehouseEdit = warehouseController.findOne(code);
+        System.out.println(code);
+        System.out.println(warehouseEdit.getEmail());
         txtAdress.setText(warehouseEdit.getAdress());
         txtName.setText(warehouseEdit.getName());
         txtCode.setText(warehouseEdit.getCode());
@@ -439,6 +444,8 @@ public class PanelWarehouseEdit extends javax.swing.JPanel {
         cbContinente.setSelectedItem(warehouseEdit.getContinent());
         txtLon.setText(String.valueOf(warehouseEdit.getPosition().getLongitude()));
         txtLat.setText(String.valueOf(warehouseEdit.getPosition().getLatitude()));
+
+       
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
