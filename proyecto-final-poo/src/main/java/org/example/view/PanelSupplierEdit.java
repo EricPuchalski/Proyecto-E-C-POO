@@ -225,23 +225,31 @@ public class PanelSupplierEdit extends javax.swing.JPanel {
             supplierEdit.setAdress(txtAdress.getText());
             supplierEdit.setPhone(txtTel.getText());
             try {
-                Supplier supplierByCuit = supplierController.findSupplierEnabledByCuit(txtCuit.getText());
-                if (!supplierByCuit.equals(txtCuit.getText())) {
-                    supplierController.upDate(supplierEdit);
-                    JOptionPane.showMessageDialog(null, "Proveedor modificado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                    ViewController.panelChange(this, new PanelSupplierConsult(), this);
-
+                Supplier existingSupplier = supplierController.findSupplierEnabledByCuit(txtCuit.getText());
+                if (existingSupplier != null && !existingSupplier.getCuit().equals(cuit)) {
+                    JOptionPane.showMessageDialog(null, "El CUIT ya está en uso por otro proveedor", "Error", JOptionPane.WARNING_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Proveedor ya existe", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-
+                    existingSupplier = supplierController.findSupplierEnabledByEmail(txtEmail.getText());
+                    if (existingSupplier != null && !existingSupplier.getCuit().equals(cuit)) {
+                        JOptionPane.showMessageDialog(null, "El correo electrónico ya está en uso por otro proveedor", "Error", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        existingSupplier = supplierController.findSupplierEnabledByPhone(txtTel.getText());
+                        if (existingSupplier != null && !existingSupplier.getCuit().equals(cuit)) {
+                            JOptionPane.showMessageDialog(null, "El número de teléfono ya está en uso por otro proveedor", "Error", JOptionPane.WARNING_MESSAGE);
+                        } else {
+                            supplierController.upDate(supplierEdit);
+                            JOptionPane.showMessageDialog(null, "Proveedor modificado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                            ViewController.panelChange(this, new PanelSupplierConsult(), this);
+                        }
+                    }
                 }
-            } catch (Exception SQLException) {
-                JOptionPane.showMessageDialog(null, "Dato único duplicado", "Error", JOptionPane.WARNING_MESSAGE);
-
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar modificar el proveedor", "Error", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Un campo no puede estar vacio", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }
+            JOptionPane.showMessageDialog(null, "Un campo no puede estar vacío", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }//cambio
     }//GEN-LAST:event_bttnModifActionPerformed
 
     private void bttnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnCancelActionPerformed

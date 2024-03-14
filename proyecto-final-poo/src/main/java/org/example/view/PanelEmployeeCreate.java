@@ -238,7 +238,7 @@ public class PanelEmployeeCreate extends javax.swing.JPanel {
                 throw new Exception("Debe completar todos los campos.");
             }
 
-            // Crea un objeto Employee con los datos del empleado y el almacén
+            // Crear un objeto Employee con los datos del empleado y el almacén
             Employee employee = new Employee(
                     txtCuit.getText(),
                     txtName.getText(),
@@ -247,13 +247,13 @@ public class PanelEmployeeCreate extends javax.swing.JPanel {
                     txtTel.getText()
             );
 
-            // Obtén el nombre del almacén seleccionado del JComboBox
+            // Obtener el nombre del deposito seleccionado del JComboBox
             String selectedWarehouseName = (String) warehouseCombobox.getSelectedItem();
 
-            // Utiliza el controlador de almacenes para encontrar todos los almacenes
+            // Utilizar el controlador de depositos para encontrar todos los depositos
             List<Warehouse> warehouses = warehouseController.findAll();
 
-            // Encuentra el almacén con el nombre seleccionado
+            // Encontrar el deposito con el nombre seleccionado
             Warehouse selectedWarehouse = null;
             for (Warehouse warehouse : warehouses) {
                 if (warehouse.getName().equals(selectedWarehouseName)) {
@@ -262,33 +262,35 @@ public class PanelEmployeeCreate extends javax.swing.JPanel {
                 }
             }
 
-            // Verifica si se encontró el almacén
+            // Verifica si se encontró el deposito
             if (selectedWarehouse == null) {
                 throw new Exception("No se encontró el almacén con el nombre seleccionado");
             }
 
-            // Asocia el almacén seleccionado al empleado
+            // Asocia el depsito seleccionado al empleado
             employee.setDeposit(selectedWarehouse);
 
-            // Llama al método create() del controlador de empleados para crear el empleado
-            if (employeeController.findCustomerEnabledByCuit(employee.getCuit()) == null) {
-                employeeController.create(employee);
-                JOptionPane.showMessageDialog(this, "El Empleado fue creado con éxito", "Exito", JOptionPane.INFORMATION_MESSAGE);
-                ViewController.panelChange(this, new PanelEmployee(), this);
-            } else {
-                JOptionPane.showMessageDialog(this, "El cuit del empleado ya existe", "Error", JOptionPane.ERROR_MESSAGE);
-
+            // Verificar si el empleado ya existe
+            List<Employee> employeesWithSameCuit = employeeController.findAllEmployeesByCuit(employee.getCuit());
+            if (!employeesWithSameCuit.isEmpty()) {
+                throw new Exception("Error al crear empleado: El cuit ya existe.");
             }
+
+            // Llamar al método create() del controlador de empleados para crear el empleado
+            employeeController.create(employee);
+
+            JOptionPane.showMessageDialog(this, "El Empleado fue creado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            ViewController.panelChange(this, new PanelEmployee(), this);
 
             // Cambia la vista
         } catch (Exception e) {
-            if (e.getMessage().contains("cuit pertenece a otro empleado")) {
-                JOptionPane.showMessageDialog(this, "Error al crear empleado: El CUIT pertenece a otro empleado");
+            // Verifica si la excepción es debido a duplicación de número de teléfono
+            if (e.getMessage().contains("Duplicate entry") && e.getMessage().contains("PHONENUMBER")) {
+                JOptionPane.showMessageDialog(this, "Error al crear empleado: El número de teléfono ya está en uso por otro empleado.", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, "Error al crear empleado: " + e.getMessage());
+                JOptionPane.showMessageDialog(this, "Error al crear empleado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
