@@ -295,23 +295,36 @@ public class PanelEmployeeEdit extends javax.swing.JPanel {
     private void bttnModifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnModifActionPerformed
         if (!(txtName.getText().isEmpty() || txtAdress.getText().isEmpty() || txtTel.getText().isEmpty() || txtSur.getText().isEmpty())) {
             String newCuit = txtCuit.getText();
+            String newPhoneNumber = txtTel.getText();
 
             // Verificar si el nuevo CUIT es diferente al actual
-//            if (!newCuit.equals(employeeEdit.getCuit())) {
+            if (!newCuit.equals(employeeEdit.getCuit())) {
                 // Verificar si el nuevo CUIT ya existe en la base de datos para otro empleado
                 Employee existingEmployeeWithCuit = employeeController.findOne(newCuit);
                 if (existingEmployeeWithCuit != null && !existingEmployeeWithCuit.getId().equals(employeeEdit.getId())) {
                     JOptionPane.showMessageDialog(null, "El CUIT ingresado ya pertenece a otro empleado.", "Advertencia", JOptionPane.WARNING_MESSAGE);
                     return; // Salir del método si el CUIT ya existe para otro empleado
                 }
-            //}
+            }
+
+            // Verificar si el nuevo número de teléfono es diferente al actual
+            if (!newPhoneNumber.equals(employeeEdit.getTelefono())) {
+                // Verificar si el nuevo número de teléfono ya está en uso por otro empleado
+                List<Employee> allEmployees = employeeController.findAll();
+                for (Employee employee : allEmployees) {
+                    if (employee.getTelefono().equals(newPhoneNumber) && !employee.getId().equals(employeeEdit.getId())) {
+                        JOptionPane.showMessageDialog(null, "El número de teléfono ingresado ya está en uso por otro empleado.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                        return; // Salir del método si el número de teléfono ya está en uso
+                    }
+                }
+            }
 
             // Continuar con la actualización del empleado en la base de datos
             employeeEdit.setNombre(txtName.getText());
-            employeeEdit.setApellido(txtSur.getText()); // Actualizar el apellido
-            employeeEdit.setCuit(newCuit); // Se actualiza el CUIT solo si es diferente
+            employeeEdit.setApellido(txtSur.getText());
+            employeeEdit.setCuit(newCuit);
             employeeEdit.setDireccion(txtAdress.getText());
-            employeeEdit.setTelefono(txtTel.getText());
+            employeeEdit.setTelefono(newPhoneNumber);
 
             // Obtener el código del almacén seleccionado en la tabla
             int selectedRow = tblWarehouses.getSelectedRow();
@@ -338,7 +351,7 @@ public class PanelEmployeeEdit extends javax.swing.JPanel {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Un campo no puede estar vacío", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }//ultimamod
+        }
     }//GEN-LAST:event_bttnModifActionPerformed
 
     private void txtWarehouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtWarehouseActionPerformed
