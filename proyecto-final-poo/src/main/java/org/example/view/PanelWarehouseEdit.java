@@ -375,28 +375,28 @@ public class PanelWarehouseEdit extends javax.swing.JPanel {
                     if (tblEmployees.getSelectedRow() != -1) {
                         String cuitEmpleado = String.valueOf(tblEmployees.getValueAt(tblEmployees.getSelectedRow(), 1));
                         Employee emp = employeeController.findOne(cuitEmpleado);
+                        warehouseEdit.setName(txtName.getText());
+                        warehouseEdit.setCode(txtCode.getText());
+                        warehouseEdit.setAdress(txtAdress.getText());
+                        warehouseEdit.setPhone(txtPhone.getText());
+                        warehouseEdit.setEmail(txtEmail.getText());
+                        warehouseEdit.setContinent(cbContinente.getSelectedItem().toString());
+                        warehouseEdit.getPosition().setLatitude(Double.parseDouble(txtLat.getText()));
+                        warehouseEdit.getPosition().setLongitude(Double.parseDouble(txtLon.getText()));
+                        warehouseEdit.setEmployee(emp);
                         try {
                             Warehouse existingWarehouse = warehouseController.findWarehouseEnabledByCuit(txtCode.getText());//KODIGO NUEVOOOOOO
-                            if (existingWarehouse != null && !existingWarehouse.getCode().equals(txtCode.getText())) {
+                            if (existingWarehouse != null && !existingWarehouse.getCode().equals(code)) {
                                 JOptionPane.showMessageDialog(null, "El codigo ya está en uso por otro deposito", "Error", JOptionPane.WARNING_MESSAGE);
                             } else {
                                 existingWarehouse = warehouseController.findWarehouseEnabledByEmail(txtEmail.getText());
-                                if (existingWarehouse != null && !existingWarehouse.getCode().equals(txtCode.getText())) {
+                                if (existingWarehouse != null && !existingWarehouse.getCode().equals(code)) {
                                     JOptionPane.showMessageDialog(null, "El correo electrónico ya está en uso por otro proveedor", "Error", JOptionPane.WARNING_MESSAGE);
                                 } else {
                                     existingWarehouse = warehouseController.findWarehouseEnabledByPhone(txtPhone.getText());
-                                    if (existingWarehouse != null && !existingWarehouse.getCode().equals(txtCode.getText())) {
+                                    if (existingWarehouse != null && !existingWarehouse.getCode().equals(code)) {
                                         JOptionPane.showMessageDialog(null, "El número de teléfono ya está en uso por otro proveedor", "Error", JOptionPane.WARNING_MESSAGE);
                                     } else {
-                                        warehouseEdit.setName(txtName.getText());
-                                        warehouseEdit.setCode(txtCode.getText());
-                                        warehouseEdit.setAdress(txtAdress.getText());
-                                        warehouseEdit.setPhone(txtPhone.getText());
-                                        warehouseEdit.setEmail(txtEmail.getText());
-                                        warehouseEdit.setContinent(cbContinente.getSelectedItem().toString());
-                                        warehouseEdit.getPosition().setLatitude(Double.parseDouble(txtLat.getText()));
-                                        warehouseEdit.getPosition().setLongitude(Double.parseDouble(txtLon.getText()));
-                                        warehouseEdit.setEmployee(emp);
 
                                         warehouseController.upDate(warehouseEdit);
                                         JOptionPane.showMessageDialog(null, "Depósito modificado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
