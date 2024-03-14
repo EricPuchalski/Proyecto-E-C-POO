@@ -369,46 +369,59 @@ public class PanelWarehouseEdit extends javax.swing.JPanel {
     }//GEN-LAST:event_bttnEmployeeActionPerformed
 
     private void bttnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnConfirmActionPerformed
-         try {
-        if (!(txtName.getText().isEmpty() || txtEmail.getText().isEmpty() || txtAdress.getText().isEmpty() || txtPhone.getText().isEmpty() || txtCode.getText().isEmpty() || txtLon.getText().isEmpty() || txtLat.getText().isEmpty())) {
-            if (tblEmployees.getRowCount() > 0) {
-                if (tblEmployees.getSelectedRow() != -1) {
-                    String cuitEmpleado = String.valueOf(tblEmployees.getValueAt(tblEmployees.getSelectedRow(), 1));
-                    Employee emp = employeeController.findOne(cuitEmpleado);
-                    
-                    // Verificar si el código ya está en uso por otro warehouse
-                    Warehouse existingWarehouse = warehouseController.findOne(txtCode.getText());//KODIGO NUEVOOOOOO
-                    if (existingWarehouse != null && !existingWarehouse.getCode().equals(warehouseEdit.getCode())) {
-                        JOptionPane.showMessageDialog(null, "El código ingresado ya está en uso por otro deposito.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        try {
+            if (!(txtName.getText().isEmpty() || txtEmail.getText().isEmpty() || txtAdress.getText().isEmpty() || txtPhone.getText().isEmpty() || txtCode.getText().isEmpty() || txtLon.getText().isEmpty() || txtLat.getText().isEmpty())) {
+                if (tblEmployees.getRowCount() > 0) {
+                    if (tblEmployees.getSelectedRow() != -1) {
+                        String cuitEmpleado = String.valueOf(tblEmployees.getValueAt(tblEmployees.getSelectedRow(), 1));
+                        Employee emp = employeeController.findOne(cuitEmpleado);
+                        try {
+                            Warehouse existingWarehouse = warehouseController.findWarehouseEnabledByCuit(txtCode.getText());//KODIGO NUEVOOOOOO
+                            if (existingWarehouse != null && !existingWarehouse.getCode().equals(txtCode.getText())) {
+                                JOptionPane.showMessageDialog(null, "El codigo ya está en uso por otro deposito", "Error", JOptionPane.WARNING_MESSAGE);
+                            } else {
+                                existingWarehouse = warehouseController.findWarehouseEnabledByEmail(txtEmail.getText());
+                                if (existingWarehouse != null && !existingWarehouse.getCode().equals(txtCode.getText())) {
+                                    JOptionPane.showMessageDialog(null, "El correo electrónico ya está en uso por otro proveedor", "Error", JOptionPane.WARNING_MESSAGE);
+                                } else {
+                                    existingWarehouse = warehouseController.findWarehouseEnabledByPhone(txtPhone.getText());
+                                    if (existingWarehouse != null && !existingWarehouse.getCode().equals(txtCode.getText())) {
+                                        JOptionPane.showMessageDialog(null, "El número de teléfono ya está en uso por otro proveedor", "Error", JOptionPane.WARNING_MESSAGE);
+                                    } else {
+                                        warehouseEdit.setName(txtName.getText());
+                                        warehouseEdit.setCode(txtCode.getText());
+                                        warehouseEdit.setAdress(txtAdress.getText());
+                                        warehouseEdit.setPhone(txtPhone.getText());
+                                        warehouseEdit.setEmail(txtEmail.getText());
+                                        warehouseEdit.setContinent(cbContinente.getSelectedItem().toString());
+                                        warehouseEdit.getPosition().setLatitude(Double.parseDouble(txtLat.getText()));
+                                        warehouseEdit.getPosition().setLongitude(Double.parseDouble(txtLon.getText()));
+                                        warehouseEdit.setEmployee(emp);
+
+                                        warehouseController.upDate(warehouseEdit);
+                                        JOptionPane.showMessageDialog(null, "Depósito modificado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                                        ViewController.panelChange(this, new PanelWarehouseConsult(), this);
+                                    }
+                                }
+                            }
+                        } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar modificar el proveedor", "Error", JOptionPane.ERROR_MESSAGE);
+                            ex.printStackTrace();
+                        }
+
                     } else {
-                        warehouseEdit.setName(txtName.getText());
-                        warehouseEdit.setCode(txtCode.getText());
-                        warehouseEdit.setAdress(txtAdress.getText());
-                        warehouseEdit.setPhone(txtPhone.getText());
-                        warehouseEdit.setEmail(txtEmail.getText());
-                        warehouseEdit.setContinent(cbContinente.getSelectedItem().toString());
-                        warehouseEdit.getPosition().setLatitude(Double.parseDouble(txtLat.getText()));
-                        warehouseEdit.getPosition().setLongitude(Double.parseDouble(txtLon.getText()));
-                        warehouseEdit.setEmployee(emp);
-                        
-                        warehouseController.upDate(warehouseEdit);
-                        JOptionPane.showMessageDialog(null, "Depósito modificado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                        ViewController.panelChange(this, new PanelWarehouseConsult(), this);
+                        JOptionPane.showMessageDialog(null, "Debe seleccionar un empleado.", "Advertencia", JOptionPane.WARNING_MESSAGE);
                     }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Debe seleccionar un empleado.", "Advertencia", JOptionPane.WARNING_MESSAGE);
                 }
             }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Verifique los campos", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
-    }
-         catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Verifique los campos", "Advertencia", JOptionPane.WARNING_MESSAGE);
-    }
 
     }//GEN-LAST:event_bttnConfirmActionPerformed
 
     private void bttnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnBackActionPerformed
-        ViewController.panelChange(this, new PanelWarehouse(), this);
+        ViewController.panelChange(this, new PanelWarehouseConsult(), this);
     }//GEN-LAST:event_bttnBackActionPerformed
 
     private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
