@@ -75,6 +75,7 @@ public class PanelWarehouseEdit extends javax.swing.JPanel {
         bttnConfirm = new javax.swing.JButton();
         bttnBack = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(34, 131, 210));
         addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 formAncestorAdded(evt);
