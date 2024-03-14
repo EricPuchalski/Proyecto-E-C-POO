@@ -6,7 +6,6 @@ import org.example.model.Warehouse;
 
 
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.swing.JTable;
 import org.example.dao.exceptions.NonexistentEntityException;
 import org.example.service.WarehouseService;
@@ -55,7 +54,7 @@ public class WarehouseController implements CRUD<Warehouse>{
         public List<Warehouse> findAllEnabledWarehouses(){
         return warehouseService.findAllEnabledWarehouses();
     }
-    public Warehouse findWarehouseEnabledByCuit(String email){
+    public Warehouse findWarehouseEnabledByCode(String email){
         return warehouseService.findWarehouseEnabledByCode(email);
     }
     public void disableAccountByCuit(String email){
