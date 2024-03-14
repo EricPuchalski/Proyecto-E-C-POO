@@ -113,7 +113,7 @@ public class WarehouseRepository implements Serializable {
         EntityManager em = getEntityManager();
         try {
             for (Warehouse object : findWarehouseEntities()) {
-                if (object.getEmail().equals(email)) {
+                if (object.getCode().equals(email)) {
                     return em.find(Warehouse.class, object.getId());
                 }
             }
