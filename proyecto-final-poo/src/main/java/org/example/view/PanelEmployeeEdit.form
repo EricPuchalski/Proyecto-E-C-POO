@@ -38,56 +38,59 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="lblName" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="874" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                              <Component id="lblComplement" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="474" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Component id="txtName" alignment="0" min="-2" pref="457" max="-2" attributes="0"/>
+                      <Component id="lblSur" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtSur" alignment="0" min="-2" pref="457" max="-2" attributes="0"/>
+                      <Component id="lblAdress" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtAdress" alignment="0" min="-2" pref="457" max="-2" attributes="0"/>
+                      <Component id="lblCuit" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCuit" alignment="0" min="-2" pref="457" max="-2" attributes="0"/>
+                      <Component id="lblTel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtTel" alignment="0" min="-2" pref="457" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="lblName" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="387" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="lblWelcome" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                                      <Component id="lblComplement" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Component id="txtName" alignment="0" min="-2" pref="457" max="-2" attributes="0"/>
-                              <Component id="lblSur" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtSur" alignment="0" min="-2" pref="457" max="-2" attributes="0"/>
-                              <Component id="lblAdress" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtAdress" alignment="0" min="-2" pref="457" max="-2" attributes="0"/>
-                              <Component id="lblCuit" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtCuit" alignment="0" min="-2" pref="457" max="-2" attributes="0"/>
-                              <Component id="lblTel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
-                          <Component id="bttnModif" min="-2" pref="215" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="bttnCancel" min="-2" pref="215" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
-                          <Component id="txtTel" min="-2" pref="457" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
                           <Component id="lblWarehouse" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="bttnWarehouse" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                           <Component id="txtWarehouse" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" min="-2" pref="416" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jScrollPane1" min="-2" pref="436" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="bttnModif" min="-2" pref="215" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="bttnCancel" min="-2" pref="215" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="465" max="32767" attributes="0"/>
+                  <EmptySpace pref="496" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lblWelcome" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="474" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -98,14 +101,14 @@
                   <Component id="lblWelcome" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblComplement" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="lblName" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="txtName" min="-2" pref="29" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lblSur" min="-2" pref="25" max="-2" attributes="0"/>
+                  <Component id="lblSur" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="txtSur" min="-2" pref="15" max="-2" attributes="0"/>
+                  <Component id="txtSur" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblAdress" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -114,11 +117,11 @@
                   <Component id="lblCuit" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="txtCuit" min="-2" pref="29" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblTel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="txtTel" min="-2" pref="29" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtWarehouse" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="bttnWarehouse" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -126,7 +129,7 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="113" max="-2" attributes="0"/>
-                  <EmptySpace pref="29" max="32767" attributes="0"/>
+                  <EmptySpace pref="11" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="bttnModif" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="bttnCancel" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
@@ -218,7 +221,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Modificar"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor Por defecto"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Events>
@@ -238,7 +241,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor Por defecto"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Events>
@@ -282,7 +285,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Buscar"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor Por defecto"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Events>

@@ -51,7 +51,7 @@ public class PanelCarrierCreate extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         cmbTransp = new javax.swing.JComboBox<>();
 
-        setBackground(new java.awt.Color(0, 0, 255));
+        setBackground(new java.awt.Color(0, 0, 150));
         setToolTipText("");
 
         lblWelcome.setFont(new java.awt.Font("Roboto Black", 1, 48)); // NOI18N
@@ -62,10 +62,13 @@ public class PanelCarrierCreate extends javax.swing.JPanel {
         lblComplement.setForeground(new java.awt.Color(153, 204, 255));
         lblComplement.setText("Por favor ingrese los datos requeridos");
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("NOMBRE:");
 
+        lblCuit.setForeground(new java.awt.Color(255, 255, 255));
         lblCuit.setText("CUIT:");
 
+        lblPhone.setForeground(new java.awt.Color(255, 255, 255));
         lblPhone.setText("TELEFONO:");
 
         txtName.setBackground(new java.awt.Color(0, 153, 153));
@@ -84,7 +87,7 @@ public class PanelCarrierCreate extends javax.swing.JPanel {
         btnRegister.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         btnRegister.setForeground(new java.awt.Color(255, 255, 255));
         btnRegister.setText("Registrar");
-        btnRegister.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegister.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegisterActionPerformed(evt);
@@ -95,13 +98,14 @@ public class PanelCarrierCreate extends javax.swing.JPanel {
         btnCancel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         btnCancel.setForeground(new java.awt.Color(255, 255, 255));
         btnCancel.setText("Cancelar");
-        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
             }
         });
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("EMAIL");
 
         txtEmail.setBackground(new java.awt.Color(0, 153, 102));
@@ -111,6 +115,7 @@ public class PanelCarrierCreate extends javax.swing.JPanel {
             }
         });
 
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("TIPO:");
 
         cmbTransp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<seleccionar>", "Maritimo", "Terrestre", "Aereo" }));
