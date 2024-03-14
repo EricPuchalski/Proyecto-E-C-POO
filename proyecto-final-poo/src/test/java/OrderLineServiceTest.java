@@ -4,6 +4,7 @@ import org.example.model.OrderLine;
 import org.example.model.Product;
 import org.example.service.CustomerService;
 import org.example.service.OrderLineService;
+import org.example.service.ProductCategoryService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -36,5 +37,9 @@ public class OrderLineServiceTest {
         assertEquals(orderLineResult.getQuantity(),4);
 
 
+    }
+    @Test
+    public void testConstructor() {
+        OrderLineService orderLineService = new OrderLineService();
     }
 }

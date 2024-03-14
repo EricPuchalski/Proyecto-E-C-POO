@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 
@@ -45,5 +46,9 @@ public class ProductCategoryRepositoryTest {
         assertEquals("Computing", retrievedProductCategory.get(0).getNombre());
         assertEquals("Clean", retrievedProductCategory.get(1).getNombre());
         assertEquals("Home", retrievedProductCategory.get(2).getNombre());
+    }
+    @Test
+    public void testConstructor() {
+        ProductCategoryService productCategoryService = new ProductCategoryService();
     }
 }
