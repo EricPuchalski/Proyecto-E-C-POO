@@ -44,11 +44,7 @@ public class WarehouseRepository implements Serializable {
         Warehouse deposito3 = new Warehouse("3","Deposito Argentina","San juan 2324","4132","depositoAR@gmail.com", "America",  new Position(-34.537211,-58.547629));
         Warehouse deposito4 = new Warehouse("4", "Deposito Sudafrica", "Av. Colón 1234", "3512345678", "depositoSA@gmail.com", "Africa", new Position(-30.849319,24.201486));
         Warehouse deposito5 = new Warehouse("5", "Deposito España", "Av. San Martín 4321", "2612345678", "depositoES@gmail.com", "Europa",new Position(39.514578,-2.490630));
-        deposito1.getSectors().addAll(sectorRepository.findSectorEntities());
-        deposito2.getSectors().addAll(sectorRepository.findSectorEntities());
-        deposito3.getSectors().addAll(sectorRepository.findSectorEntities());
-        deposito4.getSectors().addAll(sectorRepository.findSectorEntities());
-        deposito5.getSectors().addAll(sectorRepository.findSectorEntities());
+
         
         this.create(deposito1);
         this.create(deposito2);
@@ -128,6 +124,7 @@ public class WarehouseRepository implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            warehouse.getSectors().addAll(sectorRepository.findSectorEntities());
             em.persist(warehouse);
             em.getTransaction().commit();
             return warehouse;
