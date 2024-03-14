@@ -45,8 +45,9 @@ public class WarehouseService implements CRUD<Warehouse> {
 
     @Override
      public Warehouse upDate(Warehouse warehouse) throws Exception {
-        if (warehouseRepository.findWarehouseEnabledByCuit(warehouse.getEmail()) != null) {
+        if (this.findOneById(warehouse.getId()) != null) {
             return warehouseRepository.edit(warehouse);
+            
         }
         return null;
     }
