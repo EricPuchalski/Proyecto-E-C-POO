@@ -20,8 +20,7 @@ public class OrderLine implements Serializable {
     private int quantity;
     private static String ultimoId;
     private String code;
-    private double rating;
-    private int supplierRating;
+
 
     public OrderLine(Product product, int quantity) {
         this.product = product;
@@ -91,20 +90,6 @@ public class OrderLine implements Serializable {
         this.code = code;
     }
 
-    public double getRating() {
-        return rating;
-    }
 
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
-
-    public int getSupplierRating() {
-        return supplierRating;
-    }
-
-    public void setSupplierRating(int supplierRating) {
-        this.supplierRating = supplierRating;
-    }
 
 }

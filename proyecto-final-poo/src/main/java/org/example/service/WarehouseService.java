@@ -98,10 +98,12 @@ public class WarehouseService implements CRUD<Warehouse> {
             .collect(Collectors.toList());
     }
         public Warehouse disableAccountByEmail(String email){
-        Warehouse warehouse = warehouseRepository.findWarehouseEnabledByCuit(email);
+        Warehouse warehouse = this.findWarehouseEnabledByEmail(email);
         if (warehouse!=null) {
             try {
+                System.out.println(email);
                 return warehouseRepository.disableAccountByEmail(email);
+                
             } catch (NonexistentEntityException ex) {
                 Logger.getLogger(CustomerService.class.getName()).log(Level.SEVERE, null, ex);
             }

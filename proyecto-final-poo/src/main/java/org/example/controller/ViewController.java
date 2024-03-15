@@ -363,7 +363,7 @@ public class ViewController {
         model.addColumn("Continente");
         
         // Obtenemos la lista de depósitos
-        for (Warehouse warehouse : warehouseController.findAll()) {
+        for (Warehouse warehouse : warehouseController.findAllEnabledWarehouses()) {
             // Agregamos una fila por cada depósito
             model.addRow(new Object[]{
                 warehouse.getCode(),
