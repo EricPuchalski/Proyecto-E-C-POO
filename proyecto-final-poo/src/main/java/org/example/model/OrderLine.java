@@ -37,7 +37,7 @@ public class OrderLine implements Serializable {
         // Aquí utilizamos la clase Random para generar un número aleatorio.
         // También se podría implementar una lógica más robusta para asegurar la unicidad.
         Random random = new Random();
-        int nuevoIdInt = random.nextInt(10000); // Puedes ajustar el rango según tus necesidades.
+        int nuevoIdInt = random.nextInt(10000); //
         String nuevoId = String.valueOf(nuevoIdInt);
 
         // Si por algún motivo el ID generado ya existe, genera uno nuevo hasta que sea único.
