@@ -90,7 +90,8 @@ public class WarehouseRepository implements Serializable {
                 if (object.getEmail().equals(email)) {
                     warehouse = em.getReference(Warehouse.class, object.getId());
                     warehouse.setStatus(Warehouse.Estado.DISABLED);
-                                em.getTransaction().commit();
+                    System.out.println(email);
+                    em.getTransaction().commit();
                     return warehouse;
                 }
             }

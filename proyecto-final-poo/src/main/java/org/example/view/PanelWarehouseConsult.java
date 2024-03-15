@@ -196,8 +196,9 @@ public class PanelWarehouseConsult extends javax.swing.JPanel {
 
         if(tblWarehouses.getRowCount() > 0){
             if(tblWarehouses.getSelectedRow()!=-1){
-                String email = String.valueOf(tblWarehouses.getValueAt(tblWarehouses.getSelectedRow(),5));
+                String email = String.valueOf(tblWarehouses.getValueAt(tblWarehouses.getSelectedRow(),4));
                 warehouseController.disableAccountByCuit(email);
+                System.out.println(email);
             }
         }
         tblWarehouses.setModel(viewController.modelTableWarehousess());
