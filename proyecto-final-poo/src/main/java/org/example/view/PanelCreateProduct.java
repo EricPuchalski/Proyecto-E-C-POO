@@ -303,7 +303,7 @@ public class PanelCreateProduct extends javax.swing.JPanel {
         for (ProductCategory pC : productCategoryController.findAll()) {
             cmbCategories.addItem(pC.getNombre());
         }
-        for(Supplier sp : supplierController.findAll()){
+        for(Supplier sp : supplierController.findAllEnabledEmployees()){
             cmbSupplier.addItem(sp.getName());
         }
     }
