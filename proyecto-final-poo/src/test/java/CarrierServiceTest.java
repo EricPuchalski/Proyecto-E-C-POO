@@ -56,21 +56,21 @@ public class CarrierServiceTest {
         // Arrange
         CarrierRepository carrierRepositoryMock = mock(CarrierRepository.class);
         CarrierService carrierService = new CarrierService(carrierRepositoryMock);
-        // Creamos un portador existente y uno actualizado
+        // Creamos un transportista existente y uno actualizado
         Carrier existingCarrier = new Carrier("1234567890", "ExistingCarrier", "123456789", "existing@example.com");
         Carrier updatedCarrier = new Carrier("1234567890", "UpdatedCarrier", "987654321", "updated@example.com");
-        // Configuramos el comportamiento del mock para que retorne el portador existente al buscar por ID
+        // Configuramos el comportamiento del mock para que retorne el trans existente al buscar por ID
         when(carrierRepositoryMock.findCarrier(existingCarrier.getId())).thenReturn(existingCarrier);
-        // Configuramos el comportamiento del mock para que retorne el portador actualizado al editar
+        // Configuramos el comportamiento del mock para que retorne el trans actualizado al editar
         when(carrierRepositoryMock.edit(updatedCarrier)).thenReturn(updatedCarrier);
         // Act
         try {
             Carrier returnedCarrier = carrierService.upDate(updatedCarrier);
             // Assert
             assertEquals(updatedCarrier, returnedCarrier);
-            // Verificamos que el método edit del mock fue invocado con el portador actualizado
+            // Verificamos que el método edit del mock fue invocado con el trans actualizado
             verify(carrierRepositoryMock).edit(updatedCarrier);
-            // Verificamos que el método findCarrier del mock fue invocado con el ID del portador existente
+            // Verificamos que el método findCarrier del mock fue invocado con el ID del trans existente
             verify(carrierRepositoryMock).findCarrier(existingCarrier.getId());
         } catch (Exception e) {
             // Si se lanza una excepción, la prueba falla
@@ -83,18 +83,18 @@ public class CarrierServiceTest {
         // Arrange
         CarrierRepository carrierRepositoryMock = mock(CarrierRepository.class);
         CarrierService carrierService = new CarrierService(carrierRepositoryMock);
-        // Creamos un portador que no existe en el repositorio
+        // Creamos un trans que no existe en el repositorio
         Carrier nonExistingCarrier = new Carrier("9876543210", "NonExistingCarrier", "987654321", "nonexisting@example.com");
-        // Configuramos el comportamiento del mock para que retorne null al buscar por ID (portador no encontrado)
+        // Configuramos el comportamiento del mock para que retorne null al buscar por ID (trans no encontrado)
         when(carrierRepositoryMock.findCarrier(nonExistingCarrier.getId())).thenReturn(null);
         // Act
         try {
             Carrier returnedCarrier = carrierService.upDate(nonExistingCarrier);
             // Assert
-            assertNull(returnedCarrier); // El portador actualizado debe ser null
-            // Verificamos que el método edit del mock no fue invocado (ya que no hay portador para actualizar)
+            assertNull(returnedCarrier); // El trans actualizado debe ser null
+            // Verificamos que el método edit del mock no fue invocado (ya que no hay trans para actualizar)
             verify(carrierRepositoryMock, never()).edit(any(Carrier.class));
-            // Verificamos que el método findCarrier del mock fue invocado con el ID del portador no existente
+            // Verificamos que el método findCarrier del mock fue invocado con el ID del trans no existente
             verify(carrierRepositoryMock).findCarrier(nonExistingCarrier.getId());
         } catch (Exception e) {
             // Si se lanza una excepción, la prueba falla
@@ -108,7 +108,7 @@ public class CarrierServiceTest {
         CarrierRepository carrierRepositoryMock = mock(CarrierRepository.class);
         CarrierService carrierService = new CarrierService(carrierRepositoryMock);
         String cuit = "1234567890";
-        // No necesitamos configurar el comportamiento del mock para devolver un portador aquí
+        // No necesitamos configurar el comportamiento del mock para devolver un trans aquí
         when(carrierRepositoryMock.findCarrierEnabledByCuit(cuit)).thenReturn(null);
         // Act
         Carrier foundCarrier = carrierService.findOne(cuit);
